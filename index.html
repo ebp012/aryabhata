@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aryabhata</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    
+    <style>
+      /* General App Styling */
+      body {
+        font-family: futura, "Helvetica Neue", monospace;
+        /*background: linear-gradient(to bottom, #e3e3e3, #c7c7c7);*/
+        color: #333;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #bg {
+        background-image: url(https://cdn.glitch.global/f5aec147-6e2d-4f1e-8220-074008986048/snowflakes?v=1733054512511);
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100%;
+        margin: 0;
+        filter: blur(4px);
+        width: 100%;
+        position: absolute; /* Position it behind the content */
+        top: 0; /* Ensure it's at the top */
+        left: 0; /* Ensure it's at the left */
+        z-index: -1; /* Send it to the background */
+        pointer-events: none; /* Make sure it doesn't block interaction */
+      }
+      .container,
+      .app {
+        margin: 20px auto;
+        padding: 10px;
+        width: 90%;
+        max-width: 400px;
+        background: #fefefe;
+        border: 0.5px solid rgba(113, 113, 112, 0.6);
+        border-radius: 6px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(50px);
+        -moz-backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+        outline: 9px solid rgba(255, 255, 255, 0.3);
+      }
+      .hidden {
+        display: none;
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        color: #555;
+        text-shadow: 0px 1px 0px #fff;
+      }
+
+      p {
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      button {
+        display: block;
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0px 1px 0px #333;
+        background: linear-gradient(to bottom, #4ca5f8, #007aff);
+        border: 1px solid #005bb5;
+        border-radius: 8px;
+        box-shadow: inset 0px 1px 0px #8ab9f8, 0px 3px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: linear-gradient(to bottom, #66b7fc, #147bfc);
+      }
+
+      button:active {
+        background: linear-gradient(to bottom, #007aff, #005bb5);
+        box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .answer {
+        margin-top: 10px;
+      }
+
+      #answers {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Score Display */
+      #scoreValue {
+        font-size: 20px;
+        font-weight: bold;
+        color: #007aff;
+        text-align: center;
+        margin-top: 10px;
+        text-shadow: 0px 1px 0px #fff;
+      }
+
+      /* Shop Styling */
+      #shop {
+        display: none;
+        background: #fefefe;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      #shop h2 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      #closeShop,
+      #buyPowerUp {
+        width: calc(100% - 40px);
+      }
+
+      /* Input Field */
+      input[type="file"] {
+        margin: 10px auto;
+        display: block;
+        font-size: 14px;
+      }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="home" class="container app">
+      <h1 id='title'>Aryabhata</h1>
+      <input
+        type="file"
+        id="csvFile"
+        accept=".csv"
+        style="margin-bottom: 10px"
+      />
+      <button class="button hidden" id="importBtn">
+        <i class="fa fa-upload"></i> Import CSV
+      </button>
+      <button class="button" id="playBtn">
+        <i class="fa fa-gamepad"></i> Play
+      </button>
+      <button class="button" id="settingsBtn">
+        <i class="fa fa-gears"></i> Settings
+      </button>
+    </div>
+    <div id="game" class="app hidden">
+      <div class="question" id="question">Question</div>
+      <div class="answers" id="answers"></div>
+      <div id="score"><span id='scoreText'>Score</span>: <span id="scoreValue">0</span></div>
+      <button class="button" id="resetBtn">Reset</button>
+      <button class="button" id="shopBtn">Shop</button>
+    </div>
+
+    <div id="shop" class="app hidden">
+      <h2>Shop</h2>
+      <div class="shop-item">
+        Halve point deductions - 6 Silver
+        <button class="button" id="buyPowerUp">Buy</button>
+      </div>
+      <button class="button" id="closeShop">Close</button>
+    </div>
+
+    <div id="settings" class="app hidden">
+      <h2>Settings</h2>
+      <hr/>
+      <p id='selectLanguage'>Choose your language:</p>
+      <button class="button" data-lang="en">english</button>
+      <button class="button" data-lang="hi">हिन्दी</button>
+      <button class="button" data-lang="es">español</button>
+      <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
+      <button class="button" data-lang="fr">français</button>
+      <button class="button" data-lang="gu">ગુજરાતી</button>
+      <hr/>
+      <button class="button" id="closeSettings">Close</button>
+    </div>
+
+    <div id="incorrect" class="app hidden">
+      <strong>Your answer was incorrect.</strong>
+    </div>
+
+    <script>
+      let questions = [];
+      let currentQuestionIndex = 0;
+      let silver = 0;
+      let halvePenalty = false;
+      // Language-specific strings
+      var noFileMessage = "No file selected!!!";
+      var langSilver = "silver";
+
+      // Parse the CSV file with the new format
+      function parseCSV(csv) {
+        const rows = csv.split("\n");
+        rows.forEach((row) => {
+          const values = row.split(",");
+          if (values.length === 7) {
+            const answers = [
+              values[1].trim(), // Incorrect answer 1
+              values[2].trim(), // Incorrect answer 2
+              values[3].trim(), // Incorrect answer 3
+              values[4].trim(), // Correct answer
+            ];
+            questions.push({
+              question: values[0].trim(),
+              correct: values[4].trim(),
+              choices: answers,
+              pointsAwarded: parseInt(values[5]),
+              pointsDeducted: parseInt(values[6]),
+            });
+          }
+        });
+      }
+
+      // Shuffle answers randomly
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+          alert("Game Over! Your total: " + silver + " " + langSilver);
+          $("#game").hide();
+          $(".container").show();
+          currentQuestionIndex = 0;
+          silver = 0;
+          $("#scoreValue").text(silver + " " + langSilver);
+          return;
+        }
+
+        const current = questions[currentQuestionIndex];
+        $("#question").text(current.question);
+
+        // Randomize the order of answers
+        const randomizedChoices = [...current.choices];
+        shuffle(randomizedChoices);
+
+        // Create answer buttons
+        const answerButtons = randomizedChoices
+          .map((choice, index) => {
+            return `<button class="answer">${String.fromCharCode(
+              65 + index
+            )}: ${choice}</button>`;
+          })
+          .join("");
+        $("#answers").html(answerButtons);
+
+        // Handle answer selection
+        $(".answer").on("click", function () {
+          const selectedAnswer = $(this).text().split(":")[1].trim();
+          if (selectedAnswer === current.correct) {
+            silver += current.pointsAwarded;
+          } else {
+            $("#incorrect").show();
+            $("#game").hide();
+            setTimeout(function () {
+              $("#incorrect").hide();
+              $("#game").show();
+            }, 666.6);
+            silver -= halvePenalty
+              ? Math.ceil(current.pointsDeducted / 2)
+              : current.pointsDeducted;
+          }
+          $("#scoreValue").text(silver + " " + langSilver);
+          currentQuestionIndex++;
+          loadQuestion();
+        });
+      }
+
+      $("#importBtn").on("click", function () {
+        const fileInput = document.getElementById("csvFile");
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            parseCSV(e.target.result);
+            ///alert("CSV imported successfully!");
+          };
+          reader.readAsText(file);
+        } else {
+          alert(noFileMessage);
+        }
+      });
+
+      $("#playBtn").on("click", function () {
+        document.getElementById("importBtn").click();
+        setTimeout(function () {
+          if (questions.length === 0) {
+            //alert("Please import a CSV file first!");
+            return;
+          }
+          $(".container").hide();
+          $("#game").show();
+          loadQuestion();
+        }, 36);
+      });
+
+      $("#resetBtn").on("click", function () {
+        questions = [];
+        currentQuestionIndex = 0;
+        silver = 0;
+        $("#scoreValue").text(silver + " " + langSilver);
+        $("#game").hide();
+        $(".container").show();
+        alert("Game reset!");
+      });
+
+      $("#shopBtn").on("click", function () {
+        $("#shop").show();
+        $("#game").hide();
+      });
+      $("#settingsBtn").on("click", function () {
+        $("#settings").show();
+        $("#home").hide();
+      });
+
+      $("#closeShop").on("click", function () {
+        $("#shop").hide();
+        $("#game").show();
+      });
+      $("#closeSettings").on("click", function () {
+        $("#settings").hide();
+        $("#home").show();
+      });
+
+      $("#buyPowerUp").on("click", function () {
+        if (silver >= 6) {
+          silver -= 6;
+          halvePenalty = true;
+          alert("Power-up purchased! Point deductions will now be halved.");
+          $("#scoreValue").text(silver + " " + langSilver);
+          $("#shop").hide();
+        } else {
+          alert("Not enough silver!");
+        }
+      });
+    </script>
+    <!-- Language switcher code -->
+    <script>
+      // Language translations
+      const translations = {
+        en: {
+          // Alert variables
+          noFileMessage: "No file selected!!!",
+          // Home screen
+          title: "Aryabhata",
+          playBtn: "Play",
+          // Settings
+          settings: "Settings",
+          selectLanguage: "Select your language:",
+          close: "Close",
+          // Game
+          score: "Score",
+          silver: "silver",
+          reset: "Reset",
+        },
+        hi: {
+          // Alert variables
+          noFileMessage: "कोई CSV फ़ाइल चयनित नहीं है.",
+          // Home screen
+          title: "आर्यभट",
+          playBtn: "खेलें",
+          // Settings
+          settings: "सेटिंग्स",
+          selectLanguage: "भाषा चुनें:",
+          close: "बंद",
+          // Game
+          score: "स्कोर",
+          close: "बंद",
+        },
+        es: {
+          // Alert variables
+          noFileMessage: "No tienes un fichero de CSV en la selección.",
+          // Home screen
+          title: "Aryabhata",
+          playBtn: "Jugar",
+          // Game
+          settings: "Configuraciones",
+          selectLanguage: "Seleccionar tu idioma:",
+          close: "Cerrar",
+          // Game
+          score: "Puntuación",
+          silver: "plata",
+          reset: "Cerrar",
+        },
+        ar: {
+          // Alert variables
+          noFileMessage: "لم يتم تحديد ملف CSV.",
+          // Home screen
+          title: "أريابهاتا - ويكيبيديا",
+          playBtn: "لعب",
+          // Settings
+          settings: "الإعدادات",
+          selectLanguage: "اختر اللغة:",
+          close: "يغلق",
+          // Game
+          score: "الدرجة",
+          reset: "يغلق",
+        },
+        fr: {
+          // Alert variables
+          noFileMessage: "Il n'y a fichier de CSV sélectionné.",
+          // Home screen
+          title: "Aryabhata",
+          playBtn: "Jouer",
+          // Settings
+          settings: "Paramètres",
+          selectLanguage: "Choisir ton langue:",
+          close: "Fermer",
+          // Game
+          score: "Score",
+          silver: "argent",
+          reset: "Réinitialiser",
+        },
+        gu: {
+          // Alert variables
+          noFileMessage: "કોઈ CSV ફાઇલ પસંદ કરેલી નથી.",
+          // Home screen
+          title: "આર્યભટ્ટ",
+          playBtn: "રમો",
+          // Settings
+          settings: "સેટિંગ્સ",
+          selectLanguage: "ભાષા પસંદ કરો:",
+          close: "બંધ",
+          // Game
+          score: "સ્કોર",
+          reset: "બંધ",
+        },
+      };
+
+      // Function to update language
+      function updateLanguage(lang) {
+        const selectedLang = translations[lang];
+        if (!selectedLang) return;
+
+        // Update all text elements dynamically
+        // Alert variables
+        noFileMessage = selectedLang.noFileMessage;
+        
+        // Home screen
+        document.querySelector("title").innerHTML = selectedLang.title;
+        document.querySelector("h1#title").innerHTML = selectedLang.title;
+        document.querySelector("#home #playBtn").innerHTML = '<i class="fa fa-gamepad"></i>&nbsp;' + selectedLang.playBtn;
+        document.querySelector("#home #settingsBtn").innerHTML = '<i class="fa fa-gears"></i>&nbsp;' + selectedLang.settings;
+        
+        // Settings
+        document.querySelector("#settings h2").innerHTML = selectedLang.settings;
+        document.querySelector("#settings #selectLanguage").innerHTML = selectedLang.selectLanguage;
+        
+        // Game
+        document.querySelector("#scoreText").innerHTML = selectedLang.score;
+        langSilver = selectedLang.silver;
+        document.querySelector("#resetBtn").innerHTML = selectedLang.reset;
+      }
+
+      // Add event listeners to language buttons
+      document.querySelectorAll("#settings .button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const lang = button.getAttribute("data-lang");
+          updateLanguage(lang);
+        });
+      });
+    </script>
+  </body>
+</html>
