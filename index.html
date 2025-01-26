@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link rel="stylesheet" href="https://unpkg.com/7.css">
     
     <style>
       /* General App Styling */
@@ -51,7 +52,7 @@
         -webkit-backdrop-filter: blur(50px);
         outline: 9px solid rgba(255, 255, 255, 0.3);
       }
-      .hidden {
+      .hidden, click.hidden {
         display: none;
       }
 
@@ -69,7 +70,7 @@
         line-height: 1.5;
       }
 
-      button {
+      .button {
         display: block;
         width: calc(100% - 20px);
         margin: 10px auto;
@@ -83,13 +84,14 @@
         border-radius: 8px;
         box-shadow: inset 0px 1px 0px #8ab9f8, 0px 3px 4px rgba(0, 0, 0, 0.2);
         cursor: pointer;
+        text-align: center;
       }
 
-      button:hover {
+      .button:hover {
         background: linear-gradient(to bottom, #66b7fc, #147bfc);
       }
 
-      button:active {
+      .button:active {
         background: linear-gradient(to bottom, #007aff, #005bb5);
         box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.3);
       }
@@ -151,51 +153,49 @@
     <div id="bg"></div>
     <div id="home" class="container app">
       <h1 id='title'>Aryabhata</h1>
-      <input
-        type="file"
-        id="csvFile"
-        accept=".csv"
-        style="margin-bottom: 10px"
-      />
-      <button class="button hidden" id="importBtn">
-        <i class="fa fa-upload"></i> Import CSV
-      </button>
-      <button class="button" id="playBtn">
+      <input type="file" id="aryaFile" accept=".arya" style="margin-bottom: 10px;"/>
+      <click class="button hidden" id="importBtn">
+        <i class="fa fa-upload"></i> Import .arya
+      </click>
+      <click class="button" id="playBtn">
         <i class="fa fa-gamepad"></i> Play
-      </button>
-      <button class="button" id="settingsBtn">
+      </click>
+      <click class="button" id="playBtn">
+        <i class="fa fa-keyboard-o"></i> Type
+      </click>
+      <click class="button" id="settingsBtn">
         <i class="fa fa-gears"></i> Settings
-      </button>
+      </click>
     </div>
     <div id="game" class="app hidden">
       <div class="question" id="question">Question</div>
       <div class="answers" id="answers"></div>
-      <div id="score"><span id='scoreText'>Score</span>: <span id="scoreValue">0</span></div>
-      <button class="button" id="resetBtn">Reset</button>
-      <button class="button" id="shopBtn">Shop</button>
+      <div id="score"><span id='scoreText'>Score</span>: <span id="scoreValue">0 <span id='langSilver'>silver</span></span></div>
+      <click class="button" id="resetBtn">Reset</click>
+      <click class="button" id="shopBtn">Shop</click>
     </div>
 
     <div id="shop" class="app hidden">
       <h2>Shop</h2>
       <div class="shop-item">
         Halve point deductions - 6 Silver
-        <button class="button" id="buyPowerUp">Buy</button>
+        <click class="button" id="buyPowerUp">Buy</click>
       </div>
-      <button class="button" id="closeShop">Close</button>
+      <click class="button" id="closeShop">Close</click>
     </div>
 
     <div id="settings" class="app hidden">
       <h2>Settings</h2>
       <hr/>
       <p id='selectLanguage'>Choose your language:</p>
-      <button class="button" data-lang="en">english</button>
-      <button class="button" data-lang="hi">हिन्दी</button>
-      <button class="button" data-lang="es">español</button>
-      <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
-      <button class="button" data-lang="fr">français</button>
-      <button class="button" data-lang="gu">ગુજરાતી</button>
+      <click class="button" data-lang="en">english</click>
+      <click class="button" data-lang="hi">हिन्दी</click>
+      <click class="button" data-lang="es">español</click>
+      <click class="button" data-lang="ar">اَلْعَرَبِيَّةُ</click>
+      <click class="button" data-lang="fr">français</click>
+      <click class="button" data-lang="gu">ગુજરાતી</click>
       <hr/>
-      <button class="button" id="closeSettings">Close</button>
+      <click class="button" id="closeSettings">Close</click>
     </div>
 
     <div id="incorrect" class="app hidden">
@@ -205,15 +205,16 @@
     <script>
       let questions = [];
       let currentQuestionIndex = 0;
+      let oldCqi; let olderCqi; let specCqi;
       let silver = 0;
       let halvePenalty = false;
       // Language-specific strings
       var noFileMessage = "No file selected!!!";
       var langSilver = "silver";
 
-      // Parse the CSV file with the new format
-      function parseCSV(csv) {
-        const rows = csv.split("\n");
+      // Parse the .arya file with the new format
+      function parseArya(arya) {
+        const rows = arya.split("\n");
         rows.forEach((row) => {
           const values = row.split(",");
           if (values.length === 7) {
@@ -244,12 +245,13 @@
 
       function loadQuestion() {
         if (currentQuestionIndex >= questions.length) {
-          alert("Game Over! Your total: " + silver + " " + langSilver);
+          currentQuestionIndex == 1;
+          /*alert("Game Over! Your total: " + silver + " " + langSilver);
           $("#game").hide();
           $(".container").show();
           currentQuestionIndex = 0;
           silver = 0;
-          $("#scoreValue").text(silver + " " + langSilver);
+          $("#scoreValue").text(silver + " " + langSilver);*/
           return;
         }
 
@@ -263,9 +265,9 @@
         // Create answer buttons
         const answerButtons = randomizedChoices
           .map((choice, index) => {
-            return `<button class="answer">${String.fromCharCode(
+            return `<click class="button answer">${String.fromCharCode(
               65 + index
-            )}: ${choice}</button>`;
+            )}: ${choice}</click>`;
           })
           .join("");
         $("#answers").html(answerButtons);
@@ -287,19 +289,26 @@
               : current.pointsDeducted;
           }
           $("#scoreValue").text(silver + " " + langSilver);
-          currentQuestionIndex++;
+          //currentQuestionIndex++;
+          // Disable receiving the same question twice in a row or too often
+          olderCqi = oldCqi;
+          oldCqi = currentQuestionIndex;
+          do {
+            specCqi = Math.round(Math.random() * questions.length);
+          } while (specCqi == oldCqi || specCqi == olderCqi);
+          currentQuestionIndex = specCqi;
           loadQuestion();
         });
       }
 
       $("#importBtn").on("click", function () {
-        const fileInput = document.getElementById("csvFile");
+        const fileInput = document.getElementById("aryaFile");
         const file = fileInput.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onload = function (e) {
-            parseCSV(e.target.result);
-            ///alert("CSV imported successfully!");
+            parseArya(e.target.result);
+            ///alert("Arya imported successfully!");
           };
           reader.readAsText(file);
         } else {
@@ -311,7 +320,7 @@
         document.getElementById("importBtn").click();
         setTimeout(function () {
           if (questions.length === 0) {
-            //alert("Please import a CSV file first!");
+            //alert("Please import a .arya file first!");
             return;
           }
           $(".container").hide();
@@ -360,131 +369,6 @@
         }
       });
     </script>
-    <!-- Language switcher code -->
-    <script>
-      // Language translations
-      const translations = {
-        en: {
-          // Alert variables
-          noFileMessage: "No file selected!!!",
-          // Home screen
-          title: "Aryabhata",
-          playBtn: "Play",
-          // Settings
-          settings: "Settings",
-          selectLanguage: "Select your language:",
-          close: "Close",
-          // Game
-          score: "Score",
-          silver: "silver",
-          reset: "Reset",
-        },
-        hi: {
-          // Alert variables
-          noFileMessage: "कोई CSV फ़ाइल चयनित नहीं है.",
-          // Home screen
-          title: "आर्यभट",
-          playBtn: "खेलें",
-          // Settings
-          settings: "सेटिंग्स",
-          selectLanguage: "भाषा चुनें:",
-          close: "बंद",
-          // Game
-          score: "स्कोर",
-          close: "बंद",
-        },
-        es: {
-          // Alert variables
-          noFileMessage: "No tienes un fichero de CSV en la selección.",
-          // Home screen
-          title: "Aryabhata",
-          playBtn: "Jugar",
-          // Game
-          settings: "Configuraciones",
-          selectLanguage: "Seleccionar tu idioma:",
-          close: "Cerrar",
-          // Game
-          score: "Puntuación",
-          silver: "plata",
-          reset: "Cerrar",
-        },
-        ar: {
-          // Alert variables
-          noFileMessage: "لم يتم تحديد ملف CSV.",
-          // Home screen
-          title: "أريابهاتا - ويكيبيديا",
-          playBtn: "لعب",
-          // Settings
-          settings: "الإعدادات",
-          selectLanguage: "اختر اللغة:",
-          close: "يغلق",
-          // Game
-          score: "الدرجة",
-          reset: "يغلق",
-        },
-        fr: {
-          // Alert variables
-          noFileMessage: "Il n'y a fichier de CSV sélectionné.",
-          // Home screen
-          title: "Aryabhata",
-          playBtn: "Jouer",
-          // Settings
-          settings: "Paramètres",
-          selectLanguage: "Choisir ton langue:",
-          close: "Fermer",
-          // Game
-          score: "Score",
-          silver: "argent",
-          reset: "Réinitialiser",
-        },
-        gu: {
-          // Alert variables
-          noFileMessage: "કોઈ CSV ફાઇલ પસંદ કરેલી નથી.",
-          // Home screen
-          title: "આર્યભટ્ટ",
-          playBtn: "રમો",
-          // Settings
-          settings: "સેટિંગ્સ",
-          selectLanguage: "ભાષા પસંદ કરો:",
-          close: "બંધ",
-          // Game
-          score: "સ્કોર",
-          reset: "બંધ",
-        },
-      };
-
-      // Function to update language
-      function updateLanguage(lang) {
-        const selectedLang = translations[lang];
-        if (!selectedLang) return;
-
-        // Update all text elements dynamically
-        // Alert variables
-        noFileMessage = selectedLang.noFileMessage;
-        
-        // Home screen
-        document.querySelector("title").innerHTML = selectedLang.title;
-        document.querySelector("h1#title").innerHTML = selectedLang.title;
-        document.querySelector("#home #playBtn").innerHTML = '<i class="fa fa-gamepad"></i>&nbsp;' + selectedLang.playBtn;
-        document.querySelector("#home #settingsBtn").innerHTML = '<i class="fa fa-gears"></i>&nbsp;' + selectedLang.settings;
-        
-        // Settings
-        document.querySelector("#settings h2").innerHTML = selectedLang.settings;
-        document.querySelector("#settings #selectLanguage").innerHTML = selectedLang.selectLanguage;
-        
-        // Game
-        document.querySelector("#scoreText").innerHTML = selectedLang.score;
-        langSilver = selectedLang.silver;
-        document.querySelector("#resetBtn").innerHTML = selectedLang.reset;
-      }
-
-      // Add event listeners to language buttons
-      document.querySelectorAll("#settings .button").forEach((button) => {
-        button.addEventListener("click", () => {
-          const lang = button.getAttribute("data-lang");
-          updateLanguage(lang);
-        });
-      });
-    </script>
+    <script src='lang.js'></script>
   </body>
 </html>
