@@ -8,8 +8,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="https://unpkg.com/7.css">
-    
+    <link rel="stylesheet" href="https://unpkg.com/7.scoped.css" />
+
     <style>
       /* General App Styling */
       body {
@@ -52,7 +52,9 @@
         -webkit-backdrop-filter: blur(50px);
         outline: 9px solid rgba(255, 255, 255, 0.3);
       }
-      .hidden, click.hidden {
+      .hidden,
+      click.hidden,
+      button.hidden {
         display: none;
       }
 
@@ -152,50 +154,60 @@
   <body>
     <div id="bg"></div>
     <div id="home" class="container app">
-      <h1 id='title'>Aryabhata</h1>
-      <input type="file" id="aryaFile" accept=".arya" style="margin-bottom: 10px;"/>
-      <click class="button hidden" id="importBtn">
+      <h1 id="title">Aryabhata</h1>
+      <input
+        type="file"
+        id="aryaFile"
+        accept=".arya"
+        style="margin-bottom: 10px"
+      />
+      <button class="button hidden" id="importBtn">
         <i class="fa fa-upload"></i> Import .arya
-      </click>
-      <click class="button" id="playBtn">
+      </button>
+      <button class="button" id="playBtn">
         <i class="fa fa-gamepad"></i> Play
-      </click>
-      <click class="button" id="playBtn">
+      </button>
+      <button class="button" id="typeBtn">
         <i class="fa fa-keyboard-o"></i> Type
-      </click>
-      <click class="button" id="settingsBtn">
+      </button>
+      <button class="button" id="settingsBtn">
         <i class="fa fa-gears"></i> Settings
-      </click>
+      </button>
     </div>
     <div id="game" class="app hidden">
       <div class="question" id="question">Question</div>
       <div class="answers" id="answers"></div>
-      <div id="score"><span id='scoreText'>Score</span>: <span id="scoreValue">0 <span id='langSilver'>silver</span></span></div>
-      <click class="button" id="resetBtn">Reset</click>
-      <click class="button" id="shopBtn">Shop</click>
+      <div id="score">
+        <span id="scoreText">Score</span>:
+        <span id="scoreValue">0 <span id="langSilver">silver</span></span> |
+        <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
+        <span id="percentage">0</span>%
+      </div>
+      <button class="button" id="resetBtn">Reset</button>
+      <button class="button" id="shopBtn">Shop</button>
     </div>
 
     <div id="shop" class="app hidden">
       <h2>Shop</h2>
       <div class="shop-item">
         Halve point deductions - 6 Silver
-        <click class="button" id="buyPowerUp">Buy</click>
+        <button class="button" id="buyPowerUp">Buy</button>
       </div>
-      <click class="button" id="closeShop">Close</click>
+      <button class="button" id="closeShop">Close</button>
     </div>
 
     <div id="settings" class="app hidden">
       <h2>Settings</h2>
-      <hr/>
-      <p id='selectLanguage'>Choose your language:</p>
-      <click class="button" data-lang="en">english</click>
-      <click class="button" data-lang="hi">हिन्दी</click>
-      <click class="button" data-lang="es">español</click>
-      <click class="button" data-lang="ar">اَلْعَرَبِيَّةُ</click>
-      <click class="button" data-lang="fr">français</click>
-      <click class="button" data-lang="gu">ગુજરાતી</click>
-      <hr/>
-      <click class="button" id="closeSettings">Close</click>
+      <hr />
+      <p id="selectLanguage">Choose your language:</p>
+      <button class="button" data-lang="en">english</button>
+      <button class="button" data-lang="hi">हिन्दी</button>
+      <button class="button" data-lang="es">español</button>
+      <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
+      <button class="button" data-lang="fr">français</button>
+      <button class="button" data-lang="gu">ગુજરાતી</button>
+      <hr />
+      <button class="button" id="closeSettings">Close</button>
     </div>
 
     <div id="incorrect" class="app hidden">
@@ -205,12 +217,17 @@
     <script>
       let questions = [];
       let currentQuestionIndex = 0;
-      let oldCqi; let olderCqi; let specCqi;
+      let oldCqi;
+      let olderCqi;
+      let specCqi;
       let silver = 0;
       let halvePenalty = false;
       // Language-specific strings
       var noFileMessage = "No file selected!!!";
       var langSilver = "silver";
+      // Total right and total questions
+      let totalQuestions = 0;
+      let totalRight = 0;
 
       // Parse the .arya file with the new format
       function parseArya(arya) {
@@ -265,9 +282,9 @@
         // Create answer buttons
         const answerButtons = randomizedChoices
           .map((choice, index) => {
-            return `<click class="button answer">${String.fromCharCode(
+            return `<button class="button answer">${String.fromCharCode(
               65 + index
-            )}: ${choice}</click>`;
+            )}: ${choice}</button>`;
           })
           .join("");
         $("#answers").html(answerButtons);
@@ -276,27 +293,44 @@
         $(".answer").on("click", function () {
           const selectedAnswer = $(this).text().split(":")[1].trim();
           if (selectedAnswer === current.correct) {
+            // Add the appropriate amount of silver
             silver += current.pointsAwarded;
+            // Increment the number of questions gotten right
+            totalRight += 1;
+            // Leave a gap of at least 2 between the same exact question
+            olderCqi = oldCqi;
+            oldCqi = currentQuestionIndex;
+            do {
+              specCqi = Math.round(Math.random() * questions.length);
+            } while (specCqi == oldCqi || specCqi == olderCqi);
+            currentQuestionIndex = specCqi;
           } else {
+            // Show the incorrect dialogue box
             $("#incorrect").show();
             $("#game").hide();
+            // Hide the incorrect dialogue box after ~2/3 of a second
             setTimeout(function () {
               $("#incorrect").hide();
               $("#game").show();
             }, 666.6);
+            // If the halve-penalty powerup is equipped from the shop, half the penalty from the silver amount
             silver -= halvePenalty
               ? Math.ceil(current.pointsDeducted / 2)
               : current.pointsDeducted;
+            // Repeat the question if it was incorrectly answered
+            currentQuestionIndex = currentQuestionIndex;
           }
+          // Increment the total numbers of questions answered
+          totalQuestions += 1;
+          document.getElementById("totalQuestions").innerHTML = totalQuestions;
+          // Apply changes to number of questions gotten right
+          document.getElementById("totalRight").innerHTML = totalRight;
+          document.getElementById("percentage").innerHTML =
+            Math.round((totalRight / totalQuestions) * 1000) / 10;
           $("#scoreValue").text(silver + " " + langSilver);
           //currentQuestionIndex++;
           // Disable receiving the same question twice in a row or too often
-          olderCqi = oldCqi;
-          oldCqi = currentQuestionIndex;
-          do {
-            specCqi = Math.round(Math.random() * questions.length);
-          } while (specCqi == oldCqi || specCqi == olderCqi);
-          currentQuestionIndex = specCqi;
+
           loadQuestion();
         });
       }
@@ -328,15 +362,49 @@
           loadQuestion();
         }, 36);
       });
+      
+      $("#typeBtn").on("click", function () {
+        document.getElementById("importBtn").click();
+        setTimeout(function () {
+          if (questions.length === 0) {
+            //alert("Please import a .arya file first!");
+            return;
+          }
+          $(".container").hide();
+          $("#game").show();
+          loadQuestion();
+        }, 36);
+      });
 
       $("#resetBtn").on("click", function () {
-        questions = [];
-        currentQuestionIndex = 0;
-        silver = 0;
-        $("#scoreValue").text(silver + " " + langSilver);
-        $("#game").hide();
-        $(".container").show();
-        alert("Game reset!");
+        // Confirm if the user wants to reset
+        var resetConf = confirm("Are you sure you would like to reset?");
+        if (resetConf === true) {
+          // Remove all questions
+          questions = [];
+
+          // Set question index to 0
+          currentQuestionIndex = 0;
+
+          // Deduct all silver
+          silver = 0;
+
+          // Reset number of right and wrong
+          totalRight = 0;
+          totalQuestions = 0;
+
+          // Update score value
+          $("#scoreValue").text(silver + " " + langSilver);
+
+          // Update percentage and right and wrong
+          document.getElementById("totalRight").innerHTML = 0;
+          document.getElementById("totalQuestions").innerHTML = 0;
+          document.getElementById("percentage").innerHTML = 0;
+
+          // Hide the game and return to the home screen
+          $("#game").hide();
+          $("#home").show();
+        }
       });
 
       $("#shopBtn").on("click", function () {
@@ -364,11 +432,12 @@
           alert("Power-up purchased! Point deductions will now be halved.");
           $("#scoreValue").text(silver + " " + langSilver);
           $("#shop").hide();
+          $("#game").show();
         } else {
           alert("Not enough silver!");
         }
       });
     </script>
-    <script src='lang.js'></script>
+    <script src="lang.js"></script>
   </body>
 </html>
