@@ -19,7 +19,7 @@
         margin: 0;
         padding: 0;
         height: 100vh;
-        overflow: hidden;
+        overflow: auto;
       }
 
       #bg {
@@ -27,15 +27,16 @@
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        height: 100%;
+        height: 100vh;
         margin: 0;
         filter: blur(4px);
         width: 100%;
-        position: absolute; /* Position it behind the content */
+        position: fixed; /* Position it behind the content */
         top: 0; /* Ensure it's at the top */
         left: 0; /* Ensure it's at the left */
         z-index: -1; /* Send it to the background */
         pointer-events: none; /* Make sure it doesn't block interaction */
+        overflow: none;
       }
       .container,
       .app {
@@ -43,7 +44,11 @@
         padding: 10px;
         width: 90%;
         max-width: 400px;
-        background: #fefefe;
+        background-color: #fefefe;
+        background-image: url(https://www.pngall.com/wp-content/uploads/14/Paper-Texture-PNG-Image-HD.png);
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
         border: 0.5px solid rgba(113, 113, 112, 0.6);
         border-radius: 6px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -81,7 +86,7 @@
         font-weight: bold;
         color: #fff;
         text-shadow: 0px 1px 0px #333;
-        background: linear-gradient(to bottom, #4ca5f8, #007aff);
+        background-image: linear-gradient(to bottom, #4ca5f8, #007aff);
         border: 1px solid #005bb5;
         border-radius: 8px;
         box-shadow: inset 0px 1px 0px #8ab9f8, 0px 3px 4px rgba(0, 0, 0, 0.2);
@@ -170,6 +175,12 @@
       <button class="button" id="typeBtn">
         <i class="fa fa-keyboard-o"></i> Type
       </button>
+      <button class="button" id="flashcardBtn">
+        <i class="fa fa-address-card-o"></i> Flashcards
+      </button>
+      <button class="button" id="aryaBtn">
+        <i class="fa fa-pencil"></i> Editor
+      </button>
       <button class="button" id="settingsBtn">
         <i class="fa fa-gears"></i> Settings
       </button>
@@ -183,6 +194,11 @@
         <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
         <span id="percentage">0</span>%
       </div>
+      <input
+        type="text"
+        id="textInput"
+        placeholder="Type your answer here..."
+      />
       <button class="button" id="resetBtn">Reset</button>
       <button class="button" id="shopBtn">Shop</button>
     </div>
@@ -196,6 +212,50 @@
       <button class="button" id="closeShop">Close</button>
     </div>
 
+    <div id="flashCardApp" class="app hidden">
+      <h2>Flash Cards</h2>
+      <div id="flashCard" class="card">Loading...</div>
+      <button id="knownButton" class="button">Known</button>
+      <button id="unknownButton" class="button">Unknown</button>
+      <hr />
+      <button id="closeFlashcard" class="button">Close</button>
+    </div>
+
+    <div id="csvEditor" class="app hidden">
+      <h2>CSV Editor</h2>
+      <table
+        id="csvTable"
+        contenteditable="true"
+        style="width: 100%; border-collapse: collapse"
+      >
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Incorrect Answer 1</th>
+            <th>Incorrect Answer 2</th>
+            <th>Incorrect Answer 3</th>
+            <th>Correct Answer</th>
+            <th>Points Awarded</th>
+            <th>Points Deducted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sample Question</td>
+            <td>Wrong 1</td>
+            <td>Wrong 2</td>
+            <td>Wrong 3</td>
+            <td>Right Answer</td>
+            <td>10</td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" id="addRow">Add Row</button>
+      <button class="button" id="saveArya">Save ARYA</button>
+      <button class="button" id="closeArya">Close</button>
+    </div>
+
     <div id="settings" class="app hidden">
       <h2>Settings</h2>
       <hr />
@@ -206,6 +266,11 @@
       <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
       <button class="button" data-lang="fr">français</button>
       <button class="button" data-lang="gu">ગુજરાતી</button>
+      <hr />
+      <p>Wallpaper</p>
+      <input type="file" id="wallpaperUpload" accept="image/*" />
+      <button class="button" id="setWallpaper">Set Wallpaper</button>
+      <button class="button" id="resetWallpaper">Reset</button>
       <hr />
       <button class="button" id="closeSettings">Close</button>
     </div>
@@ -232,24 +297,34 @@
       // Parse the .arya file with the new format
       function parseArya(arya) {
         const rows = arya.split("\n");
+        questions = []; // Clear existing questions
         rows.forEach((row) => {
           const values = row.split(",");
           if (values.length === 7) {
-            const answers = [
-              values[1].trim(), // Incorrect answer 1
-              values[2].trim(), // Incorrect answer 2
-              values[3].trim(), // Incorrect answer 3
-              values[4].trim(), // Correct answer
-            ];
-            questions.push({
-              question: values[0].trim(),
-              correct: values[4].trim(),
-              choices: answers,
-              pointsAwarded: parseInt(values[5]),
-              pointsDeducted: parseInt(values[6]),
-            });
+            try {
+              const answers = [
+                values[1].trim(), // Incorrect answer 1
+                values[2].trim(), // Incorrect answer 2
+                values[3].trim(), // Incorrect answer 3
+                values[4].trim(), // Correct answer
+              ];
+              questions.push({
+                question: values[0].trim(),
+                correct: values[4].trim(),
+                choices: answers,
+                pointsAwarded: parseInt(values[5]),
+                pointsDeducted: parseInt(values[6]),
+              });
+            } catch (error) {
+              console.error("Error parsing row:", row, error);
+            }
           }
         });
+        if (questions.length === 0) {
+          alert(
+            "No valid questions found in the file. Please check the format."
+          );
+        }
       }
 
       // Shuffle answers randomly
@@ -333,6 +408,54 @@
 
           loadQuestion();
         });
+
+        // Handle text input submission
+        $("#textInput").on("keypress", function (e) {
+          if (e.which === 13) {
+            // Enter key
+            const userAnswer = $(this).val().trim();
+            if (userAnswer === current.correct) {
+              // Add the appropriate amount of silver
+              silver += current.pointsAwarded;
+              // Increment the number of questions gotten right
+              totalRight += 1;
+              // Leave a gap of at least 2 between the same exact question
+              olderCqi = oldCqi;
+              oldCqi = currentQuestionIndex;
+              do {
+                specCqi = Math.round(Math.random() * questions.length);
+              } while (specCqi == oldCqi || specCqi == olderCqi);
+              currentQuestionIndex = specCqi;
+            } else {
+              // Show the incorrect dialogue box
+              $("#incorrect").show();
+              $("#game").hide();
+              // Hide the incorrect dialogue box after ~2/3 of a second
+              setTimeout(function () {
+                $("#incorrect").hide();
+                $("#game").show();
+              }, 666.6);
+              // If the halve-penalty powerup is equipped from the shop, half the penalty from the silver amount
+              silver -= halvePenalty
+                ? Math.ceil(current.pointsDeducted / 2)
+                : current.pointsDeducted;
+              // Repeat the question if it was incorrectly answered
+              currentQuestionIndex = currentQuestionIndex;
+            }
+            // Increment the total numbers of questions answered
+            totalQuestions += 1;
+            document.getElementById("totalQuestions").innerHTML =
+              totalQuestions;
+            // Apply changes to number of questions gotten right
+            document.getElementById("totalRight").innerHTML = totalRight;
+            document.getElementById("percentage").innerHTML =
+              Math.round((totalRight / totalQuestions) * 1000) / 10;
+            $("#scoreValue").text(silver + " " + langSilver);
+            // Clear the input field
+            $(this).val("");
+            loadQuestion();
+          }
+        });
       }
 
       $("#importBtn").on("click", function () {
@@ -351,6 +474,7 @@
       });
 
       $("#playBtn").on("click", function () {
+        $("#questions").show();
         document.getElementById("importBtn").click();
         setTimeout(function () {
           if (questions.length === 0) {
@@ -359,10 +483,11 @@
           }
           $(".container").hide();
           $("#game").show();
+          $("#textInput").hide();
           loadQuestion();
         }, 36);
       });
-      
+
       $("#typeBtn").on("click", function () {
         document.getElementById("importBtn").click();
         setTimeout(function () {
@@ -371,7 +496,8 @@
             return;
           }
           $(".container").hide();
-          $("#game").show();
+          $("#game").fadeIn();
+          $("#answers").hide();
           loadQuestion();
         }, 36);
       });
@@ -403,26 +529,58 @@
 
           // Hide the game and return to the home screen
           $("#game").hide();
-          $("#home").show();
+          $("#home").fadeIn();
         }
       });
 
       $("#shopBtn").on("click", function () {
-        $("#shop").show();
         $("#game").hide();
+        $("#shop").fadeIn();
+      });
+      $("#flashcardBtn").on("click", function () {
+        document.getElementById("importBtn").click();
+        setTimeout(function () {
+          if (questions.length === 0) {
+            //alert("Please import a .arya file first!");
+            return;
+          }
+          $(".container").hide();
+          $("#flashCardApp").fadeIn();
+          $("#textInput").hide();
+          loadFlashCards();
+        }, 36);
+        if (questions.length === 0) {
+          //alert("Please import a .arya file first!");
+          return;
+        } else {
+          $("#home").hide();
+          $("#flashCardApp").fadeIn();
+        }
+      });
+      $("#aryaBtn").on("click", function () {
+        $("#home").hide();
+        $("#csvEditor").fadeIn();
       });
       $("#settingsBtn").on("click", function () {
-        $("#settings").show();
         $("#home").hide();
+        $("#settings").fadeIn();
       });
 
       $("#closeShop").on("click", function () {
         $("#shop").hide();
-        $("#game").show();
+        $("#game").fadeIn();
+      });
+      $("#closeFlashcard").on("click", function () {
+        $("#flashCardApp").hide();
+        $("#home").fadeIn();
+      });
+      $("#closeArya").on("click", function () {
+        $("#csvEditor").hide();
+        $("#home").fadeIn();
       });
       $("#closeSettings").on("click", function () {
         $("#settings").hide();
-        $("#home").show();
+        $("#home").fadeIn();
       });
 
       $("#buyPowerUp").on("click", function () {
@@ -437,7 +595,148 @@
           alert("Not enough silver!");
         }
       });
+      // Function to set the background image
+      function setBackgroundImage(imageUrl) {
+        document.getElementById(
+          "bg"
+        ).style.backgroundImage = `url(${imageUrl})`;
+        localStorage.setItem("wallpaper", imageUrl); // Save to localStorage
+      }
+
+      // Load saved wallpaper on page load
+      $(document).ready(function () {
+        const savedWallpaper = localStorage.getItem("wallpaper");
+        if (savedWallpaper) {
+          setBackgroundImage(savedWallpaper);
+        }
+      });
+
+      // Handle wallpaper upload
+      $("#setWallpaper").on("click", function () {
+        const fileInput = document.getElementById("wallpaperUpload");
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const imageUrl = e.target.result;
+            setBackgroundImage(imageUrl);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          alert("Please select an image file first!");
+        }
+      });
+      // Default wallpaper URL
+      const defaultWallpaper =
+        "https://cdn.glitch.global/f5aec147-6e2d-4f1e-8220-074008986048/snowflakes?v=1733054512511";
+
+      // Function to reset the wallpaper to default
+      function resetToDefaultWallpaper() {
+        setBackgroundImage(defaultWallpaper);
+        localStorage.removeItem("wallpaper"); // Clear saved wallpaper
+      }
+      // Load language setting on load
+      $("body").on("load", function () {
+        updateLanguage(localStorage.getItem("language-setting"));
+      });
+      // Handle reset wallpaper button click
+      $("#resetWallpaper").on("click", resetToDefaultWallpaper);
     </script>
+    <script>
+      let flashcards = [];
+      let currentIndex = 0;
+
+      document
+        .getElementById("flashcardBtn")
+        .addEventListener("click", function () {
+          document.getElementById("home").classList.add("hidden");
+          document.getElementById("flashCardApp").classList.remove("hidden");
+          if (flashcards.length > 0) {
+            showFlashcard();
+          }
+        });
+
+      document
+        .getElementById("closeFlashcard")
+        .addEventListener("click", function () {
+          document.getElementById("flashCardApp").classList.add("hidden");
+          document.getElementById("home").classList.remove("hidden");
+        });
+
+      document
+        .getElementById("knownButton")
+        .addEventListener("click", function () {
+          currentIndex++;
+          if (currentIndex < flashcards.length) {
+            showFlashcard();
+          } else {
+            alert("End of flashcards!");
+          }
+        });
+
+      document
+        .getElementById("unknownButton")
+        .addEventListener("click", function () {
+          alert("Correct answer: " + flashcards[currentIndex].answer);
+          currentIndex++;
+          if (currentIndex < flashcards.length) {
+            showFlashcard();
+          } else {
+            alert("End of flashcards!");
+          }
+        });
+
+      document
+        .getElementById("aryaFile")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const lines = e.target.result
+              .split("\n")
+              .map((line) => line.trim())
+              .filter((line) => line);
+            flashcards = lines.map((line) => {
+              const parts = line.split(",");
+              return { question: parts[0], answer: parts[4] };
+            });
+            currentIndex = 0;
+            if (flashcards.length > 0) {
+              document.getElementById("flashCard").textContent =
+                "Flashcards loaded! Click 'Known' or 'Unknown' to begin.";
+            }
+          };
+          reader.readAsText(file);
+        });
+
+      function showFlashcard() {
+        document.getElementById("flashCard").textContent =
+          flashcards[currentIndex].question;
+      }
+    </script>
+    <div class="win7" style='display: none;' id='rightclick'>
+      <ul role="menu" style="width: 200px">
+        <li role="menuitem" tabindex="0" aria-haspopup="true">View</li>
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          Sort by
+          <ul role="menu">
+            <li role="menuitem"><a href="#menu">Name</a></li>
+            <li role="menuitem"><a href="#menu">Size</a></li>
+            <li role="menuitem"><a href="#menu">Item type</a></li>
+            <li role="menuitem"><a href="#menu">Date modified</a></li>
+          </ul>
+        </li>
+        <li role="menuitem"><a href="#menu">Refresh</a></li>
+        <li role="menuitem"><a href="#menu">Paste</a></li>
+        <li role="menuitem"><a href="#menu">Paste shortcut</a></li>
+        <li role="menuitem"><a href="#menu">Screen resolution</a></li>
+        <li role="menuitem"><a href="#menu">Gadgets</a></li>
+        <li role="menuitem"><a href="#menu">Personalize</a></li>
+      </ul>
+    </div>
+
     <script src="lang.js"></script>
   </body>
 </html>
