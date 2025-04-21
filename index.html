@@ -436,7 +436,6 @@
   </head>
   <body>
     <div class="container">
-
       <!-- Learn Section -->
       <div id="learn" class="content-section active">
         <h1 class="page-title">Learn</h1>
@@ -456,11 +455,11 @@
               <i class="fa fa-gamepad"></i> Play
             </button>
           </div>
-          <div id="incorrect" style='display: none;'>
+          <div id="incorrect" style="display: none">
             <center>
               <strong>
                 <span>That answer was&nbsp;</span>
-                <i style="text-decoration: underline; color: red;">WRONG</i>
+                <i style="text-decoration: underline; color: red">WRONG</i>
                 <span>&nbsp;&#x203c;</span>
               </strong>
             </center>
@@ -486,7 +485,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Memorise Applet -->
       <div id="memorise" class="content-section">
         <h1 class="page-title">Memorization Tools</h1>
@@ -495,7 +494,7 @@
           <p>Memorize section content goes here...</p>
         </div>
       </div>
-      
+
       <!-- Test Section -->
       <div id="test" class="content-section">
         <h1 class="page-title">Test Your Knowledge</h1>
@@ -518,12 +517,105 @@
       <div id="calculator" class="content-section">
         <h1 class="page-title">Calculator</h1>
         <div class="desk-paper">
-          <iframe
+          <button onclick='calcSec("regular")'>
+            
+          </button>
+          <div id='regularPolygonArea' onmouseover="calculateRegularPolygonArea();">
+            <h2>Regular Polygon</h2>
+            Sides (&#x2265;3) <input
+              type="number"
+              min="3"
+              id="sidesCRPA"
+              value="3"
+              step="1"
+              onkeyup="calculateRegularPolygonArea();"
+            /><br />
+            Side Length (&gt;0)<input
+              type="number"
+              min="0.000000001"
+              id="lengthCRPA"
+              value="6"
+              step="1"
+              onkeyup="calculateRegularPolygonArea();"
+            /><br />
+            <p>Area: <span id="areaCRPA"></span></p>
+          </div>
+          <hr/>
+          <div id='regularPolyhedronVolume' onmouseover="calculateRegularPolyhedronVolume();">
+            <h2>Regular Polygon</h2>
+            Faces (4,6,8,12 or 20) <input
+              type="number"
+              min="4"
+              id="facesCRPV"
+              value="3"
+              step="1"
+              onkeyup="calculateRegularPolyhedronVolume();"
+            /><br />
+            Edge Length (&gt;0)<input
+              type="number"
+              min="0.000000001"
+              id="lengthCRPV"
+              value="6"
+              step="1"
+              onkeyup="calculateRegularPolyhedronVolume();"
+            /><br />
+            <p>Volume: <span id="volumeCRPV"></span></p>
+          </div>
+          <!-- Math calculation functions -->
+          <script>
+            function calculateRegularPolygonArea(n1, s1) {
+              var n = document.getElementById("sidesCRPA").value;
+              var s = document.getElementById("lengthCRPA").value;
+              if (n1 != undefined) {
+                n = n1;
+              }
+              if (s1 != undefined) {
+                s = s1;
+              }
+
+              if (n >= 3 && s > 0) {
+                var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
+                var area = (Math.round(area0*100000000))/100000000;
+                document.getElementById("areaCRPA").innerText = area;
+              }
+              else {
+                document.getElementById("areaCRPA").innerText = "Invalid inputs.";
+              }
+            }
+            function calculateRegularPolyhedronVolume(n1, e1) {
+              var n = document.getElementById("facesCRPV").value;
+              var s = document.getElementById("lengthCRPV").value;
+              if (n1 != undefined) {
+                n = n1;
+              }
+              if (e1 != undefined) {
+                e = e1;
+              }
+              if ((n == 4 || n == 6 || n == 8 || n == 12 || n == 20) && e > 0) {
+                // pyramid = A = 1/3 bh
+                if (n == 4 || n == 8 || n == 20) {
+                  var k = 3;
+                }
+                else if (n == 6) {
+                  var k = 4;
+                }
+                else if (n == 12) {
+                  var k = 5;
+                }
+                var volume = n * (1/3) * calculateRegularPolygonArea(k,e) * (e/2);
+                document.getElementById("volumeCRPV").innerText = volume;
+              }
+              else {
+                document.getElementById("volumeCRPV").innerText = "Invalid inputs.";
+              }
+            }
+          </script>
+          <!--<iframe
             id="desmos-calculator"
             name="calc"
             src="https://www.desmos.com/scientific"
             style="width: 100%; height: 500px; border: none"
-          ></iframe>
+          ></iframe>-->
         </div>
       </div>
 
