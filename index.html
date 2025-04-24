@@ -542,12 +542,12 @@
           </div>
           <hr/>
           <div id='regularPolyhedronVolume' onmouseover="calculateRegularPolyhedronVolume();">
-            <h2>Regular Polygon</h2>
+            <h2>Regular Polyhedron</h2>
             Faces (4,6,8,12 or 20) <input
               type="number"
               min="4"
               id="facesCRPV"
-              value="3"
+              value="6"
               step="1"
               onkeyup="calculateRegularPolyhedronVolume();"
             /><br />
@@ -576,11 +576,15 @@
               if (n >= 3 && s > 0) {
                 var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
                 var area = (Math.round(area0*100000000))/100000000;
+                if (!(n1 == undefined || s1 == undefined)) {
+                  return area;
+                }
                 document.getElementById("areaCRPA").innerText = area;
               }
               else {
                 document.getElementById("areaCRPA").innerText = "Invalid inputs.";
               }
+              
             }
             function calculateRegularPolyhedronVolume(n1, e1) {
               var n = document.getElementById("facesCRPV").value;
@@ -589,20 +593,52 @@
                 n = n1;
               }
               if (e1 != undefined) {
-                e = e1;
+                s = e1;
               }
-              if ((n == 4 || n == 6 || n == 8 || n == 12 || n == 20) && e > 0) {
+              
+              if ((n == 4 || n == 6 || n == 8 || n == 12 || n == 20) && s > 0) {
+                switch (parseInt(n)) {
+                  case 4:
+                    var volume = (1/3) * calculateRegularPolygonArea(3,s) * (Math.sqrt(2/3) * s);
+                    break;
+                  case 8:
+                    var volume = 2 * ((1/3) * calculateRegularPolygonArea(4,s) * (Math.sqrt(2/3) * (s ** 3));
+                    break;
+                  case 20:
+                    var volume = 4 * ((1/3) * calculateRegularPolygonArea(5,s) * (Math.sqrt(5*(3+Math.sqrt(5))/12) * (s ** 3);
+                    break;
+                  case 6:
+                    var volume = s ** 3;
+                    break;
+                  case 12:
+                    var volume = 12 * ((1/3) * calculateRegularPolygonArea(4,s) * (Math.sqrt(2/3) * s));
+                    break;
+                  default:
+                    var volume = "Error";
+                }
                 // pyramid = A = 1/3 bh
+                /*
                 if (n == 4 || n == 8 || n == 20) {
                   var k = 3;
+                  switch (n) {
+                    case 4:
+                      var volume = (1/3) * calculateRegularPolygonArea(3, s) * s;
+                      break;
+                    case 8:
+                      var volume = (2/3) * calculateRegularPolygonArea(4, s) * s;
+                      break;
+                    case 20:
+                      var volume = (4/3) * calculateRegularPolygonArea(5, s) * s;                      
+                  }
                 }
                 else if (n == 6) {
                   var k = 4;
+                  var volume = s * s * s;
                 }
                 else if (n == 12) {
                   var k = 5;
-                }
-                var volume = n * (1/3) * calculateRegularPolygonArea(k,e) * (e/2);
+                  var volume = 4 * calculateRegularPolygonArea(5, s) * s;
+                }*/
                 document.getElementById("volumeCRPV").innerText = volume;
               }
               else {
@@ -610,12 +646,6 @@
               }
             }
           </script>
-          <!--<iframe
-            id="desmos-calculator"
-            name="calc"
-            src="https://www.desmos.com/scientific"
-            style="width: 100%; height: 500px; border: none"
-          ></iframe>-->
         </div>
       </div>
 
@@ -629,23 +659,6 @@
             <label>
               <input type="checkbox" id="calculator-toggle" checked="checked" />
               Show Calculator Icon
-            </label>
-          </div>
-          <div class="setting-item">
-            <label>
-              <a href="https://desmos.com/scientific" target="calc"
-                >Scientific</a
-              >
-              &bull;
-              <a href="https://desmos.com/calculator" target="calc">Graphing</a>
-              &bull; <a href="https://desmos.com/3d" target="calc">3D</a> &bull;
-              <a href="https://anantam.glitch.me/" target="calc">Anantam</a>
-              &bull;
-              <a href="https://ti84calc.com/ti84calc" target="calc">Ti84</a>
-              &bull;
-              <a href="https://www.wolframalpha.com/" target="calc"
-                >Wolfram Alpha</a
-              >
             </label>
           </div>
           <hr />
