@@ -434,7 +434,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="document.querySelector('#homeTab').click(); pascal.addDimension();">
     <div class="container">
       <!-- Learn Section -->
       <div id="learn" class="content-section active">
@@ -517,31 +517,43 @@
       <div id="calculator" class="content-section">
         <h1 class="page-title">Calculator</h1>
         <div class="desk-paper">
-          <button onclick='calcSec("regular")'>
-            
-          </button>
-          <div id='regularPolygonArea' onmouseover="calculateRegularPolygonArea();">
+          <div id="regularPolygonArea" onmouseover="polygon.areaR();">
             <h2>Regular Polygon</h2>
-            Sides (&#x2265;3) <input
+            Sides (&#x2265;3):
+            <input
               type="number"
               min="3"
               id="sidesCRPA"
               value="3"
               step="1"
-              onkeyup="calculateRegularPolygonArea();"
+              onkeyup="polygon.areaR();"
             /><br />
-            Side Length (&gt;0)<input
+            Side Length (&gt;0):<input
               type="number"
               min="0.000000001"
               id="lengthCRPA"
               value="6"
-              step="1"
-              onkeyup="calculateRegularPolygonArea();"
+              step="0.1"
+              onkeyup="polygon.areaR();"
             /><br />
             <p>Area: <span id="areaCRPA"></span></p>
           </div>
-          <hr/>
-          <div id='regularPolyhedronVolume' onmouseover="calculateRegularPolyhedronVolume();">
+          <hr />
+          <div id="pascalsSimplex" onmouseover="pascal.calc();">
+            <h2>Pascal's <var>m</var>-simplex</h2>
+            Dimension (&#x2265;2):
+            <input
+              type="number"
+              min="2"
+              id="dimensionsCPS"
+              value="2"
+              step="1"
+              oninput="pascal.addDimension();"
+            />
+            <div id='addDimensionsCPS'></div>
+            <p>Value: <span id="valueCPS"></span></p>
+          </div>
+          <!--<div id='regularPolyhedronVolume' onmouseover="calculateRegularPolyhedronVolume();">
             <h2>Regular Polyhedron</h2>
             Faces (4,6,8,12 or 20) <input
               type="number"
@@ -560,33 +572,75 @@
               onkeyup="calculateRegularPolyhedronVolume();"
             /><br />
             <p>Volume: <span id="volumeCRPV"></span></p>
-          </div>
+          </div>-->
           <!-- Math calculation functions -->
           <script>
-            function calculateRegularPolygonArea(n1, s1) {
-              var n = document.getElementById("sidesCRPA").value;
-              var s = document.getElementById("lengthCRPA").value;
-              if (n1 != undefined) {
-                n = n1;
-              }
-              if (s1 != undefined) {
-                s = s1;
-              }
-
-              if (n >= 3 && s > 0) {
-                var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
-                var area = (Math.round(area0*100000000))/100000000;
-                if (!(n1 == undefined || s1 == undefined)) {
-                  return area;
+            const polygon = {
+              areaR: function (n1, s1) {
+                var n = Number(document.getElementById("sidesCRPA").value);
+                var s = Number(document.getElementById("lengthCRPA").value);
+                if (n1 != undefined) {
+                  n = n1;
                 }
-                document.getElementById("areaCRPA").innerText = area;
+                if (s1 != undefined) {
+                  s = s1;
+                }
+
+                if (n >= 3 && s > 0) {
+                  var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
+                  var area = Math.round(area0 * 100000000) / 100000000;
+                  if (!(n1 == undefined || s1 == undefined)) {
+                    return area;
+                  }
+                  document.getElementById("areaCRPA").innerText = area;
+                }
+                else {
+                  document.getElementById("areaCRPA").innerText =
+                    "Invalid inputs.";
+                }
               }
-              else {
-                document.getElementById("areaCRPA").innerText = "Invalid inputs.";
+            };
+            var pascal = {
+              oldNoD: 2,
+              addDimension: function () {
+                var noD = Number(document.getElementById("dimensionsCPS").value);
+                var adC = document.getElementById("addDimensionsCPS");
+                adC.innerHTML = "";
+                if (noD < 2) {
+                  adC.innerHTML = "Invalid dimension.";
+                } 
+                for (var i = 0; i <= noD - 1; i++) {
+                  adC.innerHTML += '<br/>n<sub>' + i + '</sub> (&#x2265;0): <input type="number" min="0" id="n' + i + 'CPS" value="2" step="1"/>';
+                }
+              },
+              factorial: function (n) {
+                if (n <= 1) {
+                  return 1;
+                }
+                else {
+                  let result = 1;
+                  for (let i = 1; i <= n; i++) {
+                    result *= i;
+                  }
+                  return result;
+                }
+              },
+              calc: function () {
+                var m = Number(document.getElementById("dimensionsCPS").value);
+                var a = 1;
+                for (var p = 1; p <= m-1; p++) {
+                  var np = Number(document.getElementById("n" + p + "CPS").value);
+                  var np_1 = Number(document.getElementById("n" + (p-1).toString() + "CPS").value);
+                  a *= (pascal.factorial(np)) / (pascal.factorial(np_1) * pascal.factorial(np - np_1));
+                }
+                document.getElementById("valueCPS").innerText = a;
               }
-              
             }
-            function calculateRegularPolyhedronVolume(n1, e1) {
+            
+            /*function calculateRegularPolygonArea(n1, s1) {
+
+            }*/
+            /*/*function calculateRegularPolyhedronVolume(n1, e1) {
               var n = document.getElementById("facesCRPV").value;
               var s = document.getElementById("lengthCRPV").value;
               if (n1 != undefined) {
@@ -595,7 +649,7 @@
               if (e1 != undefined) {
                 s = e1;
               }
-              
+
               if ((n == 4 || n == 6 || n == 8 || n == 12 || n == 20) && s > 0) {
                 switch (parseInt(n)) {
                   case 4:
@@ -628,7 +682,7 @@
                       var volume = (2/3) * calculateRegularPolygonArea(4, s) * s;
                       break;
                     case 20:
-                      var volume = (4/3) * calculateRegularPolygonArea(5, s) * s;                      
+                      var volume = (4/3) * calculateRegularPolygonArea(5, s) * s;
                   }
                 }
                 else if (n == 6) {
@@ -638,13 +692,13 @@
                 else if (n == 12) {
                   var k = 5;
                   var volume = 4 * calculateRegularPolygonArea(5, s) * s;
-                }*/
+                }*//*
                 document.getElementById("volumeCRPV").innerText = volume;
               }
               else {
                 document.getElementById("volumeCRPV").innerText = "Invalid inputs.";
               }
-            }
+            }*/
           </script>
         </div>
       </div>
@@ -687,7 +741,7 @@
     </div>
 
     <nav class="nav-bar">
-      <div class="nav-item" data-target="#learn">
+      <div class="nav-item" data-target="#learn" id="homeTab">
         <i class="fa-solid fa-book-open"></i>
         Learn
       </div>
