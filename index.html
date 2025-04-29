@@ -541,7 +541,7 @@
           <hr />
           <div id="pascalsSimplex" onmouseover="pascal.calc();">
             <h2>Pascal's <var>m</var>-simplex</h2>
-            Dimension (&#x2265;2):
+            Dimension &#x2115;(m&#x2265;2):
             <input
               type="number"
               min="2"
@@ -608,9 +608,17 @@
                 adC.innerHTML = "";
                 if (noD < 2) {
                   adC.innerHTML = "Invalid dimension.";
-                } 
+                }
+                for (var i = 0; i <= noD - 2; i++) {
+                  adC.innerHTML += '<br/><var>n</var><sub>' + i + '</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>' + i + '</sub> <u>&lt;</u> <var>n</var><sub>' + (i+1) + '</sub>): <input type="number" min="0" id="n' + i + 'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                }
+                adC.innerHTML += '<br/><var>n</var><sub>' + (noD-1) + '</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>' + (noD-1) + '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' + (noD-1) + 'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+              },
+              fixMax: function () {
+                var noD = Number(document.getElementById("dimensionsCPS").value);
                 for (var i = 0; i <= noD - 1; i++) {
-                  adC.innerHTML += '<br/>n<sub>' + i + '</sub> (&#x2265;0): <input type="number" min="0" id="n' + i + 'CPS" value="2" step="1"/>';
+                  var z = Number(document.querySelector("n" + (i+1) + "CPS").value);
+                  document.querySelector("n" + i + "CPS").max = z;
                 }
               },
               factorial: function (n) {
