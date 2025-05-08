@@ -9,7 +9,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    
+
     <link href="noedit.sigma.css" rel="stylesheet" type="text/css" />
     <style>
       #bgcontainer {
@@ -162,9 +162,7 @@
       }
     </style>
   </head>
-  <body
-    onload="document.querySelector('#homeTab').click(); pascal.addDimension();"
-  >
+  <body onload="document.querySelector('#homeTab').click();">
     <div id="bgcontainer"></div>
     <div class="container">
       <!-- Learn Section -->
@@ -237,25 +235,40 @@
             ></textarea>
             <button id="submitBtnM">Submit Text</button>
           </div>
-          <div id="memoriseInterface" style="display: none">
+          <div
+            id="memoriseInterface"
+            style="display: none"
+            onmouseover="document.querySelector('#memBox').focus();"
+          >
             <div id="memShow" style="border: 1px double grey; padding: 9pt">
-              <b>|</b>
+              <b> | </b>
             </div>
             <hr />
             <div contenteditable id="memBox" style="color: transparent"></div>
+            <style>
+              #memBox:focus {
+                outline: 0;
+                border: 0;
+                cursor: vertical-text;
+              }
+            </style>
             <p>Count: <span id="charCount">0</span> characters</p>
             <div id="wrongsM"></div>
           </div>
 
           <script>
-            /*var memText = "Lorem ipsum";
+            var memText = "Lorem ipsum";
             var memPrac = document.getElementById("memBox").innerText.trim();
             var charCount = 0;
             var oldCharCount = 0;
             var newOldCharCount = 0;
+            var memShow = false;
+            var memDone = false;
+            var memWrongs = 0;
             document
               .querySelector("#submitBtnM")
               .addEventListener("click", function () {
+                memShow = true;
                 $("#memoriseHome").fadeOut(1000);
                 $("#memoriseInterface").fadeIn(2000);
                 memText = document.getElementById("memoriseBoxM").value.trim();
@@ -272,7 +285,7 @@
               });
             document
               .querySelector("#memBox")
-              .addEventListener("keydown", function (e) {
+              .addEventListener("input", function (e) {
                 if (
                   event.key === "ArrowUp" ||
                   event.key === "ArrowDown" ||
@@ -304,9 +317,45 @@
                       .innerText.slice(-1, charCount);
                     document.querySelector("#memShow").innerHTML =
                       memBoxA + "<u style='color: red;'>" + memBoxB + "</u>";
+                    memWrongs += 1;
                   }
                 }
-              });*/
+                if (
+                  memShow === true &&
+                  memPrac.trim().length >= memText.trim().length
+                ) {
+                  var þ = document.querySelector("#wrongsM").innerHTML;
+                  var itD = 0;
+                  if (
+                    memPrac.trim().length == memText.trim().length &&
+                    itD == 0
+                  ) {
+                    if (memWrongs != 0) {
+                      document.querySelector("#wrongsM").innerHTML =
+                      "<strong style='color: green;'>DONE</strong><br/><p><small>" +
+                      memWrongs +
+                      " total mistakes</small><hr/>" +
+                      þ;
+                    }
+                    else {
+                      document.querySelector("#wrongsM").innerHTML =
+                      "<strong style='color: green;'>DONE</strong><br/><p><small style='cursor: n-resize;'>No mistakes&#x203c;</small>"
+                    }
+                    itD += 1;
+                    memDone = true;
+                  } else if (memPrac.trim().length > memText.trim().length) {
+                    document.querySelector("#wrongsM").innerHTML =
+                      "<strong style='color: brown;'>OVERFLOW</strong><br/>" +
+                      þ;
+                  }
+                }
+                if (memDone === true) {
+                  document.activeElement.blur();
+                  document.querySelector("#memBox").innerHTML = memText;
+                  document.querySelector("#memBox").style.display = "none";
+                  document.querySelector("#memBox").contenteditable = "false";
+                }
+              });
           </script>
         </div>
       </div>
@@ -458,12 +507,15 @@
                 );
                 var adC = document.getElementById("addDimensionsCPS");
                 adC.innerHTML = "";
-                if (noD < 2) {
+                if (noD < 1) {
                   adC.innerHTML = "Invalid dimension.";
                 }
                 for (var i = 0; i <= noD - 2; i++) {
+                  if (i != 0) {
+                    adC.innerHTML += "<br/>";
+                  }
                   adC.innerHTML +=
-                    "<br/><var>n</var><sub>" +
+                    "<var>n</var><sub>" +
                     i +
                     "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
                     i +
@@ -471,7 +523,7 @@
                     (i + 1) +
                     '</sub>): <input type="number" min="0" id="n' +
                     i +
-                    'CPS" value="2" step="1" onkeyup="pascal.fixMax();"/>';
+                    'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
                 }
                 adC.innerHTML +=
                   "<br/><var>n</var><sub>" +
@@ -480,7 +532,7 @@
                   (noD - 1) +
                   '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' +
                   (noD - 1) +
-                  'CPS" value="2" step="1" onkeyup="pascal.fixMax();"/>';
+                  'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
               },
               fixMax: function () {
                 var noD = Number(
@@ -507,7 +559,22 @@
               calc: function () {
                 var m = Number(document.getElementById("dimensionsCPS").value);
                 var a = 1;
-                for (var p = 1; p <= m - 1; p++) {
+                var cont = true;
+                for (var i = 0; i <= m - 1; i++) {
+                  var first = document.querySelector("#n" + i + "CPS").value;
+                  var second = Infinity;
+                  if (i + 1 != m) {
+                    second = document.querySelector(
+                      "#n" + (i + 1) + "CPS"
+                    ).value;
+                  }
+                  if (first > second || first < 0) {
+                    cont = false;
+                    a = "Invalid inputs.";
+                    break;
+                  }
+                }
+                for (var p = 1; p <= m - 1 && cont == true; p++) {
                   var np = Number(
                     document.getElementById("n" + p + "CPS").value
                   );
@@ -522,6 +589,9 @@
                 document.getElementById("valueCPS").innerText = a;
               },
             };
+            $(document).ready(() => {
+              pascal.addDimension();
+            });
             var trig = {
               /*pythagorean: function () {
                 if (
@@ -554,13 +624,13 @@
                 } else {
                   document.getElementById("bPT").value = "Error";
                 }
-                
+
               },*/
             }; /*
 
             /*function calculateRegularPolygonArea(n1, s1) {
 
-            }*/
+            }*/ /*
             /*/*function calculateRegularPolyhedronVolume(n1, e1) {
               var n = document.getElementById("facesCRPV").value;
               var s = document.getElementById("lengthCRPV").value;
