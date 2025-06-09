@@ -162,7 +162,7 @@
       }
     </style>
   </head>
-  <body onload="document.querySelector('#homeTab').click();">
+  <body>
     <div id="bgcontainer"></div>
     <div class="container">
       <!-- Learn Section -->
@@ -219,46 +219,50 @@
       <div id="memorise" class="content-section">
         <h1 class="page-title">Memorise</h1>
         <div class="desk-paper">
-          <!-- Memorise content here -->
-          <div id="memoriseHome">
-            <strong>paste below what you'd like to memorise:</strong>
-            <br />
-            <textarea
-              id="memoriseBoxM"
-              style="
-                width: 100%;
-                height: 100px;
-                font-family: times;
-                font-size: 12pt;
-                padding: 8pt;
-              "
-            ></textarea>
-            <button id="submitBtnM">Submit Text</button>
-          </div>
-          <div
-            id="memoriseInterface"
-            style="display: none"
-            onmouseover="document.querySelector('#memBox').focus();"
-          >
-            <div id="memShow" style="border: 1px double grey; padding: 9pt">
-              <b> | </b>
+          <div id='dpM-sans-script'>
+            <!-- Memorise content here -->
+            <div id="memoriseHome">
+              <strong>paste below what you'd like to memorise:</strong>
+              <br />
+              <textarea
+                id="memoriseBoxM"
+                style="
+                  width: 100%;
+                  height: 100px;
+                  font-family: times;
+                  font-size: 12pt;
+                  padding: 8pt;
+                "
+              ></textarea>
+              <button id="submitBtnM">Submit Text</button>
             </div>
-            <hr />
-            <div contenteditable id="memBox" style="color: transparent"></div>
-            <style>
-              #memBox:focus {
-                outline: 0;
-                border: 0;
-                cursor: vertical-text;
-              }
-            </style>
-            <p>Count: <span id="charCount">0</span> characters</p>
-            <div id="wrongsM"></div>
+            <div
+              id="memoriseInterface"
+              style="display: none"
+              onmouseover="document.querySelector('#memBox').focus();"
+            >
+              <div id="memShow" style="border: 1px double grey; padding: 9pt">
+                <b style="font-family: courier; color: navy">|</b>
+              </div>
+              <hr />
+              <div contenteditable id="memBox" style="color: transparent"></div>
+              <style>
+                #memBox:focus {
+                  outline: 0;
+                  border: 0;
+                  cursor: vertical-text;
+                }
+              </style>
+              <p>Count: <span id="charCount">0</span> characters</p>
+              <div id="wrongsM"></div>
+              <button id='resetBtnM'>Reset</button>
+            </div>
           </div>
 
           <script>
             var memText = "Lorem ipsum";
             var memPrac = document.getElementById("memBox").innerText.trim();
+            var memPracU = document.getElementById("memBox").innerText;
             var charCount = 0;
             var oldCharCount = 0;
             var newOldCharCount = 0;
@@ -272,6 +276,20 @@
                 $("#memoriseHome").fadeOut(1000);
                 $("#memoriseInterface").fadeIn(2000);
                 memText = document.getElementById("memoriseBoxM").value.trim();
+              });
+            document
+              .querySelector("#resetBtnM")
+              .addEventListener("click", function () {
+                memText = "Lorem ipsum";
+                memPrac = document.getElementById("memBox").innerText.trim();
+                memPracU = document.getElementById("memBox").innerText;
+                charCount = 0;
+                oldCharCount = 0;
+                newOldCharCount = 0;
+                memShow = false;
+                memDone = false;
+                memWrongs = 0;
+                document.querySelector('#dpM-sans-script').innerHTML = '<div id=memoriseHome><strong>paste below what you&#x0027;d like to memorise:</strong><br><textarea id=memoriseBoxM style=width:100%;height:100px;font-family:times;font-size:12pt;padding:8pt></textarea> <button id=submitBtnM>Submit Text</button></div><div id=memoriseInterface style=display:none onmouseover="document.querySelector("#memBox").focus()"><div id=memShow style="border:1px double grey;padding:9pt"><b style=font-family:courier;color:navy>|</b></div><hr><div id=memBox style=color:transparent contenteditable></div><style>#memBox:focus{outline:0;border:0;cursor:vertical-text}</style><p>Count: <span id=charCount>0</span> characters<div id=wrongsM></div><button id=resetBtnM>Reset</button></div>';
               });
             document
               .querySelector("#memoriseInterface")
@@ -294,13 +312,15 @@
                 ) {
                   e.preventDefault();
                 } else {
-                  memPrac = document.getElementById("memBox").innerText.trim();
+                  memPracU = document.getElementById("memBox").innerText;
+                  memPrac = memPracU.trim();
                   document.querySelector("#memShow").innerHTML =
-                    memPrac + "<b>|</b>";
+                    memPracU +
+                    "<b style='font-family: courier; color: navy;'>|</b>";
                   //document.querySelector('#memBox').innerHTML = memPrac;
                   // move cursor to end
                   oldCharCount = charCount;
-                  charCount = memPrac.trim().length;
+                  charCount = memPrac.length;
                   document.getElementById("charCount").innerText = charCount;
                   if (
                     charCount != 0 &&
@@ -322,28 +342,24 @@
                 }
                 if (
                   memShow === true &&
-                  memPrac.trim().length >= memText.trim().length
+                  memPracU.length >= memText.length
                 ) {
                   var þ = document.querySelector("#wrongsM").innerHTML;
                   var itD = 0;
-                  if (
-                    memPrac.trim().length == memText.trim().length &&
-                    itD == 0
-                  ) {
+                  if (memPrac.length == memText.length && itD == 0) {
                     if (memWrongs != 0) {
                       document.querySelector("#wrongsM").innerHTML =
-                      "<strong style='color: green;'>DONE</strong><br/><p><small>" +
-                      memWrongs +
-                      " total mistakes</small><hr/>" +
-                      þ;
-                    }
-                    else {
+                        "<strong style='color: green;'>DONE</strong><br/><p><small>" +
+                        memWrongs +
+                        " total mistakes</small><hr/>" +
+                        þ;
+                    } else {
                       document.querySelector("#wrongsM").innerHTML =
-                      "<strong style='color: green;'>DONE</strong><br/><p><small style='cursor: n-resize;'>No mistakes&#x203c;</small>"
+                        "<strong style='color: green;'>DONE</strong><br/><p><small style='cursor: n-resize;'>No mistakes&#x203c;</small>";
                     }
                     itD += 1;
                     memDone = true;
-                  } else if (memPrac.trim().length > memText.trim().length) {
+                  } else if (memPrac.length > memText.length) {
                     document.querySelector("#wrongsM").innerHTML =
                       "<strong style='color: brown;'>OVERFLOW</strong><br/>" +
                       þ;
@@ -362,9 +378,86 @@
 
       <!-- Study Section -->
       <div id="study" class="content-section">
-        <h1 class="page-title">Study Tools</h1>
+        <h1 class="page-title">Parse</h1>
         <div class="desk-paper">
-          <p>Study tools coming soon</p>
+          <strong>enter your text to parse in simple sentences:</strong><br />
+          <textarea
+            id="parseBoxP"
+            style="
+              width: 100%;
+              height: 100px;
+              font-family: times;
+              font-size: 12pt;
+              padding: 8pt;
+            "
+          ></textarea>
+          <button id="submitBtnP">Submit Text</button>
+          <div style="border: 1px solid black" id="resultBoxP"></div>
+          <script>
+            document
+              .querySelector("#submitBtnP")
+              .addEventListener("click", function (e) {
+                var a = document
+                  .querySelector("#parseBoxP")
+                  .value
+                  .replaceAll("!", ".")
+                  .replaceAll("?", ".")
+                  .replaceAll(";", ".")
+                  .toLowerCase()
+                  .replaceAll(/[^a-zA-Z0-9.!?,;\s]/g, "");
+                var b = a
+                  .replace(/\. /g, ".")
+                  .replace(/\. /g, ",")
+                  .replaceAll(/\. /g, "!")
+                  .replaceAll(/\. /g, "?")
+                  .replaceAll(/\. /g, ";");
+                // Arrays
+                var c = b.split(".");
+                var verb = [];
+                var questionTF = [];
+                // Initial Reset
+                document.querySelector("#resultBoxP").innerHTML = "";
+                for (var i = 0; i < c.length; i += 1) {
+                  document.querySelector("#resultBoxP").innerHTML +=
+                    c[i] + "<br/>";
+                }
+                document.querySelector("#resultBoxP").innerHTML += "<hr/>Verbs:<br/>";             
+                for (var i = 0; i < c.length; i += 1) {
+                  var d = nlp(c[i]).verbs().text();
+                  verb.push(d);
+                  document.querySelector("#resultBoxP").innerHTML += d + "<br/>"
+                }
+                document.querySelector("#resultBoxP").innerHTML += "<hr/>True-False Questions:<br/>";
+                for (var i = 0; i < verb.length; i += 1) {
+                  var e;
+                  if (verb[i] == "is" || verb[i] == "are" || verb[i] == "am" || verb[i] == "was" || verb[i] == "were" || verb[i] == "isnt" || verb[i] == "arent" || verb[i] == "aint" || verb[i] == "wasnt" || verb[i] == "werent") {
+                    e = verb[i] + " " + nlp(c[i]).nouns().text() + "?";
+                  }
+                  else {
+                    var eStart = "Does";
+                    /*if (nlp(c[i]).nouns().text().isPlural().out('array')[0] != undefined) {
+                      eStart = "Do";
+                    }*/
+                    e = eStart + " " + nlp(c[i]).nouns().eq(0).text() + " " + nlp(c[i]).verbs().text() + " " + nlp(c[i]).nouns().eq(1).text() + "?";
+                  }
+                  questionTF.push(e);
+                  document.querySelector("#resultBoxP").innerHTML += e + "<br/>"
+                }
+                // document.querySelector("#resultBoxP").innerHTML += "<hr/>Questions:<br/>";
+                // var e = Math.random();
+                /*if (e <= 0.33) {
+                  // True-false question 1/3 of the time
+                  for (var i = 0; i < verb.length; i += 1) {
+                    var f = "Does " + nlp(c[i].verbs().text()) + verb[i] + "?";
+                    questions.push(f);
+                    document.querySelector("#resultBoxP").innerHTML += f + "<br/>";
+                  }
+                }
+                else {
+                  
+                }*/
+              });
+          </script>
         </div>
       </div>
 
@@ -736,23 +829,23 @@
         <i class="fa-solid fa-book-open"></i>
         Learn
       </div>
-      <div class="nav-item" data-target="#memorise">
+      <div class="nav-item" data-target="#memorise" id="memoriseTab">
         <i class="fa-solid fa-brain"></i>
         Memorise
       </div>
-      <div class="nav-item" data-target="#study">
+      <div class="nav-item" data-target="#study" id="studyTab">
         <i class="fa-solid fa-pencil"></i>
         Study
       </div>
-      <div class="nav-item" data-target="#compete">
+      <div class="nav-item" data-target="#compete" id="competeTab">
         <i class="fa-solid fa-fighter-jet"></i>
         Compete
       </div>
-      <div class="nav-item" data-target="#calculator">
+      <div class="nav-item" data-target="#calculator" id="calculatorTab">
         <i class="fa-solid fa-calculator"></i>
         Calculator
       </div>
-      <div class="nav-item" data-target="#settings">
+      <div class="nav-item" data-target="#settings" id="settingsTab">
         <i class="fa-solid fa-gears"></i>
         Settings
       </div>
@@ -1117,7 +1210,27 @@
               $("body").removeClass("dark");
             }
           });
+        if (
+          window.location.href.indexOf("#home") > -1 ||
+          window.location.href.indexOf("learn") > -1
+        ) {
+          document.querySelector("#homeTab").click();
+        } else if (
+          window.location.href.indexOf("#memorise") > -1 ||
+          window.location.href.indexOf("memorize") > -1
+        ) {
+          document.querySelector("#memoriseTab").click();
+        } else if (window.location.href.indexOf("#study") > -1) {
+          document.querySelector("#studyTab").click();
+        } else if (window.location.href.indexOf("#compete") > -1) {
+          document.querySelector("#memoriseTab").click();
+        } else if (window.location.href.indexOf("#calculator") > -1) {
+          document.querySelector("#calculatorTab").click();
+        } else {
+          document.querySelector("#homeTab").click();
+        }
       });
     </script>
+    <script src="noedit.compromise.js"></script>
   </body>
 </html>
