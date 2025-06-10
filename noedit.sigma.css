@@ -342,22 +342,38 @@ table tbody tr:nth-child(odd) a {
   color: dimgrey;
   text-decoration: none;
 }
-table tbody tr:nth-child(even) td:nth-child(1):hover,
-table tbody tr:nth-child(even) td:nth-child(1):hover a {
+
+table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover,
+table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover a {
   text-decoration: underline;
   color: whitesmoke;
   cursor: pointer;
 }
-table tbody tr:nth-child(odd) td:nth-child(1):hover,
-table tbody tr:nth-child(odd) td:nth-child(1):hover a {
+table:not(.non) tbody tr:nth-child(odd) td:nth-child(1):hover,
+table:not(.non) tbody tr:nth-child(odd) td:nth-child(1):hover a {
   text-decoration: underline;
   color: darkgrey;
   cursor: pointer;
 }
-table#langTable tbody tr td:nth-child(4) p:nth-child(1),
-table#langTable tbody tr td:nth-child(4) p:nth-child(3) {
+table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(1),
+table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
   background-color: #d0d0d0;
 }
 abbr {
   cursor: help;
+}
+
+canvas {
+  background-color: white;
+}
+
+input[type=text], input[type=number], input[type=email] {
+  border-radius: 14px;
+  outline: none;
+  text-align: center;
+  font-family: Geneva, Verdana, sans-serif;
+  height: 24pt;
+  font-size: 11pt;
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px 1px rgba(74, 41, 94, 0.125), inset 1px 1px 1px 1px rgba(84, 56, 123, 0.125);
 }
