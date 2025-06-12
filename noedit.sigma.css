@@ -367,7 +367,8 @@ canvas {
   background-color: white;
 }
 
-input[type=text], input[type=number], input[type=email] {
+/* Text input styles */
+input[type=text], input[type=number], input[type=email], input[type=password] {
   border-radius: 14px;
   outline: none;
   text-align: center;
@@ -376,4 +377,22 @@ input[type=text], input[type=number], input[type=email] {
   font-size: 11pt;
   border: 1px solid black;
   box-shadow: 1px 1px 1px 1px rgba(74, 41, 94, 0.125), inset 1px 1px 1px 1px rgba(84, 56, 123, 0.125);
+}
+
+/* Link styles */
+a {
+  text-decoration: none;
+  color: #ba90d5;
+}
+a:hover {
+  color: #c094db
+  text-decoration: underline;
+}
+a:active {
+  color: #9047bd;
+  text-decoration: underline;
+}
+a:visited {
+  color: #a070be;
+  text-decoration: none;
 }
