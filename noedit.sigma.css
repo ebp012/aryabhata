@@ -384,6 +384,14 @@ a {
   text-decoration: none;
   color: #ba90d5;
 }
+@media (prefers-color-scheme: dark) {
+  a {
+    color: #694480;
+  }
+  a:hover, a:visited {
+    text-shadow: 1px 1px 1px 2px;
+  }
+}
 a:hover {
   color: #c094db
   text-decoration: underline;
