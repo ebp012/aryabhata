@@ -1,4 +1,3 @@
-
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
@@ -157,10 +156,12 @@ h3 {
 @keyframes fadeIn {
   from {
     opacity: 0;
+    filter: blur(6.3px);
     transform: translateY(10px);
   }
   to {
     opacity: 1;
+    filter: none;
     transform: translateY(0);
   }
 }
@@ -196,6 +197,7 @@ h3 {
     overflow-x: auto;
     overflow-y: none;
   }
+  .nav-bar:before, .nav-bar:after {padding: 20px;}
 }
 @media (min-width: 1024px) {
   /* iPad Mini landscape width is 1024px */
@@ -234,6 +236,11 @@ h3 {
   }
   .nav-item:hover {
     transform: translateY(-1.375px);
+    transition: transform 0.45s ease-in-out;
+  }
+  .nav-item:active,
+  .nav-item.active-state {
+    transform: translateY(1px);
     transition: transform 0.45s ease-in-out;
   }
 }
@@ -300,11 +307,6 @@ h3 {
       rgba(80, 80, 80, 0.9) 0%,
       rgba(100, 100, 100, 0.9) 100%
     );
-  }
-  .nav-item:active,
-  .nav-item.active-state {
-    transform: translateY(1px);
-    transition: transform 0.45s ease-in-out;
   }
 }
 
