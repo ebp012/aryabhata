@@ -1,3 +1,5 @@
+
+/* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
     src: ('futura.ttf'), format('truetype');
@@ -323,19 +325,25 @@ h3 {
   display: none;
 }
 
+table {
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.47);
+}
 table,
-table * tr td {
+table * tr td, table tr td {
   border-collapse: collapse;
   width: auto;
-  border: 1px solid black;
   margin: 24px;
   padding: 14px;
   text-align: center;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25), 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 table thead td {
   font-weight: bold;
-  background-color: darkslategrey;
+  /*darkslategrey*/
+  background-color: rgba(47, 79, 79, 0.48);
   color: white;
+  backdrop-filter: blur(6.3px);
 }
 table * tr:nth-child(even),
 table * tr:nth-child(even) a {
@@ -375,15 +383,64 @@ canvas {
 }
 
 /* Text input styles */
-input[type=text], input[type=number], input[type=email], input[type=password] {
+input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
   border-radius: 14px;
   outline: none;
   text-align: center;
   font-family: Geneva, Verdana, sans-serif;
-  height: 24pt;
+  min-height: 24pt;
   font-size: 11pt;
-  border: 1px solid black;
-  box-shadow: 1px 1px 1px 1px rgba(74, 41, 94, 0.125), inset 1px 1px 1px 1px rgba(84, 56, 123, 0.125);
+  background: rgba(246, 255, 248, 0.48);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25);
+  backdrop-filter: blur(6.3px);
+  -webkit-backdrop-filter: blur(6.3px);
+  border: 1px solid rgba(255, 255, 255, 0.51);
+  overflow-x: scroll;
+}
+textarea {overflow-x: none;}
+input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input[type=password]:hover, select:hover, option:hover, textarea:hover {
+  background: linear-gradient(to bottom, rgba(246, 255, 248, 0.48), rgba(243, 231, 254, 0.48), rgba(246, 255, 248, 0.48));
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.51);
+}
+input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, select:active, option:active, textarea:active {
+  background: rgba(243, 231, 254, 0.48);
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(74, 46, 113, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.51);
+}
+
+/* Button styles */
+button, input[type=button], input[type=submit], canvas {
+  border-radius: 9px;
+  text-align: center;
+  font-family: Geneva, Verdana, sans-serif;
+  min-height: 24pt;
+  font-size: 11pt;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  background: rgba(210, 159, 238, 0.48);
+  box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.21), 2px 2px 3px 1px rgba(84, 56, 123, 0.3);
+  backdrop-filter: blur(6.3px);
+  -webkit-backdrop-filter: blur(6.3px);
+  border: 1px solid rgba(244, 244, 244, 0.51);
+  outline: 0.33px solid rgba(255, 255, 255, 0.51);
+  cursor: pointer;
+}
+button:hover, input[type=button]:hover, input[type=submit]:hover, canvas:hover {
+  background: linear-gradient(to bottom, rgba(210, 159, 238, 0.48), rgba(211, 176, 219, 0.48), rgba(210, 159, 238, 0.48));
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.51);
+}
+button:active, input[type=button]:active, input[type=submit]:active {
+  background: rgba(224, 206, 241, 0.48);
+  color: indigo;
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(74, 46, 113, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.51);
 }
 
 /* Link styles */
@@ -410,4 +467,10 @@ a:active {
 a:visited {
   color: #a070be;
   text-decoration: none;
+}
+
+/* Canvas Styles */
+canvas {
+  background-color: white;
+  cursor: default;
 }
