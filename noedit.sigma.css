@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'futura';
+    font-family: 'futurae';
     src: ('https://ebp012.github.io/aeonic/assets/Futura.ttf'), format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -13,7 +13,7 @@
 
 body {
   background-image: url("https://img.freepik.com/free-photo/old-brown-paper-texture-background_1373-431.jpg");
-  font-family: futura, "Georgia", serif;
+  font-family: futurae, "Georgia", serif;
   background-size: cover;
   min-height: 100vh;
 }
