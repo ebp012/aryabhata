@@ -239,7 +239,7 @@ h3 {
     transition: transform 0.45s ease-in-out;
   }
   .nav-item:active,
-  .nav-item.active-state {
+  .nav-item.active-state, .nav-item.active {
     transform: translateY(1px);
     transition: transform 0.45s ease-in-out;
   }
