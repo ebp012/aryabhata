@@ -1,3 +1,8 @@
+td {padding: 27px;}
+tr.merged td:not(:nth-child(1)) {border: none;}
+table * tr:not(:nth-child(2)) td {text-align: center;}
+
+
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
@@ -121,7 +126,9 @@ body {
 }
 
 .nav-item:hover i {
-  transform: scale(1.1);
+  /*transform: scale(1.1);*/
+  color: white;
+  text-shadow: 0 0 8px rgba(252, 227, 248, 0.72);
 }
 
 .content-section {
@@ -192,8 +199,6 @@ h3 {
     left: 20px;
     right: 20px;
     padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     overflow-x: auto;
     overflow-y: none;
   }
@@ -240,7 +245,7 @@ h3 {
   }
   .nav-item:active,
   .nav-item.active-state, .nav-item.active {
-    transform: translateY(1px);
+    /*transform: translateY(1px);*/
     transition: transform 0.45s ease-in-out;
   }
 }
@@ -458,7 +463,6 @@ button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=fil
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
   border: 1.5px solid rgba(255, 255, 255, 0.51);
-  transform: scale(0.975);
 }
 button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active {
   background: rgba(153, 126, 179, 0.48);
