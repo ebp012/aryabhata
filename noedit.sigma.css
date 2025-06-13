@@ -228,7 +228,7 @@ h3 {
   .nav-item i {
     font-size: 28px;
   }
-  .nav-bar:hover {
+  .nav-item:hover {
     transform: translateY(-1.375px);
     transition: transform 0.45s ease-in-out;
   }
@@ -259,6 +259,7 @@ h3 {
       ),
       url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
     border-color: #666;
+    box-shadow: inset 2px 2px 3px 1px rgba(166, 132, 73, 0.375)
   }
 
   .nav-bar {
