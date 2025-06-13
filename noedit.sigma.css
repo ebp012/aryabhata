@@ -56,14 +56,6 @@ body {
   overflow-y: none;
   backdrop-filter: blur(6.3px);
 }
-@media (max-width: 1024px) {
-  .nav-bar{
-    width: calc(100%-40px);
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-  }
-}
 
 .nav-item {
   text-align: center;
@@ -87,8 +79,7 @@ body {
 }
 
 .nav-item:hover {
-  transform: translateY(-2px);
-  transition: transform 0.45s ease-in-out, background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   background: linear-gradient(
@@ -140,7 +131,7 @@ body {
   background: rgba(255, 255, 255, 0.64);
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #99663386;
   min-height: 400px;
   line-height: 1.8;
@@ -193,6 +184,15 @@ h3 {
   font-size: 14pt;
   overflow-x: auto;
 }
+@media (max-width: 1024px) {
+  .nav-bar {
+    width: calc(100%-40px);
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 20px;
+  }
+}
 @media (min-width: 1024px) {
   /* iPad Mini landscape width is 1024px */
   .nav-bar {
@@ -227,6 +227,10 @@ h3 {
 
   .nav-item i {
     font-size: 28px;
+  }
+  .nav-bar:hover {
+    transform: translateY(-1.375px);
+    transition: transform 0.45s ease-in-out;
   }
 }
 
@@ -391,7 +395,7 @@ input[type=text], input[type=number], input[type=email], input[type=password], s
   border-radius: 14px;
   outline: none;
   text-align: center;
-  font-family: Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
   min-height: 24pt;
   font-size: 11pt;
   background: rgba(246, 255, 248, 0.48);
@@ -422,7 +426,7 @@ input[type=text]:active, input[type=number]:active, input[type=email]:active, ac
 button, input[type=button], input[type=submit], canvas {
   border-radius: 9px;
   text-align: center;
-  font-family: Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
   min-height: 24pt;
   font-size: 11pt;
   padding-left: 10px;
@@ -438,12 +442,13 @@ button, input[type=button], input[type=submit], canvas {
 }
 button:hover, input[type=button]:hover, input[type=submit]:hover, canvas:hover {
   background: linear-gradient(to bottom, rgba(210, 159, 238, 0.48), rgba(211, 176, 219, 0.48), rgba(210, 159, 238, 0.48));
-  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
   border: 1.5px solid rgba(255, 255, 255, 0.51);
+  transform: scale(0.975);
 }
 button:active, input[type=button]:active, input[type=submit]:active {
-  background: rgba(224, 206, 241, 0.48);
+  background: rgba(153, 126, 179, 0.48);
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(74, 46, 113, 0.25);
