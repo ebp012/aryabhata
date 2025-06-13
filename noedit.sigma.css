@@ -41,11 +41,7 @@ body {
 
 .nav-bar {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
   border-radius: 20px;
-  width: calc(100%-40px);
   height: 80px;
   background: linear-gradient(
       rgba(200, 200, 200, 0.64),
@@ -59,6 +55,14 @@ body {
   overflow-x: auto;
   overflow-y: none;
   backdrop-filter: blur(6.3px);
+}
+@media (max-width: 1024px) {
+  .nav-bar{
+    width:calc(100%-40px);
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+  }
 }
 
 .nav-item {
@@ -84,6 +88,7 @@ body {
 
 .nav-item:hover {
   transform: translateY(-2px);
+  transition: transform 0.45s ease-in-out, background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   background: linear-gradient(
@@ -96,6 +101,7 @@ body {
 .nav-item:active,
 .nav-item.active-state {
   transform: translateY(1px);
+  transition: transform 0.45s ease-in-out, background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1),
     inset 0 2px 4px rgba(0, 0, 0, 0.1);
   background: linear-gradient(
