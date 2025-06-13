@@ -91,8 +91,7 @@ body {
 
 .nav-item:active,
 .nav-item.active-state {
-  transform: translateY(1px);
-  transition: transform 0.45s ease-in-out, background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1),
     inset 0 2px 4px rgba(0, 0, 0, 0.1);
   background: linear-gradient(
@@ -180,9 +179,10 @@ h3 {
   border-radius: 5px;
   border: 1px solid #cc9966;
   /*box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);*/
-  box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.2), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.25), 0 4px 27px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.25), 0 4px 27px rgba(0, 0, 0, 0.1);
   font-size: 14pt;
   overflow-x: auto;
+  overflow-y: scroll;
 }
 @media (max-width: 1024px) {
   .nav-bar {
@@ -191,6 +191,10 @@ h3 {
     left: 20px;
     right: 20px;
     padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    overflow-y: none;
   }
 }
 @media (min-width: 1024px) {
@@ -259,7 +263,7 @@ h3 {
       ),
       url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
     border-color: #666;
-    box-shadow: inset 2px 2px 3px 1px rgba(166, 132, 73, 0.375)
+    box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.25), 0 4px 27px rgba(0, 0, 0, 0.1);
   }
 
   .nav-bar {
@@ -279,6 +283,7 @@ h3 {
     border-color: rgba(70, 70, 70, 0.8);
     color: #e0e0e0;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    
   }
 
   .nav-item:hover {
@@ -295,6 +300,11 @@ h3 {
       rgba(80, 80, 80, 0.9) 0%,
       rgba(100, 100, 100, 0.9) 100%
     );
+  }
+  .nav-item:active,
+  .nav-item.active-state {
+    transform: translateY(1px);
+    transition: transform 0.45s ease-in-out;
   }
 }
 
@@ -424,7 +434,7 @@ input[type=text]:active, input[type=number]:active, input[type=email]:active, ac
 }
 
 /* Button styles */
-button, input[type=button], input[type=submit], canvas {
+button, input[type=button], input[type=submit], input[type=file], select[button=like], canvas {
   border-radius: 9px;
   text-align: center;
   font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
@@ -441,14 +451,14 @@ button, input[type=button], input[type=submit], canvas {
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   cursor: pointer;
 }
-button:hover, input[type=button]:hover, input[type=submit]:hover, canvas:hover {
+button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=file]:hover, select[button=like]:hover, canvas:hover {
   background: linear-gradient(to bottom, rgba(210, 159, 238, 0.48), rgba(211, 176, 219, 0.48), rgba(210, 159, 238, 0.48));
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
   border: 1.5px solid rgba(255, 255, 255, 0.51);
   transform: scale(0.975);
 }
-button:active, input[type=button]:active, input[type=submit]:active {
+button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active {
   background: rgba(153, 126, 179, 0.48);
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out;
@@ -470,7 +480,7 @@ a {
   }
 }
 a:hover {
-  color: #c094db
+  color: #c094db;
   text-decoration: underline;
 }
 a:active {
