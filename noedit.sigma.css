@@ -47,8 +47,7 @@ body {
   background: linear-gradient(
       rgba(200, 200, 200, 0.64),
       rgba(150, 150, 150, 0.64)
-    ),
-    url("https://www.toptal.com/designers/subtlepatterns/uploads/mirrored_squares.png");
+    );
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -197,8 +196,7 @@ h3 {
     background: linear-gradient(
         rgba(200, 200, 200, 0.6),
         rgba(150, 150, 150, 0.6)
-      ),
-      url("https://www.toptal.com/designers/subtlepatterns/uploads/mirrored_squares.png");
+      );
     padding: 20px 15px;
     border-radius: 20px;
     border: 2px solid #666;
