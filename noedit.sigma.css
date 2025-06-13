@@ -6,7 +6,7 @@ table * tr:not(:nth-child(2)) td {text-align: center;}
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
-    src: ('futura.ttf'), format('truetype');
+    src: ('futura.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
