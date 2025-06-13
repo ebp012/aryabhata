@@ -1,5 +1,4 @@
 
-
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
@@ -138,13 +137,14 @@ body {
 
 .content-section {
   display: none;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.64);
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid #996633;
+  border: 1px solid #99663386;
   min-height: 400px;
   line-height: 1.8;
+  backdrop-filter: blur(6.3px);
 }
 
 .content-section.active {
