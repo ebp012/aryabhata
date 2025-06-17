@@ -1,12 +1,8 @@
-td {padding: 27px;}
-tr.merged td:not(:nth-child(1)) {border: none;}
-table * tr:not(:nth-child(2)) td {text-align: center;}
-
 
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
-    src: ('futura.ttf') format('truetype');
+    src: url('futura.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -205,7 +201,7 @@ h3 {
   box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.25), 0 4px 27px rgba(0, 0, 0, 0.1);
   font-size: 14pt;
   overflow-x: auto;
-  overflow-y: scroll;
+  overflow-y: hidden;
   opacity: 83%;
   backdrop-filter: blur(6.3px);
   -webkit-backdrop-filter: blur(6.3px);
@@ -443,7 +439,7 @@ input[type=text], input[type=number], input[type=email], input[type=password], s
   backdrop-filter: blur(6.3px);
   -webkit-backdrop-filter: blur(6.3px);
   border: 1px solid rgba(255, 255, 255, 0.51);
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 textarea {
   overflow-x: none;
@@ -463,7 +459,7 @@ input[type=text]:active, input[type=number]:active, input[type=email]:active, ac
 }
 
 /* Button styles */
-button, input[type=button], input[type=submit], input[type=file], select[button=like], canvas, sculpture {
+button, input[type=button], input[type=submit], input[type=file], select[button=like], canvas, sculpture, ::-webkit-scrollbar-thumb {
   border-radius: 9px;
   text-align: center;
   font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
@@ -480,13 +476,13 @@ button, input[type=button], input[type=submit], input[type=file], select[button=
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   cursor: pointer;
 }
-button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=file]:hover, select[button=like]:hover, canvas:hover, sculpture:hover {
+button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=file]:hover, select[button=like]:hover, canvas:hover, sculpture:hover, ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, rgba(210, 159, 238, 0.48), rgba(211, 176, 219, 0.48), rgba(210, 159, 238, 0.48));
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
   border: 1.5px solid rgba(255, 255, 255, 0.51);
 }
-button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active {
+button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, ::-webkit-scrollbar-thumb:active {
   background: rgba(153, 126, 179, 0.48);
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out;
@@ -524,4 +520,22 @@ a:visited {
 canvas {
   background-color: white;
   cursor: default;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+  background: radial-gradient(ellipse at center, #b3a6da, rgba(160, 160, 160, 0.64), #b3a6da);
+  backdrop-filter: blur(6.3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
+}
+
+/* Accent colours */
+:root {
+  accent-color: rgb(143, 120, 181);
 }
