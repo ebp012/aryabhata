@@ -1,3 +1,7 @@
+td {padding: 27px;}
+tr.merged td:not(:nth-child(1)) {border: none;}
+table * tr:not(:nth-child(2)) td {text-align: center;}
+
 
 /* SIGMA.CSS */
 @font-face {
@@ -15,7 +19,7 @@
 
 body {
   background-image: url("https://img.freepik.com/free-photo/old-brown-paper-texture-background_1373-431.jpg");
-  font-family: futurae, "Georgia", serif;
+  font-family: "Georgia", serif;
   background-size: cover;
   min-height: 100vh;
 }
@@ -158,6 +162,10 @@ h2 {
 
 h3 {
   letter-spacing: 6px;
+}
+
+h1, h2, h3, h4, h5, h6, h7, h8 {
+  font-family: futurae, futura, georgia, serif;
 }
 
 @keyframes fadeIn {
