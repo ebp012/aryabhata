@@ -1,3 +1,7 @@
+td {padding: 27px;}
+tr.merged td:not(:nth-child(1)) {border: none;}
+table * tr:not(:nth-child(2)) td {text-align: center;}
+
 
 /* SIGMA.CSS */
 @font-face {
@@ -48,14 +52,13 @@ body {
       rgba(150, 150, 150, 0.64)
     );
   display: flex;
-  width: auto;
+  width: fit-content;
   justify-content: space-around;
   align-items: center;
   border: 2px solid #666;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(6.3px);
   -webkit-backdrop-filter: blur(6.3px);
-  padding: 20px;
 }
 
 .nav-item {
@@ -212,12 +215,15 @@ h3 {
     width: auto;
     bottom: 20px;
     left: 20px;
-    padding: 44px;
+    padding: 44px 5.5px;
     right: 20px;
     overflow-x: auto;
     overflow-y: hidden;
     animation: navIn 0.25s ease-in;
     flex-direction: row;
+  }
+  .nav-item {
+    gap: 11px;
   }
 }
 @media (min-width: 1024px) {
@@ -239,7 +245,6 @@ h3 {
     bottom: auto;
     overflow-x: hidden;
     overflow-y: auto;
-    animation: navIn 0.25s ease-out;
   }
 
   .container {
@@ -277,7 +282,7 @@ h3 {
   }
 
   .content-section {
-    background: rgba(50, 50, 50, 0.9);
+    background: rgba(50, 50, 50, 0.64);
     color: #e0e0e0;
   }
 
