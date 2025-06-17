@@ -1,3 +1,4 @@
+
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
@@ -47,14 +48,14 @@ body {
       rgba(150, 150, 150, 0.64)
     );
   display: flex;
+  width: auto;
   justify-content: space-around;
   align-items: center;
   border: 2px solid #666;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  overflow-x: auto;
-  overflow-y: none;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(6.3px);
-  z-index: 11; 
+  -webkit-backdrop-filter: blur(6.3px);
+  padding: 20px;
 }
 
 .nav-item {
@@ -73,10 +74,10 @@ body {
   border: 1px solid rgba(150, 150, 150, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  max-width: 80px;
+  max-width: 120px;
+  min-width: 60px;
   position: relative;
   overflow: hidden;
-  z-index: 12;
 }
 
 .nav-item:hover {
@@ -139,6 +140,8 @@ body {
   min-height: 400px;
   line-height: 1.8;
   backdrop-filter: blur(6.3px);
+  -webkit-backdrop-filter: blur(6.3px);
+  margin-bottom: 100px;
 }
 
 .content-section.active {
@@ -171,6 +174,17 @@ h3 {
   }
 }
 
+@keyframes navIn {
+  from {
+    filter: blur(3.15px);
+    transform: translateY(30px);
+  }
+  to {
+    filter: none;
+    transform: translateY(0);
+  }
+}
+
 .page-title {
   font-size: 2.5em;
   color: #442200;
@@ -189,18 +203,22 @@ h3 {
   font-size: 14pt;
   overflow-x: auto;
   overflow-y: scroll;
+  opacity: 83%;
+  backdrop-filter: blur(6.3px);
+  -webkit-backdrop-filter: blur(6.3px);
 }
 @media (max-width: 1024px) {
   .nav-bar {
-    width: calc(100%-40px);
+    width: auto;
     bottom: 20px;
     left: 20px;
+    padding: 44px;
     right: 20px;
-    padding: 20px;
     overflow-x: auto;
-    overflow-y: none;
+    overflow-y: hidden;
+    animation: navIn 0.25s ease-in;
+    flex-direction: row;
   }
-  .nav-bar:before, .nav-bar:after {padding: 20px;}
 }
 @media (min-width: 1024px) {
   /* iPad Mini landscape width is 1024px */
@@ -219,7 +237,9 @@ h3 {
     grid-template-columns: 1fr;
     gap: 15px;
     bottom: auto;
-    margin: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    animation: navIn 0.25s ease-out;
   }
 
   .container {
@@ -229,7 +249,6 @@ h3 {
   }
 
   .nav-item {
-    min-width: calc(25% - 20px);
     padding: 15px;
     border-radius: 15px;
   }
@@ -402,7 +421,7 @@ abbr {
   cursor: help;
 }
 
-canvas {
+canvas, sculpture {
   background-color: white;
 }
 
@@ -439,7 +458,7 @@ input[type=text]:active, input[type=number]:active, input[type=email]:active, ac
 }
 
 /* Button styles */
-button, input[type=button], input[type=submit], input[type=file], select[button=like], canvas {
+button, input[type=button], input[type=submit], input[type=file], select[button=like], canvas, sculpture {
   border-radius: 9px;
   text-align: center;
   font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
@@ -456,7 +475,7 @@ button, input[type=button], input[type=submit], input[type=file], select[button=
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   cursor: pointer;
 }
-button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=file]:hover, select[button=like]:hover, canvas:hover {
+button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=file]:hover, select[button=like]:hover, canvas:hover, sculpture:hover {
   background: linear-gradient(to bottom, rgba(210, 159, 238, 0.48), rgba(211, 176, 219, 0.48), rgba(210, 159, 238, 0.48));
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
