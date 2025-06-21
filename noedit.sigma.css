@@ -1,5 +1,4 @@
 
-
 /* SIGMA.CSS */
 @font-face {
     font-family: 'futurae';
@@ -62,8 +61,11 @@ html, body {
   align-items: center;
   border: 2px solid #666;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(6.3px);
-  -webkit-backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
+  -webkit-backdrop-filter: blur(8.1px);
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .nav-item {
@@ -89,7 +91,7 @@ html, body {
 }
 
 .nav-item:hover {
-  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   background: linear-gradient(
@@ -147,8 +149,8 @@ html, body {
   border: 1px solid #99663386;
   min-height: 400px;
   line-height: 1.8;
-  backdrop-filter: blur(6.3px);
-  -webkit-backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
+  -webkit-backdrop-filter: blur(8.1px);
   margin-bottom: 100px;
 }
 
@@ -176,7 +178,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    filter: blur(6.3px);
+    filter: blur(8.1px);
     transform: translateY(10px);
   }
   to {
@@ -216,8 +218,8 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   overflow-x: auto;
   overflow-y: hidden;
   opacity: 83%;
-  backdrop-filter: blur(6.3px);
-  -webkit-backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
+  -webkit-backdrop-filter: blur(8.1px);
 }
 @media (max-width: 1024px) {
   .nav-bar {
@@ -233,6 +235,14 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   }
   .nav-item {
     gap: 11px;
+  }
+  /* No mobile scrollbar gap */
+  ::-webkit-scrollbar {
+    width: 3px !important;
+    height: 3px !important;
+  }
+  .nav-item:active, .nav-item.active-state, .nav-item.active {
+    transition: transform 0.45s ease-out;
   }
 }
 @media (min-width: 1024px) {
@@ -255,7 +265,17 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
     overflow-x: hidden;
     overflow-y: auto;
   }
-
+  .nav-bar:before, .nav-item:before {
+    content: '';
+    background: radial-gradient(
+      ellipse at top left,
+      rgba(255, 255, 255, 0.25),
+      transparent 60%
+    );
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+  }
   .container {
     margin-left: 160px;
     padding: 40px;
@@ -326,7 +346,6 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
     border-color: rgba(70, 70, 70, 0.8);
     color: #e0e0e0;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    
   }
 
   .nav-item:hover {
@@ -400,7 +419,7 @@ table thead td {
   /*darkslategrey*/
   background-color: rgba(47, 79, 79, 0.48);
   color: white;
-  backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
 }
 table * tr:nth-child(even),
 table * tr:nth-child(even) a {
@@ -449,8 +468,8 @@ input[type=text], input[type=number], input[type=email], input[type=password], s
   font-size: 11pt;
   background: rgba(246, 255, 248, 0.48);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25);
-  backdrop-filter: blur(6.3px);
-  -webkit-backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
+  -webkit-backdrop-filter: blur(8.1px);
   border: 1px solid rgba(255, 255, 255, 0.51);
   overflow-x: auto;
 }
@@ -483,8 +502,8 @@ button, input[type=button], input[type=submit], input[type=file], select[button=
   margin: 5px;
   background: rgba(210, 159, 238, 0.48);
   box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.21), 2px 2px 3px 1px rgba(84, 56, 123, 0.3);
-  backdrop-filter: blur(6.3px);
-  -webkit-backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
+  -webkit-backdrop-filter: blur(8.1px);
   border: 1px solid rgba(244, 244, 244, 0.51);
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   cursor: pointer;
@@ -539,7 +558,7 @@ canvas {
 ::-webkit-scrollbar {
   width: 12px;
   background: radial-gradient(ellipse at center, #b3a6da, rgba(160, 160, 160, 0.64), #b3a6da);
-  backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
 }
 ::-webkit-scrollbar-thumb {
