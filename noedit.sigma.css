@@ -594,23 +594,32 @@ canvas {
   transition: background-color 0.45s ease-in, backdrop-filter 0.45s ease-in, box-shadow 0.45s ease-in;
 }
 .modal {
-  position: fixed;
+  
   background-color: rgba(242, 227, 255, 0.67);
-  padding: 9vh;
-  width: calc(100% - 18vh);
-  max-height: calc(100% - 18vh);
-  overflow: auto;
-  top: 9vh;
-  left: 9vh;
-  right: 9vh;
-  bottom: 9vh;
   z-index: 24;
   border-radius: 14px;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8), inset 0 2px 3px rgba(255, 255, 255, 0.9);
   border: 1px solid #99663386;
-  min-height: 400px;
   line-height: 1.8;
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
   overscroll-behavior: none;
+}
+
+.modal:not(.free) {
+  position: fixed;
+  overflow: auto;
+  padding: 9vh;
+  top: 9vh;
+  left: 9vh;
+  right: 9vh;
+  bottom: 9vh;
+  width: calc(100% - 18vh);
+  max-height: calc(100% - 18vh);
+  min-height: 400px;
+}
+
+.modal.free {
+  padding: 8px;
+  backdrop-filter: blur(8.1px);
 }
