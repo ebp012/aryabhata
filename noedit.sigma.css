@@ -158,19 +158,15 @@ body:hover {
 .content-section {
   display: none;
   background: rgba(255, 255, 255, 0.64);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 3px rgba(0, 0, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -1px 4px 24px rgba(14, 28, 0, 0.3), inset 1px 0px 9px rgba(28, 56, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
   border: 1px solid #99663386;
   min-height: 400px;
   line-height: 1.8;
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
   margin-bottom: 100px;
-}
-
-.content-section {
-  box-shadow: ;
 }
 
 .content-section.active {
@@ -229,10 +225,10 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 .desk-paper {
   background: url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
   padding: 30px;
-  border-radius: 5px;
-  border: 0.05px solid #cc9966;
+  border-radius: 9px;
+  border: 0.005px solid #cc9966;
   /*box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);*/
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), inset 0 2px 3px rgba(0, 0, 0, 0.2), inset 0 4px 100px rgba(241, 227, 255, 0.6);
+  box-shadow: 0 4px 8px rgba(14, 28, 0, 0.1), inset 0 2px 3px rgba(0, 0, 0, 0.2), inset 0 4px 100px rgba(241, 227, 255, 0.6), /**/ inset -1px 4px 24px rgba(28, 56, 0, 0.15), inset 1px 0px 9px rgba(56, 112, 0, 0.45);
   font-size: 14pt;
   overflow-x: auto;
   overflow-y: hidden;
@@ -307,7 +303,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 
   .nav-item {
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 18px;
   }
 
   .nav-item i {
@@ -336,6 +332,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   .content-section {
     background: rgba(50, 50, 50, 0.64);
     color: #e0e0e0;
+    box-shadow: 0 8px 20px rgba(17, 34, 0, 0.3), inset -0.5px 2px 12px rgba(3.5, 7, 0, 0.15), inset 0.5px 0px 4.5px rgba(7, 14, 0, 0.15), inset 0 2px 50px rgba(241, 227, 255, 0.8);
   }
 
   .page-title {
@@ -349,7 +346,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
       ),
       url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
     border-color: #666;
-    box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.25), 0 4px 27px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.0125), 0 4px 27px rgba(0, 0, 0, 0.125);
   }
 
   .nav-bar {
@@ -395,7 +392,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   margin: 15px 0;
   padding: 10px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 9px;
 }
 
 .setting-item label {
@@ -472,6 +469,10 @@ table *:last-child tr:last-child td:first-child {
   border-radius: 6px 6px 6px 9px;
 }
 
+table:not(.non), table:not(.non) td {
+  border: none;
+}
+
 table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover,
 table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover a {
   text-decoration: underline;
@@ -499,7 +500,7 @@ canvas, sculpture {
 
 /* Text input styles */
 input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
-  border-radius: 14px;
+  border-radius: 18px;
   outline: none;
   text-align: center;
   font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
@@ -602,7 +603,7 @@ canvas {
 }
 ::-webkit-scrollbar-thumb {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
-  border-radius: 8px;
+  border-radius: 9px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
 }
 
@@ -634,8 +635,8 @@ canvas {
 .modal {
   background-color: rgba(242, 227, 255, 0.67);
   z-index: 24;
-  border-radius: 14px;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8), inset 0 2px 3px rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset -1px 4px 6px rgba(0, 0, 0, 0.075), inset 1px 0px 6px rgba(0, 0, 0, 0.075);
   border: 1px solid #99663386;
   line-height: 1.8;
   backdrop-filter: blur(8.1px);
