@@ -6,6 +6,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'trajan';
+    src: url('Trajan Pro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 * {
   margin: 0;
@@ -64,23 +70,21 @@ body:hover {
   border-radius: 20px;
   height: 80px;
   background: linear-gradient(
-      rgba(210, 200, 210, 0.64),
-      rgba(160, 150, 160, 0.64)
+      rgba(210, 200, 210, 0.44),
+      rgba(160, 150, 160, 0.44)
     );
   display: flex;
   width: fit-content;
   justify-content: space-around;
   align-items: center;
-  border: 2px solid #666;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  outline: 0.25px solid #666;
+  border: none;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.6), 6px 4px 100x rgba(241, 227, 255, 0.9);
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-.nav-bar:after {
-  box-shadow: inset 6px 4px 100px rgba(241, 227, 255, 0.6)
 }
 
 .nav-item {
@@ -103,6 +107,7 @@ body:hover {
   min-width: 60px;
   position: relative;
   overflow: hidden;
+  font-family: trajan, "Trajan Pro", Georgia, Times, serif;
 }
 
 .nav-item:hover {
@@ -157,7 +162,7 @@ body:hover {
 
 .content-section {
   display: none;
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.44);
   border-radius: 18px;
   padding: 24px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -1px 4px 24px rgba(14, 28, 0, 0.3), inset 1px 0px 9px rgba(28, 56, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
@@ -187,7 +192,7 @@ h3 {
 }
 
 h1, h2, h3, h4, h5, h6, h7, h8 {
-  font-family: futurae, futura, georgia, serif;
+  font-family: futurae, futura, trajan, georgia, serif;
 }
 
 @keyframes fadeIn {
@@ -236,9 +241,6 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
 }
-.desk-paper:after {
-  box-shadow: 0 4px 100px rgba(241, 227, 255, 0.6)
-}
 
 @media (max-width: 1024px) {
   .nav-bar {
@@ -275,8 +277,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
     height: auto;
     flex-direction: column;
     padding: 20px 15px;
-    border: 2px solid #666;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(7, 14, 0, 0.3);
     display: grid;
     grid-template-columns: 1fr;
     gap: 15px;
@@ -442,6 +443,7 @@ table thead td {
   color: white;
   backdrop-filter: blur(8.1px);
   border-radius: 6px;
+  font-family: trajan, "Trajan Pro", Georgia, Times, serif;
 }
 table * tr:nth-child(even),
 table * tr:nth-child(even) a {
@@ -495,7 +497,7 @@ abbr {
 
 canvas, sculpture {
   background-color: white;
-  box-shadow: inset 0 4px 100px rgba(241, 227, 255, 0.6);
+  box-shadow: inset 1.25px 4px 27px rgba(241, 227, 255, 0.8);
 }
 
 /* Text input styles */
@@ -623,7 +625,6 @@ canvas {
   left: 0;
   right: 0;
   z-index: 23;
-  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.1);
   transition: background-color 0.45s ease-in, backdrop-filter 0.45s ease-in, box-shadow 0.45s ease-in;
 }
 .modal-container:hover  {
