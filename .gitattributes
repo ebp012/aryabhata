@@ -1,0 +1,6 @@
+noedit.compromise.js -linguist-vendored
+noedit.compromise.js -linguist-detectable
+*.arya linguist-detectable
+*.csv linguist-detectable
+*.arya linguist-language=CSV
+*.csv linguist-language=CSV
