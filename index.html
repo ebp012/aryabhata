@@ -10,7 +10,7 @@
 
       gtag('config', 'TAG_ID');
     </script>
-    <title>Anantam</title>
+    <title>Aryabhata</title>
     <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'/>
     <meta name='theme-color' content='#7C614D'/> <!-- Safari navbar theme -->
     <meta name="apple-mobile-web-app-capable" content="yes"/> <!-- i(Pad)OS web app -->
@@ -30,6 +30,9 @@
       rel='stylesheet'
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
     />
+    <!-- Favicon and PWA Icon -->
+    <link rel="icon" type="image/x-icon" href="http://aryabhata.aeonic.me/Aryabhata-favicon.ico"/>
+    <link rel="apple-touch-icon" href="http://aryabhata.aeonic.me/Aryabhata-app-icon.png"/>
   </head>
   <body>
     <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); background-size: cover; background-position: center; height: 100vh; filter: sepia(87%);'></div>
@@ -168,7 +171,9 @@
                     Round: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup>
                     <span id='graph-scale-span'>
                       <hr/>
-                      <span id='graph-scale-span-sub'>Scale: <input type='number' id='graph-scale' value='1' step='0.5'/></span>
+                      <span id='graph-scale-span-sub'>
+                        Scale: <input type='number' id='graph-scale' value='5' step='1'/><br/>
+                      </span>
                       <br/>
                       <!--Density: <input type='number' id='graph-density' value='10' step='1'/>-->
                     </span>
@@ -222,8 +227,6 @@
         var canvasWidth = 360;
         var canvasHeight = 360;
         ctx.translate(canvas.width/2, canvas.height/2);
-        var scalex = 5;
-        var scaley = 5;
         var do3D = false;
         var toffxr = 0; // total xr-offset
         var toffyr = 0; // total yr-offset
@@ -265,51 +268,7 @@
           document.querySelectorAll('#graphing input[type=range], #graphing td input[type=number]:first-of-type').forEach(input => {
             input.addEventListener('input', function () {
               // NO MORE ~~~~Continuously (every 37 ms) check for changes in xr,xi,yr,yi and push to span~~~~
-            var textx = '', texty = '';
-            // Mirror the value of x
-            if (xr != 0) {
-              textx += xr.toString();
-            }
-            if (xi != 0) {
-              textx += ' ';
-              if (xi < 0) {
-                textx += '- ' + ((-1) * xi).toString() + '<i>i</i>';
-              }
-              else if (xi > 0) {
-                if (xr != 0) textx += '+ '
-                textx += xi.toString() + '<i>i</i>';
-              }
-              else {
-                //textx += ' ± ?i'
-              }
-            }
-            if (xr == 0 && xi == 0) textx = '0'
-
-            // Solve for y and then store it
-            yr = solve(xr, xi, false);
-            yi = solve(xr, xi, true);
-
-            // Display the value of y
-            if (yr != 0) {
-              texty += yr.toString();
-            }
-            if (yr != 0) {
-              texty += ' ';
-              if (yi < 0) {
-                texty += '- ' + ((-1) * yi).toString() + '<i>i</i>';
-              }
-              else if (yi > 0) {
-                if (yr != 0) texty += '+ '
-                texty += yi.toString() + '<i>i</i>';
-              }
-              else {
-                //texty += ' ± ?i'
-              }
-            }
-            if (yr == 0 && yi == 0) texty = '0'
-            
-            $('#xri-showcase').innerHTML = textx;
-            $('#yri-showcase').innerHTML = texty;
+              updateTrace();
             });
           });
 
@@ -361,12 +320,6 @@
               var scaleContainer = $('#graph-scale-span-container');
               var scaleContainerSub = $('#graph-scale-span-sub');
               modal.classList.toggle('hidden');
-              scaleContainerSub.classList.toggle('modal');
-              scaleContainerSub.classList.toggle('free');
-              $('#xiv-td-content').classList.toggle('modal');
-              $('#xiv-td-content').classList.toggle('free');
-              $('#graph-xryr-offset-div').classList.toggle('modal');
-              $('#graph-xryr-offset-div').classList.toggle('free');
               modal.parentElement.classList.toggle('hidden');
               if (fullscreen === true) { // if fullscreen is now entered
                 modal.innerHTML = '';
@@ -411,7 +364,12 @@
           });
 
           $('#graph-scale').addEventListener('input', function () {
-            var modal = $('#graph-fullscreen-modal');
+            var newScale = this.value;
+            if (this.value <= 0) this.value = scale;
+            if (newScale <= 0) newScale = scale;
+            scale = newScale;
+            graphFunction();
+            /*var modal = $('#graph-fullscreen-modal');
             var scaleContainer = $('#graph-scale-span-container');
             var prevValue = inputScale;
             inputScale = this.value;
@@ -422,7 +380,7 @@
             if (this.value <= this.min) this.value = this.min;
             if (this.value >= this.max) this.value = this.max;
             if (fullscreen === true) canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
-            else canvas.style.transform = 'scale(1)';
+            else canvas.style.transform = 'scale(1)';*/
           });
 
           canvas.addEventListener('wheel', function (e) {
@@ -526,7 +484,7 @@
               $('#xr-input').value = xr;
               $('#xr-value').innerHTML = xr;
             }
-            graphFunction();
+            updateTrace();
           });
 
           $('#xi-td').addEventListener('mousewheel', function (e) {
@@ -545,7 +503,7 @@
               $('#xi-input').value = xi;
               $('#xi-value').innerHTML = xi;
             }
-            graphFunction();
+            updateTrace();
           });
 
           $('#graph-advanced').addEventListener('input', function () {
@@ -665,7 +623,7 @@
               ctx.stroke();
             }
             // Draw tick marks if selected
-            if ($('#graph-ticks').checked == true) {
+            if ($('#graph-ticks').checked == true && (i/5) % mS == 0) {
               // Number($('#graph-tick-height').value)
               ctx.lineWidth = 0.5;
               // Draw quadrants I and IV
@@ -704,7 +662,7 @@
               ctx.stroke();
             }
             // Draw tick marks if selected
-            if ($('#graph-ticks').checked == true) {
+            if ($('#graph-ticks').checked == true && (i/5) % mS == 0) {
               // Number($('#graph-tick-height').value)
               ctx.lineWidth = 0.5;
               // Draw quadrants I and IV
@@ -779,6 +737,53 @@
             return Math.round(num * 10 ** -p) / 10 ** -p;
           }
         }
+        function updateTrace () {
+          var textx = '', texty = '';
+          // Mirror the value of x
+          if (xr != 0) {
+            textx += xr.toString();
+          }
+          if (xi != 0) {
+            textx += ' ';
+            if (xi < 0) {
+              textx += '- ' + ((-1) * xi).toString() + '<i>i</i>';
+            }
+            else if (xi > 0) {
+              if (xr != 0) textx += '+ '
+              textx += xi.toString() + '<i>i</i>';
+            }
+            else {
+              //textx += ' ± ?i'
+            }
+          }
+          if (xr == 0 && xi == 0) textx = '0'
+
+          // Solve for y and then store it
+          yr = solve(xr, xi, false);
+          yi = solve(xr, xi, true);
+
+          // Display the value of y
+          if (yr != 0) {
+            texty += yr.toString();
+          }
+          if (yr != 0) {
+            texty += ' ';
+            if (yi < 0) {
+              texty += '- ' + ((-1) * yi).toString() + '<i>i</i>';
+            }
+            else if (yi > 0) {
+              if (yr != 0) texty += '+ '
+              texty += yi.toString() + '<i>i</i>';
+            }
+            else {
+              //texty += ' ± ?i'
+            }
+          }
+          if (yr == 0 && yi == 0) texty = '0'
+          
+          $('#xri-showcase').innerHTML = textx;
+          $('#yri-showcase').innerHTML = texty;
+        }
         // Solve the function for some X
         function solve2D (x) {
           // solve y = x^2/9 + x - 1
@@ -796,6 +801,7 @@
             tet: tet,
           };
           var functext = $('#function-input').value.toString();
+          functext = functext.replace(',',''); // Commas into nothings
           functext = functext.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet($1,$2)'); // Tetration
           functext = functext.replace('{','(').replace('}', ')'); // Minimal LaTeX cross-compatibility
           functext = functext.replace(/\|([^|]+)\|/g, 'abs($1)'); // Absolute value
@@ -818,22 +824,25 @@
 
         function graphFunction () {
           var roc = false;
+          var colour = $('#function-colour').value;
           ctx.setTransform(1, 0, 0, 1, 0, 0);
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.translate(canvas.width/2 + 5 * toffxr, canvas.height/2 + 5 * toffyr);
+          ctx.translate(canvas.width/2 + scale * toffxr, canvas.height/2 + scale * toffyr);
           drawGrid(Number($('#graph-major-step').value), Number($('#graph-minor-step').value));
           if (do3D == true) drawGrid3D();
-          ctx.strokeStyle = $('#function-colour').value;
+          ctx.strokeStyle = colour;
           var preprecision = Number($('#trace-round').value);
           if (preprecision < -4) preprecision = -1;
           var precision = 5 * 10 ** preprecision;
           if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
           if (preprecision <= -1) precision = 2 ** (preprecision + 1);
+          
           for (var i = -canvas.width/2 - $('#graph-offset-xr').value; i < canvas.width/2 - $('#graph-offset-xr').value; i += precision) {
             let width = 1;
             // The linear graph
             var xrt = i;
             var yrt = -solve(xrt, Number($('#xiv-input').value), false);
+            var yrit = -solve(xrt, Number($('#xiv-input').value), true)
             var xrtNext = i + precision;
             var yrtNext = -solve(xrtNext, Number($('#xiv-input').value), false);
             if ($('#graph-dimension-xi').checked == true) {
@@ -870,27 +879,31 @@
               var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false);
               yrt = (yrtMext > 0) ? 360 : -360;
             }
+            if (yrit != -Number($('#xiv-input').value)) {
+              ctx.strokeStyle = 'silver';
+              ctx.lineWidth = width * 6;
+            }
+            else {
+              ctx.strokeStyle = colour;
+              ctx.lineWidth = width;
+            }
             ctx.lineWidth = width;
             ctx.moveTo(scale * xrt, scale * yrt);
             ctx.lineTo(scale * xrtNext, scale * yrtNext);
             ctx.stroke();
             // The pointed graph
-            if (i % Number($('#graph-major-step').value) == 0 && $('#graph-points').checked == true) {
+            if (i % Number($('#graph-minor-step').value) == 0 && $('#graph-points').checked == true) {
               // Positive x point
               ctx.beginPath();
               ctx.arc(scale * xrt, scale * yrt, 1.25, 0, 2 * Math.PI);
-              ctx.fillStyle = $('#function-colour').value;
               ctx.fill();
-              ctx.lineWidth = 0;
               ctx.stroke();
               // Negative x point
               var xrtNeg = -i;
               var yrtNeg = -solve(xrtNeg, Number($('#xiv-input').value), false);
               ctx.beginPath();
               ctx.arc(scale * xrtNeg, scale * yrtNeg, 1.25, 0, 2 * Math.PI);
-              ctx.fillStyle = $('#function-colour').value;
               ctx.fill();
-              ctx.lineWidth = 0;
               ctx.stroke();
             }
           }
@@ -1401,81 +1414,10 @@
             <tbody id='conv-body'>
               <tr>
                 <td>
-                  <select id='conv-length-first'>
-                    <optgroup label='Imperial'>
-                      <option value='th'><i>Thou (th)</i></option>
-                      <option value='tw'><i>Twip (tw)</i></option>
-                      <option value='pt'>Point (pt)</option>
-                      <option value='pc'><i>Pica (pc)</i></option>
-                      <option value='ps'><i>Poppyseed (ps)</i></option>
-                      <option value='bc'><i>Barleycorn (bc)</i></option>
-                      <option value='in' selected='selected'>Inch (in)</option>
-                      <option value='hd'><i>Hand (hd)</i></option>
-                      <option value='lk'>Link (lk)</option>
-                      <option value='ft'>Foot (ft)</option>
-                      <option value='yd'>Yard (yd)</option>
-                      <option value='rd'>Rod (rd)</option>
-                      <option value='ch'><i>Chain (ch)</i></option>
-                      <option value='fl'>Furlong (fl)</option>
-                      <option value='mi'>Mile (mi)</option>
-                      <option value='lg'>League (lg)</option>
-                    </optgroup>
-                    <optgroup label='Metric/SI'>
-                      <option value='qm'>Quectometre (qm)</option>
-                      <option value='rm'>Rontometre (rm)</option>
-                      <option value='ym'>Yoctometre (ym)</option>
-                      <option value='zm'>Zeptometre (zm)</option>
-                      <option value='am'>Attometre (am)</option>
-                      <option value='fm'>Femtometre (fm)</option>
-                      <option value='åm'>Ångstrom (Å)</option>
-                      <option value='pm'>Picometre (pm)</option>
-                      <option value='nm'>Nanometre (nm)</option>
-                      <option value='μm'>Micrometre (μm)</option>
-                      <option value='mam'>Myriometre (mam)</option>
-                      <option value='mm'>Millimetre (mm)</option>
-                      <option value='cm'>Centimetre (cm)</option>
-                      <option value='dm'>Decimetre (dm)</option>
-                      <option value='m'>Metre (m)</option>
-                      <option value='dkm'>Dekametre (dkm)</option>
-                      <option value='hm'>Hectometre (hm)</option>
-                      <option value='km'>Kilometre (km)</option>
-                      <option value='mym'>Myriametre (mym)</option>
-                      <option value='mmm'>Megametre (Mm)</option>
-                      <option value='ggm'>Gigametre (Gm)</option>
-                      <option value='ttm'>Terametre (Tm)</option>
-                      <option value='ppm'>Petametre (Pm)</option>
-                      <option value='eem'>Exametre (Em)</option>
-                      <option value='zzm'>Zettametre (Zm)</option>
-                      <option value='yym'>Yottametre (Ym)</option>
-                      <option value='rrm'>Ronnametre (Rm)</option>
-                      <option value='qqm'>Quettametre (Qm)</option>
-                      <option value='kqqm'>Kiloquettametre (kQm)</option>
-                      <option value='myqqm'>Myriaquettametre (myQm)</option>
-                      <option value='mmqqm'>Megaquettametre (MQm)</option>
-                      <option value='ggqqm'>Gigaquettametre (GQm)</option>
-                      <option value='ttqqm'>Teraquettametre (TQm)</option>
-                    </optgroup>
-                    <optgroup label='Other + Humourous'>
-                      <option value='parsec'>Parsec</option>
-                      <option value='ly'>Light year (ly)</option>
-                      <option value='au'>Astronomical unit (AU)</option>
-                      <option value='pl'>Planck length (pl)</option>
-                      <option value='aparsec'>Attoparsec</option>
-                      <option value='smoot'>Smoot</option>
-                      <option value='s-d'>Light second (ls)</option>
-                      <option value='min-d'>Light minute (lmin)</option>
-                      <option value='hr-d'>Light hour (lhr)</option>
-                      <option value='d-d'>Light day (ld)</option>
-                      <option value='w-d'>Light week (lw)</option>
-                      <option value='fn-d'>Light fortnight (lfn)</option>
-                      <option value='lm-d'>Light lunar month (llm)</option>
-                      <option value='jjy-d'>Light Julian year (lJy)</option>
-                      <option value='ly-d'>Light lunar year (lly)</option>
-                      <option value='oy-d'>Light orbital year (loy)</option>
-                      <option value='gy-d'>Light galactic year (lgy)</option>
-                    </optgroup>
-                  </select>
-                  <select id='conv-time-first'>
+                  <span id='conv-length-first-container'>
+                    
+                  </span>
+                  <!--<select id='conv-time-first'>
                     <optgroup label='Ubiquitous'>
                       <option value='s'><i>Second (s or sec)</i></option>
                     </optgroup>
@@ -1494,7 +1436,7 @@
                       <option value='oyr'><i>Orbital year (oyr)</i></option>
                       <option value='gyr'><i>Galactic year (gyr)</i></option>
                     </optgroup>
-                  </select>
+                  </select>-->
                   <br/>
                   <input type='number' id='conv-length-input' value='1'/>
                 </td>
@@ -1503,74 +1445,86 @@
                   <button id='conv-length-flip'>Flip</button>
                 </td>
                 <td>
-                  <select id='conv-length-second'>
-                    <optgroup label='Imperial'>
-                      <option value='th'><i>Thou (th)</i></option>
-                      <option value='tw'><i>Twip (tw)</i></option>
-                      <option value='pt' selected='selected'>Point (pt)</option>
-                      <option value='pc'><i>Pica (pc)</i></option>
-                      <option value='ps'><i>Poppyseed (ps)</i></option>
-                      <option value='bc'><i>Barleycorn (bc)</i></option>
-                      <option value='in' >Inch (in)</option>
-                      <option value='hd'><i>Hand (hd)</i></option>
-                      <option value='lk'>Link (lk)</option>
-                      <option value='ft'>Foot (ft)</option>
-                      <option value='yd'>Yard (yd)</option>
-                      <option value='rd'>Rod (rd)</option>
-                      <option value='ch'><i>Chain (ch)</i></option>
-                      <option value='fl'>Furlong (fl)</option>
-                      <option value='mi'>Mile (mi)</option>
-                      <option value='lg'>League (lg)</option>
-                    </optgroup>
-                    <optgroup label='Metric/SI'>
-                      <option value='qm'>Quectometre (qm)</option>
-                      <option value='rm'>Rontometre (rm)</option>
-                      <option value='ym'>Yoctometre (ym)</option>
-                      <option value='zm'>Zeptometre (zm)</option>
-                      <option value='am'>Attometre (am)</option>
-                      <option value='fm'>Femtometre (fm)</option>
-                      <option value='åm'>Ångstrom (Å)</option>
-                      <option value='pm'>Picometre (pm)</option>
-                      <option value='nm'>Nanometre (nm)</option>
-                      <option value='μm'>Micrometre (μm)</option>
-                      <option value='mam'>Myriometre (mam)</option>
-                      <option value='mm'>Millimetre (mm)</option>
-                      <option value='cm'>Centimetre (cm)</option>
-                      <option value='dm'>Decimetre (dm)</option>
-                      <option value='m'>Metre (m)</option>
-                      <option value='dkm'>Dekametre (dkm)</option>
-                      <option value='hm'>Hectometre (hm)</option>
-                      <option value='km'>Kilometre (km)</option>
-                      <option value='mym'>Myriametre (mym)</option>
-                      <option value='mmm'>Megametre (Mm)</option>
-                      <option value='ggm'>Gigametre (Gm)</option>
-                      <option value='ttm'>Terametre (Tm)</option>
-                      <option value='ppm'>Petametre (Pm)</option>
-                      <option value='eem'>Exametre (Em)</option>
-                      <option value='zzm'>Zettametre (Zm)</option>
-                      <option value='yym'>Yottametre (Ym)</option>
-                      <option value='rrm'>Ronnametre (Rm)</option>
-                      <option value='qqm'>Quettametre (Qm)</option>
-                      <option value='kqqm'>Kiloquettametre (kQm)</option>
-                      <option value='myqqm'>Myriaquettametre (myQm)</option>
-                      <option value='mmqqm'>Megaquettametre (MQm)</option>
-                      <option value='ggqqm'>Gigaquettametre (GQm)</option>
-                      <option value='ttqqm'>Teraquettametre (TQm)</option>
-                    </optgroup>
-                    <optgroup label='Other + Humourous'>
-                      <option value='parsec'>Parsec</option>
-                      <option value='ly'>Light year (ly)</option>
-                      <option value='au'>Astronomical unit (AU)</option>
-                      <option value='pl'>Planck length (pl)</option>
-                      <option value='aparsec'>Attoparsec</option>
-                      <option value='smoot'>Smoot</option>
-                    </optgroup>
-                  </select>
+                  <span id='conv-length-second-container'>
+                  </span>
                   <br/>
                   <input type='number' id='conv-length-output' value='72' readonly/>
                 </td>
               </tr>
-              
+              <div class='hidden' id='conv-length-options'>
+                <optgroup label='Imperial'>
+                  <option value='th'><i>Thou (th)</i></option>
+                  <option value='tw'><i>Twip (tw)</i></option>
+                  <option value='pt'>Point (pt)</option>
+                  <option value='pc'><i>Pica (pc)</i></option>
+                  <option value='ps'><i>Poppyseed (ps)</i></option>
+                  <option value='bc'><i>Barleycorn (bc)</i></option>
+                  <option value='in' selected='selected'>Inch (in)</option>
+                  <option value='hd'><i>Hand (hd)</i></option>
+                  <option value='lk'>Link (lk)</option>
+                  <option value='ft'>Foot (ft)</option>
+                  <option value='yd'>Yard (yd)</option>
+                  <option value='rd'>Rod (rd)</option>
+                  <option value='ch'><i>Chain (ch)</i></option>
+                  <option value='fl'>Furlong (fl)</option>
+                  <option value='mi'>Mile (mi)</option>
+                  <option value='lg'>League (lg)</option>
+                </optgroup>
+                <optgroup label='Metric/SI'>
+                  <option value='qm'>Quectometre (qm)</option>
+                  <option value='rm'>Rontometre (rm)</option>
+                  <option value='ym'>Yoctometre (ym)</option>
+                  <option value='zm'>Zeptometre (zm)</option>
+                  <option value='am'>Attometre (am)</option>
+                  <option value='fm'>Femtometre (fm)</option>
+                  <option value='åm'>Ångstrom (Å)</option>
+                  <option value='pm'>Picometre (pm)</option>
+                  <option value='nm'>Nanometre (nm)</option>
+                  <option value='μm'>Micrometre (μm)</option>
+                  <option value='mam'>Myriometre (mam)</option>
+                  <option value='mm'>Millimetre (mm)</option>
+                  <option value='cm'>Centimetre (cm)</option>
+                  <option value='dm'>Decimetre (dm)</option>
+                  <option value='m'>Metre (m)</option>
+                  <option value='dkm'>Dekametre (dkm)</option>
+                  <option value='hm'>Hectometre (hm)</option>
+                  <option value='km'>Kilometre (km)</option>
+                  <option value='mym'>Myriametre (mym)</option>
+                  <option value='mmm'>Megametre (Mm)</option>
+                  <option value='ggm'>Gigametre (Gm)</option>
+                  <option value='ttm'>Terametre (Tm)</option>
+                  <option value='ppm'>Petametre (Pm)</option>
+                  <option value='eem'>Exametre (Em)</option>
+                  <option value='zzm'>Zettametre (Zm)</option>
+                  <option value='yym'>Yottametre (Ym)</option>
+                  <option value='rrm'>Ronnametre (Rm)</option>
+                  <option value='qqm'>Quettametre (Qm)</option>
+                  <option value='kqqm'>Kiloquettametre (kQm)</option>
+                  <option value='myqqm'>Myriaquettametre (myQm)</option>
+                  <option value='mmqqm'>Megaquettametre (MQm)</option>
+                  <option value='ggqqm'>Gigaquettametre (GQm)</option>
+                  <option value='ttqqm'>Teraquettametre (TQm)</option>
+                </optgroup>
+                <optgroup label='Other + Humourous'>
+                  <option value='parsec'>Parsec</option>
+                  <option value='ly'>Light year (ly)</option>
+                  <option value='au'>Astronomical unit (AU)</option>
+                  <option value='pl'>Planck length (pl)</option>
+                  <option value='aparsec'>Attoparsec</option>
+                  <option value='smoot'>Smoot</option>
+                  <option value='s-d'>Light second (ls)</option>
+                  <option value='min-d'>Light minute (lmin)</option>
+                  <option value='hr-d'>Light hour (lhr)</option>
+                  <option value='d-d'>Light day (ld)</option>
+                  <option value='w-d'>Light week (lw)</option>
+                  <option value='fn-d'>Light fortnight (lfn)</option>
+                  <option value='lm-d'>Light lunar month (llm)</option>
+                  <option value='jjy-d'>Light Julian year (lJy)</option>
+                  <option value='ly-d'>Light lunar year (lly)</option>
+                  <option value='oy-d'>Light orbital year (loy)</option>
+                  <option value='gy-d'>Light galactic year (lgy)</option>
+                </optgroup>
+              </div>
             </tbody>
           </table>
           <style>
@@ -1578,6 +1532,9 @@
             select option i {font-family: times;}
           </style>
           <script>
+            var lengthSelect = $('#conv-length-options');
+            $('#conv-length-first-container').innerHTML = "<select id='conv-length-first'>" + lengthSelect + "</select>";
+            $('#conv-length-second-container').innerHTML = "<select id='conv-length-second'>" + lengthSelect + "</select>";
             // Length conversions
             const lengthFactors = {
               // --- Imperial (inches as base) ---
@@ -1645,6 +1602,9 @@
               'parsec': 3.08567758e18 * 39.37,
               'ly': 9.461e15 * 39.37,
               'au': 1.496e11 * 39.37,
+
+              // --- Patellian ---
+              'H': pl * 2 * 60 ** 19;
             };
             const timeFactors = {
               // --- Seconds ---
@@ -1669,39 +1629,22 @@
             }
 
             document.getElementById('conv-length-btn').addEventListener('click', function () {
-              const conversion = document.getElementById('conv-unit-type').value;
               const fromUnit = document.getElementById('conv-length-first').value;
               const toUnit = document.getElementById('conv-length-second').value;
-              switch (conversion) {
-                case 'length':
-                  const input = parseFloat(document.getElementById('conv-length-input').value);
+              const input = parseFloat(document.getElementById('conv-length-input').value);
 
-                  if (isNaN(input)) {
-                    alert('Please enter a valid number');
-                    return;
-                  }
-                  const inches = input * (lengthFactors[fromUnit] || 1);
-                  const converted = inches / (lengthFactors[toUnit] || 1);
-
-                  document.getElementById('conv-length-output').value = converted;
-                  $('#conv-length-input').style.color = 'black';
-                  $('#conv-length-output').style.color = 'black';
-                  break;
-                case 'time':
-                  const input = parseFloat(document.getElementById('conv-length-input').value);
-
-                  if (isNaN(input)) {
-                    alert('Please enter a valid number');
-                    return;
-                  }
-                  const seconds = input * (timeFactors[fromUnit] || 1);
-                  const converted = seconds / (timeFactors[toUnit] || 1);
-
-                  document.getElementById('conv-length-output').value = converted;
-                  $('#conv-length-input').style.color = 'black';
-                  $('#conv-length-output').style.color = 'black';
-                  break;
+              if (isNaN(input)) {
+                alert('Please enter a valid number');
+                return;
               }
+              const inches = input * (lengthFactors[fromUnit] || 1);
+              const converted = inches / (lengthFactors[toUnit] || 1);
+
+              document.getElementById('conv-length-output').value = converted;
+              // Assuming you have jQuery or a similar library for '$'
+              // If not, these lines will cause an error and should be replaced with native JS
+              document.getElementById('conv-length-input').style.color = 'black';
+              document.getElementById('conv-length-output').style.color = 'black';
             });
 
             // Flip button
@@ -2705,7 +2648,7 @@
     <style>input[type=number]{max-width:100px;}</style>
     
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.js'></script>
-    <script src="noedit.compromise.js"></script>
+    <script src="http://aryabhata.aeonic.me/noedit.compromise.js"></script>
     <style>
       @font-face {
         font-family: 'display';
