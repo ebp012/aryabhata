@@ -82,7 +82,6 @@ body:hover {
 
 .nav-item {
   text-align: center;
-  color: #333;
   cursor: pointer;
   padding: 12px;
   border-radius: 12px;
@@ -258,20 +257,46 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   ::-webkit-scrollbar, ::-webkit-scrollbar:active, ::-webkit-scrollbar:hover {
     width: 3px !important;
     height: 3px !important;
+    transition: width 0.45s ease-in-out, height 0.45s ease-in-out;
   }
   .nav-item:active, .nav-item.active-state, .nav-item.active {
     transition: transform 0.45s ease-out;
   }
+  .content-section {
+    padding: 12px;
+  }
+  .container {
+    padding: 16px;
+  }
+  .content-section, .container {
+    transition: padding 0.45s ease-in-out;
+  }
 }
-@media (max-width: 512px) {
+@media (max-width: 640px) {
   table {
     width: 100%;
+    transition: width 0.45s ease-in-out;
   }
-  .desk-paper {
-    padding: 0;
+  .content-section {
+    padding: 6px;
   }
-  *:not(table) {
-    margin: 12px
+  .container {
+    padding: 8px;
+  }
+}
+@media (max-width: 448px) {
+  table {
+    width: 100%;
+    transition: width 0.45s ease-in-out;
+  }
+  .content-section {
+    padding: 5px;
+  }
+  .container {
+    padding: 6px;
+  }
+  .content-section, .container {
+    transition: padding 0.45s ease-in-out;
   }
 }
 @media (min-width: 1024px) {
@@ -292,7 +317,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
     bottom: auto;
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 60vh;
+    max-height: 66.67vh;
     filter: brightness(1.1);
   }
   .nav-bar:before, .nav-item:before {
@@ -334,6 +359,13 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 @media (prefers-color-scheme: light) {
   .content-section .desk-paper {
     filter: brightness(0.952381);
+  }
+  .nav-item i  {
+    color: #545369;
+    text-shadow: 19px 1px 2px rgba(#000000, 0, 0, 0.5);
+  }
+  .nav-item {
+    color: #36354b;
   }
 }
 
