@@ -605,19 +605,19 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   background: linear-gradient(to bottom, rgba(246, 255, 248, 0.48), rgba(243, 231, 254, 0.48), rgba(246, 255, 248, 0.48));
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
-  border: 1.5px solid rgba(255, 255, 255, 0.51);
+  outline: 1.5px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.9875);
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(74, 46, 113, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.51);
+  outline: 2px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.95);
 }
 
 /* Button styles */
-button, input[type=button], input[type=submit], input[type=file], select[button=like], canvas, sculpture, ::-webkit-scrollbar-thumb {
+button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, ::-webkit-scrollbar-thumb {
   border-radius: 9px;
   text-align: center;
   font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
@@ -635,22 +635,34 @@ button, input[type=button], input[type=submit], input[type=file], select[button=
   outline-offset: -0.33px;
   cursor: pointer;
 }
-button:hover, input[type=button]:hover, input[type=submit]:hover, input[type=file]:hover, select[button=like]:hover, canvas:hover, sculpture:hover, ::-webkit-scrollbar-thumb:hover {
+button[disabled], input[disabled], select[disabled] {
+  color: rgba(10, 10, 10, 0.48);
+  background: rgba(193, 159, 211.67, 0.48);
+}
+button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, rgba(210, 159, 238, 0.48), rgba(211, 176, 219, 0.48), rgba(210, 159, 238, 0.48));
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
-  border: 1.5px solid rgba(255, 255, 255, 0.51);
+  outline: 1.5px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.95);
+}
+button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
+  cursor: not-allowed;
 }
 button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, ::-webkit-scrollbar-thumb:active {
   background: rgba(153, 126, 179, 0.48);
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(74, 46, 113, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.51);
+  outline: 2px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.9);
 }
-
+button[disabled]:active, input[disabled]:active, select[disabled]:active {
+  cursor: not-allowed;
+  background: rgba(126, 126, 126, 0.48);
+  outline-color: maroon;
+  opacity: 51%;
+}
 /* Link styles */
 a {
   text-decoration: none;
