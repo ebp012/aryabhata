@@ -246,12 +246,13 @@ p.page-nav {
     width: 100%;
     overflow-y: none;
     overflow-x: auto;
-    height: 24pt;
+    height: 28pt;
     font-size: 14pt;
     left: auto;
     right: auto;
     position: relative;
     bottom: 20px;
+    background-color: transparent;
 }
 
 @media (max-width: 1024px) {
@@ -528,18 +529,15 @@ table thead td {
   border-radius: 6px;
   font-family: trajan, "Trajan Pro", Georgia, Times, serif;
 }
-table * tr:nth-child(even),
-table * tr:nth-child(even) a {
+table * tr:nth-child(even) {
   background-color: silver;
   color: #3e3e3e;
-  text-decoration: none;
 }
-table tbody tr:nth-child(odd),
-table tbody tr:nth-child(odd) a {
+table tbody tr:nth-child(odd) {
   background-color: gainsboro;
   color: dimgrey;
-  text-decoration: none;
 }
+a {text-decoration: none;}
 
 table *:first-child tr:first-child td:first-child {
   border-radius: 9px 6px 6px 6px;
