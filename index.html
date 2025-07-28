@@ -35,6 +35,28 @@
   </head>
   <body>
     <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); filter: sepia(87%);'></div>
+
+    <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glass-distortion">
+                <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="6"/>
+            </filter>
+        </defs>
+        <defs>
+            <filter id="glass-distortion-hover">
+                <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
+            </filter>
+        </defs>
+        <defs>
+            <filter id="glass-distortion-hover-button">
+                <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="12"/>
+            </filter>
+        </defs>
+    </svg>
+
     <div class='container'>
       <div id='graphing' class='content-section active'>
         <h1 class="page-title">Graphing</h1>
