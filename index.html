@@ -22,7 +22,6 @@
       #bgcontainer {
         background: url(http://anantam.aeonic.me/bg.png);
       }
-      
     </style>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link href='http://aryabhata.aeonic.me/noedit.sigma.css' rel='stylesheet' type='text/css'/>
@@ -44,10 +43,10 @@
             <table class='non' style='margin-left: auto; margin-right: auto; min-width: calc(100% - 60px);'>
               <thead>
                 <tr>
-                  <td class='viewport-input'><strong>x-i viewport</strong></td>
-                  <td><strong>x-r trace</strong></td>
-                  <td><strong>x-i trace</strong></td>
-                  <td onclick='graphFunction();' style='cursor: pointer;'><strong>graph</strong></td>
+                  <td id='xiv-title' class='viewport-input'><strong>x-i Viewport</strong></td>
+                  <td id='xr-title'><strong>x-r Trace</strong></td>
+                  <td id='xi-title'><strong>x-i Trace</strong></td>
+                  <td id='graph-title' onclick='graphFunction();' style='cursor: pointer;'><strong>Graph</strong></td>
                 </tr>
               </thead>
               <tbody>
@@ -124,7 +123,7 @@
                 <tr class='merged'>
                   <td class='viewport-input' colspan='2'>
                     <center>
-                      <strong>Function</strong><br/>
+                      <strong id='function-title'>Function</strong><br/>
                       <div id='function-wrapper'>
                         <p class='equation' id='function-1'>
                           <span id='function-name-1'>f</span>(x) = <input id='function-input-1' type='text' value='0.37x^2 - 10x'/>
@@ -209,7 +208,7 @@
               </tbody>
             </table>
           </div>
-          <center id='graph-container'>
+          <center id='graph-container' class='table-wrapper'>
             <div id='graph-div'>
               <canvas height='360' width='360' style='border: 1px solid grey;' id='graph-canvas'></canvas>
             </div>
@@ -248,6 +247,8 @@
 
         // Convenience stuff
         const $ = (selector) => document.querySelector(selector);
+        const $all = (selector) => document.querySelectorAll(selector);
+
 
         // Canvas Declaration
         const canvas = document.getElementById('graph-canvas');
@@ -260,18 +261,199 @@
         var toffyr = 0; // total yr-offset
         var toffyi = 0; // total yi-offset
 
+        // Translations
+        var lang = 'en';
+        var translations = {
+          en: {
+            // Navigation
+            graphingTab: 'Graphing',
+            scientificTab: 'Scientific',
+            algebraTab: 'Algebra',
+            unitsTab: 'Units',
+            chemistryTab: 'Chemistry',
+            learnTab: 'Learn',
+            memoriseTab: 'Memorise',
+            parseTab: 'Parse',
+            controlsTab: 'Controls',
+            // Top row
+            xivTitle: 'x-i Viewport',
+            xrTitle: 'x-r Trace',
+            xiTitle: 'x-i Trace',
+            graphTitle: 'Graph',
+            sliderInput: 'Slider input?',
+            // Bottom row
+            functionTitle: 'Function',
+            functionTitlePl: 'Functions',
+            traceTitle: 'Trace',
+          },
+          enus: {
+            // Navigation
+            graphingTab: 'Graphing',
+            scientificTab: 'Scientific',
+            algebraTab: 'Algebra',
+            unitsTab: 'Units',
+            chemistryTab: 'Chemistry',
+            learnTab: 'Learn',
+            memoriseTab: 'Memorize',
+            parseTab: 'Parse',
+            controlsTab: 'Controls',
+            // Top row
+            xivTitle: 'x-i Viewport',
+            xrTitle: 'x-r Trace',
+            xiTitle: 'x-i Trace',
+            graphTitle: 'Graph',
+            sliderInput: 'Slider entry?',
+            // Bottom row
+            functionTitle: 'Function',
+            functionTitlePl: 'Functions',
+            traceTitle: 'Trace',
+          },
+          fr: {
+            // Navigation
+            graphingTab: 'Graphe',
+            scientificTab: 'Scientifique',
+            algebraTab: 'Algebre',
+            unitsTab: 'Unites',
+            chemistryTab: 'Chimie',
+            learnTab: 'Apprendre',
+            memoriseTab: 'Se Rapeller',
+            parseTab: 'Parser',
+            controlsTab: 'Réglages',
+            // Top row
+            xivTitle: 'Fenêtre d\'x-i',
+            xrTitle: 'Traçage d\'x-r',
+            xiTitle: 'Traçage d\'x-i',
+            graphTitle: 'Graphe',
+            sliderInput: 'Inputer par range?',
+            // Row
+            functionTitle: 'Fonction',
+            functionTitlePl: 'Fonctions',
+            traceTitle: 'Traçage',
+          },
+          applyLang: function () {
+            switch (lang) {
+              case 'en':
+                $('#memoriseTab').style.fontSize = 'auto';
+                // Navigation
+                $('#homeTab span').innerHTML = translations.en.graphingTab;
+                $('#scientificTab span').innerHTML = translations.en.scientificTab;
+                $('#algebraTab span').innerHTML = translations.en.algebraTab;
+                $('#unitsTab span').innerHTML = translations.en.unitsTab;
+                $('#chemistryTab span').innerHTML = translations.en.chemistryTab;
+                $('#learnTab span').innerHTML = translations.en.learnTab;
+                $('#memoriseTab span').innerHTML = translations.en.memoriseTab;
+                $('#parseTab span').innerHTML = translations.en.parseTab;
+                $('#controlsTab span').innerHTML = translations.en.controlsTab;
+                $('#graphing h1').innerHTML = translations.en.graphingTab;
+                $('#scientific h1').innerHTML = translations.en.scientificTab;
+                $('#algebra h1').innerHTML = translations.en.algebraTab;
+                $('#units h1').innerHTML = translations.en.unitsTab;
+                $('#chemistry h1').innerHTML = translations.en.chemistryTab;
+                $('#learn h1').innerHTML = translations.en.learnTab;
+                $('#memorise h1').innerHTML = translations.en.memoriseTab;
+                $('#parse h1').innerHTML = translations.en.parseTab;
+                $('#controls h1').innerHTML = translations.en.controlsTab;
+                // Top row
+                $('#xiv-title').innerHTML = translations.en.xivTitle;
+                $('#xr-title').innerHTML = translations.en.xrTitle;
+                $('#xi-title').innerHTML = translations.en.xiTitle;
+                $('#graph-title').innerHTML = translations.en.graphTitle;
+                $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+                  element.innerHTML = translations.en.sliderInput;
+                });
+                // Bottom row
+                $('#function-title').innerHTML = translations.en.functionTitle;
+                if (nof == 1) $('#function-title').innerHTML = translations.en.functionTitle;
+                else $('#function-title').innerHTML = translations.en.functionTitlePl;
+                break;
+              case 'enus':
+                $('#memoriseTab').style.fontSize = 'auto';
+                // Navigation
+                $('#homeTab span').innerHTML = translations.enus.graphingTab;
+                $('#scientificTab span').innerHTML = translations.enus.scientificTab;
+                $('#algebraTab span').innerHTML = translations.enus.algebraTab;
+                $('#unitsTab span').innerHTML = translations.enus.unitsTab;
+                $('#chemistryTab span').innerHTML = translations.enus.chemistryTab;
+                $('#learnTab span').innerHTML = translations.enus.learnTab;
+                $('#memoriseTab span').innerHTML = translations.enus.memoriseTab;
+                $('#parseTab span').innerHTML = translations.enus.parseTab;
+                $('#controlsTab span').innerHTML = translations.enus.controlsTab;
+                $('#graphing h1').innerHTML = translations.enus.graphingTab;
+                $('#scientific h1').innerHTML = translations.enus.scientificTab;
+                $('#algebra h1').innerHTML = translations.enus.algebraTab;
+                $('#units h1').innerHTML = translations.enus.unitsTab;
+                $('#chemistry h1').innerHTML = translations.enus.chemistryTab;
+                $('#learn h1').innerHTML = translations.enus.learnTab;
+                $('#memorise h1').innerHTML = translations.enus.memoriseTab;
+                $('#parse h1').innerHTML = translations.enus.parseTab;
+                $('#controls h1').innerHTML = translations.enus.controlsTab;
+                // Top row
+                $('#xiv-title').innerHTML = translations.enus.xivTitle;
+                $('#xr-title').innerHTML = translations.enus.xrTitle;
+                $('#xi-title').innerHTML = translations.enus.xiTitle;
+                $('#graph-title').innerHTML = translations.enus.graphTitle;
+                $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+                  element.innerHTML = translations.enus.sliderInput;
+                });
+                // Bottom row
+                $('#function-title').innerHTML = translations.en.functionTitle;
+                if (nof == 1) $('#function-title').innerHTML = translations.en.functionTitle;
+                else $('#function-title').innerHTML = translations.en.functionTitlePl;
+                break;
+              case 'fr':
+                $('#memoriseTab').style.fontSize = '10pt';
+                // Navigation
+                $('#homeTab span').innerHTML = translations.fr.graphingTab;
+                $('#scientificTab span').innerHTML = translations.fr.scientificTab;
+                $('#algebraTab span').innerHTML = translations.fr.algebraTab;
+                $('#unitsTab span').innerHTML = translations.fr.unitsTab;
+                $('#chemistryTab span').innerHTML = translations.fr.chemistryTab;
+                $('#learnTab span').innerHTML = translations.fr.learnTab;
+                $('#memoriseTab span').innerHTML = translations.fr.memoriseTab;
+                $('#parseTab span').innerHTML = translations.fr.parseTab;
+                $('#controlsTab span').innerHTML = translations.fr.controlsTab;
+                $('#graphing h1').innerHTML = translations.fr.graphingTab;
+                $('#scientific h1').innerHTML = translations.fr.scientificTab;
+                $('#algebra h1').innerHTML = translations.fr.algebraTab;
+                $('#units h1').innerHTML = translations.fr.unitsTab;
+                $('#chemistry h1').innerHTML = translations.fr.chemistryTab;
+                $('#learn h1').innerHTML = translations.fr.learnTab;
+                $('#memorise h1').innerHTML = translations.fr.memoriseTab;
+                $('#parse h1').innerHTML = translations.fr.parseTab;
+                $('#controls h1').innerHTML = translations.fr.controlsTab;
+                // Top row
+                $('#xiv-title').innerHTML = translations.fr.xivTitle;
+                $('#xr-title').innerHTML = translations.fr.xrTitle;
+                $('#xi-title').innerHTML = translations.fr.xiTitle;
+                $('#graph-title').innerHTML = translations.fr.graphTitle;
+                $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+                  element.innerHTML = translations.fr.sliderInput;
+                });
+                // Bottom row
+                if (nof == 1) $('#function-title').innerHTML = translations.fr.functionTitle;
+                else $('#function-title').innerHTML = translations.fr.functionTitlePl;
+                break;
+            };
+          },
+        };
+
+
+        // On load actions
         window.addEventListener('load', function() {
           // Utiliser HTTP en lieu d'HTTPS à cause de l'HTTP est incompatible avec mon domain
           //if (window.location.href.slice(0, 5) !== 'http:') window.location.href = 'http://' + window.location.href.slice(8);
+
+          // Apply user language
+          translations.applyLang();
 
           // Graph at the start
           graphFunction();
           inputsAutoGraphTest();
 
           // Open the home tab
-          document.querySelector('#homeTab').click();
+          $('#homeTab').click();
 
-          document.querySelectorAll('.graph-adv').forEach(function(element) {
+          $all('.graph-adv').forEach(function(element) {
               element.classList.add('hidden');
           });
           setInterval(function() {
@@ -307,7 +489,11 @@
               updateTrace();
             });
           });
-
+          
+          $('#lang-select').addEventListener('input', function () {
+            lang = this.value;
+            translations.applyLang();
+          });
 
           $('#graphing').addEventListener('mouseover', function () {
             if (pregraphed == false) pregraphed = true;
@@ -316,7 +502,7 @@
 
           $('#xi-input').addEventListener('input', function () {
             xi = Number(this.value);
-            $('#xi-value').innerHTML = xi
+            $('#xi-value').innerHTML = xi;
             
           });
 
@@ -626,6 +812,7 @@
           else $('#function-delete-1').disabled = 'disabled';
           if ($('#graph-auto').checked) graphFunction();
           inputsAutoGraphTest();
+          translations.applyLang();
         }
 
         function drawGrid (majorStep, minorStep) {
@@ -2673,6 +2860,22 @@
           </script>
         </div>
       </div>
+
+      <!-- Controls Section -->
+      <div id="controls" class="content-section">
+        <h1 class="page-title">Controls</h1>
+        <div class="desk-paper">
+          <p>
+            <label for='lang-select'>Language: </label>
+            <select id='lang-select'>
+              <option value='en'>English (gb)</option>
+              <option value='enus'>English (us)</option>
+              <option value='fr'>français</option>
+              <!--<option value='tok'>toki pona</option>-->
+            </select>
+          </p>          
+        </div>
+      </div>
     </div>
 
 
@@ -2680,35 +2883,39 @@
     <nav class='nav-bar'>
       <div class='nav-item' data-target='#graphing' id='homeTab'>
         <i class='fa-solid fa-pencil'></i>
-        Graphing
+        <span>Graphing</span>
       </div>
       <div class='nav-item' data-target='#scientific' id='scientificTab'>
         <i class='fa-solid fa-calculator'></i>
-        Scientific
+        <span>Scientific</span>
       </div>
       <div class='nav-item' data-target='#algebra' id='algebraTab'>
         <i class='fa-solid fa-microchip'></i>
-        Algebra
+        <span>Algebra</span>
       </div>
       <div class='nav-item' data-target='#units' id='unitsTab'>
         <i class='fa-solid fa-ruler'></i>
-        Units
+        <span>Units</span>
       </div>
       <div class='nav-item' data-target='#chemistry' id='chemistryTab'>
         <i class='fa-solid fa-flask'></i>
-        Chemistry
+        <span>Chemistry</span>
       </div>
       <div class='nav-item' data-target='#learn' id='learnTab'>
         <i class='fa-solid fa-brain'></i>
-        Learn
+        <span>Learn</span>
       </div>
       <div class='nav-item' data-target='#memorise' id='memoriseTab'>
         <i class='fa-solid fa-book-open'></i>
-        Memorise
+        <span>Memorise</span>
       </div>
       <div class='nav-item' data-target='#parse' id='parseTab'>
         <i class='fa-solid fa-box-open'></i>
-        Parse
+        <span>Parse</span>
+      </div>
+      <div class='nav-item' data-target='#controls' id='controlsTab'>
+        <i class='fa-solid fa-gears'></i>
+        <span>Controls</span>
       </div>
     </nav>
 
