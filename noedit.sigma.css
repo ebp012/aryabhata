@@ -66,8 +66,10 @@ body:hover {
   border-radius: 20px;
   height: 80px;
   background: linear-gradient(
-      rgba(210, 200, 210, 0.44), /* Light purple tint */
-      rgba(160, 150, 160, 0.54)  /* Dark purple tint */
+      rgba(160, 150, 160, 0.34),  /* Dark purple tint */
+      rgba(185, 175, 185, 0.40), /* Light purple tint */
+      rgba(185, 175, 185, 0.40), /* Light purple tint */
+      rgba(160, 150, 160, 0.34)  /* Dark purple tint */
     );
   display: flex;
   width: fit-content;
@@ -76,8 +78,9 @@ body:hover {
   outline: 0.25px solid #666;
   border: none;
   box-shadow:
-    0 -4px 20px rgba(0, 0, 0, 0.7),
-    6px 4px 100px rgba(241, 227, 255, 0.9),
+    0 -4px 6px -1px rgba(34, 58, 46, 0.4),
+    0 4px 6px 1px rgba(34, 58, 46, 0.4),
+    6px 4px 20px rgba(241, 227, 255, 0.9),
     inset 0 0 15px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
@@ -161,7 +164,7 @@ body:hover {
 
 .content-section {
   display: none;
-  background: rgba(255, 255, 255, 0.54);
+  background: rgba(255, 255, 255, 0.44);
   border-radius: 18px;
   padding: 24px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -1px 4px 24px rgba(14, 28, 0, 0.3), inset 1px 0px 9px rgba(28, 56, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
@@ -266,10 +269,16 @@ p.page-nav {
     overflow-y: hidden;
     animation: navIn 0.25s ease-in;
     flex-direction: row;
+    filter: brightness(0.9);
+    /*background-image: linear-gradient(
+        rgba(0, 0, 0, 0.64),
+        rgba(0, 0, 0, 0.64)
+      );*/
   }
   .nav-item {
     gap: 11px;
     min-width: 120px;
+    filter: brightness(1.5);
   }
   /* No mobile scrollbar gap */
   ::-webkit-scrollbar, ::-webkit-scrollbar:active, ::-webkit-scrollbar:hover {
@@ -328,7 +337,7 @@ p.page-nav {
     height: auto;
     flex-direction: column;
     padding: 20px 15px;
-    box-shadow: 0 0 20px rgba(7, 14, 0, 0.3);
+    box-shadow: 0 0 2px rgba(7, 14, 0, 0.3);
     display: grid;
     grid-template-columns: 1fr;
     gap: 15px;
@@ -336,8 +345,8 @@ p.page-nav {
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 87.5vh;
+    transition: left 0.45s ease-in-out, transform 0.45s ease-in-out, padding 0.45s ease-in-out, gap 0.45sease-in-out, bottom 0.45s ease-in-out, filter 0.45s ease-in-out;
     filter: brightness(1.09);
-    transition: left 0.45s ease-in-out, transform 0.45s ease-in-out, padding 0.45s ease-in-out, gap 0.45s ease-in-out, bottom 0.45s ease-in-out, filter 0.45s ease-in-out;
   }
   .nav-bar:before, .nav-item:before {
     content: '';
@@ -420,7 +429,7 @@ p.page-nav {
   }
 
   .content-section {
-    background: rgba(50, 50, 50, 0.64);
+    background: rgba(50, 50, 50, 0.44);
     color: #e0e0e0;
     box-shadow: 0 8px 20px rgba(17, 34, 0, 0.3), inset -0.5px 2px 12px rgba(3.5, 7, 0, 0.15), inset 0.5px 0px 4.5px rgba(7, 14, 0, 0.15), inset 0 2px 50px rgba(241, 227, 255, 0.8);
   }
