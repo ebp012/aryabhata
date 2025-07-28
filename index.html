@@ -127,39 +127,61 @@
                       <strong>Function</strong><br/>
                       <div id='function-wrapper'>
                         <p class='equation' id='function-1'>
-                          <span id='function-name-1'>f</span>(x) = <input id='function-input-1' type='text' style='font-family: times;' value='0.37x^2 - 10x'/>
+                          <span id='function-name-1'>f</span>(x) = <input id='function-input-1' type='text' value='0.37x^2 - 10x'/>
                           <select id='function-colour-1'>
-                            <option>pink</option>
-                            <option value='red'>medium red</option>
-                            <option value='#880808'>dark red</option>
-                            <option value='#FFD580'>light orange</option>
-                            <option value='orange'>medium orange</option>
-                            <option>brown</option>
-                            <option value='#FFFDD0'>cream</option>
-                            <option>yellow</option>
-                            <option>gold</option>
-                            <option value='#90EE90'>light green</option>
-                            <option value='green'>medium green</option>
-                            <option value='#228B22'>dark green</option>
-                            <option value='#90E4C1'>light teal</option>
-                            <option value='teal'>medium teal</option>
-                            <option value='#008080'>dark teal</option>
-                            <option value='powderblue'>light blue</option>
-                            <option value='blue'>medium blue</option>
-                            <option value='navy'>navy blue</option>
-                            <option>indigo</option>
-                            <option selected='selected'>purple</option>
-                            <option>maroon</option>
-                            <option>magenta</option>
-                            <option>brown</option>
-                            <option>white</option>
-                            <option>silver</option>
-                            <option>grey</option>
-                            <option value='darkslategrey'>slate</option>
-                            <option>black</option>
-                            <option value='rgba(0,0,0,0)'>invisible</option>
+                            <optgroup label='Mute colours'>
+                              <option value='#f09393ff'>pink</option>
+                              <option value='#CB4C4Eff'>red</option>
+                              <option value='#D25339ff'>orange</option>
+                              <option value='#CF812Eff'>yellow</option>
+                              <option value='#4CAB4Eff'>green</option>
+                              <option value='#4D7C8Dff'>teal</option>
+                              <option value='#4E4CCBff'>blue</option>
+                              <option value='#614CC5ff'>indigo</option>
+                              <option value='#7E4CBCff'>violet</option>
+                              <option value='#AD4CADff' selected='selected'>purple</option>
+                              <option value='#808080ff'>grey</option>
+                              <option value='#9A4CB3ff'>maroon</option>
+                              <option value='#A16C4Eff'>brown</option>
+                              <option value='#273236ff'>black</option>
+                              <option value='#d8cdc9ff'>white</option>
+                            </optgroup>
+                            <optgroup label='Saturated colours'>
+                              <option value='#ff69b4ff'>hot pink</option>
+                              <option value='#ff0000ff'>hot red</option>
+                              <option value='#DD8800ff'>hot orange</option>
+                              <option value='#66AA00ff'>hot yellow</option>
+                              <option value='#00ff00ff'>hot green</option>
+                              <option value='#00c0c0ff'>hot teal</option>
+                              <option value='#0000ffff'>hot blue</option>
+                              <option value='#4000EAff'>hot indigo</option>
+                              <option value='#8000D5ff'>hot violet</option>
+                              <option value='#c000c0ff'>hot purple</option>
+                              <option value='#c0c0c0ff'>hot grey</option>
+                              <option value='#800000ff'>hot maroon</option>
+                              <option value='#6c3b1cff'>hot brown</option>
+                              <option value='#000000ff'>hot black</option>
+                              <option value='#ffffffff'>hot white</option>
+                            </optgroup>
+                            <optgroup label='Pastel colours'>
+                              <option value='#f2b1b1ff'>pastel pink</option>
+                              <option value='#FAA0A01ff'>pastel red</option>
+                              <option value='#FDAA77ff'>pastel orange</option>
+                              <option value='#FED8B2ff'>pastel yellow</option>
+                              <option value='#77dd77ff'>bright green</option>
+                              <option value='#75dad7ff'>bright teal</option> <!--279e9d, 4ebcba-->
+                              <option value='#a7c7e7ff'>pastel blue</option>
+                              <option value='#8686afff'>pastel indigo</option>
+                              <option value='#ab9678ff'>pastel violet</option>
+                              <option value='#ffd2cfff'>pastel purple</option>
+                              <option value='#f3cfceff'>pastel grey</option>
+                            </optgroup>
+                            <optgroup label='Opacity'>
+                              <option value='#c0c0c080'>translucent</option>
+                              <option value='#ffffff00'>transparent</option>
+                            </optgroup>
                           </select>
-                          <button class='fa fa-trash' disabled='disabled' id='function-delete-1'></button>
+                          <button class='fa fa-eye' disabled='disabled' id='function-delete-1'></button>
                         </p>
                       </div>
                       <button class='fa fa-plus' id='equation-new' onclick='addNewFunction();'></button>
@@ -241,8 +263,14 @@
         window.addEventListener('load', function() {
           // Utiliser HTTP en lieu d'HTTPS à cause de l'HTTP est incompatible avec mon domain
           //if (window.location.href.slice(0, 5) !== 'http:') window.location.href = 'http://' + window.location.href.slice(8);
+
+          // Graph at the start
           graphFunction();
+          inputsAutoGraphTest();
+
+          // Open the home tab
           document.querySelector('#homeTab').click();
+
           document.querySelectorAll('.graph-adv').forEach(function(element) {
               element.classList.add('hidden');
           });
@@ -263,13 +291,15 @@
             }
 
           }, 37);
-
-          document.querySelectorAll('#graphing input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input').forEach(input => {
-            input.addEventListener('input', function () {
-              // if the user selects to graph automatically (resource-consuming)
-              if ($('#graph-auto').checked == true) graphFunction();
+          
+          function inputsAutoGraphTest () {
+            document.querySelectorAll('#graphing input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input').forEach(input => {
+              input.addEventListener('input', function () {
+                // if the user selects to graph automatically (resource-consuming)
+                if ($('#graph-auto').checked) graphFunction();
+              });
             });
-          });
+          }
 
           document.querySelectorAll('#graphing input[type=range], #graphing td input[type=number]:first-of-type').forEach(input => {
             input.addEventListener('input', function () {
@@ -327,7 +357,7 @@
               var scaleContainerSub = $('#graph-scale-span-sub');
               modal.classList.toggle('hidden');
               modal.parentElement.classList.toggle('hidden');
-              if (fullscreen === true) { // if fullscreen is now entered
+              if (fullscreen) { // if fullscreen is now entered
                 modal.innerHTML = '';
                 modal.appendChild($('#graph-div'));
                 modal.appendChild($('#graph-scale-span'));
@@ -385,13 +415,13 @@
             if (this.max > 2) this.max = 2;
             if (this.value <= this.min) this.value = this.min;
             if (this.value >= this.max) this.value = this.max;
-            if (fullscreen === true) canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
+            if (fullscreen) canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
             else canvas.style.transform = 'scale(1)';*/
           });
 
           canvas.addEventListener('wheel', function (e) {
             e.preventDefault();
-            if ($('#graph-scroll-xiv').checked == true) { // originally fullscreen != true
+            if ($('#graph-scroll-xiv').checked) { // originally fullscreen != true
               // Vertical scrolling
               if (e.deltaY > 0) {
                 // Scroll down; ideally decrease y-i viewport
@@ -591,8 +621,11 @@
         function addNewFunction () {
           nof++;
           let char = alphabet(nof, true);
-          $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '"><select id="function-colour-' + nof + '"><option>pink</option><option value="red">medium red</option><option value="#880808">dark red</option><option value="#FFD580">light orange</option><option value="orange">medium orange</option><option>brown</option><option value="#FFFDD0">cream</option><option>yellow</option><option>gold</option><option value="#90EE90">light green</option><option value="green">medium green</option><option value="#228B22">dark green</option><option value="#90E4C1">light teal</option><option value="teal">medium teal</option><option value="#008080">dark teal</option><option value="powderblue">light blue</option><option value="blue">medium blue</option><option value="navy">navy blue</option><option>indigo</option><option selected="selected">purple</option><option>maroon</option><option>magenta</option><option>brown</option><option>white</option><option>silver</option><option>grey</option><option value="darkslategrey">slate</option><option>black</option><option value="rgba(0,0,0,0)">invisible</option></select><button class="fa fa-trash" id="function-delete-' + nof + '"></button></p>';
-          if ($('#graph-auto').checked == true) graphFunction();
+          $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-delete-' + nof + '" oninput="graphFunction();"></button></p>';
+          if (nof > 1) $('#function-delete-1').removeAttribute('disabled');
+          else $('#function-delete-1').disabled = 'disabled';
+          if ($('#graph-auto').checked) graphFunction();
+          inputsAutoGraphTest();
         }
 
         function drawGrid (majorStep, minorStep) {
@@ -630,7 +663,7 @@
             if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
             else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
             else ctx.lineWidth = 0.03125;
-            if ($('#graph-grids').checked == true) {
+            if ($('#graph-grids').checked) {
               // Draw quadrants I and IV
               // Horizontal
               ctx.beginPath();
@@ -645,7 +678,7 @@
               ctx.stroke();
             }
             // Draw tick marks if selected
-            if ($('#graph-ticks').checked == true && (i/5) % mS == 0) {
+            if ($('#graph-ticks').checked && (i/5) % mS == 0) {
               // Number($('#graph-tick-height').value)
               ctx.lineWidth = 0.5;
               // Draw quadrants I and IV
@@ -669,7 +702,7 @@
             if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
             else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
             else ctx.lineWidth = 0.03125;
-            if ($('#graph-grids').checked == true) {
+            if ($('#graph-grids').checked) {
               // Draw quadrants I and IV
               // Vertical
               ctx.beginPath();
@@ -684,7 +717,7 @@
               ctx.stroke();
             }
             // Draw tick marks if selected
-            if ($('#graph-ticks').checked == true && (i/5) % mS == 0) {
+            if ($('#graph-ticks').checked && (i/5) % mS == 0) {
               // Number($('#graph-tick-height').value)
               ctx.lineWidth = 0.5;
               // Draw quadrants I and IV
@@ -729,7 +762,7 @@
           var j = 90;
           var k = 0;
           for (var i = -canvas.width/2; i < iidiag; i += (2*a)) {
-            if ($('#graph-ticks').checked == true) {
+            if ($('#graph-ticks').checked) {
               ctx.beginPath()
               if (k % 6 == 0) {
                 ctx.moveTo(i, -j + Number($('#graph-tick-height').value));
@@ -858,7 +891,7 @@
           // Loop to graph each function
           for (var f = 1; f <= nof; f++) {
             var colour = $('#function-colour-' + f).value;
-            if (do3D == true) drawGrid3D();
+            if (do3D) drawGrid3D();
             ctx.strokeStyle = colour;
             var preprecision = Number($('#trace-round').value);
             if (preprecision < -4) preprecision = -1;
@@ -874,7 +907,7 @@
               var yrit = -solve(xrt, Number($('#xiv-input').value), true, 1, f)
               var xrtNext = i + precision;
               var yrtNext = -solve(xrtNext, Number($('#xiv-input').value), false, 1, f);
-              if ($('#graph-dimension-xi').checked == true) {
+              if ($('#graph-dimension-xi').checked) {
                 yrt = -solve(Number($('#xiv-input').value), xrt, false, 1, f);
                 yrtNext = -solve(Number($('#xiv-input').value), xrtNext, false, 1, f)
               }
@@ -922,7 +955,7 @@
               ctx.lineTo(scale * xrtNext, scale * yrtNext);
               ctx.stroke();
               // The pointed graph
-              if (i % Number($('#graph-minor-step').value) == 0 && $('#graph-points').checked == true) {
+              if (i % Number($('#graph-minor-step').value) == 0 && $('#graph-points').checked) {
                 // Positive x point
                 ctx.beginPath();
                 ctx.arc(scale * xrt, scale * yrt, 1.25, 0, 2 * Math.PI);
