@@ -64,7 +64,7 @@ body:hover {
   border-radius: 20px;
   height: 80px;
   background: linear-gradient(
-      rgba(210, 200, 210, 0.54), /* Light purple tint */
+      rgba(210, 200, 210, 0.44), /* Light purple tint */
       rgba(160, 150, 160, 0.54)  /* Dark purple tint */
     );
   display: flex;
@@ -120,7 +120,7 @@ body:hover {
 
 .nav-item:active,
 .nav-item.active-state {
-  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 0.45s ease-in-out;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1),
     inset 0 2px 4px rgba(0, 0, 0, 0.1);
   background: linear-gradient(
@@ -159,7 +159,7 @@ body:hover {
 
 .content-section {
   display: none;
-  background: rgba(255, 255, 255, 0.44);
+  background: rgba(255, 255, 255, 0.54);
   border-radius: 18px;
   padding: 24px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -1px 4px 24px rgba(14, 28, 0, 0.3), inset 1px 0px 9px rgba(28, 56, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
@@ -332,8 +332,9 @@ p.page-nav {
     bottom: auto;
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 66.67vh;
-    filter: brightness(1.1);
+    max-height: 87.5vh;
+    filter: brightness(1.09);
+    transition: left 0.45s ease-in-out, transform 0.45s ease-in-out, padding 0.45s ease-in-out, gap 0.45s ease-in-out, bottom 0.45s ease-in-out, filter 0.45s ease-in-out;
   }
   .nav-bar:before, .nav-item:before {
     content: '';
@@ -423,8 +424,8 @@ p.page-nav {
 
   .nav-bar {
     background: linear-gradient(
-        rgba(100, 100, 100, 0.64),
-        rgba(80, 80, 80, 0.64)
+        rgba(100, 100, 100, 0.44),
+        rgba(80, 80, 80, 0.34)
       );
     border-color: #444;
   }
@@ -773,4 +774,65 @@ canvas {
   padding: 20px;
   backdrop-filter: blur(8.1px);
   background-color: rgba(242, 227, 255, 0.33);
+}
+
+
+
+
+/* GLASS EFFECT */
+:root {
+    /* Glass Effect Variables - Customize these values */
+    --shadow-offset: 0;
+    --shadow-blur: 10px;
+    --shadow-spread: -5px;
+    --shadow-color: rgba(236, 217, 255, 0.7);
+    --tint-color: 236, 217, 255;
+    --tint-opacity: 0.2;
+    --frost-blur: 2px;
+    --frost-blur-hover: 0.5px;
+    --noise-frequency: 0.008;
+    --distortion-strength: 77;
+    --outer-shadow-blur: 24px;
+}
+
+
+.glass-effect::after, .nav-item::after, .desk-paper::after, button::after, a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    filter: url(#glass-distortion);
+    -webkit-filter: url("#glass-distortion");
+    isolation: isolate;
+    transition: filter 0.45s ease-in-out;
+}
+button::after, button:hover::after {border-radius: 9px;}
+.glass-effect:hover::after, .nav-item:hover::after, button:hover::after, a:hover::after {
+    backdrop-filter: blur(var(--frost-blur-hover));
+    -webkit-backdrop-filter: blur(var(--frost-blur-hover));
+    filter: url(#glass-distortion-hover);
+    -webkit-filter: url("#glass-distortion-hover");
+    transition: filter 0.45s ease-in-out;
+}
+button:hover::after {
+    backdrop-filter: blur(var(--frost-blur-hover));
+    -webkit-backdrop-filter: blur(var(--frost-blur-hover));
+    filter: url(#glass-distortion-hover);
+    -webkit-filter: url("#glass-distortion-hover-button");
+}
+
+@media (min-width: 1024px) {
+  .nav-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    filter: url(#glass-distortion);
+    -webkit-filter: url("#glass-distortion");
+    isolation: isolate;
+  }
 }
