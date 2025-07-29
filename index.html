@@ -11,15 +11,15 @@
       gtag('config', 'TAG_ID');
     </script>
     <title>Aryabhata</title>
-    <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'/>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'/>
     <meta name='theme-color' content='#7C614D'/> <!-- Safari navbar theme -->
     <meta name="apple-mobile-web-app-capable" content="yes"/> <!-- i(Pad)OS web app -->
     <meta name="format-detection" content="telephone=no"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> <!-- disable zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> <!-- disable zoom -->
 
     <style>
       .shown {display: block};
-      #bgcontainer {
+      #bgcontainer, html {
         background: url(http://anantam.aeonic.me/bg.png);
       }
     </style>
@@ -210,15 +210,15 @@
                   </td>
                   <td style='border-radius: 6px;'>
                     <center id='graph-scale-span-container'>
-                      <strong>Trace</strong><br/>
+                      <strong id='trace-title'>Trace</strong><br/>
                       x: <span id='xri-showcase'>? + ?i</span><br/>
                       y: <span id='yri-showcase'>? + ?i</span><br/>
                       <hr/>
-                      Round: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup>
+                      <span id='round-title'>Round</span>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup>
                       <span id='graph-scale-span'>
                         <hr/>
                         <span id='graph-scale-span-sub'>
-                          Scale: <input type='number' id='graph-scale' value='5' step='1'/><br/>
+                          <span id='scale-title'>Scale</span>: <input type='number' id='graph-scale' value='5' step='1'/><br/>
                         </span>
                         <br/>
                         <!--Density: <input type='number' id='graph-density' value='10' step='1'/>-->
@@ -329,6 +329,8 @@
             functionTitle: 'Function',
             functionTitlePl: 'Functions',
             traceTitle: 'Trace',
+            roundTitle: 'Round',
+            scaleTitle: 'Scale',
           },
           fr: {
             // Navigation
@@ -351,11 +353,13 @@
             functionTitle: 'Fonction',
             functionTitlePl: 'Fonctions',
             traceTitle: 'Traçage',
+            roundTitle: 'Arrondage',
+            scaleTitle: 'Scalage',
           },
           applyLang: function () {
             switch (lang) {
               case 'en':
-                $('#memoriseTab').style.fontSize = 'auto';
+                $('#memoriseTab').style.fontSize = '12pt';
                 // Navigation
                 $('#homeTab span').innerHTML = translations.en.graphingTab;
                 $('#scientificTab span').innerHTML = translations.en.scientificTab;
@@ -387,40 +391,9 @@
                 $('#function-title').innerHTML = translations.en.functionTitle;
                 if (nof == 1) $('#function-title').innerHTML = translations.en.functionTitle;
                 else $('#function-title').innerHTML = translations.en.functionTitlePl;
-                break;
-              case 'enus':
-                $('#memoriseTab').style.fontSize = 'auto';
-                // Navigation
-                $('#homeTab span').innerHTML = translations.enus.graphingTab;
-                $('#scientificTab span').innerHTML = translations.enus.scientificTab;
-                $('#algebraTab span').innerHTML = translations.enus.algebraTab;
-                $('#unitsTab span').innerHTML = translations.enus.unitsTab;
-                $('#chemistryTab span').innerHTML = translations.enus.chemistryTab;
-                $('#learnTab span').innerHTML = translations.enus.learnTab;
-                $('#memoriseTab span').innerHTML = translations.enus.memoriseTab;
-                $('#parseTab span').innerHTML = translations.enus.parseTab;
-                $('#controlsTab span').innerHTML = translations.enus.controlsTab;
-                $('#graphing h1').innerHTML = translations.enus.graphingTab;
-                $('#scientific h1').innerHTML = translations.enus.scientificTab;
-                $('#algebra h1').innerHTML = translations.enus.algebraTab;
-                $('#units h1').innerHTML = translations.enus.unitsTab;
-                $('#chemistry h1').innerHTML = translations.enus.chemistryTab;
-                $('#learn h1').innerHTML = translations.enus.learnTab;
-                $('#memorise h1').innerHTML = translations.enus.memoriseTab;
-                $('#parse h1').innerHTML = translations.enus.parseTab;
-                $('#controls h1').innerHTML = translations.enus.controlsTab;
-                // Top row
-                $('#xiv-title').innerHTML = translations.enus.xivTitle;
-                $('#xr-title').innerHTML = translations.enus.xrTitle;
-                $('#xi-title').innerHTML = translations.enus.xiTitle;
-                $('#graph-title').innerHTML = translations.enus.graphTitle;
-                $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
-                  element.innerHTML = translations.enus.sliderInput;
-                });
-                // Bottom row
-                $('#function-title').innerHTML = translations.en.functionTitle;
-                if (nof == 1) $('#function-title').innerHTML = translations.en.functionTitle;
-                else $('#function-title').innerHTML = translations.en.functionTitlePl;
+                $('#trace-title').innerHTML = translations.en.traceTitle;
+                $('#round-title').innerHTML = translations.en.roundTitle;
+                $('#scale-title').innerHTML = translations.en.scaleTitle;
                 break;
               case 'fr':
                 $('#memoriseTab').style.fontSize = '10pt';
@@ -454,6 +427,9 @@
                 // Bottom row
                 if (nof == 1) $('#function-title').innerHTML = translations.fr.functionTitle;
                 else $('#function-title').innerHTML = translations.fr.functionTitlePl;
+                $('#trace-title').innerHTML = translations.fr.traceTitle;
+                $('#round-title').innerHTML = translations.fr.roundTitle;
+                $('#scale-title').innerHTML = translations.fr.scaleTitle;
                 break;
             };
           },
@@ -2891,7 +2867,7 @@
             <label for='lang-select'>Language: </label>
             <select id='lang-select'>
               <option value='en'>English (gb)</option>
-              <option value='enus'>English (us)</option>
+              <!--<option value='enus'>English (us)</option>-->
               <option value='fr'>français</option>
               <!--<option value='tok'>toki pona</option>-->
             </select>
@@ -3227,7 +3203,7 @@
           });
           
           // Style the clicked nav item
-          this.style.background = 'rgba(255,255,255,0.3)';
+          this.style.background = 'rgba(155,130,155,0.3)';
           this.style.transform = 'translateY(-5px)';
         }
         
