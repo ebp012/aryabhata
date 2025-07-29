@@ -38,28 +38,28 @@
 
     <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <filter id="glass-distortion">
+        <filter id="crystal-distortion">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
         </filter>
-        <filter id="glass-distortion-hover">
+        <filter id="crystal-distortion-hover">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="16"/>
             <feColorMatrix type="saturate" values="1.025"/>
             <feColorMatrix type="hueRotate" values="12"/>
         </filter>
-        <filter id="glass-distortion-hover-button">
+        <filter id="crystal-distortion-hover-button">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
             <feColorMatrix type="saturate" values="1.05"/>
             <feColorMatrix type="hueRotate" values="12"/>
         </filter>
-        <filter id="glass-distortion-plus">
+        <filter id="crystal-distortion-plus">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="72"/>
             <feColorMatrix type="saturate" values="1.05"/>
         </filter>
-        <filter id="glass-distortion-minus">
+        <filter id="crystal-distortion-minus">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
             <feColorMatrix type="saturate" values="1.05"/>
@@ -70,6 +70,7 @@
     <div class='container'>
       <div id='graphing' class='content-section active'>
         <h1 class="page-title">Graphing</h1>
+        <p class='page-nav'><b>• <a href='#bio'>bio</a> • <a href='#thoughts'>thoughts</a> • <a href='#youtube'>YouTube</a> •</b></p>
         <div class="desk-paper" style='line-height: 36pt;'>
           <div class='table-wrapper'>
             <table class='non' style='margin-left: auto; margin-right: auto; min-width: calc(100% - 60px);'>
