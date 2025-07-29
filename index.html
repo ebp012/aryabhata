@@ -37,24 +37,34 @@
     <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); filter: sepia(87%);'></div>
 
     <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <filter id="glass-distortion">
-                <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="6"/>
-            </filter>
-        </defs>
-        <defs>
-            <filter id="glass-distortion-hover">
-                <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
-            </filter>
-        </defs>
-        <defs>
-            <filter id="glass-distortion-hover-button">
-                <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="12"/>
-            </filter>
-        </defs>
+      <defs>
+        <filter id="glass-distortion">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
+        </filter>
+        <filter id="glass-distortion-hover">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="16"/>
+            <feColorMatrix type="saturate" values="1.025"/>
+            <feColorMatrix type="hueRotate" values="12"/>
+        </filter>
+        <filter id="glass-distortion-hover-button">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+            <feColorMatrix type="hueRotate" values="12"/>
+        </filter>
+        <filter id="glass-distortion-plus">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="72"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+        <filter id="glass-distortion-minus">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+      </defs>
     </svg>
 
     <div class='container'>
@@ -359,6 +369,7 @@
           applyLang: function () {
             switch (lang) {
               case 'en':
+                $('#scientificTab').style.fontSize = '12pt';
                 $('#memoriseTab').style.fontSize = '12pt';
                 // Navigation
                 $('#homeTab span').innerHTML = translations.en.graphingTab;
@@ -396,6 +407,7 @@
                 $('#scale-title').innerHTML = translations.en.scaleTitle;
                 break;
               case 'fr':
+                $('#scientificTab').style.fontSize = '10pt';
                 $('#memoriseTab').style.fontSize = '10pt';
                 // Navigation
                 $('#homeTab span').innerHTML = translations.fr.graphingTab;
@@ -440,8 +452,20 @@
         window.addEventListener('load', function() {
           // Utiliser HTTP en lieu d'HTTPS à cause de l'HTTP est incompatible avec mon domain
           //if (window.location.href.slice(0, 5) !== 'http:') window.location.href = 'http://' + window.location.href.slice(8);
-
+          
           // Apply user language
+          switch (navigator.language) {
+            case 'en':
+              $('#lang-select option[value="en"]').selected = 'selected';
+              lang = 'en';
+              break;
+            case 'fr':
+              $('#lang-select option[value="fr"]').selected = 'selected';
+              lang = 'fr';
+              break;
+            default:
+              lang = 'en';
+          };
           translations.applyLang();
 
           // Graph at the start
