@@ -82,8 +82,8 @@ body:hover {
     0 4px 6px 1px rgba(34, 58, 46, 0.4),
     6px 4px 20px rgba(241, 227, 255, 0.9),
     inset 0 0 15px rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(8.1px);
-  -webkit-backdrop-filter: blur(8.1px);
+  backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
+  -webkit-backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -167,8 +167,8 @@ body:hover {
   border: 1px solid #99663386;
   min-height: 400px;
   line-height: 1.8;
-  backdrop-filter: blur(8.1px);
-  -webkit-backdrop-filter: blur(8.1px);
+  backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
+  -webkit-backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
   margin-bottom: 100px;
   filter: brightness(1.05);
 }
@@ -197,7 +197,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    filter: blur(8.1px);
+    filter: blur(6.1px) url(#glass-distortion-plus);
     transform: translateY(10px);
   }
   to {
@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 
 @keyframes navIn {
   from {
-    filter: blur(3.15px);
+    filter: blur(3.1px) url(#glass-distortion-plus);
     transform: translateY(30px);
   }
   to {
@@ -238,21 +238,24 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   overflow-x: hidden;
   overflow-y: hidden;
   opacity: 83%;
-  backdrop-filter: blur(8.1px);
-  -webkit-backdrop-filter: blur(8.1px);
+  /*backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
+  -webkit-backdrop-filter: blur(6.1px) url(#glass-distortion-plus);*/
 }
 p.page-nav {
     text-align: center;
-    width: 100%;
+    width: auto;
     overflow-y: none;
     overflow-x: auto;
-    height: 28pt;
+    padding: 5pt;
+    border-radius: 14pt;
     font-size: 14pt;
     left: auto;
     right: auto;
     position: relative;
     bottom: 20px;
-    background-color: transparent;
+    background-color: #dfdceab0;
+    backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
+    -webkit-backdrop-filter: blur(6.1px) url(#glass-distortion-plus);
 }
 
 @media (max-width: 1024px) {
@@ -815,27 +818,30 @@ canvas {
 }
 
 
-.glass-effect::after, .nav-item::after, .desk-paper::after, button::after, a::after {
+.glass-effect::after, .nav-item::after, .desk-paper::after, button::after, select::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
-    filter: url(#glass-distortion);
-    -webkit-filter: url("#glass-distortion");
+    /*backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));*/
+    backdrop-filter: blur(6.1px) url(#glass-distortion-minus);
     isolation: isolate;
     transition: filter 0.45s ease-in-out;
 }
-button::after, button:hover::after {border-radius: 9px;}
-.glass-effect:hover::after, .nav-item:hover::after, button:hover::after, a:hover::after {
+.glass-effect::after, .nav-item::after, button::after, select::after {
+    filter: url(#glass-distortion);
+    -webkit-filter: url("#glass-distortion");
+}
+button::after, button:hover::after, select::after, select:hover::after {border-radius: 9px;}
+.glass-effect:hover::after, .nav-item:hover::after, button:hover::after, select:hover::after {
     backdrop-filter: blur(var(--frost-blur-hover));
     -webkit-backdrop-filter: blur(var(--frost-blur-hover));
     filter: url(#glass-distortion-hover);
     -webkit-filter: url("#glass-distortion-hover");
     transition: filter 0.45s ease-in-out;
 }
-button:hover::after {
+button:hover::after, select:hover::after {
     backdrop-filter: blur(var(--frost-blur-hover));
     -webkit-backdrop-filter: blur(var(--frost-blur-hover));
     filter: url(#glass-distortion-hover);
@@ -854,4 +860,20 @@ button:hover::after {
     -webkit-filter: url("#glass-distortion");
     isolation: isolate;
   }
+}
+
+.pulsed {
+  animation: liquidPulse 0.2s infinite alternate ease-in-out;
+}
+
+@keyframes liquidPulse {
+    0% {
+        filter: url(#glass-distortion); /* Initial state, scale 6 */
+    }
+    50% {
+        filter: url(#glass-distortion-hover); /* Mid-state, scale 9 */
+    }
+    100% {
+        filter: url(#glass-distortion); /* Return to initial */
+    }
 }
