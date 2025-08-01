@@ -16,6 +16,17 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/> <!-- i(Pad)OS web app -->
     <meta name="format-detection" content="telephone=no"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> <!-- disable zoom -->
+    <meta name="description" content="Conduct experiments and play with dangerous elements. All without risking your life or getting a laboratory.">
+		<meta name="keywords" content="math, graphing, science, algebra, geometry, mathematics, arithmetic, desmos, geogebra, grapher, chemistry, units, converter, learn, memorise, parse, aeonic, amethyst ui example, amethyst, svg filter, graphe, scientifique, calculator, calculatrice, algebre, unites, apprendre, se rapeller, parser, linguistique, linguistics">
+		<meta name="author" content="Eshaan B. Patel">
+		<meta name="robots" content="noarchive">
+    <link rel="manifest" href="manifest.json">
+		<!-- Favicon -->
+		<link rel="mask-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png" color="#2167ff">
+		<link rel="shortcut icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png">
+    <link rel="icon" type="image/x-icon" href="http://aryabhata.aeonic.me/assets/favicon.ico"/>
+    <link rel="apple-touch-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png"/>
+
 
     <style>
       .shown {display: block};
@@ -29,9 +40,6 @@
       rel='stylesheet'
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
     />
-    <!-- Favicon and PWA Icon -->
-    <link rel="icon" type="image/x-icon" href="http://aryabhata.aeonic.me/assets/favicon.ico"/>
-    <link rel="apple-touch-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png"/>
   </head>
   <body>
     <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); filter: sepia(87%);'></div>
@@ -141,13 +149,14 @@
                           <input type='radio' name='graph-dimension-y' id='graph-dimension-yi'/><label for='graph-dimension-yi'>Imaginary only</label><br/>
                         </form><br/>
                         <input id='graph-dimension-3d' type='checkbox'/> <label for='graph-dimension-3d'>Enable 3D?</label><br/>
+                        <input id='graph-auto' type='checkbox' checked='checked'/> <label for='graph-auto' title='resource-consuming'>Graph automatically?</label><br/>
                       </div>
                       <hr/>
-                      <input id='graph-ticks' type='checkbox' checked='checked'/> <label for='graph-ticks'>Tick marks?</label><br/>
+                      <input id='graph-ticks' type='checkbox'/> <label for='graph-ticks'>Tick marks?</label><br/>
                       <input id='graph-grids' type='checkbox' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
+                      <input id='graph-axes' type='checkbox' checked='checked'/> <label for='graph-axes'>Graph axes?</label><br/>
                       <input id='graph-points' type='checkbox' checked='checked'/> <label for='graph-points'>Graph points?</label><br/>
                       <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><br/>
-                      <input id='graph-auto' type='checkbox' checked='checked'/> <label for='graph-auto' title='resource-consuming'>Graph automatically?</label><br/>
                       <input id='graph-advanced' type='checkbox'/> <label for='graph-advanced'>Advanced options?</label><br/>
                     </center>
                   </td>
@@ -294,7 +303,8 @@
         var toffyi = 0; // total yi-offset
 
         // Translations
-        var lang = 'en';
+        var lang = navigator.language;
+        if (lang != 'en' && lang != 'fr') lang = 'en';
         var translations = {
           en: {
             // Navigation
@@ -317,30 +327,15 @@
             functionTitle: 'Function',
             functionTitlePl: 'Functions',
             traceTitle: 'Trace',
-          },
-          enus: {
-            // Navigation
-            graphingTab: 'Graphing',
-            scientificTab: 'Scientific',
-            algebraTab: 'Algebra',
-            unitsTab: 'Units',
-            chemistryTab: 'Chemistry',
-            learnTab: 'Learn',
-            memoriseTab: 'Memorize',
-            parseTab: 'Parse',
-            controlsTab: 'Controls',
-            // Top row
-            xivTitle: 'x-i Viewport',
-            xrTitle: 'x-r Trace',
-            xiTitle: 'x-i Trace',
-            graphTitle: 'Graph',
-            sliderInput: 'Slider entry?',
-            // Bottom row
-            functionTitle: 'Function',
-            functionTitlePl: 'Functions',
-            traceTitle: 'Trace',
             roundTitle: 'Round',
             scaleTitle: 'Scale',
+            // Graph settings
+            graphTicks: 'Tick marks?',
+            gridLines: 'Grid lines?',
+            graphAxes: 'Graph axes?',
+            graphPoints: 'Graph points?',
+            xivScroll: 'Scroll for x-iv?',
+            advancedOptions: 'Advanced options?',
           },
           fr: {
             // Navigation
@@ -365,6 +360,13 @@
             traceTitle: 'Traçage',
             roundTitle: 'Arrondage',
             scaleTitle: 'Scalage',
+            // Graph settings
+            graphTicks: 'Coches des axes?',
+            gridLines: 'Lignes de graphe?',
+            graphAxes: 'Axes de graphe?',
+            graphPoints: 'Points de graphe?',
+            xivScroll: 'Defiller pour x-iv?',
+            advancedOptions: 'Options avancées?',
           },
           applyLang: function () {
             switch (lang) {
@@ -405,6 +407,13 @@
                 $('#trace-title').innerHTML = translations.en.traceTitle;
                 $('#round-title').innerHTML = translations.en.roundTitle;
                 $('#scale-title').innerHTML = translations.en.scaleTitle;
+                // Graph settings
+                $('label[for="graph-ticks"]').innerHTML = translations.en.graphTicks;
+                $('label[for="graph-grids"]').innerHTML = translations.en.gridLines;
+                $('label[for="graph-axes"]').innerHTML = translations.en.graphAxes;
+                $('label[for="graph-points"]').innerHTML = translations.en.graphPoints;
+                $('label[for="graph-scroll-xiv"]').innerHTML = translations.en.xivScroll;
+                $('label[for="graph-advanced"]').innerHTML = translations.en.advancedOptions;
                 break;
               case 'fr':
                 $('#scientificTab').style.fontSize = '10pt';
@@ -442,6 +451,13 @@
                 $('#trace-title').innerHTML = translations.fr.traceTitle;
                 $('#round-title').innerHTML = translations.fr.roundTitle;
                 $('#scale-title').innerHTML = translations.fr.scaleTitle;
+                // Graph settings
+                $('label[for="graph-ticks"]').innerHTML = translations.fr.graphTicks;
+                $('label[for="graph-grids"]').innerHTML = translations.fr.gridLines;
+                $('label[for="graph-axes"]').innerHTML = translations.fr.graphAxes;
+                $('label[for="graph-points"]').innerHTML = translations.fr.graphPoints;
+                $('label[for="graph-scroll-xiv"]').innerHTML = translations.fr.xivScroll;
+                $('label[for="graph-advanced"]').innerHTML = translations.fr.advancedOptions;
                 break;
             };
           },
@@ -453,20 +469,6 @@
           // Utiliser HTTP en lieu d'HTTPS à cause de l'HTTP est incompatible avec mon domain
           //if (window.location.href.slice(0, 5) !== 'http:') window.location.href = 'http://' + window.location.href.slice(8);
           
-          // Apply user language
-          switch (navigator.language) {
-            case 'en':
-              $('#lang-select option[value="en"]').selected = 'selected';
-              lang = 'en';
-              break;
-            case 'fr':
-              $('#lang-select option[value="fr"]').selected = 'selected';
-              lang = 'fr';
-              break;
-            default:
-              lang = 'en';
-          };
-          translations.applyLang();
 
           // Graph at the start
           graphFunction();
@@ -826,15 +828,23 @@
         }
 
         // Add new function
+        var functionsShown = [true];
         function addNewFunction () {
           nof++;
           let char = alphabet(nof, true);
-          $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-delete-' + nof + '" oninput="graphFunction();"></button></p>';
+          $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-hide-' + nof + ' onclick="graphFunction();"></button><button class="fa fa-trash" id="function-delete-' + nof + '" onclick="graphFunction();"></button></p><hr/>';
+          /*$('#function-delete-' + nof).addEventListener('click', function () {
+            $('#function-input-' + nof).setAttribute('id', 'function-input-' + nof + 'h');
+            $('#function-' + nof).style.display = 'none';
+          });*/
           if (nof > 1) $('#function-delete-1').removeAttribute('disabled');
           else $('#function-delete-1').disabled = 'disabled';
           if ($('#graph-auto').checked) graphFunction();
           inputsAutoGraphTest();
           translations.applyLang();
+          $('#function-hide-' + nof).addEventListener('input', function () {
+            $('#function-input-' + nof).value += '‽';
+          });
         }
 
         function drawGrid (majorStep, minorStep) {
@@ -849,21 +859,29 @@
           }
           //ctx.translate(0, 0);
           // Draw the x and y axes
-          // xr-axis
-          ctx.beginPath();
-          ctx.moveTo(-canvas.width - imax, 0);
-          ctx.lineTo(canvas.width - imax, 0);
-          ctx.strokeStyle = 'blue';
           ctx.lineWidth = 2;
-          ctx.stroke();
+          var initChecked = $('#graph-ticks').checked;
+          if ($('#graph-axes').checked) {
+            // xr-axis
+            ctx.beginPath();
+            ctx.moveTo(-canvas.width - imax, 0);
+            ctx.lineTo(canvas.width - imax, 0);
+            ctx.strokeStyle = 'blue';
+            ctx.stroke();
 
-          // yr-axis
-          ctx.beginPath();
-          ctx.moveTo(0, -canvas.height - imay);
-          ctx.lineTo(0, canvas.height - imay);
-          ctx.strokeStyle = 'red';
-          ctx.lineWidth = 2;
-          ctx.stroke();
+            // yr-axis
+            ctx.beginPath();
+            ctx.moveTo(0, -canvas.height - imay);
+            ctx.lineTo(0, canvas.height - imay);
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+            $('#graph-ticks').removeAttribute('disabled');
+            $('#graph-ticks').removeAttribute('checked');
+          }
+          else {
+            $('#graph-ticks').disabled = 'disabled';
+            $('#graph-ticks').checked = initChecked;
+          }
 
           // Draw all of the gridlines
           for (var i = -canvas.width/2 - imay; i < canvas.width/2 - imay; i += 5) {
@@ -938,7 +956,6 @@
               ctx.stroke();
               // Draw quadrants II and III
               // Vertical
-              ctx.strokeStyle = 'blue';
               ctx.beginPath();
               ctx.moveTo(-1 * i, -Number($('#graph-tick-height').value));
               ctx.lineTo(-1 * i, Number($('#graph-tick-height').value));
@@ -1159,10 +1176,12 @@
                 ctx.strokeStyle = colour;
                 ctx.lineWidth = width;
               }
-              ctx.lineWidth = width;
-              ctx.moveTo(scale * xrt, scale * yrt);
-              ctx.lineTo(scale * xrtNext, scale * yrtNext);
-              ctx.stroke();
+              if (i != -canvas.width/2 - $('#graph-offset-xr').value) {
+                ctx.lineWidth = width;
+                ctx.moveTo(scale * xrt, scale * yrt);
+                ctx.lineTo(scale * xrtNext, scale * yrtNext);
+                ctx.stroke();
+              }
               // The pointed graph
               if (i % Number($('#graph-minor-step').value) == 0 && $('#graph-points').checked) {
                 // Positive x point
@@ -2890,12 +2909,16 @@
           <p>
             <label for='lang-select'>Language: </label>
             <select id='lang-select'>
-              <option value='en'>English (gb)</option>
+              <option value='en'>English</option>
               <!--<option value='enus'>English (us)</option>-->
               <option value='fr'>français</option>
               <!--<option value='tok'>toki pona</option>-->
             </select>
-          </p>          
+          </p>
+          <p>
+            <label for='amethyst-checkbox'>Amethyst UI: </label>
+            <input type='checkbox' checked='checked' id='amethyst-checkbox' />
+          </p>
         </div>
       </div>
     </div>
