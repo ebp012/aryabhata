@@ -83,86 +83,13 @@
             <table class='non' style='margin-left: auto; margin-right: auto; min-width: calc(100% - 60px);'>
               <thead>
                 <tr>
-                  <td id='xiv-title' class='viewport-input'><strong>x-i Viewport</strong></td>
-                  <td id='xr-title'><strong>x-r Trace</strong></td>
-                  <td id='xi-title'><strong>x-i Trace</strong></td>
-                  <td id='graph-title' onclick='graphFunction();' style='cursor: pointer;'><strong>Graph</strong></td>
+                  <td style='min-width: calc(18% - 60%);'>Functions</td>
+                  <td onclick='graphFunction();' id='graph-title' colspan='2' style='min-width: calc(82% - 60px)'>Graph</td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td id='xiv-td' class='viewport-input'>
-                    <div id='xiv-td-content'>
-                      x-iv: <input type='range' min='-36' max='36' value='0' step='1' id='xiv-input'/><br/>
-                      x-iv = <span id='xiv-value'>0</span><br/>
-                      <div class='graph-adv'>
-                        x-iv Min: <input type='number' value='-36' id='xiv-min-input'/><br/>
-                        x-iv Max: <input type='number' value='36' id='xiv-max-input'/><br/>
-                        x-iv Step: <input type='number' value='1' min='0' id='xiv-step-input'/><br/>
-                      </div>
-                      <input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label>
-                    </div>
-                  </td>
-                  <td id='xr-td'>
-                    x-r: <input type='range' min='-36' max='36' value='0' step='1' id='xr-input'/><br/>
-                    x-r = <span id='xr-value'>0</span><br/>
-                    <div class='graph-adv'>
-                      x-r Min: <input type='number' value='-36' id='xr-min-input'/><br/>
-                      x-r Max: <input type='number' value='36' id='xr-max-input'/><br/>
-                      x-r Step: <input type='number' value='1' min='0' id='xr-step-input'/><br/>
-                    </div>
-                    <input type='checkbox' id='xr-type-input' checked='checked'/> <label for='xr-type-input'>Slider input?</label>
-                  </td>
-                  <td id='xi-td'>
-                    x-i: <input type='range' min='-36' max='36' value='0' step='1' id='xi-input'/><br/>
-                    x-i = <span id='xi-value'>0</span><br/>
-                    <div class='graph-adv'>
-                      x-i Min: <input type='number' value='-36' id='xi-min-input'/><br/>
-                      x-i Max: <input type='number' value='36' id='xi-max-input'/><br/>
-                      x-i Step: <input type='number' value='1' min='0' id='xi-step-input'/><br/>
-                    </div>
-                    <input type='checkbox' id='xi-type-input' checked='checked'/> <label for='xi-type-input'>Slider input?</label>
-                  </td>
-                  <td rowspan='2' style='border-radius: 6px 6px 9px 6px;'>
-                    <center>
-                      Minor step: <input id='graph-minor-step' type='number' min='0' step='0.5' value='1' title='distance between thinner gridlines. set to 0 to disable them entirely.'/><br/>
-                      Major step: <input id='graph-major-step' type='number' min='0' value='6' title='distance between thicker gridlines. set to 0 to disable them entirely.'/>
-                      <span id='graph-xryr-offset-div-container-span'>
-                        <div id='graph-xryr-offset-div'>
-                          xr-offset: <input id='graph-offset-xr' type='number' step='1' value='0'/><br/>
-                          yr-offset: <input id='graph-offset-yr' type='number' step='1' value='0'/><br/>
-                          yi-offset: <input id='graph-offset-yi' type='number' step='1' value='0'/>
-                        </div>
-                      </span>
-                      <button id='graph-btn' onclick='graphFunction();'>Graph</button>
-                      <div class='graph-adv'>
-                        <hr/>
-                        Tick height: <input id='graph-tick-height' type='number' step='0.5' value='2.5'/><br/>
-                        <form>
-                          X-axis<br/>
-                          <input type='radio' name='graph-dimension-x' id='graph-dimension-xr' checked='checked'/><label for='graph-dimension-xr'>Real only</label><br/>
-                          <input type='radio' name='graph-dimension-x' id='graph-dimension-xi'/><label for='graph-dimension-xi'>Imaginary only</label><br/>
-                        </form><br/>
-                        <form>
-                          Y-axis<br/>
-                          <input type='radio' name='graph-dimension-y' id='graph-dimension-yr' checked='checked'/><label for='graph-dimension-yr'>Real only</label><br/>
-                          <input type='radio' name='graph-dimension-y' id='graph-dimension-yi'/><label for='graph-dimension-yi'>Imaginary only</label><br/>
-                        </form><br/>
-                        <input id='graph-dimension-3d' type='checkbox'/> <label for='graph-dimension-3d'>Enable 3D?</label><br/>
-                        <input id='graph-auto' type='checkbox' checked='checked'/> <label for='graph-auto' title='resource-consuming'>Graph automatically?</label><br/>
-                      </div>
-                      <hr/>
-                      <input id='graph-ticks' type='checkbox'/> <label for='graph-ticks'>Tick marks?</label><br/>
-                      <input id='graph-grids' type='checkbox' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
-                      <input id='graph-axes' type='checkbox' checked='checked'/> <label for='graph-axes'>Graph axes?</label><br/>
-                      <input id='graph-points' type='checkbox' checked='checked'/> <label for='graph-points'>Graph points?</label><br/>
-                      <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><br/>
-                      <input id='graph-advanced' type='checkbox'/> <label for='graph-advanced'>Advanced options?</label><br/>
-                    </center>
-                  </td>
-                </tr>
-                <tr class='merged'>
-                  <td class='viewport-input' colspan='2'>
+                  <td class='viewport-input'>
                     <center>
                       <strong id='function-title'>Function</strong><br/>
                       <div id='function-wrapper'>
@@ -227,41 +154,124 @@
                       <button class='fa fa-plus' id='equation-new' onclick='addNewFunction();'></button>
                     </center>
                   </td>
+                  <td rowspan='2' colspan='2'>
+                    <center id='graph-container' class='table-wrapper'>
+                      <div id='graph-div'>
+                        <canvas height='360' width='360' style='border: 1px solid grey;' id='graph-canvas'></canvas>
+                      </div>
+                      <!--<button id='graph-fullscreen-btn'><i class='fa fa-expand'></i> Fullscreen</button>-->
+                      <hr/>
+                      <span id='round-title'>Round</span>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup><br/>
+                      <span id='graph-scale-span'>
+                        <span id='graph-scale-span-sub'>
+                          <span id='scale-title'>Scale</span>: <input type='number' id='graph-scale' value='5' step='1'/><br/>
+                        </span>
+                        <br/>
+                      </span>
+                    </center>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div id='xiv-td-content'>
+                      <strong id='xiv-title'>xi-viewport</strong><hr/>
+                      x-iv: <input type='range' min='-36' max='36' value='0' step='1' id='xiv-input'/><br/>
+                      x-iv = <span id='xiv-value'>0</span><br/>
+                      <div class='graph-adv'>
+                        x-iv Min: <input type='number' value='-36' id='xiv-min-input'/><br/>
+                        x-iv Max: <input type='number' value='36' id='xiv-max-input'/><br/>
+                        x-iv Step: <input type='number' value='1' min='0' id='xiv-step-input'/><br/>
+                      </div>
+                      <input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label> <br/>
+                      <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><br/>
+                      <button onclick='$("#graph-tracing").classList.toggle("hidden");'>Trace</button>
+                      <button onclick='$("#graph-settings-modal-container").classList.toggle("hidden");'>Options</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class='hidden' id='graph-tracing'>
+                   <td id='xr-td'>
+                    x-r: <input type='range' min='-36' max='36' value='0' step='1' id='xr-input'/><br/>
+                    x-r = <span id='xr-value'>0</span><br/>
+                    <div class='graph-adv'>
+                      x-r Min: <input type='number' value='-36' id='xr-min-input'/><br/>
+                      x-r Max: <input type='number' value='36' id='xr-max-input'/><br/>
+                      x-r Step: <input type='number' value='1' min='0' id='xr-step-input'/><br/>
+                    </div>
+                    <input type='checkbox' id='xr-type-input' checked='checked'/> <label for='xr-type-input'>Slider input?</label>
+                  </td>
+                  <td id='xi-td'>
+                    x-i: <input type='range' min='-36' max='36' value='0' step='1' id='xi-input'/><br/>
+                    x-i = <span id='xi-value'>0</span><br/>
+                    <div class='graph-adv'>
+                      x-i Min: <input type='number' value='-36' id='xi-min-input'/><br/>
+                      x-i Max: <input type='number' value='36' id='xi-max-input'/><br/>
+                      x-i Step: <input type='number' value='1' min='0' id='xi-step-input'/><br/>
+                    </div>
+                    <input type='checkbox' id='xi-type-input' checked='checked'/> <label for='xi-type-input'>Slider input?</label>
+                  </td>
                   <td style='border-radius: 6px;'>
                     <center id='graph-scale-span-container'>
                       <strong id='trace-title'>Trace</strong><br/>
                       x: <span id='xri-showcase'>? + ?i</span><br/>
                       y: <span id='yri-showcase'>? + ?i</span><br/>
-                      <hr/>
-                      <span id='round-title'>Round</span>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup>
-                      <span id='graph-scale-span'>
-                        <hr/>
-                        <span id='graph-scale-span-sub'>
-                          <span id='scale-title'>Scale</span>: <input type='number' id='graph-scale' value='5' step='1'/><br/>
-                        </span>
-                        <br/>
-                        <!--Density: <input type='number' id='graph-density' value='10' step='1'/>-->
-                      </span>
                     </center>
                   </td>
-                  
                 </tr>
               </tbody>
             </table>
           </div>
-          <center id='graph-container' class='table-wrapper'>
-            <div id='graph-div'>
-              <canvas height='360' width='360' style='border: 1px solid grey;' id='graph-canvas'></canvas>
-            </div>
-            <!--<button id='graph-fullscreen-btn'><i class='fa fa-expand'></i> Fullscreen</button>-->
-          </center>
         </div>
       </div>
 
         <!-- modal for the fullscreen graph (indented 1 extra) -->
         <center>
           <div class='modal-container hidden' id='graph-fullscreen-modal-container'>
-            <div id='graph-fullscreen-modal' class='modal hidden'>
+            <div id='graph-fullscreen-modal' class='modal hidden' style='overflow: none; overflow-x: none; overflow-y: none;'>
+            </div>
+          </div>
+        </center>
+
+        <center>
+          <div class='modal-container hidden' id='graph-settings-modal-container'>
+            <div id='graph-settings-modal' class='modal' style='font-size: 20pt; font-family: trajan, "Trajan Pro", Georgia, Times, serif;'>
+              <div style='border-radius: 6px;'>
+                <center>
+                  <button onclick='$("#graph-settings-modal-container").classList.toggle("hidden");'>&times;</button><hr/>
+                  Minor step: <input id='graph-minor-step' type='number' min='0' step='0.5' value='1' title='distance between thinner gridlines. set to 0 to disable them entirely.'/><br/>
+                  Major step: <input id='graph-major-step' type='number' min='0' value='6' title='distance between thicker gridlines. set to 0 to disable them entirely.'/>
+                  <span id='graph-xryr-offset-div-container-span'>
+                    <div id='graph-xryr-offset-div'>
+                      xr-offset: <input id='graph-offset-xr' type='number' step='1' value='0'/><br/>
+                      yr-offset: <input id='graph-offset-yr' type='number' step='1' value='0'/><br/>
+                      yi-offset: <input id='graph-offset-yi' type='number' step='1' value='0'/>
+                    </div>
+                  </span>
+                  <button id='graph-btn' onclick='graphFunction();'>Graph</button>
+                  <div class='graph-adv'>
+                    <hr/>
+                    Tick height: <input id='graph-tick-height' type='number' step='0.5' value='2.5'/><br/>
+                    <form>
+                      X-axis<br/>
+                      <input type='radio' name='graph-dimension-x' id='graph-dimension-xr' checked='checked'/><label for='graph-dimension-xr'>Real only</label><br/>
+                      <input type='radio' name='graph-dimension-x' id='graph-dimension-xi'/><label for='graph-dimension-xi'>Imaginary only</label><br/>
+                    </form><br/>
+                    <form>
+                      Y-axis<br/>
+                      <input type='radio' name='graph-dimension-y' id='graph-dimension-yr' checked='checked'/><label for='graph-dimension-yr'>Real only</label><br/>
+                      <input type='radio' name='graph-dimension-y' id='graph-dimension-yi'/><label for='graph-dimension-yi'>Imaginary only</label><br/>
+                    </form><br/>
+                    <input id='graph-dimension-3d' type='checkbox'/> <label for='graph-dimension-3d'>Enable 3D?</label><br/>
+                    <input id='graph-auto' type='checkbox' checked='checked'/> <label for='graph-auto' title='resource-consuming'>Graph automatically?</label><br/>
+                  </div>
+                  <hr/>
+                  <input id='graph-ticks' type='checkbox'/> <label for='graph-ticks'>Tick marks?</label><br/>
+                  <input id='graph-grids' type='checkbox' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
+                  <input id='graph-axes' type='checkbox' checked='checked'/> <label for='graph-axes'>Graph axes?</label><br/>
+                  <input id='graph-points' type='checkbox' checked='checked'/> <label for='graph-points'>Graph points?</label><br/>
+                  <input id='graph-advanced' type='checkbox'/> <label for='graph-advanced'>Advanced options?</label><br/>
+                </center>
+              </td>
             </div>
           </div>
         </center>
@@ -1462,209 +1472,232 @@
       <div id='algebra' class='content-section'>
         <h1 class="page-title">Algebra</h1>
         <div class="desk-paper" style='line-height: 36pt;'>
-          <button id='geometry-toggle'>Geometry</button>
-          <div id="regularPolygonArea" onmouseover="polygon.areaR();">
-            <h2>Regular Polygon / Polygram Area</h2>
-            <span id='geometry-polygon'>
-              <span id='geometry-sides-text'>Sides</span> (&#x2265;<span id='geometry-minsides'>3</span>):
-              <input
-                type="number"
-                min="3"
-                id="sidesCRPA"
-                value="3"
-                step="1"
-                onkeyup="polygon.areaR();"
-              /><br/>
-            </span>
-            <span id='geometry-polygram' style='display: none;'>
-              Connection By (&#x2265;1)
-              <input
-                type="number"
-                min="1"
-                id="sidesCRPAPGD"
-                value="2"
-                step="1"
-                onkeyup="polygon.areaR();"
-              /><br/>
-            </span>
-            Side Length (&gt;0):<input
-              type="number"
-              min="0"
-              id="lengthCRPA"
-              value="6"
-              step="0.1"
-              onkeyup="polygon.areaR();"
-            /><br/>
-            <p><input type='checkbox' id='geometry-gongram' onclick='polygon.gongram();polygon.areaR();'/> <label for='geometry-gongram'>Polygram?</label></p>
-            <p>Area: <span id="areaCRPA"></span></p>
-            <script>
-              var polygon = {
-                areaR: function (n1, s1) {
-                  var minSides = 3;
-                  var n = Number(document.getElementById("sidesCRPA").value);
-                  if (polygon.isPolygram === true) {
-                    n /= Number(document.getElementById("sidesCRPAPGD").value);
-                    minSides = 0;
-                  }
-                  var s = Number(document.getElementById("lengthCRPA").value);
-                  if (n1 != undefined) {
-                    n = n1;
-                  }
-                  if (s1 != undefined) {
-                    s = s1;
-                  }
+          <table style='width: calc(100% - 60px);' class='non'>
+            <thead>
+              <tr>
+                <td>
+                  <select>
+                    <optgroup label='Area'>
+                      <option value='regularpolygon'>Regular Polygon Area</option>
+                      <option value='ellipsearea'>Circle/Ellpise Area</option>
+                    </optgroup>
+                    <optgroup label='Perimetre'>
+                      <option value='regularpolygon'>Regular Polygon Perimetre</option>
+                      <option value='ellipsearea' oninput='alert("hi")'>Circle/Ellipse Perimetre</option>
+                    </optgroup>
+                    <optgroup label='Algebra'>
+                    </optgroup>
+                  </select>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div id="regularPolygonArea" onmouseover="polygon.areaR();">
+                    <h2>Regular Polygon Area</h2>
+                    <span id='geometry-polygon'>
+                      <span id='geometry-sides-text'>Sides</span> (&#x2265;<span id='geometry-minsides'>3</span>):
+                      <input
+                        type="number"
+                        min="3"
+                        id="sidesCRPA"
+                        value="3"
+                        step="1"
+                        onkeyup="polygon.areaR();"
+                      /><br/>
+                    </span>
+                    <span id='geometry-polygram' style='display: none;'>
+                      Connection By (&#x2265;1)
+                      <input
+                        type="number"
+                        min="1"
+                        id="sidesCRPAPGD"
+                        value="2"
+                        step="1"
+                        onkeyup="polygon.areaR();"
+                      /><br/>
+                    </span>
+                    Side Length (&gt;0):<input
+                      type="number"
+                      min="0"
+                      id="lengthCRPA"
+                      value="6"
+                      step="0.1"
+                      onkeyup="polygon.areaR();"
+                    /><br/>
+                    <p><input type='checkbox' id='geometry-gongram' oninput='polygon.gongram();polygon.areaR();'/> <label for='geometry-gongram'>Polygram?</label></p>
+                    <p>Area: <span id="areaCRPA">15.58845727</span></p>
+                    <script>
+                      var polygon = {
+                        areaR: function (n1, s1) {
+                          var minSides = 3;
+                          var n = Number(document.getElementById("sidesCRPA").value);
+                          if (polygon.isPolygram === true) {
+                            n /= Number(document.getElementById("sidesCRPAPGD").value);
+                            minSides = 0;
+                          }
+                          var s = Number(document.getElementById("lengthCRPA").value);
+                          if (n1 != undefined) {
+                            n = n1;
+                          }
+                          if (s1 != undefined) {
+                            s = s1;
+                          }
 
-                  // Actual area calculation
-                  var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
-                  var area = Math.round(area0 * 100000000) / 100000000;
+                          // Actual area calculation
+                          var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
+                          var area = Math.round(area0 * 100000000) / 100000000;
 
-                  if (n >= minSides && s > 0 && Number(document.getElementById("sidesCRPA").value) % 1 == 0 && Number(document.getElementById("sidesCRPAPGD").value) % 1 == 0 && $('#sidesCRPAPGD').value % $('#sidesCRPA').value != 0) {
-                    // special cases
-                    if (n == 2) area = 0;
-                    if (n < 2) area = Math.abs(area);
-                    // put values
-                    if (!(n1 == undefined || s1 == undefined)) return area;
-                    document.getElementById("areaCRPA").innerText = area;
-                  }
-                  else {
-                    document.getElementById("areaCRPA").innerText = "Invalid inputs.";
-                  }
-                },
-                isPolygram: false,
-                gongram: function () {
-                  polygon.isPolygram = !polygon.isPolygram;
-                  if ($('#geometry-gongram').checked == true) {
-                    if (Number(document.getElementById("sidesCRPA").value) < 5) document.getElementById("sidesCRPA").value = 5;
-                    $('#geometry-polygram').style.display = 'block';
-                    $('#geometry-sides-text').innerHTML = 'Convex Vertices';
-                    $('#geometry-minsides').innerHTML = '5';
-                  }
-                  else {
-                    $('#geometry-polygram').style.display = 'none';
-                    $('#geometry-sides-text').innerHTML = 'Sides';
-                    $('#geometry-minsides').innerHTML = '3';
-                  }
-                },
-                round5: function (input) {
-                  var k = round(input, 1);
-                  if (input < k && input < k - 2.5) return k - 5;
-                  if (input >= k && input >= k + 2.5) return k + 5;
-                  else return k;
-                }
-              };
-            </script>
-          </div>
-          <hr />
-          <div id="pascalsSimplex" onmouseover="pascal.calc();">
-            <h2>Pascal's <var>m</var>-simplex</h2>
-            Dimension &#x2115;(m&#x2265;2):
-            <input
-              type="number"
-              min="1"
-              id="dimensionsCPS"
-              value="2"
-              step="1"
-              oninput="pascal.addDimension();"
-            />
-            <div id="addDimensionsCPS"></div>
-            <p>Value: <span id="valueCPS"></span></p>
-            <script>
-              var pascal = {
-                oldNoD: 2,
-                addDimension: function () {
-                  var noD = Number(
-                    document.getElementById("dimensionsCPS").value
-                  );
-                  var adC = document.getElementById("addDimensionsCPS");
-                  adC.innerHTML = "";
-                  if (noD < 1) {
-                    adC.innerHTML = "Invalid dimension.";
-                  }
-                  for (var i = 0; i <= noD - 2; i++) {
-                    if (i != 0) {
-                      adC.innerHTML += "<br/>";
-                    }
-                    adC.innerHTML +=
-                      "<var>n</var><sub>" +
-                      i +
-                      "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
-                      i +
-                      "</sub> <u>&lt;</u> <var>n</var><sub>" +
-                      (i + 1) +
-                      '</sub>): <input type="number" min="0" id="n' +
-                      i +
-                      'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
-                  }
-                  adC.innerHTML +=
-                    "<br/><var>n</var><sub>" +
-                    (noD - 1) +
-                    "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
-                    (noD - 1) +
-                    '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' +
-                    (noD - 1) +
-                    'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
-                },
-                fixMax: function () {
-                  var noD = Number(
-                    document.getElementById("dimensionsCPS").value
-                  );
-                  for (var i = 0; i <= noD - 1; i++) {
-                    var z = Number(
-                      document.querySelector("#n" + (i + 1) + "CPS").value
-                    );
-                    document.querySelector("#n" + i + "CPS").max = z;
-                  }
-                },
-                factorial: function (n) {
-                  if (n <= 1) {
-                    return 1;
-                  } else {
-                    let result = 1;
-                    for (let i = 1; i <= n; i++) {
-                      result *= i;
-                    }
-                    return result;
-                  }
-                },
-                calc: function () {
-                  var m = Number(document.getElementById("dimensionsCPS").value);
-                  var a = 1;
-                  var cont = true;
-                  for (var i = 0; i <= m - 1; i++) {
-                    var first = document.querySelector("#n" + i + "CPS").value;
-                    var second = Infinity;
-                    if (i + 1 != m) {
-                      second = document.querySelector(
-                        "#n" + (i + 1) + "CPS"
-                      ).value;
-                    }
-                    if (first > second || first < 0) {
-                      cont = false;
-                      a = "Invalid inputs.";
-                      break;
-                    }
-                  }
-                  for (var p = 1; p <= m - 1 && cont == true; p++) {
-                    var np = Number(
-                      document.getElementById("n" + p + "CPS").value
-                    );
-                    var np_1 = Number(
-                      document.getElementById("n" + (p - 1).toString() + "CPS")
-                        .value
-                    );
-                    a *=
-                      pascal.factorial(np) /
-                      (pascal.factorial(np_1) * pascal.factorial(np - np_1));
-                  }
-                  document.getElementById("valueCPS").innerText = a;
-                },
-              };
-              $(document).ready(() => {
-                pascal.addDimension();
-              });
-            </script>
-          </div>
-          <br/><br/><br/><br/><br/><br/>
+                          if (n >= minSides && s > 0 && Number(document.getElementById("sidesCRPA").value) % 1 == 0 && Number(document.getElementById("sidesCRPAPGD").value) % 1 == 0 && $('#sidesCRPAPGD').value % $('#sidesCRPA').value != 0) {
+                            // special cases
+                            if (n == 2) area = 0;
+                            if (n < 2) area = Math.abs(area);
+                            // put values
+                            if (!(n1 == undefined || s1 == undefined)) return area;
+                            document.getElementById("areaCRPA").innerText = area;
+                          }
+                          else {
+                            document.getElementById("areaCRPA").innerText = "Invalid inputs.";
+                          }
+                        },
+                        isPolygram: false,
+                        gongram: function () {
+                          polygon.isPolygram = !polygon.isPolygram;
+                          if ($('#geometry-gongram').checked == true) {
+                            if (Number(document.getElementById("sidesCRPA").value) < 5) document.getElementById("sidesCRPA").value = 5;
+                            $('#geometry-polygram').style.display = 'block';
+                            $('#geometry-sides-text').innerHTML = 'Convex Vertices';
+                            $('#geometry-minsides').innerHTML = '5';
+                          }
+                          else {
+                            $('#geometry-polygram').style.display = 'none';
+                            $('#geometry-sides-text').innerHTML = 'Sides';
+                            $('#geometry-minsides').innerHTML = '3';
+                          }
+                        },
+                        round5: function (input) {
+                          var k = round(input, 1);
+                          if (input < k && input < k - 2.5) return k - 5;
+                          if (input >= k && input >= k + 2.5) return k + 5;
+                          else return k;
+                        }
+                      };
+                    </script>
+                  </div>
+                  <div id="pascalsSimplex" class='hidden' onmouseover="pascal.calc();">
+                    <h2>Pascal's <var>m</var>-simplex</h2>
+                    Dimension &#x2115;(m&#x2265;2):
+                    <input
+                      type="number"
+                      min="1"
+                      id="dimensionsCPS"
+                      value="2"
+                      step="1"
+                      oninput="pascal.addDimension();"
+                    />
+                    <div id="addDimensionsCPS"></div>
+                    <p>Value: <span id="valueCPS"></span></p>
+                    <script>
+                      var pascal = {
+                        oldNoD: 2,
+                        addDimension: function () {
+                          var noD = Number(
+                            document.getElementById("dimensionsCPS").value
+                          );
+                          var adC = document.getElementById("addDimensionsCPS");
+                          adC.innerHTML = "";
+                          if (noD < 1) {
+                            adC.innerHTML = "Invalid dimension.";
+                          }
+                          for (var i = 0; i <= noD - 2; i++) {
+                            if (i != 0) {
+                              adC.innerHTML += "<br/>";
+                            }
+                            adC.innerHTML +=
+                              "<var>n</var><sub>" +
+                              i +
+                              "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
+                              i +
+                              "</sub> <u>&lt;</u> <var>n</var><sub>" +
+                              (i + 1) +
+                              '</sub>): <input type="number" min="0" id="n' +
+                              i +
+                              'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                          }
+                          adC.innerHTML +=
+                            "<br/><var>n</var><sub>" +
+                            (noD - 1) +
+                            "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
+                            (noD - 1) +
+                            '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' +
+                            (noD - 1) +
+                            'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                        },
+                        fixMax: function () {
+                          var noD = Number(
+                            document.getElementById("dimensionsCPS").value
+                          );
+                          for (var i = 0; i <= noD - 1; i++) {
+                            var z = Number(
+                              document.querySelector("#n" + (i + 1) + "CPS").value
+                            );
+                            document.querySelector("#n" + i + "CPS").max = z;
+                          }
+                        },
+                        factorial: function (n) {
+                          if (n <= 1) {
+                            return 1;
+                          } else {
+                            let result = 1;
+                            for (let i = 1; i <= n; i++) {
+                              result *= i;
+                            }
+                            return result;
+                          }
+                        },
+                        calc: function () {
+                          var m = Number(document.getElementById("dimensionsCPS").value);
+                          var a = 1;
+                          var cont = true;
+                          for (var i = 0; i <= m - 1; i++) {
+                            var first = document.querySelector("#n" + i + "CPS").value;
+                            var second = Infinity;
+                            if (i + 1 != m) {
+                              second = document.querySelector(
+                                "#n" + (i + 1) + "CPS"
+                              ).value;
+                            }
+                            if (first > second || first < 0) {
+                              cont = false;
+                              a = "Invalid inputs.";
+                              break;
+                            }
+                          }
+                          for (var p = 1; p <= m - 1 && cont == true; p++) {
+                            var np = Number(
+                              document.getElementById("n" + p + "CPS").value
+                            );
+                            var np_1 = Number(
+                              document.getElementById("n" + (p - 1).toString() + "CPS")
+                                .value
+                            );
+                            a *=
+                              pascal.factorial(np) /
+                              (pascal.factorial(np_1) * pascal.factorial(np - np_1));
+                          }
+                          document.getElementById("valueCPS").innerText = a;
+                        },
+                      };
+                      $(document).ready(() => {
+                        pascal.addDimension();
+                      });
+                    </script>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
