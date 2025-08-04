@@ -227,7 +227,7 @@
         <!-- modal for the fullscreen graph (indented 1 extra) -->
         <center>
           <div class='modal-container hidden' id='graph-fullscreen-modal-container'>
-            <div id='graph-fullscreen-modal' class='modal hidden' style='overflow: none; overflow-x: none; overflow-y: none;'>
+            <div id='graph-fullscreen-modal' class='modal hidden'>
             </div>
           </div>
         </center>
@@ -509,7 +509,7 @@
           }, 37);
           
           function inputsAutoGraphTest () {
-            document.querySelectorAll('#graphing input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input').forEach(input => {
+            document.querySelectorAll('#graphing input, #graphing button, #graphing select').forEach(input => { // input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input
               input.addEventListener('input', function () {
                 // if the user selects to graph automatically (resource-consuming)
                 if ($('#graph-auto').checked) graphFunction();
@@ -800,7 +800,7 @@
 
             // Change xi input type
             $('#' + prefix + '-type-input').addEventListener('input', function () {
-              if ($('#' + prefix + '-type-input').checked != true && $('#' + prefix + '-type-input').checked != 'checked') {
+              if ($('#' + prefix + '-type-input').checked != true) {
                 $('#' + prefix + '-input').type = 'number';
                 $('#' + prefix + '-input').removeAttribute('min');
                 $('#' + prefix + '-input').removeAttribute('max');
