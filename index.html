@@ -490,6 +490,7 @@
           $all('.graph-adv').forEach(function(element) {
               element.classList.add('hidden');
           });
+          inputsAutoGraphTest();
           setInterval(function() {
             // Update whether graph is 2D or 3D
             if ($('#graph-dimension-3d').checked == true) {
@@ -509,12 +510,17 @@
           }, 37);
           
           function inputsAutoGraphTest () {
-            document.querySelectorAll('#graphing input, #graphing button, #graphing select').forEach(input => { // input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input
+            $all('#graphing input, #graphing select, #graphing button, .modal input').forEach(function(element) {
+              element.addEventListener('input', function () {
+                if ($('#graph-auto').checked) graphFunction();
+              });
+            });
+            /*document.querySelectorAll('#graphing input, #graphing button, #graphing select').forEach(input => { // input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input
               input.addEventListener('input', function () {
                 // if the user selects to graph automatically (resource-consuming)
                 if ($('#graph-auto').checked) graphFunction();
               });
-            });
+            });*/
           }
 
           document.querySelectorAll('#graphing input[type=range], #graphing td input[type=number]:first-of-type').forEach(input => {
@@ -842,7 +848,7 @@
         function addNewFunction () {
           nof++;
           let char = alphabet(nof, true);
-          $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-hide-' + nof + ' onclick="graphFunction();"></button><button class="fa fa-trash" id="function-delete-' + nof + '" onclick="graphFunction();"></button></p><hr/>';
+          $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-hide-' + nof + '" onclick="graphFunction();"></button><button class="fa fa-trash" id="function-delete-' + nof + '" onclick="graphFunction();"></button></p><hr/>';
           /*$('#function-delete-' + nof).addEventListener('click', function () {
             $('#function-input-' + nof).setAttribute('id', 'function-input-' + nof + 'h');
             $('#function-' + nof).style.display = 'none';
@@ -1217,49 +1223,54 @@
         <h1 class="page-title">Scientific</h1>
         <div class="desk-paper" style='line-height: 36pt;'>
           <form name="calculator" >
-            <input type="textfield" id="resultFake" name="ansTwo" placeholder="0." style="width: 100%; font-family: display, futura, georgia; margin: 5px; padding: 10px; color: red; background: black; outline: 0;" readonly='readonly' oncontextmenu='return false;eToggle("ans", "block", "ansTwo", "none");'><br>
+            <input type="textfield" id="resultFake" name="ansTwo" placeholder="0." style="width: calc(100% - 15px); font-family: display, futura, georgia; margin: 5px; padding: 10px; color: red; background: black; outline: 0;" readonly='readonly' oncontextmenu='return false;eToggle("ans", "block", "ansTwo", "none");'><br>
               <input type="textfield" id='result' name="ans" value="" style='width: 100%; display: none;' oncontextmenu='return false; eToggle("ansTwo", "block", "result", "none");'>
               <div class='table-wrapper'>
-                <table class='non'>
+                <table class='non' style='width: calc(100% - 60px)'>
                   <thead>
                     <tr>
                       <td><input type="button" value="=" onClick="document.calculator.ans.value=math.evaluate(document.calculator.ans.value);document.calculator.ansTwo.value=math.evaluate(document.calculator.ans.value)" title='Show solution: Equals Sign' class='calb caln'/></td>
                       <td><input type="button" value="⇧" onclick="toggleHyperMode();" title='Toggle Hyper mode' class='calb cala'/></td>
-                      <td><input type="reset" value="↺" title='All Clear' class='calb caln'/></td><!--⎚-->
+                      <td><input type="reset" value="↺" title='All Clear' class='calb caln'/></td>
                       <td><input type="button" value="∧" title='AND' onClick="document.calculator.ans.value+='&';document.calculator.ansTwo.value+='∧';" class='calb calv'/></td>
                       <td><input type="button" value='∨' title="OR" onClick="document.calculator.ans.value+='|';document.calculator.ansTwo.value+='∨';" class='calb calv'/></td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr class='numrow'>
+                      <td class='calt-container'><input type='button' value='sin' onClick="document.calculator.ans.value+='sin(';document.calculator.ansTwo.value+='sin(';" class='calb calt'/><br/><input type='button' value='sinh' onClick="document.calculator.ans.value+='sinh(';document.calculator.ansTwo.value+='sinh(';" class='calb calt'/></td>
+                      <td class='calt-container'><input type='button' value='cos' onClick="document.calculator.ans.value+='cos(';document.calculator.ansTwo.value+='cos(';" class='calb calt'/><br/><input type='button' value='cosh' onClick="document.calculator.ans.value+='cosh(';document.calculator.ansTwo.value+='cosh(';" class='calb calt'/></td>
+                      <td class='calt-container'><input type='button' value='tan' onClick="document.calculator.ans.value+='tan(';document.calculator.ansTwo.value+='tan(';" class='calb calt'/><br/><input type='button' value='tanh' onClick="document.calculator.ans.value+='tanh(';document.calculator.ansTwo.value+='tanh(';" class='calb calt'/></td>
+                      <td><input type="button" value="¬" title='NOT' onClick="document.calculator.ans.value+='!';document.calculator.ansTwo.value+='¬';" class='calb calv'/></td>
+                      <td><input type="button" value="⊕" title='XOR' onClick="document.calculator.ans.value+='~';document.calculator.ansTwo.value+='⊕';" class='calb calv'/></td>
+                    </tr>
+                    <tr class='numrow'>
                       <td><input type='button' value='1' onClick="document.calculator.ans.value+='1';document.calculator.ansTwo.value+='1';" class='calb caln'/></td>
                       <td><input type='button' value='2' onClick="document.calculator.ans.value+='2';document.calculator.ansTwo.value+='2';" class='calb caln'/></td>
                       <td><input type="button" value="3" onClick="document.calculator.ans.value+='3';document.calculator.ansTwo.value+='3';" class='calb caln'/></td>
                       <td><input type="button" value="+" onClick="document.calculator.ans.value+='+';document.calculator.ansTwo.value+='+';" class='calb calo'/></td>
-                      <td><input type="button" value="¬" title='NOT' onClick="document.calculator.ans.value+='!';document.calculator.ansTwo.value+='¬';" class='calb calv'/></td>
-                      
+                      <td><input type="button" value="&times;" onClick="document.calculator.ans.value+='*';document.calculator.ansTwo.value+='&bull;';" class='calb calo'/></td>
                     </tr>
                     <tr class='numrow'>
                       <td><input type="button" value="4" onClick="document.calculator.ans.value+='4';document.calculator.ansTwo.value+='4';" class='calb caln'/></td>
                       <td><input type="button" value="5" onClick="document.calculator.ans.value+='5';document.calculator.ansTwo.value+='5';" class='calb caln'/></td>
                       <td><input type="button" value="6" onClick="document.calculator.ans.value+='6';document.calculator.ansTwo.value+='6';" class='calb caln'/></td>
                       <td><input type="button" value="-" onClick="document.calculator.ans.value+='-';document.calculator.ansTwo.value+='-';" class='calb calo'/></td>
-                      <!--<td><input type="button" value="ⁿa" onClick="document.calculator.ans.value+='tet(';document.calculator.ansTwo.value+='tet(';" class="calo" title="Tetration"/></td>-->
-                      <td><input type="button" value="⊕" title='XOR' onClick="document.calculator.ans.value+='~';document.calculator.ansTwo.value+='⊕';" class='calb calv'/></td>
+                      <td><input type="button" value="÷" onClick="document.calculator.ans.value+='/';document.calculator.ansTwo.value+='÷';" class='calb calo'/></td>
                     </tr>
                     <tr class='numrow'>
                       <td><input type="button" value="7" onClick="document.calculator.ans.value+='7';document.calculator.ansTwo.value+='7';" class='calb caln'/></td>
                       <td><input type="button" value="8" onClick="document.calculator.ans.value+='8';document.calculator.ansTwo.value+='8';" class='calb caln'/></td>
                       <td><input type="button" value="9" onClick="document.calculator.ans.value+='9';document.calculator.ansTwo.value+='9';" class='calb caln'/></td>
-                      <td><input type="button" value="&times;" onClick="document.calculator.ans.value+='*';document.calculator.ansTwo.value+='&bull;';" class='calb calo'/></td>
-                      <td><input type="button" value="aⁿ" onClick="document.calculator.ans.value+='^';document.calculator.ansTwo.value+='^';" class='calb calo'/></td>                    
+                      <td><input type="button" value="aⁿ" onClick="document.calculator.ans.value+='^';document.calculator.ansTwo.value+='^';" class='calb calo'/></td>
+                      <td><input type="button" value="ⁿa" onClick="document.calculator.ans.value+='tet(';document.calculator.ansTwo.value+='tet(';" class='calb calo'/></td>
                     </tr>
                     <tr class='numrow'>
                       <td><input type='button' value='.' onClick="document.calculator.ans.value+='.';document.calculator.ansTwo.value+='.';" title='Decimal' class='calb cala'/></td>
                       <td><input type="button" value="0" onClick="document.calculator.ans.value+='0';document.calculator.ansTwo.value+='0';" title='Zero' class='calb caln'/></td>
                       <td><input type='button' value=',' onClick="document.calculator.ans.value+=',';document.calculator.ansTwo.value+=',';" title='Comma' class='calb cala'/></td>
-                      <td><input type="button" value="÷" onClick="document.calculator.ans.value+='/';document.calculator.ansTwo.value+='÷';" class='calb calo'/></td>
-                      <td><input type="button" value="R" onClick="document.calculator.ans.value+='%';document.calculator.ansTwo.value+='mod';" class='calb calo'/></td>
+                      <td><input type="button" value="ln" onClick="document.calculator.ans.value+='ln(';document.calculator.ansTwo.value+='ln(';" class='calb calo'/></td>
+                      <td><input type="button" value="mod" onClick="document.calculator.ans.value+='%';document.calculator.ansTwo.value+=' mod ';" class='calb calo'/></td>
                     </tr>
                     <tr class='numrow'>
                       <td><input type='button' value='(' onClick="document.calculator.ans.value+='(';document.calculator.ansTwo.value+='(';" title='Opening Parentheses' class='calb cala'/></td>
@@ -1334,6 +1345,12 @@
             toggleHyperMode1();
             toggleHyperMode2();
           }
+          function logBase (a, b) {
+            return Math.log(y) / Math.log(x);
+          }
+          function triangle (a, d) {
+            return acc = (a * (a + 1)) / ;
+          }
           function toggleHyperMode1() {
               var hyperButton = document.querySelector('.calb[value="⇧"]');
               if (hyperMode == true) {
@@ -1349,11 +1366,11 @@
                     { value: "5", replacementValue: "√", onclick: function() { document.calculator.ans.value+="sqrt(";document.calculator.ansTwo.value+='√('; } },
                     { value: "6", replacementValue: "∛", onclick: function() { appendText('cbrt('); } },
                     { value: "7", replacementValue: "!", onclick: function() { appendText('!'); } },
-                    { value: "8", replacementValue: "$", onclick: function() { appendText('$'); } },
-                    { value: "9", replacementValue: "log₂", onclick: function() { appendText('log<sub>2</sub>(', '(1/log(2))/log('); } },
+                    { value: "9", replacementValue: "ᵀ√", onclick: function() { appendText('ᵀ√', 'triangleRoot'); } },
+                    { value: "aⁿ", replacementValue: "Tₙ", onclick: function() { appendText('Tₙ(', 'triangle('); } },
                     { value: "(-)", replacementValue: "%", onclick: function() { appendText('%'); } },
-                    { value: "0", replacementValue: "log₁₀", onclick: function() { appendText('log<sub>10</sub>(', 'log('); } },
-                    { value: "aⁿ", replacementValue: "ⁿa", onclick: function() { appendText('^^'); } },
+                    { value: "ln", replacementValue: "log₁₀", onclick: function() { appendText('log₁₀(', 'log('); } },
+                    { value: "mod", replacementValue: "log₂", onclick: function() { appendText('log₂(', 'log₂('); } },
                 ];
             
                 buttonsToUpdate.forEach(button => {
@@ -1379,9 +1396,10 @@
                   { value: "√", originalValue: "5", onclick: function() { appendText('5'); } },
                   { value: "∛", originalValue: "6", onclick: function() { appendText('6'); } },
                   { value: "!", originalValue: "7", onclick: function() { appendText('7'); } },
-                  { value: "$", originalValue: "8", onclick: function() { appendText('8'); } },
-                  { value: "log₂", originalValue: "9", onclick: function() { appendText('9'); } },
-                  { value: "log₁₀", originalValue: "0", onclick: function() { appendText('0'); } },
+                  { value: "ᵀ√", originalValue: "9", onclick: function() { appendText('9'); } },
+                  { value: "Tₙ", originalValue: "aⁿ", onclick: function() { appendText('^'); } },
+                  { value: "log₁₀", originalValue: "ln", onclick: function() { appendText('ln('); } },
+                  { value: "log₂", originalValue: "mod", onclick: function() { appendText(' mod ', '%'); } },
                 ];
             
                 buttonsToRevert.forEach(button => {
@@ -1585,7 +1603,11 @@
                       };
                     </script>
                   </div>
-                  <div id="pascalsSimplex" class='hidden' onmouseover="pascal.calc();">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div id="pascalsSimplex" onmouseover="pascal.calc();">
                     <h2>Pascal's <var>m</var>-simplex</h2>
                     Dimension &#x2115;(m&#x2265;2):
                     <input
@@ -1931,7 +1953,7 @@
               'au': 1.496e11 * 39.37,
 
               // --- Patellian ---
-              'H': pl * 2 * 60 ** 19;
+              'H': pl * 2 * 60 ** 19,
             };
             const timeFactors = {
               // --- Seconds ---
@@ -2225,7 +2247,7 @@
             [134, 'untriquadium', 'untriquadide', 'Utq', [16,9], 334, 'superactinide', null, null],
             [135, 'untripentium', 'untripentide', 'Utp', [17,9], 335, 'superactinide', null, null],
             [136, 'untrihexium', 'untrihexide', 'Uth', [18,9], 336, 'superactinide', null, null],
-            [137, 'feynmanium', 'feynmanide', 'Fy', [1,10], 337, 'superactinide', null, null]
+            [137, 'feynmanium', 'feynmanide', 'Fy', [1,10], 337, 'superactinide', null, null],
           ];
           periodicTable[undefined] = [undefined, 'muonium', 'muide', 'Mu', [-1, 0], 0.113, 'exotic', null, null];
           periodicTable[312] = [312, 'obamium', 'obamide', 'Ob', [-1, 0], 0.113, 'fictional meme alkali metal', 15, 630];
@@ -3082,22 +3104,37 @@
       #scientific .clontent {
         padding: 10px;
       }
-      #scientific .calb {
-        border: 3.5px solid black;
-        margin-right: 0px;
-      }
       #scientific .caln {
-        background-color: gold;
+        background-color: goldenrod;
+      }
+      #scientific .calb {
+        margin-right: 0px;
       }
       #scientific .cala {
         background-color: silver;
-        border: 3.5px solid black;
         margin-right: 0px;
       }
       #scientific .calo {
         background-color: #967444;
-        border: 3.5px solid black;
         margin-right: 0px;
+      }
+      #scientific .calt {
+        background-color: slategrey;
+        margin-right: 0px;
+        height: 80px;
+      }
+      #scientific .calv {
+        background-color: #FF9900; /* Customize the color as needed */
+        margin-right: 0px;
+      }
+      .cala, .calb, .calo, .calt, .calv {
+        width: 20%;
+        max-width: calc(100% - 12px);
+        height: 20%;
+        max-height: calc(100% - 12px);
+        height: 120px;
+        border: 65px solid black;
+        font-size: 80px;
       }
       .cala, .calb, .calo {
         width: 20%;
@@ -3106,6 +3143,11 @@
         max-height: calc(100% - 12px);
         height: 120px;
         font-size: 80px;
+      }
+      #scientific table td {
+        min-width: 90px;
+        max-width: 90px;
+        width: 90px;
       }
       #scientific #result, #scientific #resultFake {
         border: 4px solid green;
@@ -3116,11 +3158,6 @@
         font-weight: bold;
         font-size: 42px;
         overflow: auto;
-      }
-      #scientific .calv {
-        background-color: #FF9900; /* Customize the color as needed */
-        border: 3.5px solid black;
-        margin-right: 0px;
       }
       #scientific div#calculator {
         width: 100%;
