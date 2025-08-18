@@ -159,6 +159,7 @@
                       <div id='graph-div'>
                         <canvas height='360' width='360' style='border: 1px solid grey;' id='graph-canvas'></canvas>
                       </div>
+                      <button id='graph-centre'>Centre</button>
                       <!--<button id='graph-fullscreen-btn'><i class='fa fa-expand'></i> Fullscreen</button>-->
                       <hr/>
                       <span id='round-title'>Round</span>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup><br/>
@@ -571,6 +572,11 @@
             toffyr = Number(this.value);
             resetOffset();
             ctx.translate(0, toffyr);
+            graphFunction();
+          });
+          $('#graph-centre').addEventListener('input', function () {
+            $('#graph-offset-xr').value = 0;
+            $('#graph-offset-yr').value = 0;
             graphFunction();
           });
 
@@ -1349,7 +1355,7 @@
             return Math.log(y) / Math.log(x);
           }
           function triangle (a, d) {
-            return acc = (a * (a + 1)) / ;
+            return acc = (a * (a + 1)) / 2;
           }
           function toggleHyperMode1() {
               var hyperButton = document.querySelector('.calb[value="⇧"]');
@@ -3105,26 +3111,26 @@
         padding: 10px;
       }
       #scientific .caln {
-        background-color: goldenrod;
+        background: goldenrod;
       }
       #scientific .calb {
         margin-right: 0px;
       }
       #scientific .cala {
-        background-color: silver;
+        background: silver;
         margin-right: 0px;
       }
       #scientific .calo {
-        background-color: #967444;
+        background: #967444;
         margin-right: 0px;
       }
       #scientific .calt {
-        background-color: slategrey;
+        background: slategrey;
         margin-right: 0px;
         height: 80px;
       }
       #scientific .calv {
-        background-color: #FF9900; /* Customize the color as needed */
+        background: #FF9900; /* Customize the color as needed */
         margin-right: 0px;
       }
       .cala, .calb, .calo, .calt, .calv {
