@@ -34,7 +34,7 @@
   transition: all ease-in-out 0.45s;
 }
 body {
-  font-family: "Georgia", serif;
+  font-family: "New York", "Georgia", serif;
   background-size: cover;
   min-height: 100lvh;
   overflow-y: scroll;
@@ -92,8 +92,9 @@ body:hover {
   align-items: center;
   border: 0.25px solid #666;
   outline: none;
-  box-shadow: 0 -4px 6px -1px rgba(34,58,46,0.2), 0 4px 6px 1px rgba(34,58,46,0.2), 6px 4px 20px rgba(241,227,255,0.45), inset 0 0 15px rgba(255,255,255,0.15);
-  backdrop-filter: blur(6.1px) url(#crystal-distortion-plus);
+  box-shadow: 0 -4px 6px -1px rgba(34,58,46,0.2), 0 4px 6px 1px rgba(34,58,46,0.2), 6px 4px 20px rgba(241,227,255,0.45), inset 0 0 15px rgba(255,255,255,0.15), inset 0 44px 46px rgba(0, 0, 0, 0.1), inset 0 42px 44px rgba(0, 0, 0, 0.06),
+    0 41px 0 rgba(255, 255, 255, 0.4), inset 0 -44px -46px rgba(0, 0, 0, 0.1), inset 0 -42px -44px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(6.1px) url(#crystal-distortion-plus) brightness(0.9);
   -webkit-backdrop-filter: blur(8.1px);
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -117,6 +118,7 @@ body:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
   max-width: 120px;
   min-width: 60px;
+  backdrop-filter: url(#crystal-distortion-hover-button) brightness(0.54);
   position: relative;
   overflow: hidden;
   font-family: trajan, "Trajan Pro", Georgia, Times, serif;
@@ -331,16 +333,36 @@ p.page-nav {
     padding: 8px;
   }
 }
-@media (max-width: 448px) {
+@media (max-width: 394px) {
   table:not(.nepas) {
     width: 100%;
     transition: width 0.45s ease-in-out;
   }
   .content-section {
     padding: 5px;
+    width: 100%;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  .desk-paper {
+    border-radius: 8px;
+    padding: 15px;
   }
   .container {
-    padding: 6px;
+    padding: 0;
+    width: 100%;
+  }
+  .nav-bar {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+  }
+  .nav-item {
+    gap: 0;
+    margin: 0;
+    border-radius: 8px;
   }
 }
 .content-section, .container, .nav-bar, .desk-paper {
@@ -443,14 +465,16 @@ p.page-nav {
     background-image: linear-gradient(
         rgba(0, 0, 0, 0.64),
         rgba(0, 0, 0, 0.64)
-      ),
-      url("https://img.freepik.com/free-photo/old-brown-paper-texture-background_1373-431.jpg");
+      );/*,
+      url("https://img.freepik.com/free-photo/old-brown-paper-texture-background_1373-431.jpg");*/
   }
-
+  table {
+    filter: brightness(87%);
+  }
   .content-section {
     background: rgba(50, 50, 50, 0.44);
     color: #e0e0e0;
-    box-shadow: 0 8px 20px rgba(17, 34, 0, 0.3), inset -0.5px 2px 12px rgba(3.5, 7, 0, 0.15), inset 0.5px 0px 4.5px rgba(7, 14, 0, 0.15), inset 0 2px 50px rgba(241, 227, 255, 0.8);
+    /*box-shadow: 0 8px 20px rgba(17, 34, 0, 0.3), inset -0.5px 2px 12px rgba(3.5, 7, 0, 0.15), inset 0.5px 0px 4.5px rgba(7, 14, 0, 0.15), inset 0 2px 50px rgba(241, 227, 255, 0.8);*/
   }
 
   .page-title {
@@ -464,7 +488,7 @@ p.page-nav {
       ),
       url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
     border-color: #666;
-    box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.0125), 0 4px 27px rgba(0, 0, 0, 0.125);
+    /*box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.0125), 0 4px 27px rgba(0, 0, 0, 0.125);*/
   }
 
   .nav-bar {
@@ -621,7 +645,7 @@ abbr {
 }
 
 canvas, sculpture {
-  background-color: white;
+  background-image: linear-gradient(to bottom, white, white) !important;
   box-shadow: inset 1.25px 4px 27px rgba(241, 227, 255, 0.8);
 }
 
@@ -673,18 +697,16 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   margin: 5px;
   background-color: var(--button-normal);
   /*box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.21), 2px 2px 3px 1px rgba(84, 56, 123, 0.3);*/
-  box-shadow: 0 6px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -3px 5px rgba(113.5,90,113.5,0.35);
+  box-shadow: 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);
   filter: brightness(85%);
   background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.55), rgba(153, 126, 179, 0.48), rgba(170, 130, 200, 0.55));
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
   border: 1px solid rgba(244, 244, 244, 0.51);
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
+  color: black;
   outline-offset: -0.33px;
   cursor: pointer;
-}
-canvas {
-  background: white;
 }
 button[disabled], input[disabled], select[disabled] {
   color: rgba(10, 10, 10, 0.48);
@@ -695,18 +717,21 @@ button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[ty
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
   outline: 1.5px solid rgba(255, 255, 255, 0.51);
-  filter: brightness(0.85);
+  filter: brightness(0.77);
 }
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: not-allowed;
 }
-button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, sculpture:active, ::-webkit-scrollbar-thumb:active {
+button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, ::-webkit-scrollbar-thumb:active {
   background-color: rgba(153, 126, 179, 0.48);
   background-image: linear-gradient(to bottom, rgba(230, 190, 255, 0.65), rgba(210, 159, 238, 0.48), rgba(240, 210, 255, 0.65));
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out, filter 0.6s linear;
   outline: 2px solid rgba(255, 255, 255, 0.51);
-  filter: brightness(0.6);
+  filter: brightness(0.54);
+}
+button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, ::-webkit-scrollbar-thumb:hover:active {
+  filter: brightness(0.64);
 }
 button[disabled]:active, input[disabled]:active, select[disabled]:active {
   cursor: not-allowed;
