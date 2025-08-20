@@ -185,7 +185,7 @@
                       </div>
                       <input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label> <br/>
                       <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><br/>
-                      <button onclick='$("#graph-tracing").classList.toggle("hidden");'>Trace</button>
+                      <button onclick='$("#graph-tracing").classList.toggle("hidden");$("#graph-tracing").slideToggle();'>Trace</button>
                       <button onclick='$("#graph-settings-modal-container").classList.toggle("hidden");'>Options</button>
                     </div>
                   </td>
@@ -266,10 +266,10 @@
                     <input id='graph-auto' type='checkbox' checked='checked'/> <label for='graph-auto' title='resource-consuming'>Graph automatically?</label><br/>
                   </div>
                   <hr/>
-                  <input id='graph-ticks' type='checkbox'/> <label for='graph-ticks'>Tick marks?</label><br/>
-                  <input id='graph-grids' type='checkbox' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
-                  <input id='graph-axes' type='checkbox' checked='checked'/> <label for='graph-axes'>Graph axes?</label><br/>
-                  <input id='graph-points' type='checkbox' checked='checked'/> <label for='graph-points'>Graph points?</label><br/>
+                  <input id='graph-ticks' type='checkbox' oninput='graphFunction();'/> <label for='graph-ticks'>Tick marks?</label><br/>
+                  <input id='graph-grids' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
+                  <input id='graph-axes' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-axes'>Graph axes?</label><br/>
+                  <input id='graph-points' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-points'>Graph points?</label><br/>
                   <input id='graph-advanced' type='checkbox'/> <label for='graph-advanced'>Advanced options?</label><br/>
                 </center>
               </td>
