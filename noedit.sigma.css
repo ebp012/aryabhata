@@ -346,9 +346,9 @@ body:hover {
   margin-bottom: 100px;
   filter: brightness(1.05);
 }*/
-.content-section {
+.content-section, .container.cs-white .content-section, .content-section.cs-white {
   position: relative;
-  background: linear-gradient(145deg, #d6f0ff80, #a0d8f080); /* bright blue gradient */
+  background: linear-gradient(145deg, #f0f0f080, #d8d8d880); /* bright blue gradient */
   border: 1px solid #99ccff; /* soft blue edge like old Windows panels */
   border-radius: 16px;
   padding: 20px;
@@ -358,6 +358,72 @@ body:hover {
   display: none;
   backdrop-filter: blur(4.5px);
 }
+/* Red */
+.container.cs-red .content-section, .content-section.cs-red {
+  background: linear-gradient(145deg, #ffd6d680, #ffa0a080);
+  border: 1px solid #ff9999;
+}
+
+/* Orange */
+.container.cs-orange .content-section, .content-section.cs-orange {
+  background: linear-gradient(145deg, #ffe0b380, #ffc08080);
+  border: 1px solid #ffb366;
+}
+
+/* Yellow */
+.container.cs-yellow .content-section, .content-section.cs-yellow {
+  background: linear-gradient(145deg, #fff5b380, #fff08080);
+  border: 1px solid #ffec99;
+}
+
+/* Green */
+.container.cs-green .content-section, .content-section.cs-green {
+  background: linear-gradient(145deg, #d6ffb380, #a0ff8080);
+  border: 1px solid #99ff99;
+}
+
+/* Teal */
+.container.cs-teal .content-section, .content-section.cs-teal {
+  background: linear-gradient(145deg, #b3fff080, #80ffd880);
+  border: 1px solid #66ffcc;
+}
+
+/* Cyan */
+.container.cs-cyan .content-section, .content-section.cs-cyan {
+  background: linear-gradient(145deg, #b3f0ff80, #80d8ff80);
+  border: 1px solid #66ccff;
+}
+
+/* Blue */
+.container.cs-blue .content-section, .content-section.cs-blue {
+  background: linear-gradient(145deg, #d6f0ff80, #a0d8f080);
+  border: 1px solid #99ccff;
+}
+
+/* Indigo */
+.container.cs-indigo .content-section, .content-section.cs-indigo {
+  background: linear-gradient(145deg, #d6d6ff80, #a0a0f080);
+  border: 1px solid #9999ff;
+}
+
+/* Violet */
+.container.cs-violet .content-section, .content-section.cs-violet {
+  background: linear-gradient(145deg, #f0b3ff80, #d880ff80);
+  border: 1px solid #cc99ff;
+}
+
+/* Brown */
+.container.cs-brown .content-section, .content-section.cs-brown {
+  background: linear-gradient(145deg, #f0d6b380, #d8a08080);
+  border: 1px solid #b38a66;
+}
+
+/* Clear */
+.container.cs-clear .content-section, .content-section.cs-clear {
+  background: linear-gradient(145deg, #b0b0b020, #e0e0e020);
+  border: 1px solid #c0c0c060;
+}
+
 .content-section::before {
   content: "";
   position: absolute;
@@ -448,8 +514,8 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   user-select: none;
 }
 
-.desk-paper {
-  background: linear-gradient(180deg, #e4f9ff, #b6e3f9); /* light blue gradient */
+.desk-paper, .cs-white .desk-paper {
+  background: linear-gradient(180deg, #e4e4e4, #b6b6b6); /* light blue gradient */
   padding: 30px;
   border-radius: 9px;
   border: 1px solid #a0cfff; /* soft blue border */
@@ -461,7 +527,75 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   opacity: 1; /* no washed-out look */
   position: relative;
 }
-.desk-paper::before {
+/* Red */
+.cs-red .desk-paper, .desk-paper.cs-red {
+  background: linear-gradient(180deg, #ffe4e4, #f9b6b6);
+  border: 1px solid #ffa0a0;
+}
+
+/* Orange */
+.cs-orange .desk-paper, .desk-paper.cs-orange {
+  background: linear-gradient(180deg, #fff0d6, #f9c8a0);
+  border: 1px solid #ffb380;
+}
+
+/* Yellow */
+.cs-yellow .desk-paper, .desk-paper.cs-yellow {
+  background: linear-gradient(180deg, #fffde4, #f9f2b6);
+  border: 1px solid #fff380;
+}
+
+/* Green */
+.cs-green .desk-paper, .desk-paper.cs-green {
+  background: linear-gradient(180deg, #e4ffd6, #b6f9a0);
+  border: 1px solid #a0ff99;
+}
+
+/* Teal */
+.cs-teal .desk-paper, .desk-paper.cs-teal {
+  background: linear-gradient(180deg, #d6fff0, #80ffd8);
+  border: 1px solid #66ffcc;
+}
+
+/* Cyan */
+.cs-cyan .desk-paper, .desk-paper.cs-cyan {
+  background: linear-gradient(180deg, #d6f9ff, #80e3f9);
+  border: 1px solid #66ccff;
+}
+
+/* Blue */
+.cs-blue .desk-paper, .desk-paper.cs-blue {
+  background: linear-gradient(180deg, #e4f9ff, #b6e3f9);
+  border: 1px solid #a0cfff;
+}
+
+/* Indigo */
+.cs-indigo .desk-paper, .desk-paper.cs-indigo {
+  background: linear-gradient(180deg, #d6d6ff, #a0a0f0);
+  border: 1px solid #9999ff;
+}
+
+/* Violet */
+.cs-violet .desk-paper, .desk-paper.cs-violet {
+  background: linear-gradient(180deg, #f0d6ff, #d880f9);
+  border: 1px solid #cc99ff;
+}
+
+/* Brown */
+.cs-brown .desk-paper, .desk-paper.cs-brown {
+  background: linear-gradient(180deg, #f0e4d6, #d8b69f);
+  border: 1px solid #b38a66;
+}
+
+/* Clear */
+.cs-clear .desk-paper, .desk-paper.cs-clear {
+  background: linear-gradient(180deg, #e4e4e410, #e4e4e410);
+  border: 0.25px solid #e0e0e0;
+  box-shadow: none;
+  backdrop-filter: blur(7px);
+}
+
+.desk-paper::not(.cs-clear)::before {
   content: "";
   position: absolute;
   top: 0;
@@ -936,7 +1070,7 @@ abbr {
   cursor: help;
 }
 
-canvas, sculpture {
+canvas, sculpture, .youtube {
   background-image: linear-gradient(to bottom, white, white) !important;
   box-shadow: inset 1.25px 4px 27px rgba(241, 227, 255, 0.8);
 }
@@ -978,7 +1112,7 @@ input[type=text]:active, input[type=number]:active, input[type=email]:active, ac
 }
 
 /* Button styles */
-button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, ::-webkit-scrollbar-thumb {
+button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, .youtube, ::-webkit-scrollbar-thumb {
   border-radius: 9px;
   text-align: center;
   font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
@@ -1000,13 +1134,13 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   outline-offset: -0.33px;
   cursor: pointer;
 }
-
+.youtube {padding: 10px;}
 button[disabled], input[disabled], select[disabled] {
   color: rgba(10, 10, 10, 0.48);
   background: var(--button-disabled);
   background-image: linear-gradient(to bottom, var(--button-disabled), var(--button-disabled), var(--button-disabled), var(--button-disabled), silver, silver, silver, silver)
 }
-button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, ::-webkit-scrollbar-thumb:hover {
+button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover {
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
   outline: 1.5px solid rgba(255, 255, 255, 0.51);
@@ -1015,7 +1149,7 @@ button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[ty
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: not-allowed;
 }
-button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, ::-webkit-scrollbar-thumb:active {
+button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active {
   background-color: rgba(153, 126, 179, 0.48);
   background-image: linear-gradient(to bottom, rgba(230, 190, 255, 0.65), rgba(210, 159, 238, 0.48), rgba(240, 210, 255, 0.65));
   color: indigo;
@@ -1023,10 +1157,10 @@ button:active, input[type=button]:active, input[type=submit]:active, input[type=
   outline: 2px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.54);
 }
-button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, ::-webkit-scrollbar-thumb:hover:active {
+button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active {
   filter: brightness(0.64);
 }
-button[disabled]:active, input[disabled]:active, select[disabled]:active {
+button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtube[disabled]:active {
   cursor: not-allowed;
   background: rgba(126, 126, 126, 0.48);
   outline-color: maroon;
