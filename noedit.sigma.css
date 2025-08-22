@@ -113,8 +113,8 @@ body:hover {
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
 }
 .nav-bar.desat {
-  backdrop-filter: blur(12px) url(#crystal-distortion-plus) saturate(0);
-  -webkit-backdrop-filter: blur(12px) saturate(0);
+  backdrop-filter: blur(12px) url(#crystal-distortion-plus) saturate(0.7);
+  -webkit-backdrop-filter: blur(12px) saturate(0.7);
 }
 
 .nav-item, .nav-item.nbtn-clear {
@@ -399,6 +399,7 @@ h3 {
 
 h1, h2, h3, h4, h5, h6, h7, h8 {
   font-family: trajan, futura, georgia, serif;
+  text-align: center;
 }
 
 @keyframes fadeIn {
