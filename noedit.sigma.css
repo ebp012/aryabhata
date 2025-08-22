@@ -113,8 +113,19 @@ body:hover {
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
 }
 .nav-bar.desat {
-  backdrop-filter: blur(12px) url(#crystal-distortion-plus) saturate(0.7);
+  backdrop-filter: blur(12px) url(#crystal-distortion-plus) saturate(0.7) brightness(0.6);
   -webkit-backdrop-filter: blur(12px) saturate(0.7);
+}
+.nav-bar::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: calc(100% - 13px);
+  height: 22%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .nav-item, .nav-item.nbtn-clear {
@@ -336,20 +347,17 @@ body:hover {
   filter: brightness(1.05);
 }*/
 .content-section {
-  position: relative; /* Needed for pseudo-element */
-  background: var(--primary-bg-light);
-  border: 0.65px solid #666; /*var(--border-accent);*/
+  position: relative;
+  background: linear-gradient(145deg, #d6f0ff80, #a0d8f080); /* bright blue gradient */
+  border: 1px solid #99ccff; /* soft blue edge like old Windows panels */
   border-radius: 16px;
   padding: 20px;
-  backdrop-filter: blur(6px) saturate(1.4) url(#crystal-distortion-minus);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(50, 0, 100, 0.25),
-              inset 0 0 12px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2),
+              inset 0 0 8px rgba(255, 255, 255, 0.6);
   overflow: hidden;
   display: none;
+  backdrop-filter: blur(4.5px);
 }
-
-/* Glossy top reflection */
 .content-section::before {
   content: "";
   position: absolute;
@@ -357,7 +365,7 @@ body:hover {
   left: 0;
   width: 100%;
   height: 40%;
-  /*background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);*/
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.65), transparent);
   border-radius: inherit;
   pointer-events: none;
 }
@@ -441,18 +449,28 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 }
 
 .desk-paper {
-  background: url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
+  background: linear-gradient(180deg, #e4f9ff, #b6e3f9); /* light blue gradient */
   padding: 30px;
   border-radius: 9px;
-  border: 0.005px solid #cc9966;
-  /*box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);*/
-  box-shadow: 0 4px 8px rgba(14, 28, 0, 0.1), inset 0 2px 3px rgba(0, 0, 0, 0.2), inset 0 4px 100px rgba(241, 227, 255, 0.6), /**/ inset -1px 4px 24px rgba(28, 56, 0, 0.15), inset 1px 0px 9px rgba(56, 112, 0, 0.45);
+  border: 1px solid #a0cfff; /* soft blue border */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15),
+              inset 0 0 12px rgba(255, 255, 255, 0.6);
   font-size: 14pt;
   overflow-x: hidden;
   overflow-y: hidden;
-  opacity: 83%;
-  /*backdrop-filter: blur(6.1px) url(#crystal-distortion-plus);
-  -webkit-backdrop-filter: blur(8.1px);;*/
+  opacity: 1; /* no washed-out look */
+  position: relative;
+}
+.desk-paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  border-radius: inherit;
+  pointer-events: none;
 }
 p.page-nav {
     text-align: center;
@@ -470,9 +488,43 @@ p.page-nav {
     backdrop-filter: blur(6.1px) url(#crystal-distortion-plus) invert(10%);
     opacity: 54%;
     -webkit-backdrop-filter: blur(8.1px);;
-    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2), inset 0 2px 2px 2px rgba(241, 227, 255, 0.8);
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
+}
+p.page-nav::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: calc(100% - 13px);
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+p.page-nav::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 9px;
+  width: calc(100% - 13px);
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
+@media (min-width: 1024px) {
+  .content-section {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+/*@media (min-width: 1024px) and (min-height: 768px) {
+  .nav-bar {
+    left: 70%;
+    right: 70%;
+  }
+}*/
 @media (max-width: 1024px) and (min-height: 768px) {
   /*.nav-bar {
     width: auto;
@@ -723,11 +775,9 @@ p.page-nav {
   }
 
   .desk-paper {
-    background-image: linear-gradient(
-        rgba(0, 0, 0, 0.3),
-        rgba(0, 0, 0, 0.3)
-      ),
-      url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");
+    background: linear-gradient(180deg, #00061b, #061c49);
+    /*,
+      url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");*/
     border-color: #666;
     /*box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.0125), 0 4px 27px rgba(0, 0, 0, 0.125);*/
   }
@@ -807,17 +857,18 @@ p.page-nav {
 
 table:not(.nepas) {
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.0047);
+  background: linear-gradient(180deg, #e4f8ff, #cbeaff);
   backdrop-filter: blur(8.1px);
 }
-table:not(.nepas),
-table:not(.nepas) * tr td, table:not(.nepas) tr td {
+table:not(.nepas), table:not(.nepas) * tr td, table:not(.nepas) tr td {
   border-collapse: collapse;
   width: auto;
   margin: 24px;
   padding: 14px;
   text-align: center;
-  box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2), inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25), 0 4px 24px rgba(0, 0, 0, 0.1), inset 0 4px 100px rgba(241, 227, 255, 0.4);
+  box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2),
+    inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25), 
+    inset 0 4px 100px rgba(241, 227, 255, 0.4);
 }
 table:not(.nepas) thead td {
   font-weight: bold;
