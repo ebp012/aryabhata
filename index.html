@@ -47,8 +47,10 @@
     <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="crystal-distortion">
-            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
-            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
+          <feTurbulence baseFrequency="0.004" numOctaves="3" seed="3" result="turbulence"/>
+          <feGaussianBlur stdDeviation="2"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+          <feColorMatrix type="saturate" values="1.2"/>
         </filter>
         <filter id="crystal-distortion-hover">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
@@ -75,7 +77,7 @@
       </defs>
     </svg>
 
-    <div class='container'>
+    <div class='container cs-brown'>
       <div id='graphing' class='content-section active'>
         <h1 class="page-title">Graphing</h1>
         <div class="desk-paper" style='line-height: 36pt;'>
