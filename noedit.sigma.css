@@ -875,7 +875,8 @@ p.page-nav::after {
     z-index: 9998;
   }
   .projlinks img {
-    height: 5vh;
+    max-height: 40px;
+    height: 20vh;
     filter: saturate(1.4);
     overflow-y: hidden;
     overflow-x: auto;
