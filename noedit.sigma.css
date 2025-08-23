@@ -150,6 +150,7 @@ body:hover {
   overflow: hidden;
   font-family: trajan, "Trajan Pro", Georgia, Times, serif;
   filter: brightness(1.2);
+  z-index: 9999;
 }
 
 
@@ -413,9 +414,10 @@ body:hover {
 }
 
 /* Brown */
-.container.cs-brown .content-section, .content-section.cs-brown {
-  background: linear-gradient(145deg, #f0d6b380, #d8a08080);
+.container.cs-brown .content-section, .content-section.cs-brown, .container.cs-paper .content-section, .content-section.cs-paper {
+  background: linear-gradient(145deg, #f0d6b380, #d8a08080);/*, url(https://www.pngall.com/wp-content/uploads/14/Grunge-Transparent.png);*/
   border: 1px solid #b38a66;
+  background-blend-mode: lighten;
 }
 
 /* Clear */
@@ -526,6 +528,8 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   overflow-y: hidden;
   opacity: 1; /* no washed-out look */
   position: relative;
+  background-size: cover;
+  background-repeat: repeat;
 }
 /* Red */
 .cs-red .desk-paper, .desk-paper.cs-red {
@@ -585,6 +589,13 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 .cs-brown .desk-paper, .desk-paper.cs-brown {
   background: linear-gradient(180deg, #f0e4d6, #d8b69f);
   border: 1px solid #b38a66;
+}
+
+/* Paper */
+.cs-paper .desk-paper, .desk-paper.cs-paper {
+  background: url(https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png) !important;
+  background-blend-mode: normal;
+  border: 1.25px solid #b38a66;
 }
 
 /* Clear */
@@ -649,16 +660,10 @@ p.page-nav::after {
 
 @media (min-width: 1024px) {
   .content-section {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
   }
 }
-/*@media (min-width: 1024px) and (min-height: 768px) {
-  .nav-bar {
-    left: 70%;
-    right: 70%;
-  }
-}*/
 @media (max-width: 1024px) and (min-height: 768px) {
   /*.nav-bar {
     width: auto;
@@ -711,6 +716,9 @@ p.page-nav::after {
   }
   .content-section {
     padding: 12px;
+  }
+  .content-section:after {
+    height: 40px;
   }
   .container {
     padding: 16px;
@@ -821,10 +829,68 @@ p.page-nav::after {
     transition: transform 0.45s ease-in-out;
   }
 }
+.logosec, .header, .projlinks {
+  display: none;
+}
 @media (min-height: 768px) and (min-width: 1024px) {
   .nav-item {
     margin-left: 4.5px;
     margin-right: 4.5px;
+  }
+  .nav-bar:not(.non) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* small gap between buttons */
+    padding: 0.4% 0.6%; /* 8px 12px */
+    width: 70%;
+  }
+
+  .nav-bar:not(.non) .nav-item {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.45% 0.9%; /* 6px 12px */
+    height: auto;
+    min-width: auto;
+    width: auto;
+  }
+
+  .nav-bar:not(.non) .nav-item i {
+    font-size: 16px;
+    margin: 0;
+  }
+  .logosec, .header, .projlinks {
+    display: block !important;
+  }
+  .projlinks {
+    min-width: 20vw;
+    width: 25%;
+    position: fixed;
+    right: 9px;
+    top: 9px;
+    text-align: right;
+    z-index: 9998;
+  }
+  .projlinks img {
+    height: 5vh;
+    filter: saturate(1.4);
+    overflow-y: hidden;
+    overflow-x: auto;
+    aspect-ratio: 1;
+  }
+  .projlinks img::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 9px;
+    width: calc(100% - 13px);
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+    border-radius: inherit;
+    pointer-events: none;
   }
 }
 @media (min-height: 768px) {
