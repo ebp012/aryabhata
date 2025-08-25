@@ -2029,7 +2029,16 @@
 
       <div id='chemistry' class='content-section active'>
         <h1 class="page-title">Chemistry</h1>
-        <div class="desk-paper" style='line-height: 36pt;'>
+        <p class='page-nav'>
+          <a href='#elements'>elements</a>&nbsp;
+          •&nbsp;
+          <a href='#polyatomic-ions'>polyatomic ions &amp; functional groups</a>
+          •&nbsp;
+          <a href='#amino-acids'>amino acids</a>
+          •&nbsp;
+          <a href='#standard-model'>standard model</a>
+        </p>
+        <div class="desk-paper" style='line-height: 36pt;' id='elements'>
           <h2>Chemical Element Information</h2>
           <div class='table-wrapper'>
             <table class='non'>
@@ -2111,6 +2120,53 @@
                 <tr>
                   <td><strong>Price</strong></td>
                   <td id='atom-price'>?</td>
+                </tr>
+              </tbody>
+            </table>
+            <hr id='polyatomic-ions'/>
+            <h2>Polyatomic Ions &amp; Functional Groups</h2>
+            <table class='non' style='width: 100%;'>
+              <thead>
+                <tr>
+                  <td style='width: 50%;'>Property</td>
+                  <td style='width: 50%;'>Value</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td><input type='text' id='polyatomic-name'/></td>
+                </tr>
+                <tr>
+                  <td>Alternative names</td>
+                  <td id='polyatomic-altname'></td>
+                </tr>
+                <tr>
+                  <td>Charge</td>
+                  <td id='polyatomic-charge'></td>
+                </tr>
+                <tr>
+                  <td>Functional group?</td>
+                  <td><input type='checkbox' disabled='disabled' id='polyatomic-functional-group' style='cursor: normal;'/></td>
+                </tr>
+                <tr>
+                  <td>Elements</td>
+                  <td id='polyatomic-elements'></td>
+                <tr>
+                  <td>Chemical formula</td>
+                  <td id='polyatomic-chemical-formula'></td>
+                </tr>
+                <tr>
+                  <td>Empirical formula</td>
+                  <td id='polyatomic-empirical-formula'></td>
+                </tr>
+                <tr>
+                  <td>Space-filling model</td>
+                  <td id='polyatomic-model'></td>
+                </tr>
+                <tr>
+                  <td>Examples</td>
+                  <td id='polyatomic-examples'></td>
                 </tr>
               </tbody>
             </table>
