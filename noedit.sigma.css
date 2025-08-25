@@ -585,13 +585,6 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   border: 1px solid #b38a66;
 }
 
-/* Paper */
-.cs-paper .desk-paper, .desk-paper.cs-paper {
-  background: url(https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png) !important;
-  background-blend-mode: normal;
-  border: 1.25px solid #b38a66;
-}
-
 /* Clear */
 .cs-clear .desk-paper, .desk-paper.cs-clear {
   background: linear-gradient(180deg, #e4e4e410, #e4e4e410);
@@ -612,7 +605,7 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   pointer-events: none;
 }
 hr {
-  height: 8px;
+  height: 6px;
   border: none;
   padding: 5pt;
   border-radius: 14pt;
@@ -623,6 +616,31 @@ hr {
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
 }
 hr::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 9px;
+  width: calc(100% - 13px);
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+center hr {
+  width: 90%;
+}
+iframe:not(.youtube) {
+  height: 6px;
+  border: none;
+  padding: 5pt;
+  border-radius: 14pt;
+  background: rgba(159, 149, 194, 0.19) !important;
+  backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
+  opacity: 70%;
+  -webkit-backdrop-filter: blur(8.1px);;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
+}
+hr:not(.youtube)::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -848,6 +866,7 @@ p.page-nav::after {
 .logosec, .header, .projlinks {
   display: none;
 }
+
 @media (min-height: 768px) and (min-width: 1200px) {
   .nav-item {
     margin-left: 4.5px;
@@ -860,6 +879,7 @@ p.page-nav::after {
     gap: 8px; /* small gap between buttons */
     padding: 0.4% 0.6%; /* 8px 12px */
     width: 70%;
+    min-height: 35px;
   }
 
   .nav-bar:not(.non) .nav-item {
@@ -867,17 +887,27 @@ p.page-nav::after {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 0.45% 0.9%; /* 6px 12px */
+    gap: 0.33vw;
+    padding: 0.65% 0.9%; /* 6px 12px */
     height: auto;
-    min-width: auto;
+    min-width: 80px;
     width: auto;
   }
 
   .nav-bar:not(.non) .nav-item i {
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
   }
+
+  .nav-bar:not(.non) .nav-item :not(i) {
+    font-size: 1.1vh;
+  }
+   
+  .nav-item:after {
+    left: 1px;
+    right: 1px;
+  }
+
   .logosec, .header, .projlinks {
     display: block !important;
   }
@@ -1314,6 +1344,7 @@ canvas {
   background: radial-gradient(ellipse at center, #b3a6da, rgba(160, 160, 160, 0.64), #b3a6da);
   backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
 }
 ::-webkit-scrollbar-thumb {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
