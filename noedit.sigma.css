@@ -349,7 +349,7 @@ body:hover {
 }*/
 .content-section, .container.cs-white .content-section, .content-section.cs-white {
   position: relative;
-  background: linear-gradient(145deg, #f0f0f080, #d8d8d880); /* bright blue gradient */
+  background: linear-gradient(145deg, #f0f0f0e0, #d8d8d8b0); /* bright blue gradient */
   border: 1px solid #99ccff; /* soft blue edge like old Windows panels */
   border-radius: 16px;
   padding: 20px;
@@ -357,7 +357,7 @@ body:hover {
               inset 0 0 8px rgba(255, 255, 255, 0.6);
   overflow: hidden;
   display: none;
-  backdrop-filter: blur(4.5px);
+  backdrop-filter: blur(4.5px) url(#crystal-distortion-minus);
 }
 /* Red */
 .container.cs-red .content-section, .content-section.cs-red {
@@ -533,61 +533,61 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
 }
 /* Red */
 .cs-red .desk-paper, .desk-paper.cs-red {
-  background: linear-gradient(180deg, #ffe4e4, #f9b6b6);
+  background: linear-gradient(180deg, #ffe4e470, #f9b6b670);
   border: 1px solid #ffa0a0;
 }
 
 /* Orange */
 .cs-orange .desk-paper, .desk-paper.cs-orange {
-  background: linear-gradient(180deg, #fff0d6, #f9c8a0);
+  background: linear-gradient(180deg, #fff0d670, #f9c8a070);
   border: 1px solid #ffb380;
 }
 
 /* Yellow */
 .cs-yellow .desk-paper, .desk-paper.cs-yellow {
-  background: linear-gradient(180deg, #fffde4, #f9f2b6);
+  background: linear-gradient(180deg, #fffde470, #f9f2b670);
   border: 1px solid #fff380;
 }
 
 /* Green */
 .cs-green .desk-paper, .desk-paper.cs-green {
-  background: linear-gradient(180deg, #e4ffd6, #b6f9a0);
+  background: linear-gradient(180deg, #e4ffd670, #b6f9a070);
   border: 1px solid #a0ff99;
 }
 
 /* Teal */
 .cs-teal .desk-paper, .desk-paper.cs-teal {
-  background: linear-gradient(180deg, #d6fff0, #80ffd8);
+  background: linear-gradient(180deg, #d6fff070, #80ffd870);
   border: 1px solid #66ffcc;
 }
 
 /* Cyan */
 .cs-cyan .desk-paper, .desk-paper.cs-cyan {
-  background: linear-gradient(180deg, #d6f9ff, #80e3f9);
+  background: linear-gradient(180deg, #d6f9ff70, #80e3f970);
   border: 1px solid #66ccff;
 }
 
 /* Blue */
 .cs-blue .desk-paper, .desk-paper.cs-blue {
-  background: linear-gradient(180deg, #e4f9ff, #b6e3f9);
+  background: linear-gradient(180deg, #e4f9ff70, #b6e3f970);
   border: 1px solid #a0cfff;
 }
 
 /* Indigo */
 .cs-indigo .desk-paper, .desk-paper.cs-indigo {
-  background: linear-gradient(180deg, #d6d6ff, #a0a0f0);
+  background: linear-gradient(180deg, #d6d6ff70, #a0a0f070);
   border: 1px solid #9999ff;
 }
 
 /* Violet */
 .cs-violet .desk-paper, .desk-paper.cs-violet {
-  background: linear-gradient(180deg, #f0d6ff, #d880f9);
+  background: linear-gradient(180deg, #f0d6ff70, #d880f970);
   border: 1px solid #cc99ff;
 }
 
 /* Brown */
 .cs-brown .desk-paper, .desk-paper.cs-brown {
-  background: linear-gradient(180deg, #f0e4d6, #d8b69f);
+  background: linear-gradient(180deg, #f0e4d670, #d8b69f70);
   border: 1px solid #b38a66;
 }
 
@@ -617,23 +617,45 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   border-radius: inherit;
   pointer-events: none;
 }
+hr {
+  height: 8px;
+  border: none;
+  padding: 5pt;
+  border-radius: 14pt;
+  background: rgba(159, 149, 194, 0.19) !important;
+  backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
+  opacity: 70%;
+  -webkit-backdrop-filter: blur(8.1px);;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
+}
+hr::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 9px;
+  width: calc(100% - 13px);
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
 p.page-nav {
-    text-align: center;
-    width: auto;
-    overflow-y: none;
-    overflow-x: auto;
-    padding: 5pt;
-    border-radius: 14pt;
-    font-size: 14pt;
-    left: auto;
-    right: auto;
-    position: relative;
-    bottom: 20px;
-    background: rgba(159, 149, 194, 0.19) !important;
-    backdrop-filter: blur(6.1px) url(#crystal-distortion-plus) invert(10%);
-    opacity: 54%;
-    -webkit-backdrop-filter: blur(8.1px);;
-    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
+  text-align: center;
+  width: auto;
+  overflow-y: none;
+  overflow-x: auto;
+  padding: 5pt;
+  border-radius: 14pt;
+  font-size: 14pt;
+  left: auto;
+  right: auto;
+  position: relative;
+  bottom: 20px;
+  background: rgba(159, 149, 194, 0.19) !important;
+  backdrop-filter: blur(6.1px) url(#crystal-distortion-plus) invert(10%);
+  opacity: 54%;
+  -webkit-backdrop-filter: blur(8.1px);;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
 }
 p.page-nav::before {
   content: "";
@@ -658,13 +680,13 @@ p.page-nav::after {
   pointer-events: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .content-section {
     margin-left: 15%;
     margin-right: 15%;
   }
 }
-@media (max-width: 1024px) and (min-height: 768px) {
+@media (max-width: 1200px) and (min-height: 800px) {
   /*.nav-bar {
     width: auto;
     bottom: 20px;
@@ -832,7 +854,7 @@ p.page-nav::after {
 .logosec, .header, .projlinks {
   display: none;
 }
-@media (min-height: 768px) and (min-width: 1024px) {
+@media (min-height: 768px) and (min-width: 1200px) {
   .nav-item {
     margin-left: 4.5px;
     margin-right: 4.5px;
@@ -866,22 +888,35 @@ p.page-nav::after {
     display: block !important;
   }
   .projlinks {
-    min-width: 20vw;
-    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
     position: fixed;
-    right: 9px;
     top: 9px;
-    text-align: right;
+    right: 9px;
+    width: auto;
     z-index: 9998;
   }
   .projlinks img {
-    max-height: 40px;
-    height: 20vh;
+    height: 80%;            /* takes 80% of the navbar height */
+    max-height: 40px;       /* prevent oversized icons */
+    width: auto;
+    aspect-ratio: 1 / 1;    /* keep square */
     filter: saturate(1.4);
-    overflow-y: hidden;
-    overflow-x: auto;
-    aspect-ratio: 1;
+    object-fit: contain;    /* ensures image fits without distortion */
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
   }
+
   .projlinks img::before {
     content: "";
     position: absolute;
@@ -1207,30 +1242,31 @@ button[disabled], input[disabled], select[disabled] {
   background: var(--button-disabled);
   background-image: linear-gradient(to bottom, var(--button-disabled), var(--button-disabled), var(--button-disabled), var(--button-disabled), silver, silver, silver, silver)
 }
-button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover {
+button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover, .projlinks a:hover {
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
-  outline: 1.5px solid rgba(255, 255, 255, 0.51);
+  border: 1.5px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.77);
 }
+.projlinks a {border: none !important; outline: none !important; background: transparent !important;}
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: not-allowed;
 }
-button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active {
+button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active {
   background-color: rgba(153, 126, 179, 0.48);
   background-image: linear-gradient(to bottom, rgba(230, 190, 255, 0.65), rgba(210, 159, 238, 0.48), rgba(240, 210, 255, 0.65));
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out, filter 0.6s linear;
-  outline: 2px solid rgba(255, 255, 255, 0.51);
+  border: 2px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.54);
 }
-button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active {
+button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
   filter: brightness(0.64);
 }
 button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtube[disabled]:active {
   cursor: not-allowed;
   background: rgba(126, 126, 126, 0.48);
-  outline-color: maroon;
+  border-color: maroon;
   opacity: 51%;
 }
 
