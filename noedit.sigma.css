@@ -438,12 +438,6 @@ body:hover {
   pointer-events: none;
 }
 
-/* Optional shimmer on hover for Aero feel */
-.content-section:hover {
-  box-shadow: 0 6px 24px rgba(90, 0, 160, 0.35),
-              inset 0 0 14px rgba(255, 255, 255, 0.3);
-}
-
 .content-section.active {
   display: block;
   animation: fadeIn 0.5s;
