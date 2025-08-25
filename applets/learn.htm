@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aryabhata</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/7.scoped.css" />
+
+    <style>
+      /* General App Styling */
+      body {
+        font-family: futura, "Helvetica Neue", monospace;
+        /*background: linear-gradient(to bottom, #e3e3e3, #c7c7c7);*/
+        color: #333;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: auto;
+      }
+      body, html {
+        background: transparent !important;
+      }
+
+      #bg {
+        background-image: url(https://cdn.glitch.global/f5aec147-6e2d-4f1e-8220-074008986048/snowflakes?v=1733054512511);
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        filter: blur(4px);
+        width: 100%;
+        position: fixed; /* Position it behind the content */
+        top: 0; /* Ensure it's at the top */
+        left: 0; /* Ensure it's at the left */
+        z-index: -1; /* Send it to the background */
+        pointer-events: none; /* Make sure it doesn't block interaction */
+        overflow: none;
+      }
+      .contaner,
+      .app {
+        margin: 20px auto;
+        padding: 10px;
+        width: 60%;
+        /*max-width: 400px;
+        background-color: #fefefef8;
+        background-image: url(https://www.pngall.com/wp-content/uploads/14/Paper-Texture-PNG-Image-HD.png);
+        opacity: 87%;*/
+        /*background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;*/
+        /*border: 0.5px solid rgba(113, 113, 112, 0.45);
+        border-radius: 9.5px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(9.5px);
+        -moz-backdrop-filter: blur(9.5px);
+        -webkit-backdrop-filter: blur(9.5px);
+        outline: 9px solid rgba(255, 255, 255, 0.25);*/ /* switch border and outline? */
+      }
+      .hidden,
+      click.hidden,
+      button.hidden {
+        display: none;
+      }
+
+      /*h1 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        color: #555;
+        text-shadow: 0px 1px 0px #fff;
+      }*/
+
+      p {
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .button {
+        display: block;
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0px 1px 0px #333;
+        background-image: linear-gradient(to bottom, #4ca5f8, #007aff);
+        /*border: 1px solid #005bb5;
+        border-radius: 8px;
+        box-shadow: inset 0px 1px 0px #8ab9f8, 0px 3px 4px rgba(0, 0, 0, 0.2);*/
+        cursor: pointer;
+        text-align: center;
+      }
+
+      .button:hover {
+        background: linear-gradient(to bottom, #66b7fc, #147bfc);
+      }
+
+      .button:active {
+        background: linear-gradient(to bottom, #007aff, #005bb5);
+        box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .answer {
+        margin-top: 10px;
+      }
+
+      #answers {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Score Display */
+      #scoreValue {
+        font-size: 20px;
+        font-weight: bold;
+        color: #007aff;
+        text-align: center;
+        margin-top: 10px;
+        text-shadow: 0px 1px 0px #fff;
+      }
+
+      /* Shop Styling */
+      #shop {
+        display: none;
+        background: #fefefe;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      #shop h2 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      #closeShop,
+      #buyPowerUp {
+        width: calc(100% - 40px);
+      }
+
+      /* Input Field */
+      input[type="file"] {
+        margin: 10px auto;
+        display: block;
+        font-size: 14px;
+      }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="bg" class='hidden'></div>
+    <div id="home" class="contaner app content-section" style='display: block;'>
+      <!--<h1 id="title">Aryabhata</h1>-->
+      <input
+        type="file"
+        id="aryaFile"
+        accept=".arya"
+        style="margin-bottom: 10px"
+      />
+      <table class='non nepas' style='width: 100%;'>
+        <tr>
+          <td style='width: 33.33%;'>
+            <button class="button hidden" id="importBtn">
+              <i class="fa fa-upload"></i> Import .arya
+            </button>
+            <button class="button" id="playBtn">
+              <i class="fa fa-gamepad"></i> Play
+            </button>
+          </td>
+          <td style='width: 33.33%;'>
+            <button class="button" id="typeBtn">
+              <i class="fa fa-keyboard-o"></i> Type
+            </button>
+          </td>
+          <td>
+            <button class="button" id="flashcardBtn">
+              <i class="fa fa-address-card-o"></i> Flashcards
+            </button>
+          </td>
+        </tr>
+      </table>
+      <p>
+        <center>
+          <button class="button" id="aryaBtn" style='width: 40px; display: inline-block;'>
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button class="button" id="settingsBtn" style='width: 40px; display: inline-block;'>
+            <i class="fa fa-gears"></i>
+          </button>
+        </center>
+      </p>
+      
+    </div>
+    <div id="game" class="app hidden content-section">
+      <div class="question" id="question">Question</div>
+      <div class="answers" id="answers"></div>
+      <div id="score">
+        <span id="scoreText">Score</span>:
+        <span id="scoreValue">0 <span id="langSilver">silver</span></span> |
+        <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
+        <span id="percentage">0</span>%
+      </div>
+      <input
+        type="text"
+        id="textInput"
+        placeholder="Type your answer here..."
+      />
+      <button class="button" id="resetBtn">Reset</button>
+      <button class="button" id="shopBtn">Shop</button>
+    </div>
+
+    <div id="shop" class="app hidden content-section">
+      <h2>Shop</h2>
+      <div class="shop-item">
+        Halve point deductions - 6 Silver
+        <button class="button" id="buyPowerUp">Buy</button>
+      </div>
+      <button class="button" id="closeShop">Close</button>
+    </div>
+
+    <div id="flashCardApp" class="app hidden content-section">
+      <h2>Flash Cards</h2>
+      <div id="flashCard" class="card">Loading...</div>
+      <button id="knownButton" class="button">Known</button>
+      <button id="unknownButton" class="button">Unknown</button>
+      <hr />
+      <button id="closeFlashcard" class="button">Close</button>
+    </div>
+
+    <div id="csvEditor" class="app hidden content-section">
+      <h2>CSV Editor</h2>
+      <table
+        id="csvTable"
+        contenteditable="true"
+        style="width: 100%; border-collapse: collapse"
+        class='non'
+      >
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Incorrect Answer 1</th>
+            <th>Incorrect Answer 2</th>
+            <th>Incorrect Answer 3</th>
+            <th>Correct Answer</th>
+            <th>Points Awarded</th>
+            <th>Points Deducted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sample Question</td>
+            <td>Wrong 1</td>
+            <td>Wrong 2</td>
+            <td>Wrong 3</td>
+            <td>Right Answer</td>
+            <td>10</td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" id="addRow">Add Row</button>
+      <button class="button" id="saveArya">Save ARYA</button>
+      <button class="button" id="closeArya">Close</button>
+    </div>
+
+    <div id="settings" class="app hidden content-section">
+      <h2>Settings</h2>
+      <hr />
+      <p id="selectLanguage">Choose your language:</p>
+      <button class="button" data-lang="en">english</button>
+      <button class="button" data-lang="hi">हिन्दी</button>
+      <button class="button" data-lang="es">español</button>
+      <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
+      <button class="button" data-lang="fr">français</button>
+      <button class="button" data-lang="gu">ગુજરાતી</button>
+      <!--<hr />
+      <p>Wallpaper</p>
+      <input type="file" id="wallpaperUpload" accept="image/*" />
+      <button class="button" id="setWallpaper">Set Wallpaper</button>
+      <button class="button" id="resetWallpaper">Reset</button>
+      <hr />-->
+      <button class="button" id="closeSettings">Close</button>
+    </div>
+
+    <div id="incorrect" class="app hidden">
+      <strong>Your answer was incorrect.</strong>
+    </div>
+
+    <script>
+      let questions = [];
+      let currentQuestionIndex = 0;
+      let oldCqi;
+      let olderCqi;
+      let specCqi;
+      let silver = 0;
+      let halvePenalty = false;
+      // Language-specific strings
+      var noFileMessage = "No file selected!!!";
+      var langSilver = "silver";
+      // Total right and total questions
+      let totalQuestions = 0;
+      let totalRight = 0;
+
+      // Parse the .arya file with the new format
+      function parseArya(arya) {
+        const rows = arya.split("\n");
+        questions = []; // Clear existing questions
+        rows.forEach((row) => {
+          const values = row.split(",");
+          if (values.length === 7) {
+            try {
+              const answers = [
+                values[1].trim(), // Incorrect answer 1
+                values[2].trim(), // Incorrect answer 2
+                values[3].trim(), // Incorrect answer 3
+                values[4].trim(), // Correct answer
+              ];
+              questions.push({
+                question: values[0].trim(),
+                correct: values[4].trim(),
+                choices: answers,
+                pointsAwarded: parseInt(values[5]),
+                pointsDeducted: parseInt(values[6]),
+              });
+            } catch (error) {
+              console.error("Error parsing row:", row, error);
+            }
+          }
+        });
+        if (questions.length === 0) {
+          alert(
+            "No valid questions found in the file. Please check the format."
+          );
+        }
+      }
+
+      // Shuffle answers randomly
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+          currentQuestionIndex == 1;
+          /*alert("Game Over! Your total: " + silver + " " + langSilver);
+          $("#game").hide();
+          $(".contaner").show();
+          currentQuestionIndex = 0;
+          silver = 0;
+          $("#scoreValue").text(silver + " " + langSilver);*/
+          return;
+        }
+
+        const current = questions[currentQuestionIndex];
+        $("#question").text(current.question);
+
+        // Randomize the order of answers
+        const randomizedChoices = [...current.choices];
+        shuffle(randomizedChoices);
+
+        // Create answer buttons
+        const answerButtons = randomizedChoices
+          .map((choice, index) => {
+            return `<button class="button answer">${String.fromCharCode(
+              65 + index
+            )}: ${choice}</button>`;
+          })
+          .join("");
+        $("#answers").html(answerButtons);
+
+        // Handle answer selection
+        $(".answer").on("click", function () {
+          const selectedAnswer = $(this).text().split(":")[1].trim();
+          if (selectedAnswer === current.correct) {
+            // Add the appropriate amount of silver
+            silver += current.pointsAwarded;
+            // Increment the number of questions gotten right
+            totalRight += 1;
+            // Leave a gap of at least 2 between the same exact question
+            olderCqi = oldCqi;
+            oldCqi = currentQuestionIndex;
+            do {
+              specCqi = Math.round(Math.random() * questions.length);
+            } while (specCqi == oldCqi || specCqi == olderCqi);
+            currentQuestionIndex = specCqi;
+          } else {
+            // Show the incorrect dialogue box
+            $("#incorrect").show();
+            $("#game").hide();
+            // Hide the incorrect dialogue box after ~2/3 of a second
+            setTimeout(function () {
+              $("#incorrect").hide();
+              $("#game").show();
+            }, 666.6);
+            // If the halve-penalty powerup is equipped from the shop, half the penalty from the silver amount
+            silver -= halvePenalty
+              ? Math.ceil(current.pointsDeducted / 2)
+              : current.pointsDeducted;
+            // Repeat the question if it was incorrectly answered
+            currentQuestionIndex = currentQuestionIndex;
+          }
+          // Increment the total numbers of questions answered
+          totalQuestions += 1;
+          document.getElementById("totalQuestions").innerHTML = totalQuestions;
+          // Apply changes to number of questions gotten right
+          document.getElementById("totalRight").innerHTML = totalRight;
+          document.getElementById("percentage").innerHTML =
+            Math.round((totalRight / totalQuestions) * 1000) / 10;
+          $("#scoreValue").text(silver + " " + langSilver);
+          //currentQuestionIndex++;
+          // Disable receiving the same question twice in a row or too often
+
+          loadQuestion();
+        });
+
+        // Handle text input submission
+        $("#textInput").on("keypress", function (e) {
+          if (e.which === 13) {
+            // Enter key
+            const userAnswer = $(this).val().trim();
+            if (userAnswer === current.correct) {
+              // Add the appropriate amount of silver
+              silver += current.pointsAwarded;
+              // Increment the number of questions gotten right
+              totalRight += 1;
+              // Leave a gap of at least 2 between the same exact question
+              olderCqi = oldCqi;
+              oldCqi = currentQuestionIndex;
+              do {
+                specCqi = Math.round(Math.random() * questions.length);
+              } while (specCqi == oldCqi || specCqi == olderCqi);
+              currentQuestionIndex = specCqi;
+            } else {
+              // Show the incorrect dialogue box
+              $("#incorrect").show();
+              $("#game").hide();
+              // Hide the incorrect dialogue box after ~2/3 of a second
+              setTimeout(function () {
+                $("#incorrect").hide();
+                $("#game").show();
+              }, 666.6);
+              // If the halve-penalty powerup is equipped from the shop, half the penalty from the silver amount
+              silver -= halvePenalty
+                ? Math.ceil(current.pointsDeducted / 2)
+                : current.pointsDeducted;
+              // Repeat the question if it was incorrectly answered
+              currentQuestionIndex = currentQuestionIndex;
+            }
+            // Increment the total numbers of questions answered
+            totalQuestions += 1;
+            document.getElementById("totalQuestions").innerHTML =
+              totalQuestions;
+            // Apply changes to number of questions gotten right
+            document.getElementById("totalRight").innerHTML = totalRight;
+            document.getElementById("percentage").innerHTML =
+              Math.round((totalRight / totalQuestions) * 1000) / 10;
+            $("#scoreValue").text(silver + " " + langSilver);
+            // Clear the input field
+            $(this).val("");
+            loadQuestion();
+          }
+        });
+      }
+
+      $("#importBtn").on("click", function () {
+        const fileInput = document.getElementById("aryaFile");
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            parseArya(e.target.result);
+            ///alert("Arya imported successfully!");
+          };
+          reader.readAsText(file);
+        } else {
+          alert(noFileMessage);
+        }
+      });
+
+      $("#playBtn").on("click", function () {
+        $("#questions").show();
+        document.getElementById("importBtn").click();
+        setTimeout(function () {
+          if (questions.length === 0) {
+            //alert("Please import a .arya file first!");
+            return;
+          }
+          $(".contaner").hide();
+          $("#game").show();
+          $("#textInput").hide();
+          loadQuestion();
+        }, 36);
+      });
+
+      $("#typeBtn").on("click", function () {
+        document.getElementById("importBtn").click();
+        setTimeout(function () {
+          if (questions.length === 0) {
+            //alert("Please import a .arya file first!");
+            return;
+          }
+          $(".contaner").hide();
+          $("#game").fadeIn();
+          $("#answers").hide();
+          loadQuestion();
+        }, 36);
+      });
+
+      $("#resetBtn").on("click", function () {
+        // Confirm if the user wants to reset
+        var resetConf = confirm("Are you sure you would like to reset?");
+        if (resetConf === true) {
+          // Remove all questions
+          questions = [];
+
+          // Set question index to 0
+          currentQuestionIndex = 0;
+
+          // Deduct all silver
+          silver = 0;
+
+          // Reset number of right and wrong
+          totalRight = 0;
+          totalQuestions = 0;
+
+          // Update score value
+          $("#scoreValue").text(silver + " " + langSilver);
+
+          // Update percentage and right and wrong
+          document.getElementById("totalRight").innerHTML = 0;
+          document.getElementById("totalQuestions").innerHTML = 0;
+          document.getElementById("percentage").innerHTML = 0;
+
+          // Hide the game and return to the home screen
+          $("#game").hide();
+          $("#home").fadeIn();
+        }
+      });
+
+      $("#shopBtn").on("click", function () {
+        $("#game").hide();
+        $("#shop").fadeIn();
+      });
+      $("#flashcardBtn").on("click", function () {
+        document.getElementById("importBtn").click();
+        setTimeout(function () {
+          if (questions.length === 0) {
+            //alert("Please import a .arya file first!");
+            return;
+          }
+          $(".contaner").hide();
+          $("#flashCardApp").fadeIn();
+          $("#textInput").hide();
+          loadFlashCards();
+        }, 36);
+        if (questions.length === 0) {
+          //alert("Please import a .arya file first!");
+          return;
+        } else {
+          $("#home").hide();
+          $("#flashCardApp").fadeIn();
+        }
+      });
+      $("#aryaBtn").on("click", function () {
+        $("#home").hide();
+        $("#csvEditor").fadeIn();
+      });
+      $("#settingsBtn").on("click", function () {
+        $("#home").hide();
+        $("#settings").fadeIn();
+      });
+
+      $("#closeShop").on("click", function () {
+        $("#shop").hide();
+        $("#game").fadeIn();
+      });
+      $("#closeFlashcard").on("click", function () {
+        $("#flashCardApp").hide();
+        $("#home").fadeIn();
+      });
+      $("#closeArya").on("click", function () {
+        $("#csvEditor").hide();
+        $("#home").fadeIn();
+      });
+      $("#closeSettings").on("click", function () {
+        $("#settings").hide();
+        $("#home").fadeIn();
+      });
+
+      $("#buyPowerUp").on("click", function () {
+        if (silver >= 6) {
+          silver -= 6;
+          halvePenalty = true;
+          alert("Power-up purchased! Point deductions will now be halved.");
+          $("#scoreValue").text(silver + " " + langSilver);
+          $("#shop").hide();
+          $("#game").show();
+        } else {
+          alert("Not enough silver!");
+        }
+      });
+      // Function to set the background image
+      function setBackgroundImage(imageUrl) {
+        document.getElementById(
+          "bg"
+        ).style.backgroundImage = `url(${imageUrl})`;
+        localStorage.setItem("wallpaper", imageUrl); // Save to localStorage
+      }
+
+      // Load saved wallpaper on page load
+      $(document).ready(function () {
+        const savedWallpaper = localStorage.getItem("wallpaper");
+        if (savedWallpaper) {
+          setBackgroundImage(savedWallpaper);
+        }
+      });
+
+      // Handle wallpaper upload
+      $("#setWallpaper").on("click", function () {
+        const fileInput = document.getElementById("wallpaperUpload");
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const imageUrl = e.target.result;
+            setBackgroundImage(imageUrl);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          alert("Please select an image file first!");
+        }
+      });
+      // Default wallpaper URL
+      const defaultWallpaper =
+        "https://cdn.glitch.global/f5aec147-6e2d-4f1e-8220-074008986048/snowflakes?v=1733054512511";
+
+      // Function to reset the wallpaper to default
+      function resetToDefaultWallpaper() {
+        setBackgroundImage(defaultWallpaper);
+        localStorage.removeItem("wallpaper"); // Clear saved wallpaper
+      }
+      // Load language setting on load
+      $("body").on("load", function () {
+        updateLanguage(localStorage.getItem("language-setting"));
+      });
+      // Handle reset wallpaper button click
+      $("#resetWallpaper").on("click", resetToDefaultWallpaper);
+    </script>
+    <script>
+      let flashcards = [];
+      let currentIndex = 0;
+
+      document
+        .getElementById("flashcardBtn")
+        .addEventListener("click", function () {
+          document.getElementById("home").classList.add("hidden");
+          document.getElementById("flashCardApp").classList.remove("hidden");
+          if (flashcards.length > 0) {
+            showFlashcard();
+          }
+        });
+
+      document
+        .getElementById("closeFlashcard")
+        .addEventListener("click", function () {
+          document.getElementById("flashCardApp").classList.add("hidden");
+          document.getElementById("home").classList.remove("hidden");
+        });
+
+      document
+        .getElementById("knownButton")
+        .addEventListener("click", function () {
+          currentIndex++;
+          if (currentIndex < flashcards.length) {
+            showFlashcard();
+          } else {
+            alert("End of flashcards!");
+          }
+        });
+
+      document
+        .getElementById("unknownButton")
+        .addEventListener("click", function () {
+          alert("Correct answer: " + flashcards[currentIndex].answer);
+          currentIndex++;
+          if (currentIndex < flashcards.length) {
+            showFlashcard();
+          } else {
+            alert("End of flashcards!");
+          }
+        });
+
+      document
+        .getElementById("aryaFile")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const lines = e.target.result
+              .split("\n")
+              .map((line) => line.trim())
+              .filter((line) => line);
+            flashcards = lines.map((line) => {
+              const parts = line.split(",");
+              return { question: parts[0], answer: parts[4] };
+            });
+            currentIndex = 0;
+            if (flashcards.length > 0) {
+              document.getElementById("flashCard").textContent =
+                "Flashcards loaded! Click 'Known' or 'Unknown' to begin.";
+            }
+          };
+          reader.readAsText(file);
+        });
+
+      function showFlashcard() {
+        document.getElementById("flashCard").textContent =
+          flashcards[currentIndex].question;
+      }
+    </script>
+    <div class="win7" style='display: none;' id='rightclick'>
+      <ul role="menu" style="width: 200px">
+        <li role="menuitem" tabindex="0" aria-haspopup="true">View</li>
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          Sort by
+          <ul role="menu">
+            <li role="menuitem"><a href="#menu">Name</a></li>
+            <li role="menuitem"><a href="#menu">Size</a></li>
+            <li role="menuitem"><a href="#menu">Item type</a></li>
+            <li role="menuitem"><a href="#menu">Date modified</a></li>
+          </ul>
+        </li>
+        <li role="menuitem"><a href="#menu">Refresh</a></li>
+        <li role="menuitem"><a href="#menu">Paste</a></li>
+        <li role="menuitem"><a href="#menu">Paste shortcut</a></li>
+        <li role="menuitem"><a href="#menu">Screen resolution</a></li>
+        <li role="menuitem"><a href="#menu">Gadgets</a></li>
+        <li role="menuitem"><a href="#menu">Personalize</a></li>
+      </ul>
+    </div>
+
+    <script src="lang.js"></script>
+  </body>
+</html>
