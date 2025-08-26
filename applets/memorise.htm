@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+  <title>Memorise Applet</title>
+  <link href='http://aryabhata.aeonic.me/noedit.sigma.css' rel='stylesheet' type='text/css'/>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <link
+      rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+    />
+  <style>
+    body, html {
+        background: transparent !important;
+    }
+  </style>
+<body>
+  <!-- Memorise Applet -->
+  <div id='dpM-sans-script'>
+    <!-- Memorise content here -->
+    <div id="memoriseHome">
+      <strong>paste below what you'd like to memorise:</strong>
+      <br />
+      <textarea
+                id="memoriseBoxM"
+                style="
+                       width: 100%;
+                       height: 100px;
+                       font-family: times;
+                       font-size: 12pt;
+                       padding: 8pt;
+                       "
+                ></textarea>
+      <button id="submitBtnM">Submit Text</button>
+    </div>
+    <div
+         id="memoriseInterface"
+         style="display: none"
+         onmouseover="document.querySelector('#memBox').focus();"
+         >
+      <div id="memShow" style="border: 1px double grey; padding: 9pt">
+        <b style="font-family: courier; color: navy">|</b>
+      </div>
+      <hr />
+      <div contenteditable id="memBox" style="color: transparent"></div>
+      <style>
+        #memBox:focus {
+          outline: 0;
+          border: 0;
+          cursor: vertical-text;
+        }
+      </style>
+      <p>Count: <span id="charCount">0</span> characters</p>
+      <div id="wrongsM"></div>
+      <button id='resetBtnM'>Reset</button>
+    </div>
+  </div>
+
+  <script>
+    {
+      var memText = "Lorem ipsum";
+      var memPrac = document.getElementById("memBox").innerText.trim();
+      var memPracU = document.getElementById("memBox").innerText;
+      var charCount = 0;
+      var oldCharCount = 0;
+      var newOldCharCount = 0;
+      var memShow = false;
+      var memDone = false;
+      var memWrongs = 0;
+      document
+        .querySelector("#submitBtnM")
+        .addEventListener("click", function () {
+        memShow = true;
+        $("#memoriseHome").fadeOut(1000);
+        $("#memoriseInterface").fadeIn(2000);
+        memText = document.getElementById("memoriseBoxM").value.trim();
+      });
+      document
+        .querySelector("#resetBtnM")
+        .addEventListener("click", function () {
+        memText = "Lorem ipsum";
+        memPrac = document.getElementById("memBox").innerText.trim();
+        memPracU = document.getElementById("memBox").innerText;
+        charCount = 0;
+        oldCharCount = 0;
+        newOldCharCount = 0;
+        memShow = false;
+        memDone = false;
+        memWrongs = 0;
+        document.querySelector('#dpM-sans-script').innerHTML = '<div id=memoriseHome><strong>paste below what you&#x0027;d like to memorise:</strong><br><textarea id=memoriseBoxM style=width:100%;height:100px;font-family:times;font-size:12pt;padding:8pt></textarea> <button id=submitBtnM>Submit Text</button></div><div id=memoriseInterface style=display:none onmouseover="document.querySelector("#memBox").focus()"><div id=memShow style="border:1px double grey;padding:9pt"><b style=font-family:courier;color:navy>|</b></div><hr><div id=memBox style=color:transparent contenteditable></div><style>#memBox:focus{outline:0;border:0;cursor:vertical-text}</style><p>Count: <span id=charCount>0</span> characters<div id=wrongsM></div><button id=resetBtnM>Reset</button></div>';
+      });
+      document
+        .querySelector("#memoriseInterface")
+        .addEventListener("click", function (e) {
+        document.querySelector("#memBox").focus();
+      });
+      document
+        .querySelector("#memBox")
+        .addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+      document
+        .querySelector("#memBox")
+        .addEventListener("input", function (e) {
+        if (
+          event.key === "ArrowUp" ||
+          event.key === "ArrowDown" ||
+          event.key === "ArrowLeft" ||
+          event.key === "ArrowRight"
+        ) {
+          e.preventDefault();
+        } else {
+          memPracU = document.getElementById("memBox").innerText;
+          memPrac = memPracU.trim();
+          document.querySelector("#memShow").innerHTML =
+            memPracU +
+            "<b style='font-family: courier; color: navy;'>|</b>";
+          //document.querySelector('#memBox').innerHTML = memPrac;
+          // move cursor to end
+          oldCharCount = charCount;
+          charCount = memPrac.length;
+          document.getElementById("charCount").innerText = charCount;
+          if (
+            charCount != 0 &&
+            memPrac.charAt(charCount - 1) !=
+            memText.charAt(charCount - 1)
+          ) {
+            document.querySelector("#wrongsM").innerHTML +=
+              "Error at position " + (charCount - 1) + ".<br/>";
+            var memBoxA = document
+            .querySelector("#memBox")
+            .innerText.slice(0, -1);
+            var memBoxB = document
+            .querySelector("#memBox")
+            .innerText.slice(-1, charCount);
+            document.querySelector("#memShow").innerHTML =
+              memBoxA + "<u style='color: red;'>" + memBoxB + "</u>";
+            memWrongs += 1;
+          }
+        }
+        if (
+          memShow === true &&
+          memPracU.length >= memText.length
+        ) {
+          var þ = document.querySelector("#wrongsM").innerHTML;
+          var itD = 0;
+          if (memPrac.length == memText.length && itD == 0) {
+            if (memWrongs != 0) {
+              document.querySelector("#wrongsM").innerHTML =
+                "<strong style='color: green;'>DONE</strong><br/><p><small>" +
+                memWrongs +
+                " total mistakes</small><hr/>" +
+                þ;
+            } else {
+              document.querySelector("#wrongsM").innerHTML =
+                "<strong style='color: green;'>DONE</strong><br/><p><small style='cursor: n-resize;'>No mistakes&#x203c;</small>";
+            }
+            itD += 1;
+            memDone = true;
+          } else if (memPrac.length > memText.length) {
+            document.querySelector("#wrongsM").innerHTML =
+              "<strong style='color: brown;'>OVERFLOW</strong><br/>" +
+              þ;
+          }
+        }
+        if (memDone === true) {
+          document.activeElement.blur();
+          document.querySelector("#memBox").innerHTML = memText;
+          document.querySelector("#memBox").style.display = "none";
+          document.querySelector("#memBox").contenteditable = "false";
+        }
+      });
+    }
+
+  </script>
+</body>
+</html>
