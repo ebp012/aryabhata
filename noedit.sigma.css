@@ -640,6 +640,21 @@ iframe:not(.youtube) {
   -webkit-backdrop-filter: blur(8.1px);;
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
 }
+
+iframe.applet {
+  width: 100%;
+  height: 50vh;
+  background-image: linear-gradient(180deg, #f0e4d670, #d8b69f70) !important;
+  backdrop-filter: blur(124.4px);
+  -webkit-backdrop-filter: blur(124.4px);
+}
+
+.applet-refresh {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
 hr:not(.youtube)::before {
   content: "";
   position: absolute;
@@ -698,7 +713,7 @@ p.page-nav::after {
     margin-right: 15%;
   }
 }
-@media (max-width: 1200px) and (min-height: 800px) {
+@media (max-width: 1200px) and (min-height: 475px) {
   /*.nav-bar {
     width: auto;
     bottom: 20px;
@@ -751,9 +766,18 @@ p.page-nav::after {
   .content-section {
     padding: 12px;
   }
-  .content-section:after {
-    height: 40px;
+  body, html {
+    height: calc(100vh + 50px) !important;
   }
+  .desk-paper:after {
+    height: 500px;
+    bottom: 0;
+    left: 0;
+    content: '';
+    right: 0;
+    width: 100%;
+  }
+
   .container {
     padding: 16px;
   }
@@ -809,7 +833,7 @@ p.page-nav::after {
 .content-section, .container, .nav-bar, .desk-paper {
     transition: padding 0.45s ease-in-out, left 0.45s ease-in-out, width 0.45s ease-in-out, height 0.45s ease-in-out, display 0.45s ease-in-out, transform 0.45s ease-in-out;
 }
-@media (max-height: 768px) { /* 1024px ipad mini width */
+@media (max-height: 475px) { /* 1024px ipad mini width */
   .nav-bar {
     position: fixed;
     left: 15px;
@@ -867,7 +891,7 @@ p.page-nav::after {
   display: none;
 }
 
-@media (min-height: 768px) and (min-width: 1200px) {
+@media (min-height: 475px) and (min-width: 1200px) {
   .nav-item {
     margin-left: 4.5px;
     margin-right: 4.5px;
@@ -953,7 +977,7 @@ p.page-nav::after {
     pointer-events: none;
   }
 }
-@media (min-height: 768px) {
+@media (min-height: 475px) {
     .nav-bar {
       position: fixed;
       top: 20px;                 /* distance from top — adjust if you want flush */
