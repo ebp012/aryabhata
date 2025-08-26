@@ -177,7 +177,7 @@
                 <tr>
                   <td>
                     <div id='xiv-td-content'>
-                      <strong id='xiv-title'>xi-viewport</strong><hr/>
+                      <strong id='xiv-title'>xi-viewport</strong><br/>
                       x-iv: <input type='range' min='-36' max='36' value='0' step='1' id='xiv-input'/><br/>
                       x-iv = <span id='xiv-value'>0</span><br/>
                       <div class='graph-adv'>
@@ -185,8 +185,8 @@
                         x-iv Max: <input type='number' value='36' id='xiv-max-input'/><br/>
                         x-iv Step: <input type='number' value='1' min='0' id='xiv-step-input'/><br/>
                       </div>
-                      <input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label> <br/>
-                      <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><br/>
+                      <p hidden><input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label> <br/></p>
+                      <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><hr/>
                       <button onclick='$("#graph-tracing").classList.toggle("hidden");$("#graph-tracing").slideToggle();'>Trace</button>
                       <button onclick='$("#graph-settings-modal-container").classList.toggle("hidden");'>Options</button>
                     </div>
@@ -2424,172 +2424,18 @@
 
       <!-- Learn Section -->
       <div id="learn" class="content-section">
-        <h1 class="page-title">Learn</h1>
-        <iframe src='http://aryabhata.aeonic.me/applets/learn.htm' style='width: 100%; height: 50vh;' class='desk-paper'></iframe>
+        <h1 class="page-title">Learn&nbsp;</h1><br/>
+        <button onclick='window.open("http://aryabhata.aeonic.me/applets/learn.htm", "_learntab");' class='applet-refresh'><i class='fa fa-refresh'></i></button>
+        <!-- http://aryabhata.aeonic.me/applets/learn.htm -->
+        <iframe src='about:blank' name='_learntab' class='desk-paper applet'></iframe>
       </div>
 
       <!-- Memorise Applet -->
       <div id="memorise" class="content-section">
         <h1 class="page-title">Memorise</h1>
-        <div class="desk-paper">
-          <div id='dpM-sans-script'>
-            <!-- Memorise content here -->
-            <div id="memoriseHome">
-              <strong>paste below what you'd like to memorise:</strong>
-              <br />
-              <textarea
-                id="memoriseBoxM"
-                style="
-                  width: 100%;
-                  height: 100px;
-                  font-family: times;
-                  font-size: 12pt;
-                  padding: 8pt;
-                "
-              ></textarea>
-              <button id="submitBtnM">Submit Text</button>
-            </div>
-            <div
-              id="memoriseInterface"
-              style="display: none"
-              onmouseover="document.querySelector('#memBox').focus();"
-            >
-              <div id="memShow" style="border: 1px double grey; padding: 9pt">
-                <b style="font-family: courier; color: navy">|</b>
-              </div>
-              <hr />
-              <div contenteditable id="memBox" style="color: transparent"></div>
-              <style>
-                #memBox:focus {
-                  outline: 0;
-                  border: 0;
-                  cursor: vertical-text;
-                }
-              </style>
-              <p>Count: <span id="charCount">0</span> characters</p>
-              <div id="wrongsM"></div>
-              <button id='resetBtnM'>Reset</button>
-            </div>
-          </div>
-
-          <script>
-            {
-              var memText = "Lorem ipsum";
-              var memPrac = document.getElementById("memBox").innerText.trim();
-              var memPracU = document.getElementById("memBox").innerText;
-              var charCount = 0;
-              var oldCharCount = 0;
-              var newOldCharCount = 0;
-              var memShow = false;
-              var memDone = false;
-              var memWrongs = 0;
-              document
-                .querySelector("#submitBtnM")
-                .addEventListener("click", function () {
-                  memShow = true;
-                  $("#memoriseHome").fadeOut(1000);
-                  $("#memoriseInterface").fadeIn(2000);
-                  memText = document.getElementById("memoriseBoxM").value.trim();
-                });
-              document
-                .querySelector("#resetBtnM")
-                .addEventListener("click", function () {
-                  memText = "Lorem ipsum";
-                  memPrac = document.getElementById("memBox").innerText.trim();
-                  memPracU = document.getElementById("memBox").innerText;
-                  charCount = 0;
-                  oldCharCount = 0;
-                  newOldCharCount = 0;
-                  memShow = false;
-                  memDone = false;
-                  memWrongs = 0;
-                  document.querySelector('#dpM-sans-script').innerHTML = '<div id=memoriseHome><strong>paste below what you&#x0027;d like to memorise:</strong><br><textarea id=memoriseBoxM style=width:100%;height:100px;font-family:times;font-size:12pt;padding:8pt></textarea> <button id=submitBtnM>Submit Text</button></div><div id=memoriseInterface style=display:none onmouseover="document.querySelector("#memBox").focus()"><div id=memShow style="border:1px double grey;padding:9pt"><b style=font-family:courier;color:navy>|</b></div><hr><div id=memBox style=color:transparent contenteditable></div><style>#memBox:focus{outline:0;border:0;cursor:vertical-text}</style><p>Count: <span id=charCount>0</span> characters<div id=wrongsM></div><button id=resetBtnM>Reset</button></div>';
-                });
-              document
-                .querySelector("#memoriseInterface")
-                .addEventListener("click", function (e) {
-                  document.querySelector("#memBox").focus();
-                });
-              document
-                .querySelector("#memBox")
-                .addEventListener("click", function (e) {
-                  e.preventDefault();
-                });
-              document
-                .querySelector("#memBox")
-                .addEventListener("input", function (e) {
-                  if (
-                    event.key === "ArrowUp" ||
-                    event.key === "ArrowDown" ||
-                    event.key === "ArrowLeft" ||
-                    event.key === "ArrowRight"
-                  ) {
-                    e.preventDefault();
-                  } else {
-                    memPracU = document.getElementById("memBox").innerText;
-                    memPrac = memPracU.trim();
-                    document.querySelector("#memShow").innerHTML =
-                      memPracU +
-                      "<b style='font-family: courier; color: navy;'>|</b>";
-                    //document.querySelector('#memBox').innerHTML = memPrac;
-                    // move cursor to end
-                    oldCharCount = charCount;
-                    charCount = memPrac.length;
-                    document.getElementById("charCount").innerText = charCount;
-                    if (
-                      charCount != 0 &&
-                      memPrac.charAt(charCount - 1) !=
-                        memText.charAt(charCount - 1)
-                    ) {
-                      document.querySelector("#wrongsM").innerHTML +=
-                        "Error at position " + (charCount - 1) + ".<br/>";
-                      var memBoxA = document
-                        .querySelector("#memBox")
-                        .innerText.slice(0, -1);
-                      var memBoxB = document
-                        .querySelector("#memBox")
-                        .innerText.slice(-1, charCount);
-                      document.querySelector("#memShow").innerHTML =
-                        memBoxA + "<u style='color: red;'>" + memBoxB + "</u>";
-                      memWrongs += 1;
-                    }
-                  }
-                  if (
-                    memShow === true &&
-                    memPracU.length >= memText.length
-                  ) {
-                    var þ = document.querySelector("#wrongsM").innerHTML;
-                    var itD = 0;
-                    if (memPrac.length == memText.length && itD == 0) {
-                      if (memWrongs != 0) {
-                        document.querySelector("#wrongsM").innerHTML =
-                          "<strong style='color: green;'>DONE</strong><br/><p><small>" +
-                          memWrongs +
-                          " total mistakes</small><hr/>" +
-                          þ;
-                      } else {
-                        document.querySelector("#wrongsM").innerHTML =
-                          "<strong style='color: green;'>DONE</strong><br/><p><small style='cursor: n-resize;'>No mistakes&#x203c;</small>";
-                      }
-                      itD += 1;
-                      memDone = true;
-                    } else if (memPrac.length > memText.length) {
-                      document.querySelector("#wrongsM").innerHTML =
-                        "<strong style='color: brown;'>OVERFLOW</strong><br/>" +
-                        þ;
-                    }
-                  }
-                  if (memDone === true) {
-                    document.activeElement.blur();
-                    document.querySelector("#memBox").innerHTML = memText;
-                    document.querySelector("#memBox").style.display = "none";
-                    document.querySelector("#memBox").contenteditable = "false";
-                  }
-                });
-            }
-            
-          </script>
-        </div>
+        <button onclick='window.open("http://aryabhata.aeonic.me/applets/memorise.htm", "_memorisetab");' class='applet-refresh'><i class='fa fa-refresh'></i></button>
+        <!-- http://aryabhata.aeonic.me/applets/memorise.htm -->
+        <iframe src='about:blank' name='_memorisetab' class='desk-paper applet'></iframe>
       </div>
 
       <!-- Parse Section -->
@@ -2722,11 +2568,11 @@
         <i class='fa-solid fa-flask'></i>
         <span>Chemistry</span>
       </div>
-      <div class='nav-item' data-target='#learn' id='learnTab'>
+      <div class='nav-item' data-target='#learn' id='learnTab' onclick='window.open("http://aryabhata.aeonic.me/applets/learn.htm", "_learntab");'>
         <i class='fa-solid fa-brain'></i>
         <span>Learn</span>
       </div>
-      <div class='nav-item' data-target='#memorise' id='memoriseTab'>
+      <div class='nav-item' data-target='#memorise' id='memoriseTab' onclick='window.open("http://aryabhata.aeonic.me/applets/memorise.htm", "_memorisetab");'>
         <i class='fa-solid fa-book-open'></i>
         <span>Memorise</span>
       </div>
