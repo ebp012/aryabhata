@@ -1,0 +1,1798 @@
+
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'TAG_ID');
+
+
+
+  // Axes and Trace Variables
+  var xr = 0, xrp = 0; // x real (x axis)
+  var xi = 0, xip = 0; // x imaginary (z axis)
+  var yr = 0, yrp = 0; // y real (y axis)
+  var yi = 0, yip = 0; // y imaginary (t axis)
+
+  var xiv = 0, xivp = 0; // x imaginary viewport
+  var inputs = ['xi', 'xr', 'xiv']; // each instance of the slider setup thing
+
+  var xrmin = -36, xrmax = 36; // x-real minimum/maximum
+  var ximin = -36, ximax = 36; // x-imaginary minimum/maximum
+
+  var scale = 5; // how zoomed in the graph is
+  var inputScale = 1;
+
+  var fullscreen = false; // est-on plein écran (fullscreen) ou non
+
+  var nof = 1; // number of functions
+
+  // Convenience stuff
+  const $ = (selector) => document.querySelector(selector);
+  const $all = (selector) => document.querySelectorAll(selector);
+
+
+  // Canvas Declaration
+  const canvas = document.getElementById('graph-canvas');
+  const ctx = canvas.getContext('2d');
+  var canvasWidth = 360;
+  var canvasHeight = 360;
+  ctx.translate(canvas.width/2, canvas.height/2);
+  var do3D = false;
+  var toffxr = 0; // total xr-offset
+  var toffyr = 0; // total yr-offset
+  var toffyi = 0; // total yi-offset
+
+  // Translations
+  var lang = navigator.language;
+  if (lang != 'en' && lang != 'fr') lang = 'en';
+  var translations = {
+    en: {
+      // Navigation
+      graphingTab: 'Graphing',
+      scientificTab: 'Scientific',
+      algebraTab: 'Algebra',
+      unitsTab: 'Units',
+      chemistryTab: 'Chemistry',
+      learnTab: 'Learn',
+      memoriseTab: 'Memorise',
+      parseTab: 'Parse',
+      controlsTab: 'Controls',
+      // Top row
+      xivTitle: 'x-i Viewport',
+      xrTitle: 'x-r Trace',
+      xiTitle: 'x-i Trace',
+      graphTitle: 'Graph',
+      sliderInput: 'Slider input?',
+      // Bottom row
+      functionTitle: 'Function',
+      functionTitlePl: 'Functions',
+      traceTitle: 'Trace',
+      roundTitle: 'Round',
+      scaleTitle: 'Scale',
+      // Graph settings
+      graphTicks: 'Tick marks?',
+      gridLines: 'Grid lines?',
+      graphAxes: 'Graph axes?',
+      graphPoints: 'Graph points?',
+      xivScroll: 'Scroll for x-iv?',
+      advancedOptions: 'Advanced options?',
+    },
+    fr: {
+      // Navigation
+      graphingTab: 'Graphe',
+      scientificTab: 'Scientifique',
+      algebraTab: 'Algebre',
+      unitsTab: 'Unites',
+      chemistryTab: 'Chimie',
+      learnTab: 'Apprendre',
+      memoriseTab: 'Se Rapeller',
+      parseTab: 'Parser',
+      controlsTab: 'Réglages',
+      // Top row
+      xivTitle: 'Fenêtre d\'x-i',
+      xrTitle: 'Traçage d\'x-r',
+      xiTitle: 'Traçage d\'x-i',
+      graphTitle: 'Graphe',
+      sliderInput: 'Inputer par range?',
+      // Row
+      functionTitle: 'Fonction',
+      functionTitlePl: 'Fonctions',
+      traceTitle: 'Traçage',
+      roundTitle: 'Arrondage',
+      scaleTitle: 'Scalage',
+      // Graph settings
+      graphTicks: 'Coches des axes?',
+      gridLines: 'Lignes de graphe?',
+      graphAxes: 'Axes de graphe?',
+      graphPoints: 'Points de graphe?',
+      xivScroll: 'Defiller pour x-iv?',
+      advancedOptions: 'Options avancées?',
+    },
+    applyLang: function () {
+      switch (lang) {
+        case 'en':
+          $('#scientificTab').style.fontSize = '12pt';
+          $('#memoriseTab').style.fontSize = '12pt';
+          // Navigation
+          $('#homeTab span').innerHTML = translations.en.graphingTab;
+          $('#scientificTab span').innerHTML = translations.en.scientificTab;
+          $('#algebraTab span').innerHTML = translations.en.algebraTab;
+          $('#unitsTab span').innerHTML = translations.en.unitsTab;
+          $('#chemistryTab span').innerHTML = translations.en.chemistryTab;
+          $('#learnTab span').innerHTML = translations.en.learnTab;
+          $('#memoriseTab span').innerHTML = translations.en.memoriseTab;
+          $('#parseTab span').innerHTML = translations.en.parseTab;
+          $('#controlsTab span').innerHTML = translations.en.controlsTab;
+          $('#graphing h1').innerHTML = translations.en.graphingTab;
+          $('#scientific h1').innerHTML = translations.en.scientificTab;
+          $('#algebra h1').innerHTML = translations.en.algebraTab;
+          $('#units h1').innerHTML = translations.en.unitsTab;
+          $('#chemistry h1').innerHTML = translations.en.chemistryTab;
+          $('#learn h1').innerHTML = translations.en.learnTab;
+          $('#memorise h1').innerHTML = translations.en.memoriseTab;
+          $('#parse h1').innerHTML = translations.en.parseTab;
+          $('#controls h1').innerHTML = translations.en.controlsTab;
+          // Top row
+          $('#xiv-title').innerHTML = translations.en.xivTitle;
+          $('#xr-title').innerHTML = translations.en.xrTitle;
+          $('#xi-title').innerHTML = translations.en.xiTitle;
+          $('#graph-title').innerHTML = translations.en.graphTitle;
+          $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+            element.innerHTML = translations.en.sliderInput;
+          });
+          // Bottom row
+          $('#function-title').innerHTML = translations.en.functionTitle;
+          if (nof == 1) $('#function-title').innerHTML = translations.en.functionTitle;
+          else $('#function-title').innerHTML = translations.en.functionTitlePl;
+          $('#trace-title').innerHTML = translations.en.traceTitle;
+          $('#round-title').innerHTML = translations.en.roundTitle;
+          $('#scale-title').innerHTML = translations.en.scaleTitle;
+          // Graph settings
+          $('label[for="graph-ticks"]').innerHTML = translations.en.graphTicks;
+          $('label[for="graph-grids"]').innerHTML = translations.en.gridLines;
+          $('label[for="graph-axes"]').innerHTML = translations.en.graphAxes;
+          $('label[for="graph-points"]').innerHTML = translations.en.graphPoints;
+          $('label[for="graph-scroll-xiv"]').innerHTML = translations.en.xivScroll;
+          $('label[for="graph-advanced"]').innerHTML = translations.en.advancedOptions;
+          break;
+        case 'fr':
+          $('#scientificTab').style.fontSize = '10pt';
+          $('#memoriseTab').style.fontSize = '10pt';
+          // Navigation
+          $('#homeTab span').innerHTML = translations.fr.graphingTab;
+          $('#scientificTab span').innerHTML = translations.fr.scientificTab;
+          $('#algebraTab span').innerHTML = translations.fr.algebraTab;
+          $('#unitsTab span').innerHTML = translations.fr.unitsTab;
+          $('#chemistryTab span').innerHTML = translations.fr.chemistryTab;
+          $('#learnTab span').innerHTML = translations.fr.learnTab;
+          $('#memoriseTab span').innerHTML = translations.fr.memoriseTab;
+          $('#parseTab span').innerHTML = translations.fr.parseTab;
+          $('#controlsTab span').innerHTML = translations.fr.controlsTab;
+          $('#graphing h1').innerHTML = translations.fr.graphingTab;
+          $('#scientific h1').innerHTML = translations.fr.scientificTab;
+          $('#algebra h1').innerHTML = translations.fr.algebraTab;
+          $('#units h1').innerHTML = translations.fr.unitsTab;
+          $('#chemistry h1').innerHTML = translations.fr.chemistryTab;
+          $('#learn h1').innerHTML = translations.fr.learnTab;
+          $('#memorise h1').innerHTML = translations.fr.memoriseTab;
+          $('#parse h1').innerHTML = translations.fr.parseTab;
+          $('#controls h1').innerHTML = translations.fr.controlsTab;
+          // Top row
+          $('#xiv-title').innerHTML = translations.fr.xivTitle;
+          $('#xr-title').innerHTML = translations.fr.xrTitle;
+          $('#xi-title').innerHTML = translations.fr.xiTitle;
+          $('#graph-title').innerHTML = translations.fr.graphTitle;
+          $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+            element.innerHTML = translations.fr.sliderInput;
+          });
+          // Bottom row
+          if (nof == 1) $('#function-title').innerHTML = translations.fr.functionTitle;
+          else $('#function-title').innerHTML = translations.fr.functionTitlePl;
+          $('#trace-title').innerHTML = translations.fr.traceTitle;
+          $('#round-title').innerHTML = translations.fr.roundTitle;
+          $('#scale-title').innerHTML = translations.fr.scaleTitle;
+          // Graph settings
+          $('label[for="graph-ticks"]').innerHTML = translations.fr.graphTicks;
+          $('label[for="graph-grids"]').innerHTML = translations.fr.gridLines;
+          $('label[for="graph-axes"]').innerHTML = translations.fr.graphAxes;
+          $('label[for="graph-points"]').innerHTML = translations.fr.graphPoints;
+          $('label[for="graph-scroll-xiv"]').innerHTML = translations.fr.xivScroll;
+          $('label[for="graph-advanced"]').innerHTML = translations.fr.advancedOptions;
+          break;
+      };
+    },
+  };
+
+
+  // On load actions
+  window.addEventListener('load', function() {
+    // Utiliser HTTP en lieu d'HTTPS à cause de l'HTTP est incompatible avec mon domain
+    //if (window.location.href.slice(0, 5) !== 'http:') window.location.href = 'http://' + window.location.href.slice(8);
+    
+
+    // Graph at the start
+    graphFunction();
+    inputsAutoGraphTest();
+
+    // Open the home tab
+    $('#homeTab').click();
+
+    $all('.graph-adv').forEach(function(element) {
+        element.classList.add('hidden');
+    });
+    inputsAutoGraphTest();
+    setInterval(function() {
+      // Update whether graph is 2D or 3D
+      if ($('#graph-dimension-3d').checked == true) {
+        do3D = true;
+      }
+      else {
+        do3D = false;
+      }
+      // Update whether to show the graph button
+      if ($('#graph-auto').checked != true) {
+        $('#graph-btn').style.display = 'block';
+      }
+      else {
+        $('#graph-btn').style.display = 'none';
+      }
+
+    }, 37);
+    
+    function inputsAutoGraphTest () {
+      $all('#graphing input, #graphing select, #graphing button, .modal input').forEach(function(element) {
+        element.addEventListener('input', function () {
+          if ($('#graph-auto').checked) graphFunction();
+        });
+      });
+      /*document.querySelectorAll('#graphing input, #graphing button, #graphing select').forEach(input => { // input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input
+        input.addEventListener('input', function () {
+          // if the user selects to graph automatically (resource-consuming)
+          if ($('#graph-auto').checked) graphFunction();
+        });
+      });*/
+    }
+
+    document.querySelectorAll('#graphing input[type=range], #graphing td input[type=number]:first-of-type').forEach(input => {
+      input.addEventListener('input', function () {
+        // NO MORE ~~~~Continuously (every 37 ms) check for changes in xr,xi,yr,yi and push to span~~~~
+        updateTrace();
+      });
+    });
+    
+    $('#lang-select').addEventListener('input', function () {
+      lang = this.value;
+      translations.applyLang();
+    });
+
+    $('#graphing').addEventListener('mouseover', function () {
+      if (pregraphed == false) pregraphed = true;
+      graphFunction();
+    });
+
+    $('#xi-input').addEventListener('input', function () {
+      xi = Number(this.value);
+      $('#xi-value').innerHTML = xi;
+      
+    });
+
+    $('#xr-input').addEventListener('input', function () {
+      xr = Number(this.value);
+      $('#xr-value').innerHTML = xr;
+    });
+
+    $('#xiv-input').addEventListener('input', function () {
+      xiv = Number(this.value);
+      $('#xiv-value').innerHTML = xiv;
+    });
+
+    $('#graph-minor-step').addEventListener('input', function () {
+      $('#graph-major-step').step = this.value;
+    });
+
+    $('#graph-offset-xr').addEventListener('input', function () {
+      toffxr = Number(this.value);
+      resetOffset();
+      ctx.translate(toffxr, 0);
+      graphFunction();
+    });
+
+    $('#graph-offset-yr').addEventListener('input', function () {
+      toffyr = Number(this.value);
+      resetOffset();
+      ctx.translate(0, toffyr);
+      graphFunction();
+    });
+    $('#graph-centre').addEventListener('input', function () {
+      $('#graph-offset-xr').value = 0;
+      $('#graph-offset-yr').value = 0;
+      graphFunction();
+    });
+
+    document.querySelectorAll('#graph-canvas').forEach(fsBtn => {
+      fsBtn.addEventListener('click', function () {
+        fullscreen = !fullscreen;
+        var modal = $('#graph-fullscreen-modal');
+        var container = $('#graph-container');
+        var scaleContainer = $('#graph-scale-span-container');
+        var scaleContainerSub = $('#graph-scale-span-sub');
+        modal.classList.toggle('hidden');
+        modal.parentElement.classList.toggle('hidden');
+        if (fullscreen) { // if fullscreen is now entered
+          modal.innerHTML = '';
+          modal.appendChild($('#graph-div'));
+          modal.appendChild($('#graph-scale-span'));
+          modal.appendChild($('#xiv-td-content'));
+          modal.appendChild($('#graph-xryr-offset-div'));
+          modal.appendChild(canvas);
+          document.body.style.overflowY = 'hidden';
+          //this.innerHTML = '<i class="fa fa-compress" style="z-index: 250;"></i> Exit';
+          canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
+          /*scaleContainerSub.style.position = 'relative';
+          scaleContainerSub.style.top = '-20px';
+          scaleContainerSub.style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
+          $('#xiv-td-content').style.position = 'relative';
+          $('#xiv-td-content').style.top = '-10px';
+          $('#xiv-td-content').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
+          $('#graph-xryr-offset-div').style.position = 'relative';
+          $('#graph-xryr-offset-div').style.bottom = '-10px';
+          $('#graph-xryr-offset-div').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';*/
+          /*
+          Old Graph Fullscreen Button
+          this.style.position = 'fixed';
+          this.style.bottom = '10px';
+          this.style.marginLeft = 'auto;'
+          this.style.marginRight = 'auto;'*/
+        }
+        else { // when exiting fullscreen
+          //container.appendChild($('#graph-fullscreen-btn'));
+          container.appendChild($('#graph-div'));
+          $('#graph-div').appendChild(canvas);
+          scaleContainer.appendChild($('#graph-scale-span'));
+          $('#xiv-td').appendChild($('#xiv-td-content'));
+          $('#graph-xryr-offset-div-container-span').appendChild($('#graph-xryr-offset-div'));
+          document.body.style.overflowY = 'scroll';
+          canvas.style.transform = 'scale(1)';
+          scaleContainerSub.style.position = 'static';
+          //this.style.position = 'static';
+          //this.innerHTML = '<i class="fa fa-expand"></i> Fullscreen';
+        }
+      });
+    });
+
+    $('#graph-scale').addEventListener('input', function () {
+      var newScale = this.value;
+      if (this.value <= 0) this.value = scale;
+      if (newScale <= 0) newScale = scale;
+      scale = newScale;
+      graphFunction();
+      /*var modal = $('#graph-fullscreen-modal');
+      var scaleContainer = $('#graph-scale-span-container');
+      var prevValue = inputScale;
+      inputScale = this.value;
+      this.max =  round(modal.offsetWidth ** 2, 1);
+      this.min = round(1 / $('#graph-scale').max, 1);
+      if (this.min < 0) this.min = 0;
+      if (this.max > 2) this.max = 2;
+      if (this.value <= this.min) this.value = this.min;
+      if (this.value >= this.max) this.value = this.max;
+      if (fullscreen) canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
+      else canvas.style.transform = 'scale(1)';*/
+    });
+
+    canvas.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      if ($('#graph-scroll-xiv').checked) { // originally fullscreen != true
+        // Vertical scrolling
+        if (e.deltaY > 0) {
+          // Scroll down; ideally decrease y-i viewport
+          xiv -= Number($('#xiv-step-input').value);
+          if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
+          $('#xiv-input').value = xiv;
+          $('#xiv-value').innerHTML = xiv;
+        }
+        else if (e.deltaY < 0) {
+          // Scroll up; ideally increase y-i viewport
+          xiv += Number($('#xiv-step-input').value);
+          if (xiv >= $('#xiv-max-input').value) xiv = Number($('#xiv-max-input').value);
+          $('#xiv-input').value = xiv;
+          $('#xiv-value').innerHTML = xiv;
+        }
+        // Horizontal scrolling
+        if (e.deltaX > 0) {
+          // Scroll left; decrease x-i viewport
+          xiv -= Number($('#xiv-step-input').value);
+          if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
+          $('#xiv-input').value = xiv;
+          $('#xiv-value').innerHTML = xiv;
+        }
+        else if (e.deltaX < 0) {
+          // Scroll right; increase x-i viewport
+          xiv += Number($('#xiv-step-input').value);
+          if (xiv >= $('#xiv-max-input').value) xiv = Number($('#xiv-max-input').value);
+          $('#xiv-input').value = xiv;
+          $('#xiv-value').innerHTML = xiv;
+        }
+      }
+      else if ($('#graph-scroll-xiv').checked != true) { // originally fullscreen == true
+        // Vertical scrolling
+        if (e.deltaY > 0) {
+          // Scroll down; ideally decrease yr offset
+          toffyr -= Number($('#graph-offset-yr').step);
+          //if (toffyr <= $('#offset-yr').min) toffyr = Number($('#xiv-min-input').value);
+          $('#graph-offset-yr').value = toffyr;
+        }
+        else if (e.deltaY < 0) {
+          // Scroll up; ideally increase yr offset
+          toffyr += Number($('#graph-offset-yr').step);
+          //if (toffyr >= $('#offset-yr').max) toffyr = Number($('#xiv-max-input').value);
+          $('#graph-offset-yr').value = toffyr;
+        }
+        // Horizontal scrolling
+        if (e.deltaX > 0) {
+          // Scroll left; ideally decrease xr offset
+          toffxr -= Number($('#graph-offset-xr').step);
+          //if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
+          $('#graph-offset-xr').value = toffxr;
+        }
+        else if (e.deltaX < 0) {
+          // Scroll right; ideally increase xr offset
+          toffxr += Number($('#graph-offset-xr').step);
+          //if (toffxr >= $('#xiv-max-input').value) toffxr = Number($('#xiv-max-input').value);
+          $('#graph-offset-xr').value = toffxr;
+        }
+        graphFunction();
+      }
+      graphFunction();
+    });
+
+    $('#xiv-td').addEventListener('mousewheel', function (e) {
+      // Horizontal scrolling
+      if (event.deltaX > 0) {
+        // Scroll left
+        xiv -= Number($('#xiv-step-input').value);
+        if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
+        $('#xiv-input').value = xiv;
+        $('#xiv-value').innerHTML = xiv;
+      }
+      else if (event.deltaX < 0) {
+        // Scroll right
+        xiv += Number($('#xiv-step-input').value);
+        if (xiv >= $('#xiv-max-input').value) xiv = Number($('#xiv-max-input').value);
+        $('#xiv-input').value = xiv;
+        $('#xiv-value').innerHTML = xiv;
+      }
+      graphFunction();
+    });
+
+    $('#xr-td').addEventListener('mousewheel', function (e) {
+      // Horizontal scrolling
+      if (event.deltaX > 0) {
+        // Scroll left
+        xr -= Number($('#xr-step-input').value);
+        if (xr <= $('#xr-min-input').value) xr = Number($('#xr-min-input').value);
+        $('#xr-input').value = xr;
+        $('#xr-value').innerHTML = xr;
+      }
+      else if (event.deltaX < 0) {
+        // Scroll right
+        xr += Number($('#xr-step-input').value);
+        if (xr >= $('#xr-max-input').value) xr = Number($('#xr-max-input').value);
+        $('#xr-input').value = xr;
+        $('#xr-value').innerHTML = xr;
+      }
+      updateTrace();
+    });
+
+    $('#xi-td').addEventListener('mousewheel', function (e) {
+      // Horizontal scrolling
+      if (event.deltaX > 0) {
+        // Scroll left
+        xi -= Number($('#xi-step-input').value);
+        if (xi <= $('#xi-min-input').value) xi = Number($('#xi-min-input').value);
+        $('#xi-input').value = xi;
+        $('#xi-value').innerHTML = xi;
+      }
+      else if (event.deltaX < 0) {
+        // Scroll right
+        xi += Number($('#xi-step-input').value);
+        if (xi >= $('#xi-max-input').value) xi = Number($('#xi-max-input').value);
+        $('#xi-input').value = xi;
+        $('#xi-value').innerHTML = xi;
+      }
+      updateTrace();
+    });
+
+    $('#graph-advanced').addEventListener('input', function () {
+      const graphAdvElements = document.querySelectorAll('.graph-adv');
+      
+      if (!this.checked) {
+          graphAdvElements.forEach(function(element) {
+              element.classList.add('hidden');
+          });
+      } else {
+          graphAdvElements.forEach(function(element) {
+              element.classList.remove('hidden');
+          });
+      }
+  });
+
+    function resetOffset () {
+      ctx.translate(-toffxr, -toffyr);
+    }
+
+    function inputSetup (prefix) {
+      // Change xi minimum
+      $('#' + prefix + '-min-input').addEventListener('input', function () {
+        $('#' + prefix + '-input').min = Number($('#' + prefix + '-min-input').value);
+        $('#' + prefix + '-max-input').min = $('#' + prefix + '-input').min;
+      });
+
+      // Change xi maximum
+      $('#' + prefix + '-max-input').addEventListener('input', function () {
+        $('#' + prefix + '-input').max = Number($('#' + prefix + '-max-input').value);
+        $('#' + prefix + '-min-input').max = $('#' + prefix + '-input').max;
+      });
+
+      // Change xi step
+      $('#' + prefix + '-step-input').addEventListener('input', function () {
+        $('#' + prefix + '-input').step = Number($('#' + prefix + '-step-input').value);
+      });
+
+      // Change xi input type
+      $('#' + prefix + '-type-input').addEventListener('input', function () {
+        if ($('#' + prefix + '-type-input').checked != true) {
+          $('#' + prefix + '-input').type = 'number';
+          $('#' + prefix + '-input').removeAttribute('min');
+          $('#' + prefix + '-input').removeAttribute('max');
+          $('#' + prefix + '-min-input').disabled = 'disabled';
+          $('#' + prefix + '-max-input').disabled = 'disabled';
+        }
+        else {
+          $('#' + prefix + '-input').type = 'range';
+          $('#' + prefix + '-min-input').removeAttribute('disabled');
+          $('#' + prefix + '-max-input').removeAttribute('disabled');
+          if (Number($('#' + prefix + '-input').value) > Number($('#' + prefix + '-max-input').value)) {
+            $('#' + prefix + '-max-input').value = $('#' + prefix + '-input').value;
+          }
+          if (Number($('#' + prefix + '-input').value) < Number($('#' + prefix + '-min-input').value)) {
+            $('#' + prefix + '-min-input').value = $('#' + prefix + '-input').value;
+          }
+          
+          $('#' + prefix + '-input').max = Number($('#' + prefix + '-max-input').value);
+          $('#' + prefix + '-input').min = Number($('#' + prefix + '-min-input').value);
+        }
+      });
+    }
+    for (var i = 0; i < inputs.length; i++) {
+      inputSetup(inputs[i]);
+    }
+  });
+
+  // Alphabetical function
+  function alphabet (index, funcInstead) {
+    // get the Latin alphabet in unicode
+    index += 96;
+    if (funcInstead) index += 5;
+    const codePoint = index.toString(16);
+    return '&#x' + codePoint + ';';
+  }
+
+  // Add new function
+  var functionsShown = [true];
+  function addNewFunction () {
+    nof++;
+    let char = alphabet(nof, true);
+    $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-hide-' + nof + '" onclick="graphFunction();"></button><button class="fa fa-trash" id="function-delete-' + nof + '" onclick="graphFunction();"></button></p><hr/>';
+    /*$('#function-delete-' + nof).addEventListener('click', function () {
+      $('#function-input-' + nof).setAttribute('id', 'function-input-' + nof + 'h');
+      $('#function-' + nof).style.display = 'none';
+    });*/
+    if (nof > 1) $('#function-delete-1').removeAttribute('disabled');
+    else $('#function-delete-1').disabled = 'disabled';
+    if ($('#graph-auto').checked) graphFunction();
+    inputsAutoGraphTest();
+    translations.applyLang();
+    $('#function-hide-' + nof).addEventListener('input', function () {
+      $('#function-input-' + nof).value += '‽';
+    });
+  }
+
+  function drawGrid (majorStep, minorStep) {
+    var imax = toffxr * 5;
+    var imay = toffyr * 5;
+    var mS;
+    if (minorStep != undefined) {
+      mS = minorStep;
+    }
+    else {
+      mS = 1;
+    }
+    //ctx.translate(0, 0);
+    // Draw the x and y axes
+    ctx.lineWidth = 2;
+    var initChecked = $('#graph-ticks').checked;
+    if ($('#graph-axes').checked) {
+      // xr-axis
+      ctx.beginPath();
+      ctx.moveTo(-canvas.width - imax, 0);
+      ctx.lineTo(canvas.width - imax, 0);
+      ctx.strokeStyle = 'blue';
+      ctx.stroke();
+
+      // yr-axis
+      ctx.beginPath();
+      ctx.moveTo(0, -canvas.height - imay);
+      ctx.lineTo(0, canvas.height - imay);
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+      $('#graph-ticks').removeAttribute('disabled');
+      $('#graph-ticks').removeAttribute('checked');
+    }
+    else {
+      $('#graph-ticks').disabled = 'disabled';
+      $('#graph-ticks').checked = initChecked;
+    }
+
+    // Draw all of the gridlines
+    for (var i = -canvas.width/2 - imay; i < canvas.width/2 - imay; i += 5) {
+      ctx.strokeStyle = 'grey';
+      // Determine whether to do major or minor lines
+      if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
+      else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
+      else ctx.lineWidth = 0.03125;
+      if ($('#graph-grids').checked) {
+        // Draw quadrants I and IV
+        // Horizontal
+        ctx.beginPath();
+        ctx.moveTo(-canvas.width + toffxr, i);
+        ctx.lineTo(canvas.width + toffxr, i);
+        ctx.stroke();
+        // Draw quadrants II and III
+        // Horizontal
+        ctx.beginPath();
+        ctx.moveTo(-canvas.width - toffxr, i);
+        ctx.lineTo(canvas.width - toffxr, i);
+        ctx.stroke();
+      }
+      // Draw tick marks if selected
+      if ($('#graph-ticks').checked && (i/5) % mS == 0) {
+        // Number($('#graph-tick-height').value)
+        ctx.lineWidth = 0.5;
+        // Draw quadrants I and IV
+        // Horizontal
+        ctx.strokeStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(-Number($('#graph-tick-height').value), i);
+        ctx.lineTo(Number($('#graph-tick-height').value), i);
+        ctx.stroke();
+        // Draw quadrants II and III
+        ctx.strokeStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(-Number($('#graph-tick-height').value), i);
+        ctx.lineTo(Number($('#graph-tick-height').value), i);
+        ctx.stroke();
+      }
+    }
+    for (var i = -canvas.height/2 - imax; i < canvas.height/2 - imax; i += 5) {
+      ctx.strokeStyle = 'grey';
+      // Determine whether to do major or minor lines
+      if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
+      else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
+      else ctx.lineWidth = 0.03125;
+      if ($('#graph-grids').checked) {
+        // Draw quadrants I and IV
+        // Vertical
+        ctx.beginPath();
+        ctx.moveTo(i, -canvas.height - toffyr);
+        ctx.lineTo(i, canvas.height - toffyr);
+        ctx.stroke();
+        // Draw quadrants II and III
+        // Vertical
+        ctx.beginPath();
+        ctx.moveTo(-1 * i, -canvas.height - toffyr);
+        ctx.lineTo(-1 * i, canvas.height - toffyr);
+        ctx.stroke();
+      }
+      // Draw tick marks if selected
+      if ($('#graph-ticks').checked && (i/5) % mS == 0) {
+        // Number($('#graph-tick-height').value)
+        ctx.lineWidth = 0.5;
+        // Draw quadrants I and IV
+        // Vertical
+        ctx.strokeStyle = 'blue';
+        ctx.beginPath();
+        ctx.moveTo(i, -Number($('#graph-tick-height').value));
+        ctx.lineTo(i, Number($('#graph-tick-height').value));
+        ctx.stroke();
+        // Draw quadrants II and III
+        // Vertical
+        ctx.beginPath();
+        ctx.moveTo(-1 * i, -Number($('#graph-tick-height').value));
+        ctx.lineTo(-1 * i, Number($('#graph-tick-height').value));
+        ctx.stroke();
+      }
+    }
+  }
+
+  function drawGrid3D () {
+    // yi-axis
+    ctx.beginPath();
+    ctx.moveTo(canvas.height/2, canvas.height/4);
+    ctx.lineTo(-canvas.height/2, -canvas.height/4);
+    ctx.lineWidth = 1.75;
+    ctx.strokeStyle = 'green';
+    ctx.stroke();
+    // c2 = sqrt(a2 + b2)
+    const iidiag = Math.sqrt(180**2 + 90**2);
+    const iictick = iidiag / 180; // iidiag's calculatory tick
+    // make a triangle mathematically similar to iidiag's
+    // hypotenuse = iictick
+    // find legs (vertical a and horizontal 2a)
+    // sqrt(a2 + 4a2) = iictick
+    // a^2 + 4a^2 = iictick^2
+    // 5a^2 = iictick^2
+    // 5a = iictick
+    // a = iictick/5
+    const a = (iictick * Math.sqrt(5))/5;
+    // i is the x position; j is the y position
+    var j = 90;
+    var k = 0;
+    for (var i = -canvas.width/2; i < iidiag; i += (2*a)) {
+      if ($('#graph-ticks').checked) {
+        ctx.beginPath()
+        if (k % 6 == 0) {
+          ctx.moveTo(i, -j + Number($('#graph-tick-height').value));
+          ctx.lineTo(i, -j - Number($('#graph-tick-height').value));
+          //ctx.lineTo(i + (2*a), j - a);
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      }
+      j -= a;
+      k ++;
+    }
+    /*for (var i = -canvas.width/2; i < 180; i += (2 * a)) {
+      ctx.beginPath();
+      ctx.moveTo(i, -5);
+      ctx.lineTo(i + 2 * a, a+5);
+      ctx.stroke();
+    }*/
+  }
+
+  // Round numbers
+  function round (num, p=0) {
+    if (num == undefined) {
+      return 0;
+    }
+    else {
+      return Math.round(num * 10 ** -p) / 10 ** -p;
+    }
+  }
+  function updateTrace () {
+    var textx = '', texty = '';
+    // Mirror the value of x
+    if (xr != 0) {
+      textx += xr.toString();
+    }
+    if (xi != 0) {
+      textx += ' ';
+      if (xi < 0) {
+        textx += '- ' + ((-1) * xi).toString() + '<i>i</i>';
+      }
+      else if (xi > 0) {
+        if (xr != 0) textx += '+ '
+        textx += xi.toString() + '<i>i</i>';
+      }
+      else {
+        //textx += ' ± ?i'
+      }
+    }
+    if (xr == 0 && xi == 0) textx = '0'
+
+    // Solve for y and then store it
+    yr = solve(xr, xi, false);
+    yi = solve(xr, xi, true);
+
+    // Display the value of y
+    if (yr != 0) {
+      texty += yr.toString();
+    }
+    if (yr != 0) {
+      texty += ' ';
+      if (yi < 0) {
+        texty += '- ' + ((-1) * yi).toString() + '<i>i</i>';
+      }
+      else if (yi > 0) {
+        if (yr != 0) texty += '+ '
+        texty += yi.toString() + '<i>i</i>';
+      }
+      else {
+        //texty += ' ± ?i'
+      }
+    }
+    if (yr == 0 && yi == 0) texty = '0'
+    
+    $('#xri-showcase').innerHTML = textx;
+    $('#yri-showcase').innerHTML = texty;
+  }
+  // Solve the function for some X
+  function countOccurrences(str, search) {
+    return str.split(search).length - 1;
+  }
+  function solve (x, i, solveComplex, whence, whichFunction = 1, roundTo = Number($('#trace-round').value)) {
+    if (whence == undefined) whence = 1;
+    // Read the function input
+    let scope = {
+      x: math.complex(x, i),
+      tet: tet,
+    };
+    var functext = $('#function-input-' + whichFunction).value.toString();
+    // Number formatting
+    functext = functext.replace(',',''); // Commas into nothings
+    // Operations
+    functext = functext.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet($1,$2)'); // Tetration
+    functext = functext.replace('{','(').replace('}', ')'); // Minimal LaTeX cross-compatibility
+    functext = functext.replace(/\|([^|]+)\|/g, 'abs($1)'); // Absolute value
+    // Constants
+    functext = functext.replace(/c/, round('299792458', roundTo)); // Speed of Light (c)
+    functext = functext.replace(/pi/, round('3.14159', roundTo)); // Pi
+    functext = functext.replace(/tau/, round('6.28319', roundTo)); // Tau
+    functext = functext.replace(/e/, round('2.71828', roundTo)); // e
+    // Constant Functions
+    if (countOccurrences(functext, 'x') == 0) functext = '(' + functext + ')x^0';
+    // Finalise the function
+    let func = math.evaluate(1 + '(' + functext + ')', scope);
+    if (solveComplex == false || solveComplex == undefined) {
+      return round(func.re, roundTo);
+    }
+    else {
+      var a = round(func.im, roundTo);
+      return round(func.im, roundTo);
+    }
+  }
+  function isHole(num) {
+    if (num == undefined || num == NaN || num == Infinity || num == -Infinity || num == null) return true;
+    else return false;
+  }
+
+  function graphFunction () {
+    // condition ? true : false
+
+    // Stuff to do before graphing
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.translate(canvas.width/2 + scale * toffxr, canvas.height/2 + scale * toffyr);
+    drawGrid(Number($('#graph-major-step').value), Number($('#graph-minor-step').value));
+
+    // Loop to graph each function
+    for (var f = 1; f <= nof; f++) {
+      var colour = $('#function-colour-' + f).value;
+      if (do3D) drawGrid3D();
+      ctx.strokeStyle = colour;
+      var preprecision = Number($('#trace-round').value);
+      if (preprecision < -4) preprecision = -1;
+      var precision = 5 * 10 ** preprecision;
+      if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
+      if (preprecision <= -1) precision = 2 ** (preprecision + 1);
+      
+      for (var i = -canvas.width/2 - $('#graph-offset-xr').value; i < canvas.width/2 - $('#graph-offset-xr').value; i += precision) {
+        let width = 1;
+        // The linear graph
+        var xrt = i;
+        var yrt = -solve(xrt, Number($('#xiv-input').value), false, 1, f);
+        var yrit = -solve(xrt, Number($('#xiv-input').value), true, 1, f)
+        var xrtNext = i + precision;
+        var yrtNext = -solve(xrtNext, Number($('#xiv-input').value), false, 1, f);
+        if ($('#graph-dimension-xi').checked) {
+          yrt = -solve(Number($('#xiv-input').value), xrt, false, 1, f);
+          yrtNext = -solve(Number($('#xiv-input').value), xrtNext, false, 1, f)
+        }
+
+        // Holes ( test and try (x-1)(x+1)/(x-1) )
+        /*if (isHole(yrtNext) == true|| isHole(yrt) == true) {
+          var xrtMext = i + 1 / 10 ** Number($('#trace-round').value);
+          var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false, 1, f);
+          
+          if (isHole(yrtNext) == true) {
+            yrtNext = (yrtMext != undefined) ? yrtMext: 0;
+          }
+          if (isHole(yrt) == true) {
+            yrt = (yrtMext != undefined) ? yrtMext: 0;
+            ctx.beginPath();
+            ctx.arc(scale * xrt, scale * yrt, 2, 0, 2 * Math.PI);
+            ctx.fillStyle = $('#function-colour').value;
+            ctx.fill();
+            ctx.lineWidth = 0;
+            ctx.stroke();
+          }
+        }*/
+        // Vertical asymptotes
+        if (!isFinite(yrtNext) && yrtNext != undefined) {
+          var xrtMext = i + 1 / 10 ** Number($('#trace-round').value);
+          var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false, 1, f);
+          yrtNext = (yrtMext > 0) ? -360 : 360;
+        }
+
+        else if (!isFinite(yrt) && yrt != undefined) {
+          var xrtMext = i + 1 / 10 ** Number($('#trace-round').value);
+          var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false, 1, f);
+          yrt = (yrtMext > 0) ? 360 : -360;
+        }
+        if (yrit != -Number($('#xiv-input').value)) {
+          ctx.strokeStyle = 'silver';
+          ctx.lineWidth = width * 6;
+        }
+        else {
+          ctx.strokeStyle = colour;
+          ctx.lineWidth = width;
+        }
+        if (i != -canvas.width/2 - $('#graph-offset-xr').value) {
+          ctx.lineWidth = width;
+          ctx.moveTo(scale * xrt, scale * yrt);
+          ctx.lineTo(scale * xrtNext, scale * yrtNext);
+          ctx.stroke();
+        }
+        // The pointed graph
+        if (i % Number($('#graph-minor-step').value) == 0 && $('#graph-points').checked) {
+          // Positive x point
+          ctx.beginPath();
+          ctx.arc(scale * xrt, scale * yrt, 1.25, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.stroke();
+          // Negative x point
+          var xrtNeg = -i;
+          var yrtNeg = -solve(xrtNeg, Number($('#xiv-input').value), false, 1, f);
+          ctx.beginPath();
+          ctx.arc(scale * xrtNeg, scale * yrtNeg, 1.25, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+
+    // Scientific Calculator
+    function tetOld(x,y) {
+      if (y == 2) {
+        return x ** y;
+      }
+      else if (y == 1) {return x;}
+      else {
+        var r = BigInt(x); // r = result of exponentiation
+        for (var i=0n; i <= BigInt(y-2); i++) {
+          r = BigInt(x ** r);
+        }
+        if (y == 0) {return 1;}
+        return r;
+      }
+    }
+    function tet(x, a, precision = 100) {
+      x = math.complex(x);
+      a = math.complex(a);
+
+      // Handle base cases
+      if (math.equal(a, 0)) return math.complex(1);
+      if (math.equal(a, 1)) return x;
+
+      // Use an approximation method:
+      // f_{n+1}(x) = x^f_n(x), start with initial guess
+      let z = math.complex(1); // initial guess
+
+      for (let i = 0; i < precision; i++) {
+        z = math.pow(x, z);
+        if (!z.isFinite()) break;
+      }
+
+      // If a is integer, we can iterate normally
+      if (math.isInteger(a.re) && a.im === 0 && a.re > 0) {
+        let result = x;
+        for (let i = 1; i < a.re; i++) {
+          result = math.pow(x, result);
+        }
+        return result;
+      }
+
+      // For fractional/complex heights, return fixed point approximation
+      return z;
+    }
+    function nrt(exp, num) {
+      Math.pow(exp, 1/num);
+    }
+    function factorial (a) {
+      var i = 1;
+      while (i <= a) {
+        r = BigInt(r * i); // Multiply result by the current iteration i
+        i = BigInt(i + 1);           // Increment the iteration counter
+      }
+      return r;
+    }
+    var hyperMode = false; // Initially not in hyper mode
+    function toggleHyperMode () {
+      hyperMode = !hyperMode;
+      toggleHyperMode1();
+      toggleHyperMode2();
+    }
+    function logBase (a, b) {
+      return Math.log(y) / Math.log(x);
+    }
+    function triangle (a, d) {
+      return acc = (a * (a + 1)) / 2;
+    }
+    function toggleHyperMode1() {
+        var hyperButton = document.querySelector('.calb[value="⇧"]');
+        if (hyperMode == true) {
+          console.log("Hypermode is active")
+          // Toggle the functionality of the buttons based on hyper mode
+          var buttonsToUpdate = [
+              { value: "^^", replacementValue: "ln", onclick: function() { appendText('ln('); } },
+              { value: "^", replacementValue: "n√", onclick: function() { appendText('nthRoot('); } },
+              { value: "1", replacementValue: "i", onclick: function() { document.calculator.ans.value+="sqrt(-1)";document.calculator.ansTwo.value+='i'; } },
+              { value: "2", replacementValue: "²", onclick: function() { document.calculator.ans.value+="** 2";document.calculator.ansTwo.value+='²'; } },
+              { value: "3", replacementValue: "³", onclick: function() { document.calculator.ans.value+="** 3";document.calculator.ansTwo.value+='³'; } },
+              { value: "4", replacementValue: "ⁿ√", onclick: function() { document.calculator.ans.value+="nrt(";document.calculator.ansTwo.value+='nrt('; } },
+              { value: "5", replacementValue: "√", onclick: function() { document.calculator.ans.value+="sqrt(";document.calculator.ansTwo.value+='√('; } },
+              { value: "6", replacementValue: "∛", onclick: function() { appendText('cbrt('); } },
+              { value: "7", replacementValue: "!", onclick: function() { appendText('!'); } },
+              { value: "9", replacementValue: "ᵀ√", onclick: function() { appendText('ᵀ√', 'triangleRoot'); } },
+              { value: "aⁿ", replacementValue: "Tₙ", onclick: function() { appendText('Tₙ(', 'triangle('); } },
+              { value: "(-)", replacementValue: "%", onclick: function() { appendText('%'); } },
+              { value: "ln", replacementValue: "log₁₀", onclick: function() { appendText('log₁₀(', 'log('); } },
+              { value: "mod", replacementValue: "log₂", onclick: function() { appendText('log₂(', 'log₂('); } },
+          ];
+      
+          buttonsToUpdate.forEach(button => {
+              var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calb`);
+              if (buttonElement) {
+                  if (hyperMode) {
+                      buttonElement.value = button.replacementValue;
+                      buttonElement.onclick = button.onclick;
+                  } else {
+                      buttonElement.value = button.value;
+                      buttonElement.onclick = function() { appendText(button.value); };
+                  }
+              }
+          });
+        }
+        else {
+          // Revert the buttons to their original values and functionalities
+          var buttonsToRevert = [
+            { value: "i", originalValue: "1", onclick: function() { appendText('1'); } },
+            { value: "²", originalValue: "2", onclick: function() { appendText('2'); } },
+            { value: "³", originalValue: "3", onclick: function() { appendText('3'); } },
+            { value: "ⁿ√", originalValue: "4", onclick: function() { appendText('4'); } },
+            { value: "√", originalValue: "5", onclick: function() { appendText('5'); } },
+            { value: "∛", originalValue: "6", onclick: function() { appendText('6'); } },
+            { value: "!", originalValue: "7", onclick: function() { appendText('7'); } },
+            { value: "ᵀ√", originalValue: "9", onclick: function() { appendText('9'); } },
+            { value: "Tₙ", originalValue: "aⁿ", onclick: function() { appendText('^'); } },
+            { value: "log₁₀", originalValue: "ln", onclick: function() { appendText('ln('); } },
+            { value: "log₂", originalValue: "mod", onclick: function() { appendText(' mod ', '%'); } },
+          ];
+      
+          buttonsToRevert.forEach(button => {
+              var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calb`);
+              if (buttonElement) {
+                  buttonElement.value = button.originalValue;
+                  buttonElement.onclick = button.onclick;
+              }
+          });
+        }
+      console.log("Task completed successfully");
+    }
+    function toggleHyperMode2() {
+        var hyperButton = document.querySelector('.calo[value="⇧"]');
+        if (hyperMode == true) {
+          console.log("Hypermode is active")
+          // Toggle the functionality of the buttons based on hyper mode
+          var buttonsToUpdate = [
+              { value: "^^", replacementValue: "ln", onclick: function() { appendText('ln('); } },
+              { value: "^", replacementValue: "n√", onclick: function() { appendText('nthRoot('); } },
+          ];
+      
+          buttonsToUpdate.forEach(button => {
+              var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calb`);
+              if (buttonElement) {
+                  if (hyperMode) {
+                      buttonElement.value = button.replacementValue;
+                      buttonElement.onclick = button.onclick;
+                  } else {
+                      buttonElement.value = button.value;
+                      buttonElement.onclick = function() { appendText(button.value); };
+                  }
+              }
+          });
+        }
+        else {
+          // Revert the buttons to their original values and functionalities
+          var buttonsToRevert = [
+            { value: "^^", originalValue: "ln", onclick: function() { appendText('^^'); } },
+            { value: "^", originalValue: "n√", onclick: function() { appendText('**'); } },
+          ];
+      
+          buttonsToRevert.forEach(button => {
+              var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calo`);
+              if (buttonElement) {
+                  buttonElement.value = button.originalValue;
+                  buttonElement.onclick = button.onclick;
+              }
+          });
+        }
+      console.log("Task completed successfully");
+    }
+    function evaluateExpression() {
+        var ansField = document.calculator.ans;
+        var ansTwoField = document.calculator.ansTwo.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet($1,$2)').replace(/\|([^|]+)\|/g, 'abs($1)').replace('{','(').replace('}', ')');;
+        let scope = {
+          x: math.complex(x, i),
+          tet: tet,
+        };
+        
+        ansField.value = eval(ansField.value);
+        ansTwoField.value = math.evaluate(ansTwoField.value);
+    }
+
+    function appendText(text, text2=text) {
+        var ansField = document.calculator.ans;
+        var ansTwoField = document.calculator.ansTwo;
+        
+        ansField.innerHTML += text;
+        ansTwoField.value += text;
+    }
+
+    
+    var fakeResult = document.getElementById('resultFake');
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Shift") {
+        toggleHyperMode();
+      }
+    });
+
+    document.addEventListener("keyup", function (event) {
+      if (event.key === "Shift") {
+        toggleHyperMode();
+      }
+    });
+  
+
+                var polygon = {
+                  areaR: function (n1, s1) {
+                    var minSides = 3;
+                    var n = Number(document.getElementById("sidesCRPA").value);
+                    if (polygon.isPolygram === true) {
+                      n /= Number(document.getElementById("sidesCRPAPGD").value);
+                      minSides = 0;
+                    }
+                    var s = Number(document.getElementById("lengthCRPA").value);
+                    if (n1 != undefined) {
+                      n = n1;
+                    }
+                    if (s1 != undefined) {
+                      s = s1;
+                    }
+
+                    // Actual area calculation
+                    var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
+                    var area = Math.round(area0 * 100000000) / 100000000;
+
+                    if (n >= minSides && s > 0 && Number(document.getElementById("sidesCRPA").value) % 1 == 0 && Number(document.getElementById("sidesCRPAPGD").value) % 1 == 0 && $('#sidesCRPAPGD').value % $('#sidesCRPA').value != 0) {
+                      // special cases
+                      if (n == 2) area = 0;
+                      if (n < 2) area = Math.abs(area);
+                      // put values
+                      if (!(n1 == undefined || s1 == undefined)) return area;
+                      document.getElementById("areaCRPA").innerText = area;
+                    }
+                    else {
+                      document.getElementById("areaCRPA").innerText = "Invalid inputs.";
+                    }
+                  },
+                  isPolygram: false,
+                  gongram: function () {
+                    polygon.isPolygram = !polygon.isPolygram;
+                    if ($('#geometry-gongram').checked == true) {
+                      if (Number(document.getElementById("sidesCRPA").value) < 5) document.getElementById("sidesCRPA").value = 5;
+                      $('#geometry-polygram').style.display = 'block';
+                      $('#geometry-sides-text').innerHTML = 'Convex Vertices';
+                      $('#geometry-minsides').innerHTML = '5';
+                    }
+                    else {
+                      $('#geometry-polygram').style.display = 'none';
+                      $('#geometry-sides-text').innerHTML = 'Sides';
+                      $('#geometry-minsides').innerHTML = '3';
+                    }
+                  },
+                  round5: function (input) {
+                    var k = round(input, 1);
+                    if (input < k && input < k - 2.5) return k - 5;
+                    if (input >= k && input >= k + 2.5) return k + 5;
+                    else return k;
+                  }
+                };
+              
+
+                var pascal = {
+                  oldNoD: 2,
+                  addDimension: function () {
+                    var noD = Number(
+                      document.getElementById("dimensionsCPS").value
+                    );
+                    var adC = document.getElementById("addDimensionsCPS");
+                    adC.innerHTML = "";
+                    if (noD < 1) {
+                      adC.innerHTML = "Invalid dimension.";
+                    }
+                    for (var i = 0; i <= noD - 2; i++) {
+                      if (i != 0) {
+                        adC.innerHTML += "<br/>";
+                      }
+                      adC.innerHTML +=
+                        "<var>n</var><sub>" +
+                        i +
+                        "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
+                        i +
+                        "</sub> <u>&lt;</u> <var>n</var><sub>" +
+                        (i + 1) +
+                        '</sub>): <input type="number" min="0" id="n' +
+                        i +
+                        'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                    }
+                    adC.innerHTML +=
+                      "<br/><var>n</var><sub>" +
+                      (noD - 1) +
+                      "</sub> &#x2115;(0 <u>&lt;</u> <var>n</var><sub>" +
+                      (noD - 1) +
+                      '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' +
+                      (noD - 1) +
+                      'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                  },
+                  fixMax: function () {
+                    var noD = Number(
+                      document.getElementById("dimensionsCPS").value
+                    );
+                    for (var i = 0; i <= noD - 1; i++) {
+                      var z = Number(
+                        document.querySelector("#n" + (i + 1) + "CPS").value
+                      );
+                      document.querySelector("#n" + i + "CPS").max = z;
+                    }
+                  },
+                  factorial: function (n) {
+                    if (n <= 1) {
+                      return 1;
+                    } else {
+                      let result = 1;
+                      for (let i = 1; i <= n; i++) {
+                        result *= i;
+                      }
+                      return result;
+                    }
+                  },
+                  calc: function () {
+                    var m = Number(document.getElementById("dimensionsCPS").value);
+                    var a = 1;
+                    var cont = true;
+                    for (var i = 0; i <= m - 1; i++) {
+                      var first = document.querySelector("#n" + i + "CPS").value;
+                      var second = Infinity;
+                      if (i + 1 != m) {
+                        second = document.querySelector(
+                          "#n" + (i + 1) + "CPS"
+                        ).value;
+                      }
+                      if (first > second || first < 0) {
+                        cont = false;
+                        a = "Invalid inputs.";
+                        break;
+                      }
+                    }
+                    for (var p = 1; p <= m - 1 && cont == true; p++) {
+                      var np = Number(
+                        document.getElementById("n" + p + "CPS").value
+                      );
+                      var np_1 = Number(
+                        document.getElementById("n" + (p - 1).toString() + "CPS")
+                          .value
+                      );
+                      a *=
+                        pascal.factorial(np) /
+                        (pascal.factorial(np_1) * pascal.factorial(np - np_1));
+                    }
+                    document.getElementById("valueCPS").innerText = a;
+                  },
+                };
+                $(document).ready(() => {
+                  pascal.addDimension();
+                });
+              
+
+      var lengthSelect = $('#conv-length-options');
+      $('#conv-length-first-container').innerHTML = "<select id='conv-length-first'>" + lengthSelect + "</select>";
+      $('#conv-length-second-container').innerHTML = "<select id='conv-length-second'>" + lengthSelect + "</select>";
+      // Length conversions
+      const lengthFactors = {
+        // --- Imperial (inches as base) ---
+        'th': 1 / 1000,
+        'tw': 1 / 1440,
+        'pt': 1 / 72,
+        'pc': 1 / 6,
+        'ps': 1 / 85.5,
+        'bc': 1 / 3,
+        'in': 1,
+        'hd': 4,
+        'lk': 7.92,
+        'ft': 12,
+        'yd': 36,
+        'rd': 198,
+        'ch': 792,
+        'fl': 7920,
+        'mi': 63360,
+        'lg': 190080,
+
+        // --- Metric (metres as base, then converted to inches) ---
+        'qm': 3.937e-14,
+        'rm': 3.937e-13,
+        'ym': 3.937e-12,
+        'zm': 3.937e-11,
+        'am': 3.937e-10,
+        'fm': 3.937e-9,
+        'åm': 3.937e-9,
+        'pm': 3.937e-8,
+        'nm': 3.937e-6,
+        'μm': 3.937e-5,
+        'mm': 0.03937,
+        'cm': 0.3937,
+        'dm': 3.937,
+        'm': 39.37,
+        'dkm': 393.7,
+        'hm': 3937,
+        'km': 39370,
+        'mam': 393700,
+        'mmm': 39370000,
+        'ggm': 3.937e10,
+        'ttm': 3.937e13,
+        'ppm': 3.937e16,
+        'eem': 3.937e19,
+        'zzm': 3.937e22,
+        'yym': 3.937e25,
+        'rrm': 3.937e28,
+        'qqm': 3.937e31,
+        'kqqm': 3.937e34,
+        'myqqm': 3.937e35,
+        'mmqqm': 3.937e37,
+        'ggqqm': 3.937e40,
+        'ttqqm': 3.937e43,
+        'ppqqm': 3.937e46,
+        'eeqqm': 3.937e49,
+        'zzqqm': 3.937e52,
+        'yyqqm': 3.937e55,
+        'rrqqm': 3.937e58,
+        'qqqqm': 3.937e61,
+
+        // --- Astronomical + Funny Units (converted to inches) ---
+        'pl': 6.3e-35 * 39.37,
+        'smoot': 67,
+        'aparsec': 1.012e21,
+        'parsec': 3.08567758e18 * 39.37,
+        'ly': 9.461e15 * 39.37,
+        'au': 1.496e11 * 39.37,
+
+        // --- Patellian ---
+        'H': pl * 2 * 60 ** 19,
+      };
+      const timeFactors = {
+        // --- Seconds ---
+        's': 1,
+        
+        // --- Imperial --
+        'fth': 1/3600,
+        'thd': 1/60,
+        'min': 60,
+        'hr': 3600,
+        'd': 86400,
+        'w': 86400 * 7,
+        'lm': 86400 * 29.5, // Lunar month
+        'ifcm': 86400 * 28, // International Fixed Calendar month
+        'agm': 86400 * 30.3375, // Average Gregorian month
+        'yr': 86400 * 365,
+        'lyr': 86400 * 29.5 * 12,
+        'oyr': 86400 * 365.2422,
+        'gyr': 86400 * 365 * 2.2e8,
+
+        // --- Metric ---
+      }
+
+      document.getElementById('conv-length-btn').addEventListener('click', function () {
+        const fromUnit = document.getElementById('conv-length-first').value;
+        const toUnit = document.getElementById('conv-length-second').value;
+        const input = parseFloat(document.getElementById('conv-length-input').value);
+
+        if (isNaN(input)) {
+          alert('Please enter a valid number');
+          return;
+        }
+        const inches = input * (lengthFactors[fromUnit] || 1);
+        const converted = inches / (lengthFactors[toUnit] || 1);
+
+        document.getElementById('conv-length-output').value = converted;
+        // Assuming you have jQuery or a similar library for '$'
+        // If not, these lines will cause an error and should be replaced with native JS
+        document.getElementById('conv-length-input').style.color = 'black';
+        document.getElementById('conv-length-output').style.color = 'black';
+      });
+
+      // Flip button
+      document.getElementById('conv-length-flip').addEventListener('click', function () {
+        const select1 = document.getElementById('conv-length-first');
+        const select2 = document.getElementById('conv-length-second');
+
+        const tempValue = select1.value;
+        select1.value = select2.value;
+        select2.value = tempValue;
+
+        // Optional: also swap the values if you want to visually reverse them
+        const input = document.getElementById('conv-length-input');
+        const output = document.getElementById('conv-length-output');
+
+        const tempNum = input.value;
+        input.value = output.value;
+        output.value = tempNum;
+        input.style.color = 'red';
+        output.style.color = 'red';
+      });
+    
+
+    const periodicTable = [
+      [0, 'neutronium', 'neutride', 'Nu', [0,0], 1.67492749804, 'theoretical', null, null],
+      [1, 'hydrogen', 'hydride', 'H', [1,1], 1.008, 'nonmetal', -259.16, -252.87],
+      [2, 'helium', 'helide', 'He', [18,1], 4.002602, 'noble gas', -272.2, -268.93],
+      [3, 'lithium', 'lithide', 'Li', [1,2], 6.94, 'alkali metal', 180.54, 1342],
+      [4, 'beryllium', 'beryllide', 'Be', [2,2], 9.0122, 'alkaline earth metal', 1287, 2469],
+      [5, 'boron', 'boride', 'B', [13,2], 10.81, 'metalloid', 2075, 4000],
+      [6, 'carbon', 'carbide', 'C', [14,2], 12.011, 'nonmetal', 3550, 4827],
+      [7, 'nitrogen', 'nitride', 'N', [15,2], 14.007, 'nonmetal', -210.1, -195.79],
+      [8, 'oxygen', 'oxide', 'O', [16,2], 15.999, 'nonmetal', -218.79, -182.95],
+      [9, 'fluorine', 'fluoride', 'F', [17,2], 18.998, 'halogen', -219.67, -188.11],
+      [10, 'neon', 'neide', 'Ne', [18,2], 20.180, 'noble gas', -248.59, -246.08],
+      [11, 'sodium', 'natride', 'Na', [1,3], 22.990, 'alkali metal', 97.72, 883],
+      [12, 'magnesium', 'magneside', 'Mg', [2,3], 24.305, 'alkaline earth metal', 650, 1090],
+      [13, 'aluminium', 'alumide', 'Al', [13,3], 26.982, 'post-transition metal', 660.3, 2470],
+      [14, 'silicon', 'silicide', 'Si', [14,3], 28.085, 'metalloid', 1414, 3265],
+      [15, 'phosphorous', 'phosphide', 'P', [15,3], 30.974, 'nonmetal', 44.15, 280.5],
+      [16, 'sulphur', 'sulphide', 'S', [16,3], 32.06, 'nonmetal', 115.21, 444.6],
+      [17, 'chlorine', 'chloride', 'Cl', [17,3], 35.45, 'halogen', -101.5, -34.04],
+      [18, 'argon', 'argide', 'Ar', [18,3], 39.948, 'noble gas', -189.34, -185.85],
+      [19, 'potassium', 'potasside', 'K', [1,4], 39.098, 'alkali metal', 63.5, 759],
+      [20, 'calcium', 'calcide', 'Ca', [2,4], 40.078, 'alkaline earth metal', 842, 1484],
+      [21, 'scandium', 'scandide', 'Sc', [3,4], 44.956, 'transition metal', 1541, 2836],
+      [22, 'titanium', 'titanide', 'Ti', [4,4], 47.867, 'transition metal', 1668, 3287],
+      [23, 'vanadium', 'vanadide', 'V', [5,4], 50.942, 'transition metal', 1910, 3407],
+      [24, 'chromium', 'chromide', 'Cr', [6,4], 51.996, 'transition metal', 1907, 2671],
+      [25, 'manganese', 'manganide', 'Ma', [7,4], 54.938, 'transition metal', 1244, 2095],
+      [26, 'iron', 'ferride', 'Fe', [8,4], 55.845, 'transition metal', 1538, 2862],
+      [27, 'cobalt', 'cobaltide', 'Co', [9,4], 58.933, 'transition metal', 1495, 2927],
+      [28, 'nickel', 'nickelide', 'Ni', [10,4], 58.693, 'transition metal', 1455, 2730],
+      [29, 'copper', 'cupride', 'Cu', [11,4], 63.546, 'transition metal', 1085, 2562],
+      [30, 'zinc', 'zincide', 'Zn', [12,4], 65.38, 'transition metal', 419.5, 907],
+      [31, 'gallium', 'gallide', 'Ga', [13,4], 69.723, 'post-transition metal', 29.76, 2204],
+      [32, 'germanium', 'germanide', 'Ge', [14,4], 72.63, 'metalloid', 938.3, 2833],
+      [33, 'arsenic', 'arsenide', 'As', [15,4], 74.922, 'metalloid', 817, 614],
+      [34, 'selenium', 'selenide', 'Se', [16,4], 78.971, 'nonmetal', 221, 685],
+      [35, 'bromine', 'bromide', 'Br', [17,4], 79.904, 'halogen', -7.2, 58.8],
+      [36, 'krypton', 'kryptide', 'Kr', [18,4], 83.798, 'noble gas', -157.4, -153.22],
+      [37, 'rubidium', 'rubide', 'Rb', [1,5], 85.468, 'alkali metal', 39.3, 688],
+      [38, 'strontium', 'strontide', 'Sr', [2,5], 87.62, 'alkaline earth metal', 777, 1382],
+      [39, 'yttrium', 'yttride', 'Y', [3,5], 88.906, 'transition metal', 1526, 3337],
+      [40, 'zirconium', 'zirconide', 'Zr', [4,5], 91.224, 'transition metal', 1855, 4377],
+      [41, 'niobium', 'niobide', 'Nb', [5,5], 92.906, 'transition metal', 2477, 4744],
+      [42, 'molybdenum', 'molybdenide', 'Mb', [6,5], 95.95, 'transition metal', 2623, 4639],
+      [43, 'technetium', 'technetide', 'Tc', [7,5], 98, 'transition metal', 2157, 4265],
+      [44, 'ruthenium', 'ruthenide', 'Ru', [8,5], 101.07, 'transition metal', 2334, 4150],
+      [45, 'rhodium', 'rhodide', 'Rh', [9,5], 102.91, 'transition metal', 1964, 3727],
+      [46, 'palladium', 'palladide', 'Pd', [10,5], 106.42, 'transition metal', 1554, 2963],
+      [47, 'silver', 'argentide', 'Ar', [11,5], 107.87, 'transition metal', 961.8, 2162],
+      [48, 'cadmium', 'cadmide', 'Cd', [12,5], 112.41, 'transition metal', 321.07, 767],
+      [49, 'indium', 'indide', 'In', [13,5], 114.82, 'post-transition metal', 156.6, 2072],
+      [50, 'tin', 'stannide', 'Sn', [14,5], 118.71, 'post-transition metal', 231.93, 2602],
+      [51, 'antimony', 'stibide', 'Sb', [15,5], 121.76, 'metalloid', 630.63, 1587],
+      [52, 'tellurium', 'telluride', 'Te', [16,5], 127.6, 'metalloid', 449.5, 988],
+      [53, 'iodine', 'iodide', 'I', [17,5], 126.90, 'halogen', 113.7, 184.3],
+      [54, 'xenon', 'xenide', 'Xe', [18,5], 131.29, 'noble gas', -111.8, -108.1],
+      [55, 'caesium', 'caeside', 'Cs', [1,6], 132.91, 'alkali metal', 28.44, 671],
+      [56, 'barium', 'baride', 'Ba', [2,6], 137.33, 'alkaline earth metal', 727, 1897],
+      [57, 'lanthanum', 'lanthanide', 'La', [3,6], 138.91, 'lanthanide', 920, 3464],
+      [58, 'cerium', 'cereide', 'Ce', [4,6], 140.12, 'lanthanide', 795, 3426],
+      [59, 'praseodymium', 'praseodymide', 'Pr', [5,6], 140.91, 'lanthanide', 931, 3127],
+      [60, 'neodymium', 'neodymide', 'Nd', [6,6], 144.24, 'lanthanide', 1024, 3074],
+      [61, 'promethium', 'promethide', 'Pm', [7,6], 145, 'lanthanide', 1042, 3000],
+      [62, 'samarium', 'samaride', 'Sm', [8,6], 150.36, 'lanthanide', 1072, 1794],
+      [63, 'europium', 'europium', 'Eu', [9,6], 151.96, 'lanthanide', 822, 1597],
+      [64, 'gadolinium', 'gadolinide', 'Gd', [10,6], 157.25, 'lanthanide', 1313, 3273],
+      [65, 'terbium', 'terbide', 'Tb', [11,6], 158.93, 'lanthanide', 1356, 3230],
+      [66, 'dysprosium', 'dysproside', 'Dy', [12,6], 162.50, 'lanthanide', 1412, 2562],
+      [67, 'holmium', 'holmide', 'Ho', [13,6], 164.93, 'lanthanide', 1474, 2700],
+      [68, 'erbium', 'erbide', 'Er', [14,6], 167.26, 'lanthanide', 1529, 2868],
+      [69, 'thulium', 'thulide', 'Tm', [15,6], 168.93, 'lanthanide', 1545, 1950],
+      [70, 'ytterbium', 'ytterbide', 'Yb', [16,6], 173.05, 'lanthanide', 824, 1196],
+      [71, 'lutetium', 'lutetide', 'Lu', [17,6], 174.97, 'lanthanide', 1663, 3402],
+      [72, 'hafnium', 'hafnide', 'Hf', [4,6], 178.49, 'transition metal', 2233, 4603],
+      [73, 'tantalum', 'tantalide', 'Ta', [5,6], 180.95, 'transition metal', 3017, 5458],
+      [74, 'tungsten', 'wolframide', 'W', [6,6], 183.84, 'transition metal', 3422, 5555],
+      [75, 'rhenium', 'rhenide', 'Rh', [7,6], 186.21, 'transition metal', 3186, 5596],
+      [76, 'osmium', 'osmide', 'Os', [8,6], 190.23, 'transition metal', 3045, 5027],
+      [77, 'iridium', 'iridide', 'Ir', [9,6], 192.22, 'transition metal', 2446, 4130],
+      [78, 'platinum', 'platinide', 'Pt', [10,6], 195.08, 'transition metal', 1768, 3825],
+      [79, 'gold', 'auride', 'Au', [11,6], 196.97, 'transition metal', 1064, 2856],
+      [80, 'mercury', 'hydragyride', 'Hg', [12,6], 200.59, 'transition metal', -38.83, 357],
+      [81, 'thallium', 'thallide', 'Tl', [13,6], 204.38, 'post-transition metal', 304, 1473],
+      [82, 'lead', 'plumbide', 'Pb', [14,6], 207.2, 'post-transition metal', 327.46, 1749],
+      [83, 'bismuth', 'bismide', 'Bi', [15,6], 208.98, 'post-transition metal', 271.5, 1564],
+      [84, 'polonium', 'polonide', 'Po', [16,6], 209, 'post-transition metal', 254, 962],
+      [85, 'astatine', 'astatide', 'As', [17,6], 210, 'halogen', 302, 337],
+      [86, 'radon', 'randide', 'Rn', [18,6], 222, 'noble gas', -71, -61.7],
+      [87, 'francium', 'francide', 'Fr', [1,7], 223, 'alkali metal', 27, 677],
+      [88, 'radium', 'radide', 'Ra', [2,7], 226, 'alkaline earth metal', 700, 1737],
+      [89, 'actinium', 'actinide', 'Ac', [3,7], 227, 'actinide', 1050, 3200],
+      [90, 'thorium', 'thoride', 'Th', [4,7], 232.04, 'actinide', 1750, 4800],
+      [91, 'protractinium', 'protractinide', 'Pa', [5,7], 231.04, 'actinide', 1572, 4000],
+      [92, 'uranium', 'uranide', 'U', [6,7], 238.03, 'actinide', 1132, 4131],
+      [93, 'neptunium', 'neptunide', 'Np', [7,7], 237, 'actinide', 640, 3900],
+      [94, 'plutonium', 'plutonide', 'Pu', [8,7], 244, 'actinide', 640, 3235],
+      [95, 'americium', 'americide', 'Am', [9,7], 243, 'actinide', 1176, 2607],
+      [96, 'curium', 'curide', 'Cm', [10,7], 247, 'actinide', 1340, 3110],
+      [97, 'berkelium', 'berkelide', 'Bk', [11,7], 247, 'actinide', 986, 2627],
+      [98, 'californium', 'californide', 'Cf', [12,7], 251, 'actinide', 900, 1743],
+      [99, 'einsteinium', 'einsteinide', 'Es', [13,7], 252, 'actinide', 860, null],
+      [100, 'fermium', 'fermide', 'Fm', [14,7], 257, 'actinide', null, null],
+      [101, 'mendelevium', 'mendelevide', 'Md/Mv', [15,7], 258, 'actinide', null, null],
+      [102, 'nobelium', 'nobelide', 'No', [16,7], 259, 'actinide', null, null],
+      [103, 'lawrencium', 'lawrencide', 'Lr', [17,7], 262, 'actinide', null, null],
+      [104, 'rutherfordium', 'rutherfordide', 'Rf', [4,8], 267, 'transition metal', null, null],
+      [105, 'dubnium', 'dubnide', 'Db', [5,8], 268, 'transition metal', null, null],
+      [106, 'seaborgium', 'seaborgide', 'Sg', [6,8], 269, 'transition metal', null, null],
+      [107, 'bohrium', 'bohride', 'Bh', [7,8], 270, 'transition metal', null, null],
+      [108, 'hassium', 'hasside', 'Hs', [8,8], 269, 'transition metal', null, null],
+      [109, 'meitnerium', 'meitneride', 'Mt', [9,8], 278, 'transition metal', null, null],
+      [110, 'darmstadtium', 'darmstadtide', 'Ds', [10,8], 281, 'transition metal', null, null],
+      [111, 'röntgenium', 'röntgenide', 'Rg', [11,8], 282, 'transition metal', null, null],
+      [112, 'copernicium', 'copernicide', 'Cn', [12,8], 285, 'transition metal', null, null],
+      [113, 'nihonium', 'nihonide', 'Nh', [13,8], 286, 'post-transition metal', null, null],
+      [114, 'flerovium', 'flerovide', 'Fl', [14,8], 289, 'post-transition metal', null, null],
+      [115, 'moscovium', 'muscovide', 'Mc', [15,8], 290, 'post-transition metal', null, null],
+      [116, 'livermorium', 'livermoride', 'Lr', [16,8], 293, 'post-transition metal', null, null],
+      [117, 'tennessine', 'tennesside', 'Ts', [17,8], 294, 'halogen', null, null],
+      [118, 'oganesson', 'oganesside', 'Og', [18,8], 294, 'noble gas', null, null],
+      [119, 'ununennium', 'ununennide', 'Uue', [1,9], 315, 'alkali metal', null, null],
+      [120, 'unbinilium', 'unbinilide', 'Ubn', [2,9], 320, 'alkaline earth metal', null, null],
+      [121, 'unbiunium', 'unbiunide', 'Ubu', [3,9], 321, 'superactinide', null, null],
+      [122, 'unbibium', 'unbibide', 'Ubb', [4,9], 322, 'superactinide', null, null],
+      [123, 'unbitrium', 'unbitride', 'Ubt', [5,9], 323, 'superactinide', null, null],
+      [124, 'unbiquadium', 'unbiquadide', 'Ubq', [6,9], 324, 'superactinide', null, null],
+      [125, 'unbipentium', 'unbipentide', 'Ubp', [7,9], 325, 'superactinide', null, null],
+      [126, 'unbihexium', 'unbihexide', 'Ubh', [8,9], 326, 'superactinide', null, null],
+      [127, 'unbiseptium', 'unbiseptide', 'Ubs', [9,9], 327, 'superactinide', null, null],
+      [128, 'unbioctium', 'unbioctide', 'Ubo', [10,9], 328, 'superactinide', null, null],
+      [129, 'unbiennium', 'unbiennide', 'Ube', [11,9], 329, 'superactinide', null, null],
+      [130, 'untrinilium', 'untrinilide', 'Utn', [12,9], 330, 'superactinide', null, null],
+      [131, 'untriunium', 'untriunide', 'Utu', [13,9], 331, 'superactinide', null, null],
+      [132, 'untribium', 'untribide', 'Utb', [14,9], 332, 'superactinide', null, null],
+      [133, 'untritrium', 'untritride', 'Utt', [15,9], 333, 'superactinide', null, null],
+      [134, 'untriquadium', 'untriquadide', 'Utq', [16,9], 334, 'superactinide', null, null],
+      [135, 'untripentium', 'untripentide', 'Utp', [17,9], 335, 'superactinide', null, null],
+      [136, 'untrihexium', 'untrihexide', 'Uth', [18,9], 336, 'superactinide', null, null],
+      [137, 'feynmanium', 'feynmanide', 'Fy', [1,10], 337, 'superactinide', null, null],
+    ];
+    periodicTable[undefined] = [undefined, 'muonium', 'muide', 'Mu', [-1, 0], 0.113, 'exotic', null, null];
+    periodicTable[312] = [312, 'obamium', 'obamide', 'Ob', [-1, 0], 0.113, 'fictional meme alkali metal', 15, 630];
+    periodicTable[Infinity] = [Infinity, 'infinitium', 'infinitite', 'If', [-1, 0], Infinity, 'fictional material', Infinity, Infinity];
+    periodicTable[-312] = [-312, 'antiobamium', 'antiobamide', '-Ob', [-1, 0], 0.113, 'fictional meme antialkali metal', 15, 630];
+    periodicTable[-Infinity] = [-Infinity, 'antinfinitium', 'antinfinitite', '-If', [-1, 0], -Infinity, 'fictional antimaterial', -Infinity, -Infinity];
+    for (var i = 138; i <= 174; i += 1) {
+      var type;
+      if (i <= 143) type = 'superactinide';
+      else if (i > 143 && i <= 157) type = 'unquadquadide';
+      else if (i > 157 && i <= 166) type = 'transition metal';
+      else if (i > 166 && i <= 169) type = 'post-transition metal';
+      else if (i == 170) type = 'metalloid';
+      else if (i == 171) type = 'halogen';
+      else if (i == 172) type = 'noble gas';
+      else if (i == 173) type = 'alkali metal';
+      else if (i == 174) type = 'alkaline earth metal';
+      else if (i < 174) type = 'impossible'
+      else type = 'exotic';
+      var suffa = ['Un', 'U'];
+      var suffb, suffc;
+      var j = i - 100;
+      var k = j;
+      switch (k % 10) {
+        case 0:
+          suffc = ['nil', 'n'];
+          break;
+        case 1:
+          suffc = ['un', 'u'];
+          break;
+        case 2:
+          suffc = ['bi', 'b'];
+          break;
+        case 3:
+          suffc = ['tri', 't'];
+          break;
+        case 4:
+          suffc = ['quad', 'q'];
+          break;
+        case 5:
+          suffc = ['pent', 'p'];
+          break;
+        case 6:
+          suffc = ['hex', 'h'];
+          break;
+        case 7:
+          suffc = ['sept', 's'];
+          break;
+        case 8:
+          suffc = ['oct', 'o'];
+          break;
+        default:
+          suffc = ['enn', 'n'];
+      }
+      switch ((j - (k % 10))/10 % 100) {
+        case 0:
+          suffb = ['nil', 'n'];
+          break;
+        case 1:
+          suffb = ['un', 'u'];
+          break;
+        case 2:
+          suffb = ['bi', 'b'];
+          break;
+        case 3:
+          suffb = ['tri', 't'];
+          break;
+        case 4:
+          suffb = ['quad', 'q'];
+          break;
+        case 5:
+          suffb = ['pent', 'p'];
+          break;
+        case 6:
+          suffb = ['hex', 'h'];
+          break;
+        case 7:
+          suffb = ['sept', 's'];
+          break;
+        case 8:
+          suffb = ['oct', 'o'];
+          break;
+        default:
+          suffb = ['enn', 'n'];
+      }
+      periodicTable[i] = [i, suffa[0].toLowerCase() + suffb[0] + suffc[0] + 'ium', suffa[0].toLowerCase() + suffb[0] + suffc[0] + 'ide', suffa[1].toString() + suffb[1] + suffc[1], [1+i, 10], 0.113, type, null, null];
+    }
+    for (var i = -1; i >= -174; i -= 1) periodicTable[i] = [i, 'anti' + periodicTable[-i][1], 'anti' + periodicTable[-i][2] + 'ide', periodicTable[-i][3] + '&#x0305;', periodicTable[-i][4], periodicTable[-i][5] + ' (antimatter)', 'anti-' + periodicTable[-i][6], periodicTable[-i][7], periodicTable[-i][8]];
+    function showElement (number = 1) {
+      if ((number > 174) && number != 312) {
+        $('#atom-num').value = NaN;
+        number = Infinity;
+      }
+      if ((number < -174) && number != -312) {
+        $('#atom-num').value = NaN;
+        number = -Infinity;
+      }
+      $('#atom-num').value = periodicTable[number][0];
+      $('#atom-name').innerHTML = periodicTable[number][1];
+      $('#atom-covalent').innerHTML = periodicTable[number][2];
+      $('#atom-symbol').innerHTML = periodicTable[number][3];
+      $('#atom-coords').innerHTML = periodicTable[number][4];
+      $('#atom-mass').innerHTML = periodicTable[number][5];
+      $('#atom-type').innerHTML = periodicTable[number][6];
+      $('#atom-melt').innerHTML = periodicTable[number][7];
+      $('#atom-boil').innerHTML = periodicTable[number][8];
+    }
+  
+
+      document
+        .querySelector("#submitBtnP")
+        .addEventListener("click", function (e) {
+          var a = document
+            .querySelector("#parseBoxP")
+            .value
+            .replaceAll("!", ".")
+            .replaceAll("?", ".")
+            .replaceAll(";", ".")
+            .toLowerCase()
+            .replaceAll(/[^a-zA-Z0-9.!?,;\s]/g, "");
+          var b = a
+            .replace(/\. /g, ".")
+            .replace(/\. /g, ",")
+            .replaceAll(/\. /g, "!")
+            .replaceAll(/\. /g, "?")
+            .replaceAll(/\. /g, ";");
+          // Arrays
+          var c = b.split(".");
+          var verb = [];
+          var questionTF = [];
+          // Initial Reset
+          document.querySelector("#resultBoxP").innerHTML = "";
+          for (var i = 0; i < c.length; i += 1) {
+            document.querySelector("#resultBoxP").innerHTML +=
+              c[i] + "<br/>";
+          }
+          document.querySelector("#resultBoxP").innerHTML += "<hr/>Verbs:<br/>";             
+          for (var i = 0; i < c.length; i += 1) {
+            var d = nlp(c[i]).verbs().text();
+            verb.push(d);
+            document.querySelector("#resultBoxP").innerHTML += d + "<br/>"
+          }
+          document.querySelector("#resultBoxP").innerHTML += "<hr/>True-False Questions:<br/>";
+          for (var i = 0; i < verb.length; i += 1) {
+            var e;
+            if (verb[i] == "is" || verb[i] == "are" || verb[i] == "am" || verb[i] == "was" || verb[i] == "were" || verb[i] == "isnt" || verb[i] == "arent" || verb[i] == "aint" || verb[i] == "wasnt" || verb[i] == "werent") {
+              e = verb[i] + " " + nlp(c[i]).nouns().text() + "?";
+            }
+            else {
+              var eStart = "Does";
+              /*if (nlp(c[i]).nouns().text().isPlural().out('array')[0] != undefined) {
+                eStart = "Do";
+              }*/
+              e = eStart + " " + nlp(c[i]).nouns().eq(0).text() + " " + nlp(c[i]).verbs().text() + " " + nlp(c[i]).nouns().eq(1).text() + "?";
+            }
+            questionTF.push(e);
+            document.querySelector("#resultBoxP").innerHTML += e + "<br/>"
+          }
+          // document.querySelector("#resultBoxP").innerHTML += "<hr/>Questions:<br/>";
+          // var e = Math.random();
+          /*if (e <= 0.33) {
+            // True-false question 1/3 of the time
+            for (var i = 0; i < verb.length; i += 1) {
+              var f = "Does " + nlp(c[i].verbs().text()) + verb[i] + "?";
+              questions.push(f);
+              document.querySelector("#resultBoxP").innerHTML += f + "<br/>";
+            }
+          }
+          else {
+            
+          }*/
+        });
+    
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Select home tab
+  const navItems = document.querySelectorAll('.nav-item');
+  const contentSections = document.querySelectorAll('.content-section');
+  
+  // Function to handle nav item clicks
+  function handleNavClick(event) {
+    const targetId = this.getAttribute('data-target');
+    
+    // Hide all content sections
+    contentSections.forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    // Show the targeted section
+    document.querySelector(targetId).classList.add('active');
+    
+    // Reset all nav items
+    navItems.forEach(item => {
+      item.style.transform = 'translateY(0)';
+      item.style.background = 'transparent';
+    });
+    
+    // Style the clicked nav item
+    this.style.background = 'rgba(155,130,155,0.3)';
+    this.style.transform = 'translateY(-5px)';
+  }
+  
+  // Add click event to each nav item
+  navItems.forEach(item => {
+    item.addEventListener('click', handleNavClick);
+  });
+  
+  // Click the first nav item by default
+  document.querySelector('.nav-item').click();
+});
+
