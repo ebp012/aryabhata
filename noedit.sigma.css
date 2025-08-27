@@ -605,9 +605,11 @@ h1, h2, h3, h4, h5, h6, h7, h8 {
   pointer-events: none;
 }
 hr {
-  height: 6px;
+  height: 3px;
   border: none;
-  padding: 5pt;
+  padding: 3pt;
+  margin-top: 3pt;
+  margin-bottom: 3pt;
   border-radius: 14pt;
   background: rgba(159, 149, 194, 0.19) !important;
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
@@ -1226,7 +1228,7 @@ canvas, sculpture, .youtube {
 }
 
 /* Text input styles */
-input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
+/*input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
   border-radius: 18px;
   outline: none;
   text-align: center;
@@ -1239,25 +1241,53 @@ input[type=text], input[type=number], input[type=email], input[type=password], s
   -webkit-backdrop-filter: blur(8.1px);
   border: 1px solid rgba(255, 255, 255, 0.51);
   overflow-x: scroll;
+}*/
+
+input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
+  padding: 5pt !important;
+  border-radius: 9pt;
+  min-height: 24pt;
+  text-align: center;
+  font-size: 11pt;
+  margin: 5px;
+  /*background-color: var(--button-normal);
+  background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.45), rgba(153, 126, 179, 0.38), rgba(170, 130, 200, 0.45));*/
+  background-color: white;
+  background-image: rgba(246, 255, 248, 0.48);
+  backdrop-filter: blur(6.1px) invert(5%) brightness(0.95);
+  -webkit-backdrop-filter: blur(8.1px);
+  /*box-shadow: inset 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);*/
+  box-shadow: inset 0 3px 3px rgba(0,0,0,0.18), 0 6px 8px rgba(255,255,255,0.15), 0 -3px 5px rgba(137,90,176,0.05), 0 4px 3px rgba(0, 0, 0, 0.1);
+  
+  border: 1px solid rgba(244, 244, 244, 0.51);
+  outline: 0.33px solid rgba(255, 255, 255, 0.51);
+  color: black;
+  outline-offset: -0.33px;
+  opacity: 70%;
+  backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
+  -webkit-backdrop-filter: blur(8.1px);
 }
+
+
 textarea {
   overflow-x: none;
   text-align: left;
 }
 input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input[type=password]:hover, select:hover, option:hover, textarea:hover {
-  background: linear-gradient(to bottom, rgba(246, 255, 248, 0.48), rgba(243, 231, 254, 0.48), rgba(246, 255, 248, 0.48));
+  /*background: linear-gradient(to bottom, rgba(246, 255, 248, 0.48), rgba(243, 231, 254, 0.48), rgba(246, 255, 248, 0.48));*/
+  background-image: rgb(244, 244, 244, 0.85);
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, filter 0.6s linear;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
-  border: 1.5px solid rgba(255, 255, 255, 0.51);
+  box-shadow: inset 0 3px 3px rgba(0,0,0,0.27), 0 6px 8px rgba(255,255,255,0.225), 0 -3px 5px rgba(137,90,176,0.075), 0 4px 3px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.51);
+  outline: 0.33px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.9875);
-  outline: none;
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, filter 0.6s linear;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(74, 46, 113, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.51);
-  outline: none;
+    box-shadow: inset 0 3px 3px rgba(0,0,0,0.27), 0 6px 8px rgba(255,255,255,0.225), 0 -3px 5px rgba(137,90,176,0.075), 0 4px 3px rgba(0, 0, 0, 0.15), inset 0 -3px -3px rgba(0,0,0,0.27);
+  border: 1px solid rgba(255, 255, 255, 0.51);
+  outline: 0.33px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.95);
 }
 
@@ -1285,40 +1315,67 @@ input[type=text]:active, input[type=number]:active, input[type=email]:active, ac
 }*/
 
 button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, .youtube, ::-webkit-scrollbar-thumb {
-  padding: 5pt;
-  border-radius: 9px;
-  /*background: rgba(159, 149, 194, 0.19) !important;*/
+  padding: 5pt !important;
+  border-radius: 9pt;
   min-height: 24pt;
   font-size: 11pt;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   margin: 5px;
   background-color: var(--button-normal);
-  background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.55), rgba(153, 126, 179, 0.48), rgba(170, 130, 200, 0.55));
+  background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.45), rgba(153, 126, 179, 0.38), rgba(170, 130, 200, 0.45));
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.95);
-  opacity: 70%;
-  -webkit-backdrop-filter: blur(8.1px);;
-  /*box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);*/
+  -webkit-backdrop-filter: blur(8.1px);
   box-shadow: 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);
   border: 1px solid rgba(244, 244, 244, 0.51);
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   color: black;
   outline-offset: -0.33px;
   cursor: pointer;
-  filter: brightness(85%);
+  opacity: 70%;
+  backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
+  -webkit-backdrop-filter: blur(8.1px);
 }
-button:before, input[type=button]::before, input[type=submit]::before, input[type=reset]::before, input[type=file]::before, select[button=like]::before, canvas::before, sculpture::before, .youtube::before, ::-webkit-scrollbar-thumb::before {
+button:not(:active)::before, .nav-item::before, input[type=button]::before, input[type=submit]::before, input[type=reset]::before, input[type=file]::before, select[button=like]::before, thead td::before, .calb::before, .projlinks a:hover img::before {
   content: "";
   position: absolute;
   top: 2px;
+  left: 3px;
   right: 3px;
-  width: calc(100% - 1px);
-  height: 14%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
+  height: 36%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
   border-radius: inherit;
   pointer-events: none;
 }
 
+.nav-item::before, thead td::before, .projlinks a:hover img::before {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
+}
+
+/*
+hr {
+  height: 4px;
+  border: none;
+  padding: 5pt;
+  border-radius: 14pt;
+  background: rgba(159, 149, 194, 0.19) !important;
+  backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
+  opacity: 70%;
+  -webkit-backdrop-filter: blur(8.1px);;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
+}
+hr::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 9px;
+  width: calc(100% - 13px);
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+*/
 
 .youtube {padding: 10px;}
 button[disabled], input[disabled], select[disabled] {
@@ -1327,9 +1384,8 @@ button[disabled], input[disabled], select[disabled] {
   background-image: linear-gradient(to bottom, var(--button-disabled), var(--button-disabled), var(--button-disabled), var(--button-disabled), silver, silver, silver, silver)
 }
 button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover, .projlinks a:hover {
-  transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, transform 4.5s ease-in-out, filter 0.6s linear;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
-  border: 1.5px solid rgba(255, 255, 255, 0.51);
+  border: 1px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.77);
 }
 .projlinks a {border: none !important; outline: none !important; background: transparent !important;}
@@ -1337,15 +1393,15 @@ button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: not-allowed;
 }
 button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active {
+  filter: brightness(0.64);
+}
+button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
   background-color: rgba(153, 126, 179, 0.48);
   background-image: linear-gradient(to bottom, rgba(230, 190, 255, 0.65), rgba(210, 159, 238, 0.48), rgba(240, 210, 255, 0.65));
   color: indigo;
   transition: background 0.45s ease-in-out, box-shadow 0.45s ease-in-out, color 2.25s ease-in-out, filter 0.6s linear;
-  border: 2px solid rgba(255, 255, 255, 0.51);
+  border: 1px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.54);
-}
-button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
-  filter: brightness(0.64);
 }
 button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtube[disabled]:active {
   cursor: not-allowed;
