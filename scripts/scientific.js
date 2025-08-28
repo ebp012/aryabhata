@@ -88,7 +88,7 @@ function toggleHyperMode1() {
         ];
     
         buttonsToUpdate.forEach(button => {
-            var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calb`);
+            var buttonElement = document.querySelector(`input[type="button"][value="qs{button.value}"].calb`);
             if (buttonElement) {
                 if (hyperMode) {
                     buttonElement.value = button.replacementValue;
@@ -117,7 +117,7 @@ function toggleHyperMode1() {
         ];
     
         buttonsToRevert.forEach(button => {
-            var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calb`);
+            var buttonElement = document.querySelector(`input[type="button"][value="qs{button.value}"].calb`);
             if (buttonElement) {
                 buttonElement.value = button.originalValue;
                 buttonElement.onclick = button.onclick;
@@ -137,7 +137,7 @@ function toggleHyperMode2() {
         ];
     
         buttonsToUpdate.forEach(button => {
-            var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calb`);
+            var buttonElement = document.querySelector(`input[type="button"][value="qs{button.value}"].calb`);
             if (buttonElement) {
                 if (hyperMode) {
                     buttonElement.value = button.replacementValue;
@@ -157,7 +157,7 @@ function toggleHyperMode2() {
         ];
     
         buttonsToRevert.forEach(button => {
-            var buttonElement = document.querySelector(`input[type="button"][value="${button.value}"].calo`);
+            var buttonElement = document.querySelector(`input[type="button"][value="qs{button.value}"].calo`);
             if (buttonElement) {
                 buttonElement.value = button.originalValue;
                 buttonElement.onclick = button.onclick;
@@ -168,7 +168,7 @@ function toggleHyperMode2() {
 }
 function evaluateExpression() {
     var ansField = document.calculator.ans;
-    var ansTwoField = document.calculator.ansTwo.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet($1,$2)').replace(/\|([^|]+)\|/g, 'abs($1)').replace('{','(').replace('}', ')');;
+    var ansTwoField = document.calculator.ansTwo.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet(qs1,qs2)').replace(/\|([^|]+)\|/g, 'abs(qs1)').replace('{','(').replace('}', ')');;
     let scope = {
         x: math.complex(x, i),
         tet: tet,

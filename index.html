@@ -40,6 +40,11 @@
       rel='stylesheet'
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
     />
+    <script>
+      // Convenience stuff
+      const qs = (selector) => document.querySelector(selector);
+      const qsa = (selector) => document.querySelectorAll(selector);
+      </script>
   </head>
   <body>
     <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); filter: sepia(87%);'></div>
@@ -187,8 +192,8 @@
                       </div>
                       <p hidden><input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label> <br/></p>
                       <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><hr/>
-                      <button onclick='$("#graph-tracing").classList.toggle("hidden");$("#graph-tracing").slideToggle();'>Trace</button>
-                      <button onclick='$("#graph-settings-modal-container").classList.toggle("hidden");'>Options</button>
+                      <button onclick='qs("#graph-tracing").classList.toggle("hidden");qs("#graph-tracing").slideToggle();'>Trace</button>
+                      <button onclick='qs("#graph-settings-modal-container").classList.toggle("hidden");'>Options</button>
                     </div>
                   </td>
                 </tr>
@@ -240,7 +245,7 @@
             <div id='graph-settings-modal' class='modal' style='font-size: 20pt; font-family: trajan, "Trajan Pro", Georgia, Times, serif;'>
               <div style='border-radius: 6px;'>
                 <center>
-                  <button onclick='$("#graph-settings-modal-container").classList.toggle("hidden");'>&times;</button><hr/>
+                  <button onclick='qs("#graph-settings-modal-container").classList.toggle("hidden");'>&times;</button><hr/>
                   Minor step: <input id='graph-minor-step' type='number' min='0' step='0.5' value='1' title='distance between thinner gridlines. set to 0 to disable them entirely.'/><br/>
                   Major step: <input id='graph-major-step' type='number' min='0' value='6' title='distance between thicker gridlines. set to 0 to disable them entirely.'/>
                   <span id='graph-xryr-offset-div-container-span'>
@@ -425,7 +430,7 @@
                           var area0 = ((1 / 4) * n * (s * s) * 1) / Math.tan(Math.PI / n);
                           var area = Math.round(area0 * 100000000) / 100000000;
 
-                          if (n >= minSides && s > 0 && Number(document.getElementById("sidesCRPA").value) % 1 == 0 && Number(document.getElementById("sidesCRPAPGD").value) % 1 == 0 && $('#sidesCRPAPGD').value % $('#sidesCRPA').value != 0) {
+                          if (n >= minSides && s > 0 && Number(document.getElementById("sidesCRPA").value) % 1 == 0 && Number(document.getElementById("sidesCRPAPGD").value) % 1 == 0 && qs('#sidesCRPAPGD').value % qs('#sidesCRPA').value != 0) {
                             // special cases
                             if (n == 2) area = 0;
                             if (n < 2) area = Math.abs(area);
@@ -440,16 +445,16 @@
                         isPolygram: false,
                         gongram: function () {
                           polygon.isPolygram = !polygon.isPolygram;
-                          if ($('#geometry-gongram').checked == true) {
+                          if (qs('#geometry-gongram').checked == true) {
                             if (Number(document.getElementById("sidesCRPA").value) < 5) document.getElementById("sidesCRPA").value = 5;
-                            $('#geometry-polygram').style.display = 'block';
-                            $('#geometry-sides-text').innerHTML = 'Convex Vertices';
-                            $('#geometry-minsides').innerHTML = '5';
+                            qs('#geometry-polygram').style.display = 'block';
+                            qs('#geometry-sides-text').innerHTML = 'Convex Vertices';
+                            qs('#geometry-minsides').innerHTML = '5';
                           }
                           else {
-                            $('#geometry-polygram').style.display = 'none';
-                            $('#geometry-sides-text').innerHTML = 'Sides';
-                            $('#geometry-minsides').innerHTML = '3';
+                            qs('#geometry-polygram').style.display = 'none';
+                            qs('#geometry-sides-text').innerHTML = 'Sides';
+                            qs('#geometry-minsides').innerHTML = '3';
                           }
                         },
                         round5: function (input) {
@@ -569,7 +574,7 @@
                           document.getElementById("valueCPS").innerText = a;
                         },
                       };
-                      $(document).ready(() => {
+                      qs(document).ready(() => {
                         pascal.addDimension();
                       });
                     </script>
@@ -739,9 +744,9 @@
             select option i {font-family: times;}
           </style>
           <script>
-            var lengthSelect = $('#conv-length-options');
-            $('#conv-length-first-container').innerHTML = "<select id='conv-length-first'>" + lengthSelect + "</select>";
-            $('#conv-length-second-container').innerHTML = "<select id='conv-length-second'>" + lengthSelect + "</select>";
+            var lengthSelect = qs('#conv-length-options');
+            qs('#conv-length-first-container').innerHTML = "<select id='conv-length-first'>" + lengthSelect + "</select>";
+            qs('#conv-length-second-container').innerHTML = "<select id='conv-length-second'>" + lengthSelect + "</select>";
             // Length conversions
             const lengthFactors = {
               // --- Imperial (inches as base) ---
@@ -848,7 +853,7 @@
               const converted = inches / (lengthFactors[toUnit] || 1);
 
               document.getElementById('conv-length-output').value = converted;
-              // Assuming you have jQuery or a similar library for '$'
+              // Assuming you have jQuery or a similar library for 'qs'
               // If not, these lines will cause an error and should be replaced with native JS
               document.getElementById('conv-length-input').style.color = 'black';
               document.getElementById('conv-length-output').style.color = 'black';
@@ -1252,22 +1257,22 @@
           for (var i = -1; i >= -174; i -= 1) periodicTable[i] = [i, 'anti' + periodicTable[-i][1], 'anti' + periodicTable[-i][2] + 'ide', periodicTable[-i][3] + '&#x0305;', periodicTable[-i][4], periodicTable[-i][5] + ' (antimatter)', 'anti-' + periodicTable[-i][6], periodicTable[-i][7], periodicTable[-i][8]];
           function showElement (number = 1) {
             if ((number > 174) && number != 312) {
-              $('#atom-num').value = NaN;
+              qs('#atom-num').value = NaN;
               number = Infinity;
             }
             if ((number < -174) && number != -312) {
-              $('#atom-num').value = NaN;
+              qs('#atom-num').value = NaN;
               number = -Infinity;
             }
-            $('#atom-num').value = periodicTable[number][0];
-            $('#atom-name').innerHTML = periodicTable[number][1];
-            $('#atom-covalent').innerHTML = periodicTable[number][2];
-            $('#atom-symbol').innerHTML = periodicTable[number][3];
-            $('#atom-coords').innerHTML = periodicTable[number][4];
-            $('#atom-mass').innerHTML = periodicTable[number][5];
-            $('#atom-type').innerHTML = periodicTable[number][6];
-            $('#atom-melt').innerHTML = periodicTable[number][7];
-            $('#atom-boil').innerHTML = periodicTable[number][8];
+            qs('#atom-num').value = periodicTable[number][0];
+            qs('#atom-name').innerHTML = periodicTable[number][1];
+            qs('#atom-covalent').innerHTML = periodicTable[number][2];
+            qs('#atom-symbol').innerHTML = periodicTable[number][3];
+            qs('#atom-coords').innerHTML = periodicTable[number][4];
+            qs('#atom-mass').innerHTML = periodicTable[number][5];
+            qs('#atom-type').innerHTML = periodicTable[number][6];
+            qs('#atom-melt').innerHTML = periodicTable[number][7];
+            qs('#atom-boil').innerHTML = periodicTable[number][8];
           }
         </script>
       </div>
@@ -1275,7 +1280,7 @@
       <!-- Learn Section -->
       <div id="learn" class="content-section">
         <h1 class="page-title">Learn&nbsp;</h1><br/>
-        <button onclick='window.open("http://aryabhata.aeonic.me/applets/learn.htm", "_learntab");' class='applet-refresh'><i class='fa fa-refresh'></i></button>
+        <button onclick='window.open("applets/learn.htm", "_learntab");' class='applet-refresh'><i class='fa fa-refresh'></i></button>
         <!-- http://aryabhata.aeonic.me/applets/learn.htm -->
         <iframe src='about:blank' name='_learntab' class='desk-paper applet'></iframe>
       </div>
@@ -1283,7 +1288,7 @@
       <!-- Memorise Applet -->
       <div id="memorise" class="content-section">
         <h1 class="page-title">Memorise</h1>
-        <button onclick='window.open("http://aryabhata.aeonic.me/applets/memorise.htm", "_memorisetab");' class='applet-refresh'><i class='fa fa-refresh'></i></button>
+        <button onclick='window.open("applets/memorise.htm", "_memorisetab");' class='applet-refresh'><i class='fa fa-refresh'></i></button>
         <!-- http://aryabhata.aeonic.me/applets/memorise.htm -->
         <iframe src='about:blank' name='_memorisetab' class='desk-paper applet'></iframe>
       </div>

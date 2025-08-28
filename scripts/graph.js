@@ -17,10 +17,6 @@ var fullscreen = false; // est-on plein écran (fullscreen) ou non
 
 var nof = 1; // number of functions
 
-// Convenience stuff
-const $ = (selector) => document.querySelector(selector);
-const $all = (selector) => document.querySelectorAll(selector);
-
 
 // Canvas Declaration
 const canvas = document.getElementById('graph-canvas');
@@ -44,40 +40,40 @@ window.addEventListener('load', function() {
     inputsAutoGraphTest();
 
     // Open the home tab
-    $('#homeTab').click();
+    qs('#homeTab').click();
 
-    $all('.graph-adv').forEach(function(element) {
+    qsa('.graph-adv').forEach(function(element) {
         element.classList.add('hidden');
     });
     inputsAutoGraphTest();
     setInterval(function() {
     // Update whether graph is 2D or 3D
-    if ($('#graph-dimension-3d').checked == true) {
+    if (qs('#graph-dimension-3d').checked == true) {
         do3D = true;
     }
     else {
         do3D = false;
     }
     // Update whether to show the graph button
-    if ($('#graph-auto').checked != true) {
-        $('#graph-btn').style.display = 'block';
+    if (qs('#graph-auto').checked != true) {
+        qs('#graph-btn').style.display = 'block';
     }
     else {
-        $('#graph-btn').style.display = 'none';
+        qs('#graph-btn').style.display = 'none';
     }
 
     }, 37);
     
     function inputsAutoGraphTest () {
-    $all('#graphing input, #graphing select, #graphing button, .modal input').forEach(function(element) {
+    qsa('#graphing input, #graphing select, #graphing button, .modal input').forEach(function(element) {
         element.addEventListener('input', function () {
-        if ($('#graph-auto').checked) graphFunction();
+        if (qs('#graph-auto').checked) graphFunction();
         });
     });
     /*document.querySelectorAll('#graphing input, #graphing button, #graphing select').forEach(input => { // input[type=text], #graphing input[type=number], #graphing input[type=checkbox], #graphing select, #fullscreen-modal input, #xiv-td input
         input.addEventListener('input', function () {
         // if the user selects to graph automatically (resource-consuming)
-        if ($('#graph-auto').checked) graphFunction();
+        if (qs('#graph-auto').checked) graphFunction();
         });
     });*/
     }
@@ -89,83 +85,83 @@ window.addEventListener('load', function() {
     });
     });
     
-    $('#lang-select').addEventListener('input', function () {
+    qs('#lang-select').addEventListener('input', function () {
     lang = this.value;
     translations.applyLang();
     });
 
-    $('#graphing').addEventListener('mouseover', function () {
+    qs('#graphing').addEventListener('mouseover', function () {
     if (pregraphed == false) pregraphed = true;
     graphFunction();
     });
 
-    $('#xi-input').addEventListener('input', function () {
+    qs('#xi-input').addEventListener('input', function () {
     xi = Number(this.value);
-    $('#xi-value').innerHTML = xi;
+    qs('#xi-value').innerHTML = xi;
     
     });
 
-    $('#xr-input').addEventListener('input', function () {
+    qs('#xr-input').addEventListener('input', function () {
     xr = Number(this.value);
-    $('#xr-value').innerHTML = xr;
+    qs('#xr-value').innerHTML = xr;
     });
 
-    $('#xiv-input').addEventListener('input', function () {
+    qs('#xiv-input').addEventListener('input', function () {
     xiv = Number(this.value);
-    $('#xiv-value').innerHTML = xiv;
+    qs('#xiv-value').innerHTML = xiv;
     });
 
-    $('#graph-minor-step').addEventListener('input', function () {
-    $('#graph-major-step').step = this.value;
+    qs('#graph-minor-step').addEventListener('input', function () {
+    qs('#graph-major-step').step = this.value;
     });
 
-    $('#graph-offset-xr').addEventListener('input', function () {
+    qs('#graph-offset-xr').addEventListener('input', function () {
     toffxr = Number(this.value);
     resetOffset();
     ctx.translate(toffxr, 0);
     graphFunction();
     });
 
-    $('#graph-offset-yr').addEventListener('input', function () {
+    qs('#graph-offset-yr').addEventListener('input', function () {
     toffyr = Number(this.value);
     resetOffset();
     ctx.translate(0, toffyr);
     graphFunction();
     });
-    $('#graph-centre').addEventListener('input', function () {
-    $('#graph-offset-xr').value = 0;
-    $('#graph-offset-yr').value = 0;
+    qs('#graph-centre').addEventListener('input', function () {
+    qs('#graph-offset-xr').value = 0;
+    qs('#graph-offset-yr').value = 0;
     graphFunction();
     });
 
     document.querySelectorAll('#graph-canvas').forEach(fsBtn => {
     fsBtn.addEventListener('click', function () {
         fullscreen = !fullscreen;
-        var modal = $('#graph-fullscreen-modal');
-        var container = $('#graph-container');
-        var scaleContainer = $('#graph-scale-span-container');
-        var scaleContainerSub = $('#graph-scale-span-sub');
+        var modal = qs('#graph-fullscreen-modal');
+        var container = qs('#graph-container');
+        var scaleContainer = qs('#graph-scale-span-container');
+        var scaleContainerSub = qs('#graph-scale-span-sub');
         modal.classList.toggle('hidden');
         modal.parentElement.classList.toggle('hidden');
         if (fullscreen) { // if fullscreen is now entered
         modal.innerHTML = '';
-        modal.appendChild($('#graph-div'));
-        modal.appendChild($('#graph-scale-span'));
-        modal.appendChild($('#xiv-td-content'));
-        modal.appendChild($('#graph-xryr-offset-div'));
+        modal.appendChild(qs('#graph-div'));
+        modal.appendChild(qs('#graph-scale-span'));
+        modal.appendChild(qs('#xiv-td-content'));
+        modal.appendChild(qs('#graph-xryr-offset-div'));
         modal.appendChild(canvas);
         document.body.style.overflowY = 'hidden';
         //this.innerHTML = '<i class="fa fa-compress" style="z-index: 250;"></i> Exit';
-        canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
+        canvas.style.transform = 'scale(' + qs('#graph-scale').value + ')';
         /*scaleContainerSub.style.position = 'relative';
         scaleContainerSub.style.top = '-20px';
         scaleContainerSub.style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
-        $('#xiv-td-content').style.position = 'relative';
-        $('#xiv-td-content').style.top = '-10px';
-        $('#xiv-td-content').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
-        $('#graph-xryr-offset-div').style.position = 'relative';
-        $('#graph-xryr-offset-div').style.bottom = '-10px';
-        $('#graph-xryr-offset-div').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';*/
+        qs('#xiv-td-content').style.position = 'relative';
+        qs('#xiv-td-content').style.top = '-10px';
+        qs('#xiv-td-content').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
+        qs('#graph-xryr-offset-div').style.position = 'relative';
+        qs('#graph-xryr-offset-div').style.bottom = '-10px';
+        qs('#graph-xryr-offset-div').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';*/
         /*
         Old Graph Fullscreen Button
         this.style.position = 'fixed';
@@ -174,12 +170,12 @@ window.addEventListener('load', function() {
         this.style.marginRight = 'auto;'*/
         }
         else { // when exiting fullscreen
-        //container.appendChild($('#graph-fullscreen-btn'));
-        container.appendChild($('#graph-div'));
-        $('#graph-div').appendChild(canvas);
-        scaleContainer.appendChild($('#graph-scale-span'));
-        $('#xiv-td').appendChild($('#xiv-td-content'));
-        $('#graph-xryr-offset-div-container-span').appendChild($('#graph-xryr-offset-div'));
+        //container.appendChild(qs('#graph-fullscreen-btn'));
+        container.appendChild(qs('#graph-div'));
+        qs('#graph-div').appendChild(canvas);
+        scaleContainer.appendChild(qs('#graph-scale-span'));
+        qs('#xiv-td').appendChild(qs('#xiv-td-content'));
+        qs('#graph-xryr-offset-div-container-span').appendChild(qs('#graph-xryr-offset-div'));
         document.body.style.overflowY = 'scroll';
         canvas.style.transform = 'scale(1)';
         scaleContainerSub.style.position = 'static';
@@ -189,150 +185,150 @@ window.addEventListener('load', function() {
     });
     });
 
-    $('#graph-scale').addEventListener('input', function () {
+    qs('#graph-scale').addEventListener('input', function () {
     var newScale = this.value;
     if (this.value <= 0) this.value = scale;
     if (newScale <= 0) newScale = scale;
     scale = newScale;
     graphFunction();
-    /*var modal = $('#graph-fullscreen-modal');
-    var scaleContainer = $('#graph-scale-span-container');
+    /*var modal = qs('#graph-fullscreen-modal');
+    var scaleContainer = qs('#graph-scale-span-container');
     var prevValue = inputScale;
     inputScale = this.value;
     this.max =  round(modal.offsetWidth ** 2, 1);
-    this.min = round(1 / $('#graph-scale').max, 1);
+    this.min = round(1 / qs('#graph-scale').max, 1);
     if (this.min < 0) this.min = 0;
     if (this.max > 2) this.max = 2;
     if (this.value <= this.min) this.value = this.min;
     if (this.value >= this.max) this.value = this.max;
-    if (fullscreen) canvas.style.transform = 'scale(' + $('#graph-scale').value + ')';
+    if (fullscreen) canvas.style.transform = 'scale(' + qs('#graph-scale').value + ')';
     else canvas.style.transform = 'scale(1)';*/
     });
 
     canvas.addEventListener('wheel', function (e) {
     e.preventDefault();
-    if ($('#graph-scroll-xiv').checked) { // originally fullscreen != true
+    if (qs('#graph-scroll-xiv').checked) { // originally fullscreen != true
         // Vertical scrolling
         if (e.deltaY > 0) {
         // Scroll down; ideally decrease y-i viewport
-        xiv -= Number($('#xiv-step-input').value);
-        if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
-        $('#xiv-input').value = xiv;
-        $('#xiv-value').innerHTML = xiv;
+        xiv -= Number(qs('#xiv-step-input').value);
+        if (xiv <= qs('#xiv-min-input').value) xiv = Number(qs('#xiv-min-input').value);
+        qs('#xiv-input').value = xiv;
+        qs('#xiv-value').innerHTML = xiv;
         }
         else if (e.deltaY < 0) {
         // Scroll up; ideally increase y-i viewport
-        xiv += Number($('#xiv-step-input').value);
-        if (xiv >= $('#xiv-max-input').value) xiv = Number($('#xiv-max-input').value);
-        $('#xiv-input').value = xiv;
-        $('#xiv-value').innerHTML = xiv;
+        xiv += Number(qs('#xiv-step-input').value);
+        if (xiv >= qs('#xiv-max-input').value) xiv = Number(qs('#xiv-max-input').value);
+        qs('#xiv-input').value = xiv;
+        qs('#xiv-value').innerHTML = xiv;
         }
         // Horizontal scrolling
         if (e.deltaX > 0) {
         // Scroll left; decrease x-i viewport
-        xiv -= Number($('#xiv-step-input').value);
-        if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
-        $('#xiv-input').value = xiv;
-        $('#xiv-value').innerHTML = xiv;
+        xiv -= Number(qs('#xiv-step-input').value);
+        if (xiv <= qs('#xiv-min-input').value) xiv = Number(qs('#xiv-min-input').value);
+        qs('#xiv-input').value = xiv;
+        qs('#xiv-value').innerHTML = xiv;
         }
         else if (e.deltaX < 0) {
         // Scroll right; increase x-i viewport
-        xiv += Number($('#xiv-step-input').value);
-        if (xiv >= $('#xiv-max-input').value) xiv = Number($('#xiv-max-input').value);
-        $('#xiv-input').value = xiv;
-        $('#xiv-value').innerHTML = xiv;
+        xiv += Number(qs('#xiv-step-input').value);
+        if (xiv >= qs('#xiv-max-input').value) xiv = Number(qs('#xiv-max-input').value);
+        qs('#xiv-input').value = xiv;
+        qs('#xiv-value').innerHTML = xiv;
         }
     }
-    else if ($('#graph-scroll-xiv').checked != true) { // originally fullscreen == true
+    else if (qs('#graph-scroll-xiv').checked != true) { // originally fullscreen == true
         // Vertical scrolling
         if (e.deltaY > 0) {
         // Scroll down; ideally decrease yr offset
-        toffyr -= Number($('#graph-offset-yr').step);
-        //if (toffyr <= $('#offset-yr').min) toffyr = Number($('#xiv-min-input').value);
-        $('#graph-offset-yr').value = toffyr;
+        toffyr -= Number(qs('#graph-offset-yr').step);
+        //if (toffyr <= qs('#offset-yr').min) toffyr = Number(qs('#xiv-min-input').value);
+        qs('#graph-offset-yr').value = toffyr;
         }
         else if (e.deltaY < 0) {
         // Scroll up; ideally increase yr offset
-        toffyr += Number($('#graph-offset-yr').step);
-        //if (toffyr >= $('#offset-yr').max) toffyr = Number($('#xiv-max-input').value);
-        $('#graph-offset-yr').value = toffyr;
+        toffyr += Number(qs('#graph-offset-yr').step);
+        //if (toffyr >= qs('#offset-yr').max) toffyr = Number(qs('#xiv-max-input').value);
+        qs('#graph-offset-yr').value = toffyr;
         }
         // Horizontal scrolling
         if (e.deltaX > 0) {
         // Scroll left; ideally decrease xr offset
-        toffxr -= Number($('#graph-offset-xr').step);
-        //if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
-        $('#graph-offset-xr').value = toffxr;
+        toffxr -= Number(qs('#graph-offset-xr').step);
+        //if (xiv <= qs('#xiv-min-input').value) xiv = Number(qs('#xiv-min-input').value);
+        qs('#graph-offset-xr').value = toffxr;
         }
         else if (e.deltaX < 0) {
         // Scroll right; ideally increase xr offset
-        toffxr += Number($('#graph-offset-xr').step);
-        //if (toffxr >= $('#xiv-max-input').value) toffxr = Number($('#xiv-max-input').value);
-        $('#graph-offset-xr').value = toffxr;
+        toffxr += Number(qs('#graph-offset-xr').step);
+        //if (toffxr >= qs('#xiv-max-input').value) toffxr = Number(qs('#xiv-max-input').value);
+        qs('#graph-offset-xr').value = toffxr;
         }
         graphFunction();
     }
     graphFunction();
     });
 
-    $('#xiv-td').addEventListener('mousewheel', function (e) {
+    qs('#xiv-td').addEventListener('mousewheel', function (e) {
     // Horizontal scrolling
     if (event.deltaX > 0) {
         // Scroll left
-        xiv -= Number($('#xiv-step-input').value);
-        if (xiv <= $('#xiv-min-input').value) xiv = Number($('#xiv-min-input').value);
-        $('#xiv-input').value = xiv;
-        $('#xiv-value').innerHTML = xiv;
+        xiv -= Number(qs('#xiv-step-input').value);
+        if (xiv <= qs('#xiv-min-input').value) xiv = Number(qs('#xiv-min-input').value);
+        qs('#xiv-input').value = xiv;
+        qs('#xiv-value').innerHTML = xiv;
     }
     else if (event.deltaX < 0) {
         // Scroll right
-        xiv += Number($('#xiv-step-input').value);
-        if (xiv >= $('#xiv-max-input').value) xiv = Number($('#xiv-max-input').value);
-        $('#xiv-input').value = xiv;
-        $('#xiv-value').innerHTML = xiv;
+        xiv += Number(qs('#xiv-step-input').value);
+        if (xiv >= qs('#xiv-max-input').value) xiv = Number(qs('#xiv-max-input').value);
+        qs('#xiv-input').value = xiv;
+        qs('#xiv-value').innerHTML = xiv;
     }
     graphFunction();
     });
 
-    $('#xr-td').addEventListener('mousewheel', function (e) {
+    qs('#xr-td').addEventListener('mousewheel', function (e) {
     // Horizontal scrolling
     if (event.deltaX > 0) {
         // Scroll left
-        xr -= Number($('#xr-step-input').value);
-        if (xr <= $('#xr-min-input').value) xr = Number($('#xr-min-input').value);
-        $('#xr-input').value = xr;
-        $('#xr-value').innerHTML = xr;
+        xr -= Number(qs('#xr-step-input').value);
+        if (xr <= qs('#xr-min-input').value) xr = Number(qs('#xr-min-input').value);
+        qs('#xr-input').value = xr;
+        qs('#xr-value').innerHTML = xr;
     }
     else if (event.deltaX < 0) {
         // Scroll right
-        xr += Number($('#xr-step-input').value);
-        if (xr >= $('#xr-max-input').value) xr = Number($('#xr-max-input').value);
-        $('#xr-input').value = xr;
-        $('#xr-value').innerHTML = xr;
+        xr += Number(qs('#xr-step-input').value);
+        if (xr >= qs('#xr-max-input').value) xr = Number(qs('#xr-max-input').value);
+        qs('#xr-input').value = xr;
+        qs('#xr-value').innerHTML = xr;
     }
     updateTrace();
     });
 
-    $('#xi-td').addEventListener('mousewheel', function (e) {
+    qs('#xi-td').addEventListener('mousewheel', function (e) {
     // Horizontal scrolling
     if (event.deltaX > 0) {
         // Scroll left
-        xi -= Number($('#xi-step-input').value);
-        if (xi <= $('#xi-min-input').value) xi = Number($('#xi-min-input').value);
-        $('#xi-input').value = xi;
-        $('#xi-value').innerHTML = xi;
+        xi -= Number(qs('#xi-step-input').value);
+        if (xi <= qs('#xi-min-input').value) xi = Number(qs('#xi-min-input').value);
+        qs('#xi-input').value = xi;
+        qs('#xi-value').innerHTML = xi;
     }
     else if (event.deltaX < 0) {
         // Scroll right
-        xi += Number($('#xi-step-input').value);
-        if (xi >= $('#xi-max-input').value) xi = Number($('#xi-max-input').value);
-        $('#xi-input').value = xi;
-        $('#xi-value').innerHTML = xi;
+        xi += Number(qs('#xi-step-input').value);
+        if (xi >= qs('#xi-max-input').value) xi = Number(qs('#xi-max-input').value);
+        qs('#xi-input').value = xi;
+        qs('#xi-value').innerHTML = xi;
     }
     updateTrace();
     });
 
-    $('#graph-advanced').addEventListener('input', function () {
+    qs('#graph-advanced').addEventListener('input', function () {
     const graphAdvElements = document.querySelectorAll('.graph-adv');
     
     if (!this.checked) {
@@ -352,44 +348,44 @@ window.addEventListener('load', function() {
 
     function inputSetup (prefix) {
     // Change xi minimum
-    $('#' + prefix + '-min-input').addEventListener('input', function () {
-        $('#' + prefix + '-input').min = Number($('#' + prefix + '-min-input').value);
-        $('#' + prefix + '-max-input').min = $('#' + prefix + '-input').min;
+    qs('#' + prefix + '-min-input').addEventListener('input', function () {
+        qs('#' + prefix + '-input').min = Number(qs('#' + prefix + '-min-input').value);
+        qs('#' + prefix + '-max-input').min = qs('#' + prefix + '-input').min;
     });
 
     // Change xi maximum
-    $('#' + prefix + '-max-input').addEventListener('input', function () {
-        $('#' + prefix + '-input').max = Number($('#' + prefix + '-max-input').value);
-        $('#' + prefix + '-min-input').max = $('#' + prefix + '-input').max;
+    qs('#' + prefix + '-max-input').addEventListener('input', function () {
+        qs('#' + prefix + '-input').max = Number(qs('#' + prefix + '-max-input').value);
+        qs('#' + prefix + '-min-input').max = qs('#' + prefix + '-input').max;
     });
 
     // Change xi step
-    $('#' + prefix + '-step-input').addEventListener('input', function () {
-        $('#' + prefix + '-input').step = Number($('#' + prefix + '-step-input').value);
+    qs('#' + prefix + '-step-input').addEventListener('input', function () {
+        qs('#' + prefix + '-input').step = Number(qs('#' + prefix + '-step-input').value);
     });
 
     // Change xi input type
-    $('#' + prefix + '-type-input').addEventListener('input', function () {
-        if ($('#' + prefix + '-type-input').checked != true) {
-        $('#' + prefix + '-input').type = 'number';
-        $('#' + prefix + '-input').removeAttribute('min');
-        $('#' + prefix + '-input').removeAttribute('max');
-        $('#' + prefix + '-min-input').disabled = 'disabled';
-        $('#' + prefix + '-max-input').disabled = 'disabled';
+    qs('#' + prefix + '-type-input').addEventListener('input', function () {
+        if (qs('#' + prefix + '-type-input').checked != true) {
+        qs('#' + prefix + '-input').type = 'number';
+        qs('#' + prefix + '-input').removeAttribute('min');
+        qs('#' + prefix + '-input').removeAttribute('max');
+        qs('#' + prefix + '-min-input').disabled = 'disabled';
+        qs('#' + prefix + '-max-input').disabled = 'disabled';
         }
         else {
-        $('#' + prefix + '-input').type = 'range';
-        $('#' + prefix + '-min-input').removeAttribute('disabled');
-        $('#' + prefix + '-max-input').removeAttribute('disabled');
-        if (Number($('#' + prefix + '-input').value) > Number($('#' + prefix + '-max-input').value)) {
-            $('#' + prefix + '-max-input').value = $('#' + prefix + '-input').value;
+        qs('#' + prefix + '-input').type = 'range';
+        qs('#' + prefix + '-min-input').removeAttribute('disabled');
+        qs('#' + prefix + '-max-input').removeAttribute('disabled');
+        if (Number(qs('#' + prefix + '-input').value) > Number(qs('#' + prefix + '-max-input').value)) {
+            qs('#' + prefix + '-max-input').value = qs('#' + prefix + '-input').value;
         }
-        if (Number($('#' + prefix + '-input').value) < Number($('#' + prefix + '-min-input').value)) {
-            $('#' + prefix + '-min-input').value = $('#' + prefix + '-input').value;
+        if (Number(qs('#' + prefix + '-input').value) < Number(qs('#' + prefix + '-min-input').value)) {
+            qs('#' + prefix + '-min-input').value = qs('#' + prefix + '-input').value;
         }
         
-        $('#' + prefix + '-input').max = Number($('#' + prefix + '-max-input').value);
-        $('#' + prefix + '-input').min = Number($('#' + prefix + '-min-input').value);
+        qs('#' + prefix + '-input').max = Number(qs('#' + prefix + '-max-input').value);
+        qs('#' + prefix + '-input').min = Number(qs('#' + prefix + '-min-input').value);
         }
     });
     }
@@ -412,18 +408,18 @@ var functionsShown = [true];
 function addNewFunction () {
     nof++;
     let char = alphabet(nof, true);
-    $('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-hide-' + nof + '" onclick="graphFunction();"></button><button class="fa fa-trash" id="function-delete-' + nof + '" onclick="graphFunction();"></button></p><hr/>';
-    /*$('#function-delete-' + nof).addEventListener('click', function () {
-    $('#function-input-' + nof).setAttribute('id', 'function-input-' + nof + 'h');
-    $('#function-' + nof).style.display = 'none';
+    qs('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button class="fa fa-eye" id="function-hide-' + nof + '" onclick="graphFunction();"></button><button class="fa fa-trash" id="function-delete-' + nof + '" onclick="graphFunction();"></button></p><hr/>';
+    /*qs('#function-delete-' + nof).addEventListener('click', function () {
+    qs('#function-input-' + nof).setAttribute('id', 'function-input-' + nof + 'h');
+    qs('#function-' + nof).style.display = 'none';
     });*/
-    if (nof > 1) $('#function-delete-1').removeAttribute('disabled');
-    else $('#function-delete-1').disabled = 'disabled';
-    if ($('#graph-auto').checked) graphFunction();
+    if (nof > 1) qs('#function-delete-1').removeAttribute('disabled');
+    else qs('#function-delete-1').disabled = 'disabled';
+    if (qs('#graph-auto').checked) graphFunction();
     inputsAutoGraphTest();
     translations.applyLang();
-    $('#function-hide-' + nof).addEventListener('input', function () {
-    $('#function-input-' + nof).value += '‽';
+    qs('#function-hide-' + nof).addEventListener('input', function () {
+    qs('#function-input-' + nof).value += '‽';
     });
 }
 
@@ -440,8 +436,8 @@ function drawGrid (majorStep, minorStep) {
     //ctx.translate(0, 0);
     // Draw the x and y axes
     ctx.lineWidth = 2;
-    var initChecked = $('#graph-ticks').checked;
-    if ($('#graph-axes').checked) {
+    var initChecked = qs('#graph-ticks').checked;
+    if (qs('#graph-axes').checked) {
     // xr-axis
     ctx.beginPath();
     ctx.moveTo(-canvas.width - imax, 0);
@@ -455,12 +451,12 @@ function drawGrid (majorStep, minorStep) {
     ctx.lineTo(0, canvas.height - imay);
     ctx.strokeStyle = 'red';
     ctx.stroke();
-    $('#graph-ticks').removeAttribute('disabled');
-    $('#graph-ticks').removeAttribute('checked');
+    qs('#graph-ticks').removeAttribute('disabled');
+    qs('#graph-ticks').removeAttribute('checked');
     }
     else {
-    $('#graph-ticks').disabled = 'disabled';
-    $('#graph-ticks').checked = initChecked;
+    qs('#graph-ticks').disabled = 'disabled';
+    qs('#graph-ticks').checked = initChecked;
     }
 
     // Draw all of the gridlines
@@ -470,7 +466,7 @@ function drawGrid (majorStep, minorStep) {
     if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
     else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
     else ctx.lineWidth = 0.03125;
-    if ($('#graph-grids').checked) {
+    if (qs('#graph-grids').checked) {
         // Draw quadrants I and IV
         // Horizontal
         ctx.beginPath();
@@ -485,21 +481,21 @@ function drawGrid (majorStep, minorStep) {
         ctx.stroke();
     }
     // Draw tick marks if selected
-    if ($('#graph-ticks').checked && (i/5) % mS == 0) {
-        // Number($('#graph-tick-height').value)
+    if (qs('#graph-ticks').checked && (i/5) % mS == 0) {
+        // Number(qs('#graph-tick-height').value)
         ctx.lineWidth = 0.5;
         // Draw quadrants I and IV
         // Horizontal
         ctx.strokeStyle = 'red';
         ctx.beginPath();
-        ctx.moveTo(-Number($('#graph-tick-height').value), i);
-        ctx.lineTo(Number($('#graph-tick-height').value), i);
+        ctx.moveTo(-Number(qs('#graph-tick-height').value), i);
+        ctx.lineTo(Number(qs('#graph-tick-height').value), i);
         ctx.stroke();
         // Draw quadrants II and III
         ctx.strokeStyle = 'red';
         ctx.beginPath();
-        ctx.moveTo(-Number($('#graph-tick-height').value), i);
-        ctx.lineTo(Number($('#graph-tick-height').value), i);
+        ctx.moveTo(-Number(qs('#graph-tick-height').value), i);
+        ctx.lineTo(Number(qs('#graph-tick-height').value), i);
         ctx.stroke();
     }
     }
@@ -509,7 +505,7 @@ function drawGrid (majorStep, minorStep) {
     if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
     else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
     else ctx.lineWidth = 0.03125;
-    if ($('#graph-grids').checked) {
+    if (qs('#graph-grids').checked) {
         // Draw quadrants I and IV
         // Vertical
         ctx.beginPath();
@@ -524,21 +520,21 @@ function drawGrid (majorStep, minorStep) {
         ctx.stroke();
     }
     // Draw tick marks if selected
-    if ($('#graph-ticks').checked && (i/5) % mS == 0) {
-        // Number($('#graph-tick-height').value)
+    if (qs('#graph-ticks').checked && (i/5) % mS == 0) {
+        // Number(qs('#graph-tick-height').value)
         ctx.lineWidth = 0.5;
         // Draw quadrants I and IV
         // Vertical
         ctx.strokeStyle = 'blue';
         ctx.beginPath();
-        ctx.moveTo(i, -Number($('#graph-tick-height').value));
-        ctx.lineTo(i, Number($('#graph-tick-height').value));
+        ctx.moveTo(i, -Number(qs('#graph-tick-height').value));
+        ctx.lineTo(i, Number(qs('#graph-tick-height').value));
         ctx.stroke();
         // Draw quadrants II and III
         // Vertical
         ctx.beginPath();
-        ctx.moveTo(-1 * i, -Number($('#graph-tick-height').value));
-        ctx.lineTo(-1 * i, Number($('#graph-tick-height').value));
+        ctx.moveTo(-1 * i, -Number(qs('#graph-tick-height').value));
+        ctx.lineTo(-1 * i, Number(qs('#graph-tick-height').value));
         ctx.stroke();
     }
     }
@@ -568,11 +564,11 @@ function drawGrid3D () {
     var j = 90;
     var k = 0;
     for (var i = -canvas.width/2; i < iidiag; i += (2*a)) {
-    if ($('#graph-ticks').checked) {
+    if (qs('#graph-ticks').checked) {
         ctx.beginPath()
         if (k % 6 == 0) {
-        ctx.moveTo(i, -j + Number($('#graph-tick-height').value));
-        ctx.lineTo(i, -j - Number($('#graph-tick-height').value));
+        ctx.moveTo(i, -j + Number(qs('#graph-tick-height').value));
+        ctx.lineTo(i, -j - Number(qs('#graph-tick-height').value));
         //ctx.lineTo(i + (2*a), j - a);
         ctx.lineWidth = 1.5;
         ctx.stroke();
@@ -642,27 +638,27 @@ function updateTrace () {
     }
     if (yr == 0 && yi == 0) texty = '0'
     
-    $('#xri-showcase').innerHTML = textx;
-    $('#yri-showcase').innerHTML = texty;
+    qs('#xri-showcase').innerHTML = textx;
+    qs('#yri-showcase').innerHTML = texty;
 }
 // Solve the function for some X
 function countOccurrences(str, search) {
     return str.split(search).length - 1;
 }
-function solve (x, i, solveComplex, whence, whichFunction = 1, roundTo = Number($('#trace-round').value)) {
+function solve (x, i, solveComplex, whence, whichFunction = 1, roundTo = Number(qs('#trace-round').value)) {
     if (whence == undefined) whence = 1;
     // Read the function input
     let scope = {
     x: math.complex(x, i),
     tet: tet,
     };
-    var functext = $('#function-input-' + whichFunction).value.toString();
+    var functext = qs('#function-input-' + whichFunction).value.toString();
     // Number formatting
     functext = functext.replace(',',''); // Commas into nothings
     // Operations
-    functext = functext.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet($1,$2)'); // Tetration
+    functext = functext.replace(/([\d\w\)\.]+)\s*\^\^\s*([\d\w\(\)\.]+)/g, 'tet(qs1,qs2)'); // Tetration
     functext = functext.replace('{','(').replace('}', ')'); // Minimal LaTeX cross-compatibility
-    functext = functext.replace(/\|([^|]+)\|/g, 'abs($1)'); // Absolute value
+    functext = functext.replace(/\|([^|]+)\|/g, 'abs(qs1)'); // Absolute value
     // Constants
     functext = functext.replace(/c/, round('299792458', roundTo)); // Speed of Light (c)
     functext = functext.replace(/pi/, round('3.14159', roundTo)); // Pi
@@ -692,36 +688,36 @@ function graphFunction () {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.translate(canvas.width/2 + scale * toffxr, canvas.height/2 + scale * toffyr);
-    drawGrid(Number($('#graph-major-step').value), Number($('#graph-minor-step').value));
+    drawGrid(Number(qs('#graph-major-step').value), Number(qs('#graph-minor-step').value));
 
     // Loop to graph each function
     for (var f = 1; f <= nof; f++) {
-    var colour = $('#function-colour-' + f).value;
+    var colour = qs('#function-colour-' + f).value;
     if (do3D) drawGrid3D();
     ctx.strokeStyle = colour;
-    var preprecision = Number($('#trace-round').value);
+    var preprecision = Number(qs('#trace-round').value);
     if (preprecision < -4) preprecision = -1;
     var precision = 5 * 10 ** preprecision;
     if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
     if (preprecision <= -1) precision = 2 ** (preprecision + 1);
     
-    for (var i = -canvas.width/2 - $('#graph-offset-xr').value; i < canvas.width/2 - $('#graph-offset-xr').value; i += precision) {
+    for (var i = -canvas.width/2 - qs('#graph-offset-xr').value; i < canvas.width/2 - qs('#graph-offset-xr').value; i += precision) {
         let width = 1;
         // The linear graph
         var xrt = i;
-        var yrt = -solve(xrt, Number($('#xiv-input').value), false, 1, f);
-        var yrit = -solve(xrt, Number($('#xiv-input').value), true, 1, f)
+        var yrt = -solve(xrt, Number(qs('#xiv-input').value), false, 1, f);
+        var yrit = -solve(xrt, Number(qs('#xiv-input').value), true, 1, f)
         var xrtNext = i + precision;
-        var yrtNext = -solve(xrtNext, Number($('#xiv-input').value), false, 1, f);
-        if ($('#graph-dimension-xi').checked) {
-        yrt = -solve(Number($('#xiv-input').value), xrt, false, 1, f);
-        yrtNext = -solve(Number($('#xiv-input').value), xrtNext, false, 1, f)
+        var yrtNext = -solve(xrtNext, Number(qs('#xiv-input').value), false, 1, f);
+        if (qs('#graph-dimension-xi').checked) {
+        yrt = -solve(Number(qs('#xiv-input').value), xrt, false, 1, f);
+        yrtNext = -solve(Number(qs('#xiv-input').value), xrtNext, false, 1, f)
         }
 
         // Holes ( test and try (x-1)(x+1)/(x-1) )
         /*if (isHole(yrtNext) == true|| isHole(yrt) == true) {
-        var xrtMext = i + 1 / 10 ** Number($('#trace-round').value);
-        var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false, 1, f);
+        var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
+        var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         
         if (isHole(yrtNext) == true) {
             yrtNext = (yrtMext != undefined) ? yrtMext: 0;
@@ -730,7 +726,7 @@ function graphFunction () {
             yrt = (yrtMext != undefined) ? yrtMext: 0;
             ctx.beginPath();
             ctx.arc(scale * xrt, scale * yrt, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = $('#function-colour').value;
+            ctx.fillStyle = qs('#function-colour').value;
             ctx.fill();
             ctx.lineWidth = 0;
             ctx.stroke();
@@ -738,17 +734,17 @@ function graphFunction () {
         }*/
         // Vertical asymptotes
         if (!isFinite(yrtNext) && yrtNext != undefined) {
-        var xrtMext = i + 1 / 10 ** Number($('#trace-round').value);
-        var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false, 1, f);
+        var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
+        var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrtNext = (yrtMext > 0) ? -360 : 360;
         }
 
         else if (!isFinite(yrt) && yrt != undefined) {
-        var xrtMext = i + 1 / 10 ** Number($('#trace-round').value);
-        var yrtMext = -solve(xrtMext, Number($('#xiv-input').value), false, 1, f);
+        var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
+        var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrt = (yrtMext > 0) ? 360 : -360;
         }
-        if (yrit != -Number($('#xiv-input').value)) {
+        if (yrit != -Number(qs('#xiv-input').value)) {
         ctx.strokeStyle = 'silver';
         ctx.lineWidth = width * 6;
         }
@@ -756,14 +752,14 @@ function graphFunction () {
         ctx.strokeStyle = colour;
         ctx.lineWidth = width;
         }
-        if (i != -canvas.width/2 - $('#graph-offset-xr').value) {
+        if (i != -canvas.width/2 - qs('#graph-offset-xr').value) {
         ctx.lineWidth = width;
         ctx.moveTo(scale * xrt, scale * yrt);
         ctx.lineTo(scale * xrtNext, scale * yrtNext);
         ctx.stroke();
         }
         // The pointed graph
-        if (i % Number($('#graph-minor-step').value) == 0 && $('#graph-points').checked) {
+        if (i % Number(qs('#graph-minor-step').value) == 0 && qs('#graph-points').checked) {
         // Positive x point
         ctx.beginPath();
         ctx.arc(scale * xrt, scale * yrt, 1.25, 0, 2 * Math.PI);
@@ -771,7 +767,7 @@ function graphFunction () {
         ctx.stroke();
         // Negative x point
         var xrtNeg = -i;
-        var yrtNeg = -solve(xrtNeg, Number($('#xiv-input').value), false, 1, f);
+        var yrtNeg = -solve(xrtNeg, Number(qs('#xiv-input').value), false, 1, f);
         ctx.beginPath();
         ctx.arc(scale * xrtNeg, scale * yrtNeg, 1.25, 0, 2 * Math.PI);
         ctx.fill();

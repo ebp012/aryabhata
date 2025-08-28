@@ -67,93 +67,93 @@ var translations = {
   applyLang: function () {
     switch (lang) {
       case 'en':
-        $('#scientificTab').style.fontSize = '12pt';
-        $('#memoriseTab').style.fontSize = '12pt';
+        qs('#scientificTab').style.fontSize = '12pt';
+        qs('#memoriseTab').style.fontSize = '12pt';
         // Navigation
-        $('#homeTab span').innerHTML = translations.en.graphingTab;
-        $('#scientificTab span').innerHTML = translations.en.scientificTab;
-        $('#algebraTab span').innerHTML = translations.en.algebraTab;
-        $('#unitsTab span').innerHTML = translations.en.unitsTab;
-        $('#chemistryTab span').innerHTML = translations.en.chemistryTab;
-        $('#learnTab span').innerHTML = translations.en.learnTab;
-        $('#memoriseTab span').innerHTML = translations.en.memoriseTab;
-        $('#parseTab span').innerHTML = translations.en.parseTab;
-        $('#controlsTab span').innerHTML = translations.en.controlsTab;
-        $('#graphing h1').innerHTML = translations.en.graphingTab;
-        $('#scientific h1').innerHTML = translations.en.scientificTab;
-        $('#algebra h1').innerHTML = translations.en.algebraTab;
-        $('#units h1').innerHTML = translations.en.unitsTab;
-        $('#chemistry h1').innerHTML = translations.en.chemistryTab;
-        $('#learn h1').innerHTML = translations.en.learnTab;
-        $('#memorise h1').innerHTML = translations.en.memoriseTab;
-        $('#parse h1').innerHTML = translations.en.parseTab;
-        $('#controls h1').innerHTML = translations.en.controlsTab;
+        qs('#homeTab span').innerHTML = translations.en.graphingTab;
+        qs('#scientificTab span').innerHTML = translations.en.scientificTab;
+        qs('#algebraTab span').innerHTML = translations.en.algebraTab;
+        qs('#unitsTab span').innerHTML = translations.en.unitsTab;
+        qs('#chemistryTab span').innerHTML = translations.en.chemistryTab;
+        qs('#learnTab span').innerHTML = translations.en.learnTab;
+        qs('#memoriseTab span').innerHTML = translations.en.memoriseTab;
+        qs('#parseTab span').innerHTML = translations.en.parseTab;
+        qs('#controlsTab span').innerHTML = translations.en.controlsTab;
+        qs('#graphing h1').innerHTML = translations.en.graphingTab;
+        qs('#scientific h1').innerHTML = translations.en.scientificTab;
+        qs('#algebra h1').innerHTML = translations.en.algebraTab;
+        qs('#units h1').innerHTML = translations.en.unitsTab;
+        qs('#chemistry h1').innerHTML = translations.en.chemistryTab;
+        qs('#learn h1').innerHTML = translations.en.learnTab;
+        qs('#memorise h1').innerHTML = translations.en.memoriseTab;
+        qs('#parse h1').innerHTML = translations.en.parseTab;
+        qs('#controls h1').innerHTML = translations.en.controlsTab;
         // Top row
-        $('#xiv-title').innerHTML = translations.en.xivTitle;
-        $('#xr-title').innerHTML = translations.en.xrTitle;
-        $('#xi-title').innerHTML = translations.en.xiTitle;
-        $('#graph-title').innerHTML = translations.en.graphTitle;
-        $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+        qs('#xiv-title').innerHTML = translations.en.xivTitle;
+        qs('#xr-title').innerHTML = translations.en.xrTitle;
+        qs('#xi-title').innerHTML = translations.en.xiTitle;
+        qs('#graph-title').innerHTML = translations.en.graphTitle;
+        qsa('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
           element.innerHTML = translations.en.sliderInput;
         });
         // Bottom row
-        $('#function-title').innerHTML = translations.en.functionTitle;
-        if (nof == 1) $('#function-title').innerHTML = translations.en.functionTitle;
-        else $('#function-title').innerHTML = translations.en.functionTitlePl;
-        $('#trace-title').innerHTML = translations.en.traceTitle;
-        $('#round-title').innerHTML = translations.en.roundTitle;
-        $('#scale-title').innerHTML = translations.en.scaleTitle;
+        qs('#function-title').innerHTML = translations.en.functionTitle;
+        if (nof == 1) qs('#function-title').innerHTML = translations.en.functionTitle;
+        else qs('#function-title').innerHTML = translations.en.functionTitlePl;
+        qs('#trace-title').innerHTML = translations.en.traceTitle;
+        qs('#round-title').innerHTML = translations.en.roundTitle;
+        qs('#scale-title').innerHTML = translations.en.scaleTitle;
         // Graph settings
-        $('label[for="graph-ticks"]').innerHTML = translations.en.graphTicks;
-        $('label[for="graph-grids"]').innerHTML = translations.en.gridLines;
-        $('label[for="graph-axes"]').innerHTML = translations.en.graphAxes;
-        $('label[for="graph-points"]').innerHTML = translations.en.graphPoints;
-        $('label[for="graph-scroll-xiv"]').innerHTML = translations.en.xivScroll;
-        $('label[for="graph-advanced"]').innerHTML = translations.en.advancedOptions;
+        qs('label[for="graph-ticks"]').innerHTML = translations.en.graphTicks;
+        qs('label[for="graph-grids"]').innerHTML = translations.en.gridLines;
+        qs('label[for="graph-axes"]').innerHTML = translations.en.graphAxes;
+        qs('label[for="graph-points"]').innerHTML = translations.en.graphPoints;
+        qs('label[for="graph-scroll-xiv"]').innerHTML = translations.en.xivScroll;
+        qs('label[for="graph-advanced"]').innerHTML = translations.en.advancedOptions;
         break;
       case 'fr':
-        $('#scientificTab').style.fontSize = '10pt';
-        $('#memoriseTab').style.fontSize = '10pt';
+        qs('#scientificTab').style.fontSize = '10pt';
+        qs('#memoriseTab').style.fontSize = '10pt';
         // Navigation
-        $('#homeTab span').innerHTML = translations.fr.graphingTab;
-        $('#scientificTab span').innerHTML = translations.fr.scientificTab;
-        $('#algebraTab span').innerHTML = translations.fr.algebraTab;
-        $('#unitsTab span').innerHTML = translations.fr.unitsTab;
-        $('#chemistryTab span').innerHTML = translations.fr.chemistryTab;
-        $('#learnTab span').innerHTML = translations.fr.learnTab;
-        $('#memoriseTab span').innerHTML = translations.fr.memoriseTab;
-        $('#parseTab span').innerHTML = translations.fr.parseTab;
-        $('#controlsTab span').innerHTML = translations.fr.controlsTab;
-        $('#graphing h1').innerHTML = translations.fr.graphingTab;
-        $('#scientific h1').innerHTML = translations.fr.scientificTab;
-        $('#algebra h1').innerHTML = translations.fr.algebraTab;
-        $('#units h1').innerHTML = translations.fr.unitsTab;
-        $('#chemistry h1').innerHTML = translations.fr.chemistryTab;
-        $('#learn h1').innerHTML = translations.fr.learnTab;
-        $('#memorise h1').innerHTML = translations.fr.memoriseTab;
-        $('#parse h1').innerHTML = translations.fr.parseTab;
-        $('#controls h1').innerHTML = translations.fr.controlsTab;
+        qs('#homeTab span').innerHTML = translations.fr.graphingTab;
+        qs('#scientificTab span').innerHTML = translations.fr.scientificTab;
+        qs('#algebraTab span').innerHTML = translations.fr.algebraTab;
+        qs('#unitsTab span').innerHTML = translations.fr.unitsTab;
+        qs('#chemistryTab span').innerHTML = translations.fr.chemistryTab;
+        qs('#learnTab span').innerHTML = translations.fr.learnTab;
+        qs('#memoriseTab span').innerHTML = translations.fr.memoriseTab;
+        qs('#parseTab span').innerHTML = translations.fr.parseTab;
+        qs('#controlsTab span').innerHTML = translations.fr.controlsTab;
+        qs('#graphing h1').innerHTML = translations.fr.graphingTab;
+        qs('#scientific h1').innerHTML = translations.fr.scientificTab;
+        qs('#algebra h1').innerHTML = translations.fr.algebraTab;
+        qs('#units h1').innerHTML = translations.fr.unitsTab;
+        qs('#chemistry h1').innerHTML = translations.fr.chemistryTab;
+        qs('#learn h1').innerHTML = translations.fr.learnTab;
+        qs('#memorise h1').innerHTML = translations.fr.memoriseTab;
+        qs('#parse h1').innerHTML = translations.fr.parseTab;
+        qs('#controls h1').innerHTML = translations.fr.controlsTab;
         // Top row
-        $('#xiv-title').innerHTML = translations.fr.xivTitle;
-        $('#xr-title').innerHTML = translations.fr.xrTitle;
-        $('#xi-title').innerHTML = translations.fr.xiTitle;
-        $('#graph-title').innerHTML = translations.fr.graphTitle;
-        $all('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
+        qs('#xiv-title').innerHTML = translations.fr.xivTitle;
+        qs('#xr-title').innerHTML = translations.fr.xrTitle;
+        qs('#xi-title').innerHTML = translations.fr.xiTitle;
+        qs('#graph-title').innerHTML = translations.fr.graphTitle;
+        qsa('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
           element.innerHTML = translations.fr.sliderInput;
         });
         // Bottom row
-        if (nof == 1) $('#function-title').innerHTML = translations.fr.functionTitle;
-        else $('#function-title').innerHTML = translations.fr.functionTitlePl;
-        $('#trace-title').innerHTML = translations.fr.traceTitle;
-        $('#round-title').innerHTML = translations.fr.roundTitle;
-        $('#scale-title').innerHTML = translations.fr.scaleTitle;
+        if (nof == 1) qs('#function-title').innerHTML = translations.fr.functionTitle;
+        else qs('#function-title').innerHTML = translations.fr.functionTitlePl;
+        qs('#trace-title').innerHTML = translations.fr.traceTitle;
+        qs('#round-title').innerHTML = translations.fr.roundTitle;
+        qs('#scale-title').innerHTML = translations.fr.scaleTitle;
         // Graph settings
-        $('label[for="graph-ticks"]').innerHTML = translations.fr.graphTicks;
-        $('label[for="graph-grids"]').innerHTML = translations.fr.gridLines;
-        $('label[for="graph-axes"]').innerHTML = translations.fr.graphAxes;
-        $('label[for="graph-points"]').innerHTML = translations.fr.graphPoints;
-        $('label[for="graph-scroll-xiv"]').innerHTML = translations.fr.xivScroll;
-        $('label[for="graph-advanced"]').innerHTML = translations.fr.advancedOptions;
+        qs('label[for="graph-ticks"]').innerHTML = translations.fr.graphTicks;
+        qs('label[for="graph-grids"]').innerHTML = translations.fr.gridLines;
+        qs('label[for="graph-axes"]').innerHTML = translations.fr.graphAxes;
+        qs('label[for="graph-points"]').innerHTML = translations.fr.graphPoints;
+        qs('label[for="graph-scroll-xiv"]').innerHTML = translations.fr.xivScroll;
+        qs('label[for="graph-advanced"]').innerHTML = translations.fr.advancedOptions;
         break;
     };
   },
