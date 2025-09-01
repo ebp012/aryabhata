@@ -90,7 +90,7 @@
             <table class='non' style='margin-left: auto; margin-right: auto; min-width: calc(100% - 60px);'>
               <thead>
                 <tr>
-                  <td style='min-width: calc(18% - 60%);'>Functions</td>
+                  <td style='min-width: calc(18% - 60px);'>Functions</td>
                   <td onclick='graphFunction();' id='graph-title' colspan='2' style='min-width: calc(82% - 60px);'>Graph</td>
                 </tr>
               </thead>
@@ -228,7 +228,7 @@
                       </div>
 
                       <div style='height: 19pt;'></div>
-                      <p class='page-nav' style='font-size: 12pt; padding: 1pt !important; position: absolute;'>
+                      <p class='page-nav' style='font-size: 12pt; padding: 1pt !important; position: relative;'>
                           <button class='grav-item' data-target='#graph-offset-control'>Panning</button>
                           <button class='grav-item' data-target='#graph-xi-viewport'>XI Viewport</button>
                           <button class='grav-item' data-target='#graph-gridlines'>Gridlines</button>
@@ -949,7 +949,7 @@
                   <td id='atom-name'>?</td>
                 </tr>
                 <tr>
-                  <td><strong>Covalent Name</strong></td>
+                  <td><strong>Element Root</strong></td>
                   <td id='atom-covalent'>?</td>
                 </tr>
                 <tr>
@@ -1061,254 +1061,6 @@
             </table>
           </div>
         </div>
-        <script>
-          const periodicTable = [
-            [0, 'neutronium', 'neutride', 'Nu', [0,0], 1.67492749804, 'theoretical', null, null],
-            [1, 'hydrogen', 'hydride', 'H', [1,1], 1.008, 'nonmetal', -259.16, -252.87],
-            [2, 'helium', 'helide', 'He', [18,1], 4.002602, 'noble gas', -272.2, -268.93],
-            [3, 'lithium', 'lithide', 'Li', [1,2], 6.94, 'alkali metal', 180.54, 1342],
-            [4, 'beryllium', 'beryllide', 'Be', [2,2], 9.0122, 'alkaline earth metal', 1287, 2469],
-            [5, 'boron', 'boride', 'B', [13,2], 10.81, 'metalloid', 2075, 4000],
-            [6, 'carbon', 'carbide', 'C', [14,2], 12.011, 'nonmetal', 3550, 4827],
-            [7, 'nitrogen', 'nitride', 'N', [15,2], 14.007, 'nonmetal', -210.1, -195.79],
-            [8, 'oxygen', 'oxide', 'O', [16,2], 15.999, 'nonmetal', -218.79, -182.95],
-            [9, 'fluorine', 'fluoride', 'F', [17,2], 18.998, 'halogen', -219.67, -188.11],
-            [10, 'neon', 'neide', 'Ne', [18,2], 20.180, 'noble gas', -248.59, -246.08],
-            [11, 'sodium', 'natride', 'Na', [1,3], 22.990, 'alkali metal', 97.72, 883],
-            [12, 'magnesium', 'magneside', 'Mg', [2,3], 24.305, 'alkaline earth metal', 650, 1090],
-            [13, 'aluminium', 'alumide', 'Al', [13,3], 26.982, 'post-transition metal', 660.3, 2470],
-            [14, 'silicon', 'silicide', 'Si', [14,3], 28.085, 'metalloid', 1414, 3265],
-            [15, 'phosphorous', 'phosphide', 'P', [15,3], 30.974, 'nonmetal', 44.15, 280.5],
-            [16, 'sulphur', 'sulphide', 'S', [16,3], 32.06, 'nonmetal', 115.21, 444.6],
-            [17, 'chlorine', 'chloride', 'Cl', [17,3], 35.45, 'halogen', -101.5, -34.04],
-            [18, 'argon', 'argide', 'Ar', [18,3], 39.948, 'noble gas', -189.34, -185.85],
-            [19, 'potassium', 'potasside', 'K', [1,4], 39.098, 'alkali metal', 63.5, 759],
-            [20, 'calcium', 'calcide', 'Ca', [2,4], 40.078, 'alkaline earth metal', 842, 1484],
-            [21, 'scandium', 'scandide', 'Sc', [3,4], 44.956, 'transition metal', 1541, 2836],
-            [22, 'titanium', 'titanide', 'Ti', [4,4], 47.867, 'transition metal', 1668, 3287],
-            [23, 'vanadium', 'vanadide', 'V', [5,4], 50.942, 'transition metal', 1910, 3407],
-            [24, 'chromium', 'chromide', 'Cr', [6,4], 51.996, 'transition metal', 1907, 2671],
-            [25, 'manganese', 'manganide', 'Ma', [7,4], 54.938, 'transition metal', 1244, 2095],
-            [26, 'iron', 'ferride', 'Fe', [8,4], 55.845, 'transition metal', 1538, 2862],
-            [27, 'cobalt', 'cobaltide', 'Co', [9,4], 58.933, 'transition metal', 1495, 2927],
-            [28, 'nickel', 'nickelide', 'Ni', [10,4], 58.693, 'transition metal', 1455, 2730],
-            [29, 'copper', 'cupride', 'Cu', [11,4], 63.546, 'transition metal', 1085, 2562],
-            [30, 'zinc', 'zincide', 'Zn', [12,4], 65.38, 'transition metal', 419.5, 907],
-            [31, 'gallium', 'gallide', 'Ga', [13,4], 69.723, 'post-transition metal', 29.76, 2204],
-            [32, 'germanium', 'germanide', 'Ge', [14,4], 72.63, 'metalloid', 938.3, 2833],
-            [33, 'arsenic', 'arsenide', 'As', [15,4], 74.922, 'metalloid', 817, 614],
-            [34, 'selenium', 'selenide', 'Se', [16,4], 78.971, 'nonmetal', 221, 685],
-            [35, 'bromine', 'bromide', 'Br', [17,4], 79.904, 'halogen', -7.2, 58.8],
-            [36, 'krypton', 'kryptide', 'Kr', [18,4], 83.798, 'noble gas', -157.4, -153.22],
-            [37, 'rubidium', 'rubide', 'Rb', [1,5], 85.468, 'alkali metal', 39.3, 688],
-            [38, 'strontium', 'strontide', 'Sr', [2,5], 87.62, 'alkaline earth metal', 777, 1382],
-            [39, 'yttrium', 'yttride', 'Y', [3,5], 88.906, 'transition metal', 1526, 3337],
-            [40, 'zirconium', 'zirconide', 'Zr', [4,5], 91.224, 'transition metal', 1855, 4377],
-            [41, 'niobium', 'niobide', 'Nb', [5,5], 92.906, 'transition metal', 2477, 4744],
-            [42, 'molybdenum', 'molybdenide', 'Mb', [6,5], 95.95, 'transition metal', 2623, 4639],
-            [43, 'technetium', 'technetide', 'Tc', [7,5], 98, 'transition metal', 2157, 4265],
-            [44, 'ruthenium', 'ruthenide', 'Ru', [8,5], 101.07, 'transition metal', 2334, 4150],
-            [45, 'rhodium', 'rhodide', 'Rh', [9,5], 102.91, 'transition metal', 1964, 3727],
-            [46, 'palladium', 'palladide', 'Pd', [10,5], 106.42, 'transition metal', 1554, 2963],
-            [47, 'silver', 'argentide', 'Ar', [11,5], 107.87, 'transition metal', 961.8, 2162],
-            [48, 'cadmium', 'cadmide', 'Cd', [12,5], 112.41, 'transition metal', 321.07, 767],
-            [49, 'indium', 'indide', 'In', [13,5], 114.82, 'post-transition metal', 156.6, 2072],
-            [50, 'tin', 'stannide', 'Sn', [14,5], 118.71, 'post-transition metal', 231.93, 2602],
-            [51, 'antimony', 'stibide', 'Sb', [15,5], 121.76, 'metalloid', 630.63, 1587],
-            [52, 'tellurium', 'telluride', 'Te', [16,5], 127.6, 'metalloid', 449.5, 988],
-            [53, 'iodine', 'iodide', 'I', [17,5], 126.90, 'halogen', 113.7, 184.3],
-            [54, 'xenon', 'xenide', 'Xe', [18,5], 131.29, 'noble gas', -111.8, -108.1],
-            [55, 'caesium', 'caeside', 'Cs', [1,6], 132.91, 'alkali metal', 28.44, 671],
-            [56, 'barium', 'baride', 'Ba', [2,6], 137.33, 'alkaline earth metal', 727, 1897],
-            [57, 'lanthanum', 'lanthanide', 'La', [3,6], 138.91, 'lanthanide', 920, 3464],
-            [58, 'cerium', 'cereide', 'Ce', [4,6], 140.12, 'lanthanide', 795, 3426],
-            [59, 'praseodymium', 'praseodymide', 'Pr', [5,6], 140.91, 'lanthanide', 931, 3127],
-            [60, 'neodymium', 'neodymide', 'Nd', [6,6], 144.24, 'lanthanide', 1024, 3074],
-            [61, 'promethium', 'promethide', 'Pm', [7,6], 145, 'lanthanide', 1042, 3000],
-            [62, 'samarium', 'samaride', 'Sm', [8,6], 150.36, 'lanthanide', 1072, 1794],
-            [63, 'europium', 'europium', 'Eu', [9,6], 151.96, 'lanthanide', 822, 1597],
-            [64, 'gadolinium', 'gadolinide', 'Gd', [10,6], 157.25, 'lanthanide', 1313, 3273],
-            [65, 'terbium', 'terbide', 'Tb', [11,6], 158.93, 'lanthanide', 1356, 3230],
-            [66, 'dysprosium', 'dysproside', 'Dy', [12,6], 162.50, 'lanthanide', 1412, 2562],
-            [67, 'holmium', 'holmide', 'Ho', [13,6], 164.93, 'lanthanide', 1474, 2700],
-            [68, 'erbium', 'erbide', 'Er', [14,6], 167.26, 'lanthanide', 1529, 2868],
-            [69, 'thulium', 'thulide', 'Tm', [15,6], 168.93, 'lanthanide', 1545, 1950],
-            [70, 'ytterbium', 'ytterbide', 'Yb', [16,6], 173.05, 'lanthanide', 824, 1196],
-            [71, 'lutetium', 'lutetide', 'Lu', [17,6], 174.97, 'lanthanide', 1663, 3402],
-            [72, 'hafnium', 'hafnide', 'Hf', [4,6], 178.49, 'transition metal', 2233, 4603],
-            [73, 'tantalum', 'tantalide', 'Ta', [5,6], 180.95, 'transition metal', 3017, 5458],
-            [74, 'tungsten', 'wolframide', 'W', [6,6], 183.84, 'transition metal', 3422, 5555],
-            [75, 'rhenium', 'rhenide', 'Rh', [7,6], 186.21, 'transition metal', 3186, 5596],
-            [76, 'osmium', 'osmide', 'Os', [8,6], 190.23, 'transition metal', 3045, 5027],
-            [77, 'iridium', 'iridide', 'Ir', [9,6], 192.22, 'transition metal', 2446, 4130],
-            [78, 'platinum', 'platinide', 'Pt', [10,6], 195.08, 'transition metal', 1768, 3825],
-            [79, 'gold', 'auride', 'Au', [11,6], 196.97, 'transition metal', 1064, 2856],
-            [80, 'mercury', 'hydragyride', 'Hg', [12,6], 200.59, 'transition metal', -38.83, 357],
-            [81, 'thallium', 'thallide', 'Tl', [13,6], 204.38, 'post-transition metal', 304, 1473],
-            [82, 'lead', 'plumbide', 'Pb', [14,6], 207.2, 'post-transition metal', 327.46, 1749],
-            [83, 'bismuth', 'bismide', 'Bi', [15,6], 208.98, 'post-transition metal', 271.5, 1564],
-            [84, 'polonium', 'polonide', 'Po', [16,6], 209, 'post-transition metal', 254, 962],
-            [85, 'astatine', 'astatide', 'As', [17,6], 210, 'halogen', 302, 337],
-            [86, 'radon', 'randide', 'Rn', [18,6], 222, 'noble gas', -71, -61.7],
-            [87, 'francium', 'francide', 'Fr', [1,7], 223, 'alkali metal', 27, 677],
-            [88, 'radium', 'radide', 'Ra', [2,7], 226, 'alkaline earth metal', 700, 1737],
-            [89, 'actinium', 'actinide', 'Ac', [3,7], 227, 'actinide', 1050, 3200],
-            [90, 'thorium', 'thoride', 'Th', [4,7], 232.04, 'actinide', 1750, 4800],
-            [91, 'protractinium', 'protractinide', 'Pa', [5,7], 231.04, 'actinide', 1572, 4000],
-            [92, 'uranium', 'uranide', 'U', [6,7], 238.03, 'actinide', 1132, 4131],
-            [93, 'neptunium', 'neptunide', 'Np', [7,7], 237, 'actinide', 640, 3900],
-            [94, 'plutonium', 'plutonide', 'Pu', [8,7], 244, 'actinide', 640, 3235],
-            [95, 'americium', 'americide', 'Am', [9,7], 243, 'actinide', 1176, 2607],
-            [96, 'curium', 'curide', 'Cm', [10,7], 247, 'actinide', 1340, 3110],
-            [97, 'berkelium', 'berkelide', 'Bk', [11,7], 247, 'actinide', 986, 2627],
-            [98, 'californium', 'californide', 'Cf', [12,7], 251, 'actinide', 900, 1743],
-            [99, 'einsteinium', 'einsteinide', 'Es', [13,7], 252, 'actinide', 860, null],
-            [100, 'fermium', 'fermide', 'Fm', [14,7], 257, 'actinide', null, null],
-            [101, 'mendelevium', 'mendelevide', 'Md/Mv', [15,7], 258, 'actinide', null, null],
-            [102, 'nobelium', 'nobelide', 'No', [16,7], 259, 'actinide', null, null],
-            [103, 'lawrencium', 'lawrencide', 'Lr', [17,7], 262, 'actinide', null, null],
-            [104, 'rutherfordium', 'rutherfordide', 'Rf', [4,8], 267, 'transition metal', null, null],
-            [105, 'dubnium', 'dubnide', 'Db', [5,8], 268, 'transition metal', null, null],
-            [106, 'seaborgium', 'seaborgide', 'Sg', [6,8], 269, 'transition metal', null, null],
-            [107, 'bohrium', 'bohride', 'Bh', [7,8], 270, 'transition metal', null, null],
-            [108, 'hassium', 'hasside', 'Hs', [8,8], 269, 'transition metal', null, null],
-            [109, 'meitnerium', 'meitneride', 'Mt', [9,8], 278, 'transition metal', null, null],
-            [110, 'darmstadtium', 'darmstadtide', 'Ds', [10,8], 281, 'transition metal', null, null],
-            [111, 'röntgenium', 'röntgenide', 'Rg', [11,8], 282, 'transition metal', null, null],
-            [112, 'copernicium', 'copernicide', 'Cn', [12,8], 285, 'transition metal', null, null],
-            [113, 'nihonium', 'nihonide', 'Nh', [13,8], 286, 'post-transition metal', null, null],
-            [114, 'flerovium', 'flerovide', 'Fl', [14,8], 289, 'post-transition metal', null, null],
-            [115, 'moscovium', 'muscovide', 'Mc', [15,8], 290, 'post-transition metal', null, null],
-            [116, 'livermorium', 'livermoride', 'Lr', [16,8], 293, 'post-transition metal', null, null],
-            [117, 'tennessine', 'tennesside', 'Ts', [17,8], 294, 'halogen', null, null],
-            [118, 'oganesson', 'oganesside', 'Og', [18,8], 294, 'noble gas', null, null],
-            [119, 'ununennium', 'ununennide', 'Uue', [1,9], 315, 'alkali metal', null, null],
-            [120, 'unbinilium', 'unbinilide', 'Ubn', [2,9], 320, 'alkaline earth metal', null, null],
-            [121, 'unbiunium', 'unbiunide', 'Ubu', [3,9], 321, 'superactinide', null, null],
-            [122, 'unbibium', 'unbibide', 'Ubb', [4,9], 322, 'superactinide', null, null],
-            [123, 'unbitrium', 'unbitride', 'Ubt', [5,9], 323, 'superactinide', null, null],
-            [124, 'unbiquadium', 'unbiquadide', 'Ubq', [6,9], 324, 'superactinide', null, null],
-            [125, 'unbipentium', 'unbipentide', 'Ubp', [7,9], 325, 'superactinide', null, null],
-            [126, 'unbihexium', 'unbihexide', 'Ubh', [8,9], 326, 'superactinide', null, null],
-            [127, 'unbiseptium', 'unbiseptide', 'Ubs', [9,9], 327, 'superactinide', null, null],
-            [128, 'unbioctium', 'unbioctide', 'Ubo', [10,9], 328, 'superactinide', null, null],
-            [129, 'unbiennium', 'unbiennide', 'Ube', [11,9], 329, 'superactinide', null, null],
-            [130, 'untrinilium', 'untrinilide', 'Utn', [12,9], 330, 'superactinide', null, null],
-            [131, 'untriunium', 'untriunide', 'Utu', [13,9], 331, 'superactinide', null, null],
-            [132, 'untribium', 'untribide', 'Utb', [14,9], 332, 'superactinide', null, null],
-            [133, 'untritrium', 'untritride', 'Utt', [15,9], 333, 'superactinide', null, null],
-            [134, 'untriquadium', 'untriquadide', 'Utq', [16,9], 334, 'superactinide', null, null],
-            [135, 'untripentium', 'untripentide', 'Utp', [17,9], 335, 'superactinide', null, null],
-            [136, 'untrihexium', 'untrihexide', 'Uth', [18,9], 336, 'superactinide', null, null],
-            [137, 'feynmanium', 'feynmanide', 'Fy', [1,10], 337, 'superactinide', null, null],
-          ];
-          periodicTable[undefined] = [undefined, 'muonium', 'muide', 'Mu', [-1, 0], 0.113, 'exotic', null, null];
-          periodicTable[312] = [312, 'obamium', 'obamide', 'Ob', [-1, 0], 0.113, 'fictional meme alkali metal', 15, 630];
-          periodicTable[Infinity] = [Infinity, 'infinitium', 'infinitite', 'If', [-1, 0], Infinity, 'fictional material', Infinity, Infinity];
-          periodicTable[-312] = [-312, 'antiobamium', 'antiobamide', '-Ob', [-1, 0], 0.113, 'fictional meme antialkali metal', 15, 630];
-          periodicTable[-Infinity] = [-Infinity, 'antinfinitium', 'antinfinitite', '-If', [-1, 0], -Infinity, 'fictional antimaterial', -Infinity, -Infinity];
-          for (var i = 138; i <= 174; i += 1) {
-            var type;
-            if (i <= 143) type = 'superactinide';
-            else if (i > 143 && i <= 157) type = 'unquadquadide';
-            else if (i > 157 && i <= 166) type = 'transition metal';
-            else if (i > 166 && i <= 169) type = 'post-transition metal';
-            else if (i == 170) type = 'metalloid';
-            else if (i == 171) type = 'halogen';
-            else if (i == 172) type = 'noble gas';
-            else if (i == 173) type = 'alkali metal';
-            else if (i == 174) type = 'alkaline earth metal';
-            else if (i < 174) type = 'impossible'
-            else type = 'exotic';
-            var suffa = ['Un', 'U'];
-            var suffb, suffc;
-            var j = i - 100;
-            var k = j;
-            switch (k % 10) {
-              case 0:
-                suffc = ['nil', 'n'];
-                break;
-              case 1:
-                suffc = ['un', 'u'];
-                break;
-              case 2:
-                suffc = ['bi', 'b'];
-                break;
-              case 3:
-                suffc = ['tri', 't'];
-                break;
-              case 4:
-                suffc = ['quad', 'q'];
-                break;
-              case 5:
-                suffc = ['pent', 'p'];
-                break;
-              case 6:
-                suffc = ['hex', 'h'];
-                break;
-              case 7:
-                suffc = ['sept', 's'];
-                break;
-              case 8:
-                suffc = ['oct', 'o'];
-                break;
-              default:
-                suffc = ['enn', 'n'];
-            }
-            switch ((j - (k % 10))/10 % 100) {
-              case 0:
-                suffb = ['nil', 'n'];
-                break;
-              case 1:
-                suffb = ['un', 'u'];
-                break;
-              case 2:
-                suffb = ['bi', 'b'];
-                break;
-              case 3:
-                suffb = ['tri', 't'];
-                break;
-              case 4:
-                suffb = ['quad', 'q'];
-                break;
-              case 5:
-                suffb = ['pent', 'p'];
-                break;
-              case 6:
-                suffb = ['hex', 'h'];
-                break;
-              case 7:
-                suffb = ['sept', 's'];
-                break;
-              case 8:
-                suffb = ['oct', 'o'];
-                break;
-              default:
-                suffb = ['enn', 'n'];
-            }
-            periodicTable[i] = [i, suffa[0].toLowerCase() + suffb[0] + suffc[0] + 'ium', suffa[0].toLowerCase() + suffb[0] + suffc[0] + 'ide', suffa[1].toString() + suffb[1] + suffc[1], [1+i, 10], 0.113, type, null, null];
-          }
-          for (var i = -1; i >= -174; i -= 1) periodicTable[i] = [i, 'anti' + periodicTable[-i][1], 'anti' + periodicTable[-i][2] + 'ide', periodicTable[-i][3] + '&#x0305;', periodicTable[-i][4], periodicTable[-i][5] + ' (antimatter)', 'anti-' + periodicTable[-i][6], periodicTable[-i][7], periodicTable[-i][8]];
-          function showElement (number = 1) {
-            if ((number > 174) && number != 312) {
-              qs('#atom-num').value = NaN;
-              number = Infinity;
-            }
-            if ((number < -174) && number != -312) {
-              qs('#atom-num').value = NaN;
-              number = -Infinity;
-            }
-            qs('#atom-num').value = periodicTable[number][0];
-            qs('#atom-name').innerHTML = periodicTable[number][1];
-            qs('#atom-covalent').innerHTML = periodicTable[number][2];
-            qs('#atom-symbol').innerHTML = periodicTable[number][3];
-            qs('#atom-coords').innerHTML = periodicTable[number][4];
-            qs('#atom-mass').innerHTML = periodicTable[number][5];
-            qs('#atom-type').innerHTML = periodicTable[number][6];
-            qs('#atom-melt').innerHTML = periodicTable[number][7];
-            qs('#atom-boil').innerHTML = periodicTable[number][8];
-          }
-        </script>
       </div>
 
       <!-- Learn Section -->
@@ -1432,6 +1184,8 @@
           </p>
         </div>
       </div>
+
+      <div class='ender'></div>
     </div>
 
 
@@ -1483,6 +1237,8 @@
     <script src='scripts/graph.js'></script>
     <script src='scripts/translations.js'></script>
     <script src='scripts/scientific.js'></script>
+    <script src='scripts/chemistry.js'></script>
+    <script src='databases/periodictable.js'></script>
     <style>
       @font-face {
         font-family: 'display';

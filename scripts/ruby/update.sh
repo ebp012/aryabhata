@@ -1,0 +1,1 @@
+./scripts/ruby/update-elements.rb > ./databases/periodictable.js

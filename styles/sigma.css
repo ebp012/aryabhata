@@ -98,7 +98,7 @@ body:hover {
   align-items: center;
   outline: none;
   -webkit-user-select: none;
-  padding: 12px;
+  padding: 6px;
   -ms-user-select: none;
   user-select: none;
   background: linear-gradient(
@@ -111,6 +111,9 @@ body:hover {
               inset 0 0 10px rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(12px) saturate(1.4) url(#crystal-distortion-plus);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}
+.nav-bar .nbar-plus {
+  overflow: hidden;
 }
 .nav-bar.desat {
   backdrop-filter: blur(12px) url(#crystal-distortion-plus) saturate(0.7) brightness(0.6);
@@ -718,6 +721,7 @@ p.page-nav::after {
     margin-right: 15%;
   }
 }
+.ender {display: none;}
 @media (max-width: 1200px) and (min-height: 475px) {
   /*.nav-bar {
     width: auto;
@@ -737,6 +741,10 @@ p.page-nav::after {
       rgba(160, 150, 160, 0.54)  /* Dark purple tint *
     );
   }*/
+  .ender {
+    display: block;
+    height: 96px;
+  }
   .nav-bar {
     bottom: 20px !important;
     left: 50%;
@@ -758,6 +766,10 @@ p.page-nav::after {
     gap: 11px;
     min-width: 120px;
     margin: 0.44%;
+    font-size: 12pt;
+  }
+  .nav-item i {
+    font-size: 18pt;
   }
   /* No mobile scrollbar gap */
   ::-webkit-scrollbar, ::-webkit-scrollbar:active, ::-webkit-scrollbar:hover {
@@ -774,14 +786,14 @@ p.page-nav::after {
   body, html {
     height: calc(100vh + 50px) !important;
   }
-  .desk-paper:after {
+  /*.desk-paper:after {
     height: 500px;
     bottom: 0;
     left: 0;
     content: '';
     right: 0;
     width: 100%;
-  }
+  }*/
 
   .container {
     padding: 16px;
