@@ -35,7 +35,7 @@
       }
     </style>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <link href='noedit.sigma.css' rel='stylesheet' type='text/css'/>
+    <link href='styles/sigma.css' rel='stylesheet' type='text/css'/>
     <link
       rel='stylesheet'
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
@@ -91,7 +91,7 @@
               <thead>
                 <tr>
                   <td style='min-width: calc(18% - 60%);'>Functions</td>
-                  <td onclick='graphFunction();' id='graph-title' colspan='2' style='min-width: calc(82% - 60px)'>Graph</td>
+                  <td onclick='graphFunction();' id='graph-title' colspan='2' style='min-width: calc(82% - 60px);'>Graph</td>
                 </tr>
               </thead>
               <tbody>
@@ -166,7 +166,7 @@
                       <div id='graph-div'>
                         <canvas height='360' width='360' style='border: 1px solid grey;' id='graph-canvas'></canvas>
                       </div>
-                      <button id='graph-centre'>Centre</button>
+                      <button id='graph-centre'>Centre</button> <button id='graph-btn' onclick='graphFunction();'>Graph</button>
                       <!--<button id='graph-fullscreen-btn'><i class='fa fa-expand'></i> Fullscreen</button>-->
                       <hr/>
                       <span id='round-title'>Round</span>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup><br/>
@@ -182,18 +182,58 @@
                 <tr>
                   <td>
                     <div id='xiv-td-content'>
-                      <strong id='xiv-title'>xi-viewport</strong><br/>
-                      x-iv: <input type='range' min='-36' max='36' value='0' step='1' id='xiv-input'/><br/>
-                      x-iv = <span id='xiv-value'>0</span><br/>
-                      <div class='graph-adv'>
-                        x-iv Min: <input type='number' value='-36' id='xiv-min-input'/><br/>
-                        x-iv Max: <input type='number' value='36' id='xiv-max-input'/><br/>
-                        x-iv Step: <input type='number' value='1' min='0' id='xiv-step-input'/><br/>
+                      <!-- Graph Offset Control -->
+                      <div class='grontent-section' id='graph-offset-control'>
+                        <strong id='xiv-title'>Panning</strong><br/>
+                        <span id='graph-xryr-offset-div-container-span'>
+                          <div id='graph-xryr-offset-div'>
+                            xr-offset: <input id='graph-offset-xr' type='number' step='1' value='0'/><br/>
+                            yr-offset: <input id='graph-offset-yr' type='number' step='1' value='0'/><br/>
+                            <!--yi-offset: <input id='graph-offset-yi' type='number' step='1' value='0'/>-->
+                          </div>
+                        </span>
+                        <hr/>
+                        <button onclick='qs("#graph-tracing").classList.toggle("hidden");qs("#graph-tracing").slideToggle();'>Trace</button>
+                        <button onclick='qs("#graph-settings-modal-container").classList.toggle("hidden");'>Advanced...</button>
                       </div>
-                      <p hidden><input type='checkbox' id='xiv-type-input' checked='checked'/> <label for='xiv-type-input'>Slider input?</label> <br/></p>
-                      <input id='graph-scroll-xiv' type='checkbox'/> <label for='graph-scroll-xiv'>Scroll for x-iv?</label><hr/>
-                      <button onclick='qs("#graph-tracing").classList.toggle("hidden");qs("#graph-tracing").slideToggle();'>Trace</button>
-                      <button onclick='qs("#graph-settings-modal-container").classList.toggle("hidden");'>Options</button>
+                      <!-- XI Viewport Control -->
+                      <div class='grontent-section' id='graph-xi-viewport'>
+                        <strong id='xiv-title'>xi-viewport</strong><br/>
+                        <label for='xiv-input'>x-iv: </label><input type='range' min='-36' max='36' value='0' step='1' id='xiv-input'/><br/>
+                        x-iv = <span id='xiv-value'>0</span><br/>
+                        <div class='graph-adv'>
+                          x-iv Min: <input type='number' value='-36' id='xiv-min-input'/><br/>
+                          x-iv Max: <input type='number' value='36' id='xiv-max-input'/><br/>
+                          x-iv Step: <input type='number' value='1' min='0' id='xiv-step-input'/><br/>
+                        </div>
+                        <p hidden><label for='xiv-type-input'><input type='checkbox' id='xiv-type-input' checked='checked'/> Slider input?</label> <br/></p>
+                        <label for='graph-scroll-xiv'><input id='graph-scroll-xiv' type='checkbox'/> Scroll for x-iv?</label>
+                      </div>
+
+                      <!-- Gridlines -->
+                      <div class='grontent-section' id='graph-gridlines'>
+                        <strong>Grids</strong><br/>
+                        <input id='graph-grids' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
+                        <input id='graph-axes' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-axes'>Graph axes?</label><hr/>
+                        <label for='graph-minor-step'>Minor step: </label><input id='graph-minor-step' type='number' min='0' step='0.5' value='1' title='distance between thinner gridlines. set to 0 to disable them entirely.'/><br/>
+                        <label for='graph-major-step'>Major step: </label><input id='graph-major-step' type='number' min='0' value='5' title='distance between thicker gridlines. set to 0 to disable them entirely.'/><br/>
+                      </div>
+
+                      <!-- Tickmarks -->
+                      <div class='grontent-section' id='graph-tickmarks'>
+                          <strong>Tickmarks</strong><br/>
+                          <input id='graph-ticks' type='checkbox' oninput='graphFunction();'/> <label for='graph-ticks'>Tick marks?</label><br/>
+                          <label for='graph-tick-height'>Tick height: </label><input id='graph-tick-height' type='number' step='0.5' value='2.5'/><br/>
+                          <input id='graph-points' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-points'>Points on function?</label><br/>
+                      </div>
+
+                      <div style='height: 19pt;'></div>
+                      <p class='page-nav' style='font-size: 12pt; padding: 1pt !important; position: absolute;'>
+                          <button class='grav-item' data-target='#graph-offset-control'>Panning</button>
+                          <button class='grav-item' data-target='#graph-xi-viewport'>XI Viewport</button>
+                          <button class='grav-item' data-target='#graph-gridlines'>Gridlines</button>
+                          <button class='grav-item' data-target='#graph-tickmarks'>Tickmarks</button>
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -246,19 +286,10 @@
               <div style='border-radius: 6px;'>
                 <center>
                   <button onclick='qs("#graph-settings-modal-container").classList.toggle("hidden");'>&times;</button><hr/>
-                  Minor step: <input id='graph-minor-step' type='number' min='0' step='0.5' value='1' title='distance between thinner gridlines. set to 0 to disable them entirely.'/><br/>
-                  Major step: <input id='graph-major-step' type='number' min='0' value='6' title='distance between thicker gridlines. set to 0 to disable them entirely.'/>
-                  <span id='graph-xryr-offset-div-container-span'>
-                    <div id='graph-xryr-offset-div'>
-                      xr-offset: <input id='graph-offset-xr' type='number' step='1' value='0'/><br/>
-                      yr-offset: <input id='graph-offset-yr' type='number' step='1' value='0'/><br/>
-                      yi-offset: <input id='graph-offset-yi' type='number' step='1' value='0'/>
-                    </div>
-                  </span>
-                  <button id='graph-btn' onclick='graphFunction();'>Graph</button>
+                  
+                  
                   <div class='graph-adv'>
                     <hr/>
-                    Tick height: <input id='graph-tick-height' type='number' step='0.5' value='2.5'/><br/>
                     <form>
                       X-axis<br/>
                       <input type='radio' name='graph-dimension-x' id='graph-dimension-xr' checked='checked'/><label for='graph-dimension-xr'>Real only</label><br/>
@@ -273,10 +304,7 @@
                     <input id='graph-auto' type='checkbox' checked='checked'/> <label for='graph-auto' title='resource-consuming'>Graph automatically?</label><br/>
                   </div>
                   <hr/>
-                  <input id='graph-ticks' type='checkbox' oninput='graphFunction();'/> <label for='graph-ticks'>Tick marks?</label><br/>
-                  <input id='graph-grids' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-grids'>Grid lines?</label><br/>
-                  <input id='graph-axes' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-axes'>Graph axes?</label><br/>
-                  <input id='graph-points' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-points'>Graph points?</label><br/>
+                  
                   <input id='graph-advanced' type='checkbox'/> <label for='graph-advanced'>Advanced options?</label><br/>
                 </center>
               </td>
@@ -289,7 +317,7 @@
         <h1 class="page-title">Scientific</h1>
         <div class="desk-paper" style='line-height: 36pt;'>
           <form name="calculator" >
-            <input type="textfield" id="resultFake" name="ansTwo" placeholder="0." style="width: calc(100% - 15px); font-family: display, futura, georgia; margin: 5px; padding: 10px; color: red; background: black; outline: 0;" readonly='readonly' oncontextmenu='return false;eToggle("ans", "block", "ansTwo", "none");'><br>
+            <input type="text" id="resultFake" name="ansTwo" placeholder="0." style="width: calc(100% - 15px); font-family: display, geneva, futura, georgia; margin: 5px; padding: 10px; color: red; background: black; outline: 0; text-align: left;" readonly='readonly' oncontextmenu='return false;eToggle("ans", "block", "ansTwo", "none");'><br>
               <input type="textfield" id='result' name="ans" value="" style='width: 100%; display: none;' oncontextmenu='return false; eToggle("ansTwo", "block", "result", "none");'>
               <div class='table-wrapper'>
                 <table class='non' style='width: calc(100% - 60px)'>
@@ -356,20 +384,22 @@
           <table style='width: calc(100% - 60px);' class='non'>
             <thead>
               <tr>
-                <td>
-                  <select>
-                    <optgroup label='Area'>
-                      <option value='regularpolygon'>Regular Polygon Area</option>
-                      <option value='ellipsearea'>Circle/Ellpise Area</option>
-                    </optgroup>
-                    <optgroup label='Perimetre'>
-                      <option value='regularpolygon'>Regular Polygon Perimetre</option>
-                      <option value='ellipsearea' oninput='alert("hi")'>Circle/Ellipse Perimetre</option>
-                    </optgroup>
-                    <optgroup label='Algebra'>
-                    </optgroup>
-                  </select>
-                </td>
+                <label for='algebra-change'>
+                  <td>
+                    <select id='algebra-change'>
+                      <optgroup label='Area'>
+                        <option value='polygon'>Regular Polygon Area</option>
+                        <option value='ellipsearea'>Circle/Ellpise Area</option>
+                      </optgroup>
+                      <optgroup label='Perimetre'>
+                        <option value='polygonperimeter'>Regular Polygon Perimetre</option>
+                        <option value='circumference'>Circle/Ellipse Circumference</option>
+                      </optgroup>
+                      <optgroup label='Algebra'>
+                      </optgroup>
+                    </select>
+                  </td>
+                </label>
               </tr>
             </thead>
             <tbody>
@@ -464,6 +494,10 @@
                           else return k;
                         }
                       };
+                      qs('#algebra-change').addEventListener('input', function () {
+                        let shownName = '#geometry-' + this.value;
+                        qs(shownName).style.display='block'
+                      });
                     </script>
                   </div>
                 </td>
@@ -1506,14 +1540,14 @@
       
       /* Style the input field */
       #scientific input[type=text] {
-        width: 100%;
+        /*width: 100%;
         border-radius: 3px;
         border: none;
         background-color: white;
         margin-top: -8px;
         height: 25px;
         color: #666;
-        padding: 5px;
+        padding: 5px;*/
       }
       
       /* Three bars (hamburger menu) */
@@ -1591,7 +1625,7 @@
       /*#scientific .numrow {display: flex; width: 100%;}*/
       #scientific form table {width: 100%;}
       #scientific table td {width: 20%;}
-      #scientific table td input[type] {width: 100%; font-family: futura; font-size: 30px;}
+      #scientific table td input[type] {width: 100%; font-size: 30px;}
       #scientific #resultFake::placeholder {
         color: red;
       }
@@ -1719,8 +1753,20 @@
           color: #e0e0e0;
         }
       }
+
+      .grontent-section:not(.active) {
+        display: none;
+      }
+      .grav-item, .grav-item-like {
+        filter: saturate(0.8);
+      }
+
+      #graphing tbody td, #algebra tbody td, #scientific tbody td {
+        font-family: geneva, sans-serif;
+      }
     </style>
     <script>
+      // Nav Bar Code
       document.addEventListener('DOMContentLoaded', function() {
         // Select home tab
         const navItems = document.querySelectorAll('.nav-item');

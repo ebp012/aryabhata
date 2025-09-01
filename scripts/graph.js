@@ -424,123 +424,87 @@ function addNewFunction () {
 }
 
 function drawGrid (majorStep, minorStep) {
-    var imax = toffxr * 5;
-    var imay = toffyr * 5;
     var mS;
     if (minorStep != undefined) {
-    mS = minorStep;
+        mS = minorStep;
     }
     else {
-    mS = 1;
+        mS = 1;
     }
     //ctx.translate(0, 0);
     // Draw the x and y axes
     ctx.lineWidth = 2;
-    var initChecked = qs('#graph-ticks').checked;
     if (qs('#graph-axes').checked) {
-    // xr-axis
-    ctx.beginPath();
-    ctx.moveTo(-canvas.width - imax, 0);
-    ctx.lineTo(canvas.width - imax, 0);
-    ctx.strokeStyle = 'blue';
-    ctx.stroke();
+        // xr-axis
+        ctx.beginPath();
+        ctx.moveTo(-canvas.width, 0);
+        ctx.lineTo(canvas.width, 0);
+        ctx.strokeStyle = 'blue';
+        ctx.stroke();
 
-    // yr-axis
-    ctx.beginPath();
-    ctx.moveTo(0, -canvas.height - imay);
-    ctx.lineTo(0, canvas.height - imay);
-    ctx.strokeStyle = 'red';
-    ctx.stroke();
-    qs('#graph-ticks').removeAttribute('disabled');
-    qs('#graph-ticks').removeAttribute('checked');
+        // yr-axis
+        ctx.beginPath();
+        ctx.moveTo(0, -canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.strokeStyle = 'red';
+        ctx.stroke();
+        qs('#graph-ticks').removeAttribute('disabled');
     }
     else {
-    qs('#graph-ticks').disabled = 'disabled';
-    qs('#graph-ticks').checked = initChecked;
+        qs('#graph-ticks').disabled = 'disabled';
     }
 
     // Draw all of the gridlines
-    for (var i = -canvas.width/2 - imay; i < canvas.width/2 - imay; i += 5) {
-    ctx.strokeStyle = 'grey';
-    // Determine whether to do major or minor lines
-    if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
-    else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
-    else ctx.lineWidth = 0.03125;
-    if (qs('#graph-grids').checked) {
-        // Draw quadrants I and IV
-        // Horizontal
-        ctx.beginPath();
-        ctx.moveTo(-canvas.width + toffxr, i);
-        ctx.lineTo(canvas.width + toffxr, i);
-        ctx.stroke();
-        // Draw quadrants II and III
-        // Horizontal
-        ctx.beginPath();
-        ctx.moveTo(-canvas.width - toffxr, i);
-        ctx.lineTo(canvas.width - toffxr, i);
-        ctx.stroke();
+    for (var i = -canvas.height/2; i < canvas.height/2; i += scale) {
+        ctx.strokeStyle = 'grey';
+        // Determine whether to do major or minor lines
+        if ((i/scale) % majorStep == 0) ctx.lineWidth = 0.25;
+        else if ((i/scale) % mS == 0) ctx.lineWidth = 0.125;
+        else ctx.lineWidth = 0.03125;
+        if (qs('#graph-grids').checked) {
+            // Horizontal
+            ctx.beginPath();
+            ctx.moveTo(-canvas.width, i);
+            ctx.lineTo(canvas.width, i);
+            ctx.stroke();
+        }
+        // Draw tick marks if selected
+        if (qs('#graph-ticks').checked && (i/scale) % mS == 0) {
+            ctx.lineWidth = 0.5;
+            // Horizontal
+            ctx.strokeStyle = 'red';
+            ctx.beginPath();
+            ctx.moveTo(-Number(qs('#graph-tick-height').value), i);
+            ctx.lineTo(Number(qs('#graph-tick-height').value), i);
+            ctx.stroke();
+        }
     }
-    // Draw tick marks if selected
-    if (qs('#graph-ticks').checked && (i/5) % mS == 0) {
-        // Number(qs('#graph-tick-height').value)
-        ctx.lineWidth = 0.5;
-        // Draw quadrants I and IV
-        // Horizontal
-        ctx.strokeStyle = 'red';
-        ctx.beginPath();
-        ctx.moveTo(-Number(qs('#graph-tick-height').value), i);
-        ctx.lineTo(Number(qs('#graph-tick-height').value), i);
-        ctx.stroke();
-        // Draw quadrants II and III
-        ctx.strokeStyle = 'red';
-        ctx.beginPath();
-        ctx.moveTo(-Number(qs('#graph-tick-height').value), i);
-        ctx.lineTo(Number(qs('#graph-tick-height').value), i);
-        ctx.stroke();
+    for (var i = -canvas.width/2; i < canvas.width/2; i += scale) {
+        ctx.strokeStyle = 'grey';
+        // Determine whether to do major or minor lines
+        if ((i/scale) % majorStep == 0) ctx.lineWidth = 0.25;
+        else if ((i/scale) % mS == 0) ctx.lineWidth = 0.125;
+        else ctx.lineWidth = 0.03125;
+        if (qs('#graph-grids').checked) {
+            // Vertical
+            ctx.beginPath();
+            ctx.moveTo(i, -canvas.height);
+            ctx.lineTo(i, canvas.height);
+            ctx.stroke();
+        }
+        // Draw tick marks if selected
+        if (qs('#graph-ticks').checked && (i/scale) % mS == 0) {
+            ctx.lineWidth = 0.5;
+            // Vertical
+            ctx.strokeStyle = 'blue';
+            ctx.beginPath();
+            ctx.moveTo(i, -Number(qs('#graph-tick-height').value));
+            ctx.lineTo(i, Number(qs('#graph-tick-height').value));
+            ctx.stroke();
+        }
     }
-    }
-    for (var i = -canvas.height/2 - imax; i < canvas.height/2 - imax; i += 5) {
-    ctx.strokeStyle = 'grey';
-    // Determine whether to do major or minor lines
-    if ((i/5) % majorStep == 0) ctx.lineWidth = 0.25;
-    else if ((i/5) % mS == 0) ctx.lineWidth = 0.125;
-    else ctx.lineWidth = 0.03125;
-    if (qs('#graph-grids').checked) {
-        // Draw quadrants I and IV
-        // Vertical
-        ctx.beginPath();
-        ctx.moveTo(i, -canvas.height - toffyr);
-        ctx.lineTo(i, canvas.height - toffyr);
-        ctx.stroke();
-        // Draw quadrants II and III
-        // Vertical
-        ctx.beginPath();
-        ctx.moveTo(-1 * i, -canvas.height - toffyr);
-        ctx.lineTo(-1 * i, canvas.height - toffyr);
-        ctx.stroke();
-    }
-    // Draw tick marks if selected
-    if (qs('#graph-ticks').checked && (i/5) % mS == 0) {
-        // Number(qs('#graph-tick-height').value)
-        ctx.lineWidth = 0.5;
-        // Draw quadrants I and IV
-        // Vertical
-        ctx.strokeStyle = 'blue';
-        ctx.beginPath();
-        ctx.moveTo(i, -Number(qs('#graph-tick-height').value));
-        ctx.lineTo(i, Number(qs('#graph-tick-height').value));
-        ctx.stroke();
-        // Draw quadrants II and III
-        // Vertical
-        ctx.beginPath();
-        ctx.moveTo(-1 * i, -Number(qs('#graph-tick-height').value));
-        ctx.lineTo(-1 * i, Number(qs('#graph-tick-height').value));
-        ctx.stroke();
-    }
-    }
-}
 
-function drawGrid3D () {
+}function drawGrid3D () {
     // yi-axis
     ctx.beginPath();
     ctx.moveTo(canvas.height/2, canvas.height/4);
@@ -776,3 +740,42 @@ function graphFunction () {
     }
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Select home tab
+    const gravItems = document.querySelectorAll('.grav-item');
+    const grontentSections = document.querySelectorAll('.grontent-section');
+
+    // Function to handle grav item clicks
+    function handleGravClick(event) {
+        const targetId = this.getAttribute('data-target');
+        
+        // Hide all content sections
+        grontentSections.forEach(section => {
+        section.classList.remove('active');
+        });
+        
+        // Show the targeted section
+        document.querySelector(targetId).classList.add('active');
+        
+        // Reset all grav items
+        gravItems.forEach(item => {
+            /*item.style.background = 'transparent';*/
+            item.style.transform = 'translateY(0)';
+            item.style.filter = 'saturate(0.8)';
+        });
+        
+        // Style the clicked grav item
+        /*this.style.background = 'rgba(155,130,155,0.3)';*/
+        this.style.transform = 'translateY(-5px)';
+        this.style.filter = 'saturate(3)';
+    }
+
+    // Add click event to each grav item
+    gravItems.forEach(item => {
+        item.addEventListener('click', handleGravClick);
+    });
+
+    // Click the first grav item by default
+    document.querySelector('.grav-item').click();
+});
