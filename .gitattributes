@@ -9,3 +9,6 @@ index-prealpha.html -linguist-detectable
 
 *.svg linguist-detectable
 *.svg linguist-language=SVG
+
+*.sh linguist-detectable
+*.sh linguist-language=Bash
