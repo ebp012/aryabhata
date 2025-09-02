@@ -1473,18 +1473,18 @@ button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtu
 }
 
 /* Link styles */
-a {
+:not(.page-title) a {
   text-decoration: none;
   color: var(--link-normal);
 }
 @media (prefers-color-scheme: dark) {
-  a:not(.page-nav a) {
+  :not(.page-title) a:not(.page-nav a) {
     color: #694480;
   }
-  a:hover, a:visited {
+  :not(.page-title) a:hover, a:visited {
     text-shadow: 1px 1px 1px 2px;
   }
-  a:hover {
+  :not(.page-title) a:hover {
     color: var(--link-hover);
     text-decoration: underline;
   }
@@ -1495,17 +1495,17 @@ a {
     border: 1px solid rgba(127.5, 127.5, 127.5, 0.51);
   }
 }
-a:hover {
+:not(.page-title) a:hover {
   color: var(--link-hover);
   text-decoration: underline;
 }
-a:active, .page-nav a, .page-nav a:visited {
+:not(.page-title) a:active, .page-nav a, .page-nav a:visited {
   color: var(--link-active);
 }
-a:active {
+:not(.page-title) a:active {
   text-decoration: underline;
 }
-a:visited:not(.page-nav a) {
+:not(.page-title) a:visited:not(.page-nav a) {
   color: #a070be;
   text-decoration: none;
 }
