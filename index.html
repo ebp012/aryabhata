@@ -83,7 +83,90 @@
     </svg>
 
     <div class='container cs-brown'>
-      <div id='graphing' class='content-section active'>
+      <div id='launcher' class='content-section'>
+        <h1 class='page-title'>Aryabhata</h1>
+        <div class='desk-paper' style='line-height: 36pt;'>
+          <center>
+            <h2>Welcome to Aryabhata!</h2>
+            <p>Aryabhata is your <i>free</i> one-stop shop to a world of useful math, science, and linguistics tools.</p>
+            <p>Below, you can find a variety of apps which you'll definitely find useful.</p>
+            <style>table.non .nav-item {opacity: 90%;} #launcher table.non tbody {opacity: 90%;}</style>
+            <div class='table-wrapper'>
+              <table class='non'>
+                <thead>
+                  <tr>
+                    <td colspan='5'>Math &amp; Science tools</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class='nav-item' primary='#graphing-btn' data-target='#graphing'>
+                        <i class='fa-solid fa-pencil'></i>
+                        <span>Graphing</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class='nav-item' data-target='#scientific'>
+                        <i class='fa-solid fa-calculator'></i>
+                        <span>Scientific</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class='nav-item' data-target='#algebra'>
+                        <i class='fa-solid fa-microchip'></i>
+                        <span>Algebra</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class='nav-item' data-target='#units'>
+                        <i class='fa-solid fa-ruler'></i>
+                        <span>Units</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class='nav-item' data-target='#chemistry'>
+                        <i class='fa-solid fa-flask'></i>
+                        <span>Chemistry</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='table-wrapper'>
+              <table class='non'>
+                <thead>
+                  <tr>
+                    <td colspan='3'>Memory & Linguistic Tools</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class='nav-item' data-target='#learn'>
+                        <i class='fa-solid fa-brain'></i>
+                        <span>Learn</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class='nav-item' data-target='#memorise'>
+                        <i class='fa-solid fa-book-open'></i>
+                        <span>Memorise</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class='nav-item' data-target='#parse'>
+                        <i class='fa-solid fa-comment'></i>
+                        <span>Gloss</span>
+                      </div>
+                    </td>
+              </table>
+            </div>
+          </center>
+        </div>
+      </div>
+      <div id='graphing' class='content-section'>
         <h1 class="page-title">Graphing</h1>
         <div class="desk-paper" style='line-height: 36pt;'>
           <div class='table-wrapper'>
@@ -169,10 +252,10 @@
                       <button id='graph-centre'>Centre</button> <button id='graph-btn' onclick='graphFunction();'>Graph</button>
                       <!--<button id='graph-fullscreen-btn'><i class='fa fa-expand'></i> Fullscreen</button>-->
                       <hr/>
-                      <span id='round-title'>Round</span>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup><br/>
+                      <label for='trace-round' id='round-title'>Round</label>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup><br/>
                       <span id='graph-scale-span'>
                         <span id='graph-scale-span-sub'>
-                          <span id='scale-title'>Scale</span>: <input type='number' id='graph-scale' value='5' step='1'/><br/>
+                          <label id='scale-title' for='graph-scale'>Scale</label>: <input type='number' id='graph-scale' value='5' step='1'/><br/>
                         </span>
                         <br/>
                       </span>
@@ -1191,11 +1274,15 @@
 
 
     <nav class='nav-bar'>
-      <div class='nav-item' data-target='#graphing' id='homeTab'>
+      <div class='nav-item' data-target='#launcher' id='homeTab'>
+        <i class='fa-solid fa-home'></i>
+        <span>Home</span>
+      </div>
+      <div class='nav-item' id='graphing-btn' data-target='#graphing'>
         <i class='fa-solid fa-pencil'></i>
         <span>Graphing</span>
       </div>
-      <div class='nav-item' data-target='#scientific' id='scientificTab'>
+      <!--<div class='nav-item' data-target='#scientific' id='scientificTab'>
         <i class='fa-solid fa-calculator'></i>
         <span>Scientific</span>
       </div>
@@ -1210,7 +1297,7 @@
       <div class='nav-item' data-target='#chemistry' id='chemistryTab'>
         <i class='fa-solid fa-flask'></i>
         <span>Chemistry</span>
-      </div>
+      </div>-->
       <div class='nav-item' data-target='#learn' id='learnTab' onclick='window.open("http://aryabhata.aeonic.me/applets/learn.htm", "_learntab");'>
         <i class='fa-solid fa-brain'></i>
         <span>Learn</span>
@@ -1219,10 +1306,10 @@
         <i class='fa-solid fa-book-open'></i>
         <span>Memorise</span>
       </div>
-      <div class='nav-item' data-target='#parse' id='parseTab'>
-        <i class='fa-solid fa-box-open'></i>
-        <span>Parse</span>
-      </div>
+      <!--<div class='nav-item' data-target='#parse' id='parseTab'>
+        <i class='fa-solid fa-comment'></i>
+        <span>Gloss</span>
+      </div>-->
       <div class='nav-item' data-target='#controls' id='controlsTab'>
         <i class='fa-solid fa-gears'></i>
         <span>Controls</span>
@@ -1549,6 +1636,8 @@
           // Style the clicked nav item
           this.style.background = 'rgba(155,130,155,0.3)';
           this.style.transform = 'translateY(-5px)';
+          qs(this.primary).style.background = 'rgba(155,130,155,0.3)';
+          qs(this.primary).style.transform = 'translateY(-5px)';
         }
         
         // Add click event to each nav item

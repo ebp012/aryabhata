@@ -128,14 +128,44 @@ window.addEventListener('load', function() {
     ctx.translate(0, toffyr);
     graphFunction();
     });
-    qs('#graph-centre').addEventListener('input', function () {
-    qs('#graph-offset-xr').value = 0;
-    qs('#graph-offset-yr').value = 0;
-    graphFunction();
+
+    qs('#graph-centre').addEventListener('click', function () {
+    let a = qs('#graph-offset-xr').value;
+    let b = qs('#graph-offset-yr').value;
     });
 
     document.querySelectorAll('#graph-canvas').forEach(fsBtn => {
-    fsBtn.addEventListener('click', function () {
+    fsBtn.addEventListener('click', function() {
+        if (!fullscreen) {
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('graph-fullscreen-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'graph-fullscreen-modal';
+                modal.className = 'modal-container';
+                modal.innerHTML = `
+                    <button class="fa fa-times" id="graph-fullscreen-close"></button>
+                `;
+                document.body.appendChild(modal);
+            }
+
+            // Move canvas to modal
+            const modalContent = modal.querySelector('.modal');
+            modalContent.appendChild(canvas);
+            modal.style.display = 'block';
+            fullscreen = true;
+
+            // Handle close button
+            document.getElementById('graph-fullscreen-close').onclick = function() {
+                const graphingSection = document.querySelector('#graphing .desk-paper');
+                graphingSection.appendChild(canvas);
+                modal.style.display = 'none';
+                fullscreen = false;
+                graphFunction();
+            };
+
+            graphFunction();
+        }
         fullscreen = !fullscreen;
         var modal = qs('#graph-fullscreen-modal');
         var container = qs('#graph-container');
@@ -146,38 +176,14 @@ window.addEventListener('load', function() {
         if (fullscreen) { // if fullscreen is now entered
         modal.innerHTML = '';
         modal.appendChild(qs('#graph-div'));
-        modal.appendChild(qs('#graph-scale-span'));
-        modal.appendChild(qs('#xiv-td-content'));
-        modal.appendChild(qs('#graph-xryr-offset-div'));
-        modal.appendChild(canvas);
-        document.body.style.overflowY = 'hidden';
-        //this.innerHTML = '<i class="fa fa-compress" style="z-index: 250;"></i> Exit';
-        canvas.style.transform = 'scale(' + qs('#graph-scale').value + ')';
-        /*scaleContainerSub.style.position = 'relative';
-        scaleContainerSub.style.top = '-20px';
-        scaleContainerSub.style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
-        qs('#xiv-td-content').style.position = 'relative';
-        qs('#xiv-td-content').style.top = '-10px';
-        qs('#xiv-td-content').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';
-        qs('#graph-xryr-offset-div').style.position = 'relative';
-        qs('#graph-xryr-offset-div').style.bottom = '-10px';
-        qs('#graph-xryr-offset-div').style.left = 'calc(' + modal.parentElement.offsetWidth / 2 + ' - ' + this.offsetWidth / 2 + 'px)';*/
-        /*
-        Old Graph Fullscreen Button
-        this.style.position = 'fixed';
-        this.style.bottom = '10px';
-        this.style.marginLeft = 'auto;'
-        this.style.marginRight = 'auto;'*/
+        
         }
         else { // when exiting fullscreen
         //container.appendChild(qs('#graph-fullscreen-btn'));
         container.appendChild(qs('#graph-div'));
         qs('#graph-div').appendChild(canvas);
-        scaleContainer.appendChild(qs('#graph-scale-span'));
-        qs('#xiv-td').appendChild(qs('#xiv-td-content'));
-        qs('#graph-xryr-offset-div-container-span').appendChild(qs('#graph-xryr-offset-div'));
         document.body.style.overflowY = 'scroll';
-        canvas.style.transform = 'scale(1)';
+        //canvas.style.transform = 'scale(1)';
         scaleContainerSub.style.position = 'static';
         //this.style.position = 'static';
         //this.innerHTML = '<i class="fa fa-expand"></i> Fullscreen';
