@@ -4,8 +4,8 @@ index-alpha.html -linguist-detectable
 index-prealpha.html -linguist-detectable
 *.arya linguist-detectable
 *.csv linguist-detectable
-*.arya linguist-language=CSV
-*.csv linguist-language=CSV
+# *.arya linguist-language=CSV
+# *.csv linguist-language=CSV
 
 *.svg linguist-detectable
 *.svg linguist-language=SVG

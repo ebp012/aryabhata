@@ -31,8 +31,6 @@ var toffyi = 0; // total yi-offset
 
 // On load actions
 window.addEventListener('load', function() {
-    // Utiliser HTTP en lieu d'HTTPS à cause de l'HTTP est incompatible avec mon domain
-    //if (window.location.href.slice(0, 5) !== 'http:') window.location.href = 'http://' + window.location.href.slice(8);
     
 
     // Graph at the start
@@ -758,7 +756,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Hide all content sections
         grontentSections.forEach(section => {
-        section.classList.remove('active');
+            section.classList.remove('active');
         });
         
         // Show the targeted section
@@ -766,18 +764,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Reset all grav items
         gravItems.forEach(item => {
-            /*item.style.background = 'transparent';*/
-            item.style.transform = 'translateY(0)';
-            item.style.filter = 'saturate(0.8)';
+            item.style.transform = '';
+            item.style.filter = '';
         });
         
         // Style the clicked grav item
-        /*this.style.background = 'rgba(155,130,155,0.3)';*/
         this.style.transform = 'translateY(-5px)';
         this.style.filter = 'saturate(3)';
-    }
-
-    // Add click event to each grav item
+        
+        // Update URL hash without triggering a page reload
+        const hash = targetId.substring(1); // Remove the # symbol
+        history.pushState(null, '', `#${hash}`);
+    }    // Add click event to each grav item
     gravItems.forEach(item => {
         item.addEventListener('click', handleGravClick);
     });

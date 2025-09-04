@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link href='http://aryabhata.aeonic.me/noedit.sigma.css' rel='stylesheet' type='text/css'/>
+    <link href='../styles/sigma.css' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" href="https://unpkg.com/7.scoped.css" />
 
     <style>
@@ -46,7 +46,7 @@
       .app {
         margin: 20px auto;
         padding: 10px;
-        width: 60%;
+        width: 65%;
         /*max-width: 400px;
         background-color: #fefefef8;
         background-image: url(https://www.pngall.com/wp-content/uploads/14/Paper-Texture-PNG-Image-HD.png);
@@ -203,10 +203,95 @@
     </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      function generateWrongAnswers(allAnswers, correctAnswer) {
+        // Remove the correct answer from the pool
+        const pool = allAnswers.filter(a => a !== correctAnswer);
+        
+        // Shuffle the pool and take first 3
+        const shuffled = pool.sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, 3);
+      }
+
+      function convertQuizletToArya(quizletText, format) {
+        // Split into lines and filter empty ones
+        const lines = quizletText.split('\n').filter(line => line.trim());
+        
+        // Get all terms and definitions for wrong answer pool
+        const allTerms = [];
+        const allDefs = [];
+        
+        lines.forEach(line => {
+          const [term, def] = line.split('\t').map(s => s.trim());
+          if (term && def) {
+            allTerms.push(term);
+            allDefs.push(def);
+          }
+        });
+        
+        function convertLines(useTermAsQuestion) {
+          return lines.map(line => {
+            const [term, def] = line.split('\t').map(s => s.trim());
+            if (!term || !def) return null;
+            
+            const question = useTermAsQuestion ? term : def;
+            const correctAnswer = useTermAsQuestion ? def : term;
+            const wrongAnswerPool = useTermAsQuestion ? allDefs : allTerms;
+            
+            // Get 3 random wrong answers
+            const wrongAnswers = generateWrongAnswers(wrongAnswerPool, correctAnswer);
+            
+            // Return in Arya format
+            return `${question},${wrongAnswers.join(',')},${correctAnswer},5,2`;
+          }).filter(line => line);
+        }
+        
+        if (format === 'both') {
+          // Convert with terms as questions first, then definitions as questions
+          const termFirst = convertLines(true);
+          const defFirst = convertLines(false);
+          return [...termFirst, ...defFirst].join('\n');
+        } else {
+          // Convert with either terms or definitions as questions
+          return convertLines(format === 'termAsQuestion').join('\n');
+        }
+      }
+      
+      // Set up event handlers once document is ready
+      $(document).ready(function() {
+        $('#convertQuizlet').click(function() {
+          const quizletText = $('#quizletInput').val();
+          const format = $('input[name="quizletFormat"]:checked').val();
+          const aryaFormat = convertQuizletToArya(quizletText, format);
+          $('#aryaOutput').val(aryaFormat);
+        });
+        
+        $('#copyArya').click(function() {
+          $('#aryaOutput').select();
+          document.execCommand('copy');
+        });
+        
+        $('#downloadArya').click(function() {
+          const content = $('#aryaOutput').val();
+          const blob = new Blob([content], { type: 'text/plain' });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'converted.arya';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+        
+        $('#quizletBtn').click(function() {
+          $('.app').hide();
+          $('#quizletImport').show();
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="bg" class='hidden'></div>
-    <div id="home" class="contaner app content-section" style='display: block;'>
+    <div id="home" class="contaner app content-section cs-blue" style='display: block;'>
       <!--<h1 id="title">Aryabhata</h1>-->
       <input
         type="file"
@@ -214,59 +299,68 @@
         accept=".arya"
         style="margin-bottom: 10px"
       />
-      <table class='non nepas' style='width: 100%;'>
-        <tr>
-          <td style='width: 33.33%;'>
-            <button class="button hidden" id="importBtn">
-              <i class="fa fa-upload"></i> Import .arya
+      <div class='desk-paper'>
+        <table class='non nepas' style='width: 100%;'>
+          <tr>
+            <td style='width: 33.33%;'>
+              <button class="button hidden" id="importBtn">
+                <i class="fa fa-upload"></i> Import .arya
+              </button>
+              <button class="button" id="playBtn">
+                <i class="fa fa-gamepad"></i> Play
+              </button>
+            </td>
+            <td style='width: 33.33%;'>
+              <button class="button" id="typeBtn">
+                <i class="fa fa-keyboard-o"></i> Type
+              </button>
+            </td>
+            <td>
+              <button class="button" id="flashcardBtn">
+                <i class="fa fa-address-card-o"></i> Flashcards
+              </button>
+            </td>
+          </tr>
+        </table>
+        <p>
+          <center>
+            <button class="button" id="aryaBtn" style='width: 40px; display: inline-block;'>
+              <i class="fa fa-pencil"></i>
             </button>
-            <button class="button" id="playBtn">
-              <i class="fa fa-gamepad"></i> Play
+            <button class="button" id="quizletBtn" style='width: 40px; display: inline-block;'>
+              <b>Q</b>
             </button>
-          </td>
-          <td style='width: 33.33%;'>
-            <button class="button" id="typeBtn">
-              <i class="fa fa-keyboard-o"></i> Type
+            <button class="button" id="settingsBtn" style='width: 40px; display: inline-block;'>
+              <i class="fa fa-gears"></i>
             </button>
-          </td>
-          <td>
-            <button class="button" id="flashcardBtn">
-              <i class="fa fa-address-card-o"></i> Flashcards
-            </button>
-          </td>
-        </tr>
-      </table>
-      <p>
-        <center>
-          <button class="button" id="aryaBtn" style='width: 40px; display: inline-block;'>
-            <i class="fa fa-pencil"></i>
-          </button>
-          <button class="button" id="settingsBtn" style='width: 40px; display: inline-block;'>
-            <i class="fa fa-gears"></i>
-          </button>
-        </center>
-      </p>
-      
-    </div>
-    <div id="game" class="app hidden content-section">
-      <div class="question" id="question">Question</div>
-      <div class="answers" id="answers"></div>
-      <div id="score">
-        <span id="scoreText">Score</span>:
-        <span id="scoreValue">0 <span id="langSilver">silver</span></span> |
-        <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
-        <span id="percentage">0</span>%
+          </center>
+        </p>
       </div>
-      <input
-        type="text"
-        id="textInput"
-        placeholder="Type your answer here..."
-      />
+    </div>
+    <div id="game" class="contaner app hidden content-section cs-blue">
+      <br/>
+      <p><strong class="question" id="question" style='float: center;'>Question</strong></p>
+      <hr style='margin-bottom: 5pt;'/>
+      <div class='desk-paper'>
+        <div class="answers" id="answers"></div>
+        <hr/>
+        <div id="score" style='float: center;'>
+          <span id="scoreText">Score</span>:
+          <span id="scoreValue">0 <span id="langSilver">silver</span></span> |
+          <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
+          <span id="percentage">0</span>%
+        </div>
+        <input
+          type="text"
+          id="textInput"
+          placeholder="Type your answer here..."
+        />
+      </div>
       <button class="button" id="resetBtn">Reset</button>
       <button class="button" id="shopBtn">Shop</button>
     </div>
 
-    <div id="shop" class="app hidden content-section">
+    <div id="shop" class="contaner app hidden content-section cs-blue">
       <h2>Shop</h2>
       <div class="shop-item">
         Halve point deductions - 6 Silver
@@ -275,17 +369,62 @@
       <button class="button" id="closeShop">Close</button>
     </div>
 
-    <div id="flashCardApp" class="app hidden content-section">
+    <div id="flashCardApp" class="contaner app hidden content-section cs-blue">
       <h2>Flash Cards</h2>
-      <div id="flashCard" class="card">Loading...</div>
-      <button id="knownButton" class="button">Known</button>
-      <button id="unknownButton" class="button">Unknown</button>
-      <hr />
+      <div id="flashCard" class="card" style='float: center;'>Loading...</div>
+      <div id="flashCardControls">
+        <button id="knownButton" class="button">Known</button>
+        <button id="unknownButton" class="button">Unknown</button>
+        <hr />
+        <button id="doneFlashcards" class="button">Done</button>
+      </div>
+      <div id="flashCardSummary" class="hidden" style="margin-top: 20px;">
+        <h3>Summary of Unknown Cards:</h3>
+        <div id="unknownCardsList"></div>
+      </div>
       <button id="closeFlashcard" class="button">Close</button>
     </div>
 
-    <div id="csvEditor" class="app hidden content-section">
-      <h2>CSV Editor</h2>
+    <div id="quizletImport" class="contaner app hidden content-section cs-blue">
+      <h2>Quizlet Import</h2>
+      <p>Paste your Quizlet export here (tab-separated terms and definitions):</p>
+      <textarea id="quizletInput" style="width: 100%; height: 200px; margin-bottom: 10px;"></textarea>
+      
+      <div class="setting-item">
+        <label>
+          <input type="radio" name="quizletFormat" value="termAsQuestion" checked> 
+          Use terms as questions (definitions as correct answers)
+        </label>
+      </div>
+      <div class="setting-item">
+        <label>
+          <input type="radio" name="quizletFormat" value="defAsQuestion"> 
+          Use definitions as questions (terms as correct answers)
+        </label>
+      </div>
+      <div class="setting-item">
+        <label>
+          <input type="radio" name="quizletFormat" value="both"> 
+          Use both formats (terms as questions followed by definitions as questions)
+        </label>
+      </div>
+      
+      <button class="button" id="convertQuizlet">Convert to Arya Format</button>
+      
+      <p>Result in Arya format:</p>
+      <textarea id="aryaOutput" style="width: 100%; height: 200px; margin-bottom: 10px;" readonly></textarea>
+      
+      <button class="button" id="copyArya">
+        <i class="fa fa-copy"></i> Copy to Clipboard
+      </button>
+      <button class="button" id="downloadArya">
+        <i class="fa fa-download"></i> Download as .arya
+      </button>
+      <button class="button" id="closeQuizlet">Close</button>
+    </div>
+
+    <div id="csvEditor" class="contaner app hidden content-section cs-blue">
+      <h2>Designer</h2>
       <table
         id="csvTable"
         contenteditable="true"
@@ -320,7 +459,7 @@
       <button class="button" id="closeArya">Close</button>
     </div>
 
-    <div id="settings" class="app hidden content-section">
+    <div id="settings" class="contaner app hidden content-section cs-blue">
       <h2>Settings</h2>
       <hr />
       <p id="selectLanguage">Choose your language:</p>
@@ -339,7 +478,7 @@
       <button class="button" id="closeSettings">Close</button>
     </div>
 
-    <div id="incorrect" class="app hidden">
+    <div id="incorrect" class="app hidden content-section">
       <strong>Your answer was incorrect.</strong>
     </div>
 
@@ -625,6 +764,10 @@
         $("#home").hide();
         $("#csvEditor").fadeIn();
       });
+      $("#quizletBtn").on("click", function () {
+        $("#home").hide();
+        $("#quizletImport").fadeIn();
+      });
       $("#settingsBtn").on("click", function () {
         $("#home").hide();
         $("#settings").fadeIn();
@@ -640,6 +783,10 @@
       });
       $("#closeArya").on("click", function () {
         $("#csvEditor").hide();
+        $("#home").fadeIn();
+      });
+      $("#closeQuizlet").on("click", function () {
+        $("#quizletImport").hide();
         $("#home").fadeIn();
       });
       $("#closeSettings").on("click", function () {
@@ -709,12 +856,46 @@
     <script>
       let flashcards = [];
       let currentIndex = 0;
+      let unknownCards = [];
+
+      function showSummary() {
+        // Hide the flashcard controls
+        document.getElementById('flashCardControls').style.display = 'none';
+        document.getElementById('flashCard').style.display = 'none';
+        
+        // Show the summary
+        const summaryDiv = document.getElementById('flashCardSummary');
+        summaryDiv.classList.remove('hidden');
+        
+        // Create the summary content
+        const unknownList = document.getElementById('unknownCardsList');
+        if (unknownCards.length === 0) {
+          unknownList.innerHTML = '<p>Great job! You knew all the cards!</p>';
+        } else {
+          const html = unknownCards.map(card => 
+            `<div style="margin: 10px 0;">
+               <strong>Question:</strong> ${card.question}<br>
+               <strong>Answer:</strong> ${card.answer}
+             </div>`
+          ).join('');
+          unknownList.innerHTML = html;
+        }
+      }
+
+      function resetFlashcards() {
+        currentIndex = 0;
+        unknownCards = [];
+        document.getElementById('flashCardControls').style.display = 'block';
+        document.getElementById('flashCard').style.display = 'block';
+        document.getElementById('flashCardSummary').classList.add('hidden');
+      }
 
       document
         .getElementById("flashcardBtn")
         .addEventListener("click", function () {
           document.getElementById("home").classList.add("hidden");
           document.getElementById("flashCardApp").classList.remove("hidden");
+          resetFlashcards();
           if (flashcards.length > 0) {
             showFlashcard();
           }
@@ -725,6 +906,7 @@
         .addEventListener("click", function () {
           document.getElementById("flashCardApp").classList.add("hidden");
           document.getElementById("home").classList.remove("hidden");
+          resetFlashcards();
         });
 
       document
@@ -741,13 +923,21 @@
       document
         .getElementById("unknownButton")
         .addEventListener("click", function () {
-          alert("Correct answer: " + flashcards[currentIndex].answer);
+          const currentCard = flashcards[currentIndex];
+          unknownCards.push(currentCard);
+          alert("Correct answer: " + currentCard.answer);
           currentIndex++;
           if (currentIndex < flashcards.length) {
             showFlashcard();
           } else {
-            alert("End of flashcards!");
+            showSummary();
           }
+        });
+
+      document
+        .getElementById("doneFlashcards")
+        .addEventListener("click", function() {
+          showSummary();
         });
 
       document

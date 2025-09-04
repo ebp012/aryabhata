@@ -90,81 +90,83 @@
             <h2>Welcome to Aryabhata!</h2>
             <p>Aryabhata is your <i>free</i> one-stop shop to a world of useful math, science, and linguistics tools.</p>
             <p>Below, you can find a variety of apps which you'll definitely find useful.</p>
-            <style>table.non .nav-item {opacity: 90%;} #launcher table.non tbody {opacity: 90%;}</style>
-            <div class='table-wrapper'>
-              <table class='non'>
-                <thead>
-                  <tr>
-                    <td colspan='5'>Math &amp; Science tools</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class='nav-item' primary='#graphing-btn' data-target='#graphing'>
-                        <i class='fa-solid fa-pencil'></i>
-                        <span>Graphing</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class='nav-item' data-target='#scientific'>
-                        <i class='fa-solid fa-calculator'></i>
-                        <span>Scientific</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class='nav-item' data-target='#algebra'>
-                        <i class='fa-solid fa-microchip'></i>
-                        <span>Algebra</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class='nav-item' data-target='#units'>
-                        <i class='fa-solid fa-ruler'></i>
-                        <span>Units</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class='nav-item' data-target='#chemistry'>
-                        <i class='fa-solid fa-flask'></i>
-                        <span>Chemistry</span>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class='table-wrapper'>
-              <table class='non'>
-                <thead>
-                  <tr>
-                    <td colspan='3'>Memory & Linguistic Tools</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class='nav-item' data-target='#learn'>
-                        <i class='fa-solid fa-brain'></i>
-                        <span>Learn</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class='nav-item' data-target='#memorise'>
-                        <i class='fa-solid fa-book-open'></i>
-                        <span>Memorise</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class='nav-item' data-target='#parse'>
-                        <i class='fa-solid fa-comment'></i>
-                        <span>Gloss</span>
-                      </div>
-                    </td>
-              </table>
-            </div>
           </center>
         </div>
+        <center>
+          <style>table.non .nav-item {opacity: 90%;} #launcher table.non tbody {opacity: 90%;} #launcher table, #launcher td {opacity: 90% !important;} #launcher .nav-item {filter: brightness(105%) contrast(0.6);}</style>
+          <div class='table-wrapper'>
+            <table class='non'>
+              <thead>
+                <tr>
+                  <td colspan='5'>Math &amp; Science tools</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class='nav-item' primary='#graphing-btn' data-target='#graphing'>
+                      <i class='fa-solid fa-pencil'></i>
+                      <span>Graphing</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class='nav-item' data-target='#scientific'>
+                      <i class='fa-solid fa-calculator'></i>
+                      <span>Scientific</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class='nav-item' data-target='#algebra'>
+                      <i class='fa-solid fa-microchip'></i>
+                      <span>Algebra</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class='nav-item' data-target='#units'>
+                      <i class='fa-solid fa-ruler'></i>
+                      <span>Units</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class='nav-item' data-target='#chemistry'>
+                      <i class='fa-solid fa-flask'></i>
+                      <span>Chemistry</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class='table-wrapper'>
+            <table class='non'>
+              <thead>
+                <tr>
+                  <td colspan='3'>Memory & Linguistic Tools</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class='nav-item' data-target='#learn'>
+                      <i class='fa-solid fa-brain'></i>
+                      <span>Learn</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class='nav-item' data-target='#memorise'>
+                      <i class='fa-solid fa-book-open'></i>
+                      <span>Memorise</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class='nav-item' data-target='#parse'>
+                      <i class='fa-solid fa-comment'></i>
+                      <span>Gloss</span>
+                    </div>
+                  </td>
+            </table>
+          </div>
+        </center>
       </div>
       <div id='graphing' class='content-section'>
         <h1 class="page-title">Graphing</h1>
@@ -1180,71 +1182,6 @@
           <hr/>
           <button id="submitBtnP">Submit Text</button>
           <div style="border: 0.25px solid #666; display: block;" class='desk-paper' id="resultBoxP"></div>
-          <script>
-            document
-              .querySelector("#submitBtnP")
-              .addEventListener("click", function (e) {
-                var a = document
-                  .querySelector("#parseBoxP")
-                  .value
-                  .replaceAll("!", ".")
-                  .replaceAll("?", ".")
-                  .replaceAll(";", ".")
-                  .toLowerCase()
-                  .replaceAll(/[^a-zA-Z0-9.!?,;\s]/g, "");
-                var b = a
-                  .replace(/\. /g, ".")
-                  .replace(/\. /g, ",")
-                  .replaceAll(/\. /g, "!")
-                  .replaceAll(/\. /g, "?")
-                  .replaceAll(/\. /g, ";");
-                // Arrays
-                var c = b.split(".");
-                var verb = [];
-                var questionTF = [];
-                // Initial Reset
-                document.querySelector("#resultBoxP").innerHTML = "";
-                for (var i = 0; i < c.length; i += 1) {
-                  document.querySelector("#resultBoxP").innerHTML +=
-                    c[i] + "<br/>";
-                }
-                document.querySelector("#resultBoxP").innerHTML += "<hr/>Verbs:<br/>";             
-                for (var i = 0; i < c.length; i += 1) {
-                  var d = nlp(c[i]).verbs().text();
-                  verb.push(d);
-                  document.querySelector("#resultBoxP").innerHTML += d + "<br/>"
-                }
-                document.querySelector("#resultBoxP").innerHTML += "<hr/>True-False Questions:<br/>";
-                for (var i = 0; i < verb.length; i += 1) {
-                  var e;
-                  if (verb[i] == "is" || verb[i] == "are" || verb[i] == "am" || verb[i] == "was" || verb[i] == "were" || verb[i] == "isnt" || verb[i] == "arent" || verb[i] == "aint" || verb[i] == "wasnt" || verb[i] == "werent") {
-                    e = verb[i] + " " + nlp(c[i]).nouns().text() + "?";
-                  }
-                  else {
-                    var eStart = "Does";
-                    /*if (nlp(c[i]).nouns().text().isPlural().out('array')[0] != undefined) {
-                      eStart = "Do";
-                    }*/
-                    e = eStart + " " + nlp(c[i]).nouns().eq(0).text() + " " + nlp(c[i]).verbs().text() + " " + nlp(c[i]).nouns().eq(1).text() + "?";
-                  }
-                  questionTF.push(e);
-                  document.querySelector("#resultBoxP").innerHTML += e + "<br/>"
-                }
-                // document.querySelector("#resultBoxP").innerHTML += "<hr/>Questions:<br/>";
-                // var e = Math.random();
-                /*if (e <= 0.33) {
-                  // True-false question 1/3 of the time
-                  for (var i = 0; i < verb.length; i += 1) {
-                    var f = "Does " + nlp(c[i].verbs().text()) + verb[i] + "?";
-                    questions.push(f);
-                    document.querySelector("#resultBoxP").innerHTML += f + "<br/>";
-                  }
-                }
-                else {
-                  
-                }*/
-              });
-          </script>
         </div>
       </div>
 
@@ -1282,34 +1219,34 @@
         <i class='fa-solid fa-pencil'></i>
         <span>Graphing</span>
       </div>
-      <!--<div class='nav-item' data-target='#scientific' id='scientificTab'>
+      <div class='nav-item hidden' data-target='#scientific' id='scientificTab'>
         <i class='fa-solid fa-calculator'></i>
         <span>Scientific</span>
       </div>
-      <div class='nav-item' data-target='#algebra' id='algebraTab'>
+      <div class='nav-item hidden' data-target='#algebra' id='algebraTab'>
         <i class='fa-solid fa-microchip'></i>
         <span>Algebra</span>
       </div>
-      <div class='nav-item' data-target='#units' id='unitsTab'>
+      <div class='nav-item hidden' data-target='#units' id='unitsTab'>
         <i class='fa-solid fa-ruler'></i>
         <span>Units</span>
       </div>
-      <div class='nav-item' data-target='#chemistry' id='chemistryTab'>
+      <div class='nav-item hidden' data-target='#chemistry' id='chemistryTab'>
         <i class='fa-solid fa-flask'></i>
         <span>Chemistry</span>
-      </div>-->
-      <div class='nav-item' data-target='#learn' id='learnTab' onclick='window.open("http://aryabhata.aeonic.me/applets/learn.htm", "_learntab");'>
+      </div>
+      <div class='nav-item' data-target='#learn' id='learnTab' onclick='window.open("applets/learn.htm", "_learntab");'>
         <i class='fa-solid fa-brain'></i>
         <span>Learn</span>
       </div>
-      <div class='nav-item' data-target='#memorise' id='memoriseTab' onclick='window.open("http://aryabhata.aeonic.me/applets/memorise.htm", "_memorisetab");'>
+      <div class='nav-item' data-target='#memorise' id='memoriseTab' onclick='window.open("applets/memorise.htm", "_memorisetab");'>
         <i class='fa-solid fa-book-open'></i>
         <span>Memorise</span>
       </div>
-      <!--<div class='nav-item' data-target='#parse' id='parseTab'>
+      <div class='nav-item hidden' data-target='#parse' id='parseTab'>
         <i class='fa-solid fa-comment'></i>
         <span>Gloss</span>
-      </div>-->
+      </div>
       <div class='nav-item' data-target='#controls' id='controlsTab'>
         <i class='fa-solid fa-gears'></i>
         <span>Controls</span>
@@ -1320,11 +1257,12 @@
     <style>input[type=number]{max-width:100px;}</style>
     
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.js'></script>
-    <script src="http://aryabhata.aeonic.me/noedit.compromise.js"></script>
+    <script src="noedit.compromise.js"></script>
     <script src='scripts/graph.js'></script>
     <script src='scripts/translations.js'></script>
     <script src='scripts/scientific.js'></script>
     <script src='scripts/chemistry.js'></script>
+    <script src='scripts/gloss.js'></script>
     <script src='databases/periodictable.js'></script>
     <style>
       @font-face {
@@ -1609,11 +1547,40 @@
       }
     </style>
     <script>
+      // Function to navigate to a specific section
+      function navigateToSection(sectionId) {
+        const targetNavItem = document.querySelector(`.nav-item[data-target="#${sectionId}"]`);
+        if (targetNavItem) {
+          targetNavItem.click();
+        }
+      }
+
       // Nav Bar Code
       document.addEventListener('DOMContentLoaded', function() {
+        // Handle URL hash navigation after a delay
+        const currentHash = window.location.hash;
+        if (currentHash && currentHash.length > 1) {
+          setTimeout(() => {
+            navigateToSection(currentHash.substring(1));
+          }, 4000);
+        }
+
         // Select home tab
         const navItems = document.querySelectorAll('.nav-item');
         const contentSections = document.querySelectorAll('.content-section');
+        
+        // Handle URL hash navigation after a delay
+        /*const hash = window.location.hash;
+        if (hash && hash.length > 1) { // Make sure hash isn't just '#'
+          setTimeout(() => {
+            // Find nav item that matches the hash without the '#' symbol
+            const targetNavItem = document.querySelector(`.nav-item[data-target="#${hash.substring(1)}"]`);
+            if (targetNavItem) {
+              targetNavItem.click();
+            }
+          }, 4000); // 4 second delay
+        }*/
+        
         
         // Function to handle nav item clicks
         function handleNavClick(event) {

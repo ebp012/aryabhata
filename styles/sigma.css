@@ -1154,7 +1154,7 @@ p.page-nav::after {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 table:not(.nepas) {
