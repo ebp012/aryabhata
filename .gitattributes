@@ -7,8 +7,8 @@ index-prealpha.html -linguist-detectable
 # *.arya linguist-language=CSV
 # *.csv linguist-language=CSV
 
-*.svg linguist-detectable
-*.svg linguist-language=SVG
-
 *.sh linguist-detectable
 *.sh linguist-language=Bash
+
+*.svg linguist-detectable
+*.svg linguist-language=XML
