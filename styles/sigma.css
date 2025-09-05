@@ -655,6 +655,10 @@ iframe.applet {
   -webkit-backdrop-filter: blur(124.4px);
 }
 
+@media (max-height: 475px) {
+    height: 80vh;
+}
+
 .applet-refresh {
   position: absolute;
   left: 20px;
