@@ -1162,6 +1162,10 @@ p.page-nav::after {
   display: none !important;
 }
 
+.gh-fullwidth {
+    width: 100%;
+}
+
 table:not(.nepas) {
   border-radius: 14px;
   background: linear-gradient(180deg, #e4f8ff, #cbeaff);
