@@ -194,7 +194,7 @@
           box-sizing: border-box;
         }
 
-        #aryaBtn, #settingsBtn {
+        .button.small {
           width: 40px !important;
           display: inline-block;
           margin: 6px 4px;
@@ -291,7 +291,7 @@
   </head>
   <body>
     <div id="bg" class='hidden'></div>
-    <div id="home" class="contaner app content-section cs-blue" style='display: block;'>
+    <div id="home" class="contaner app active content-section cs-blue" style='display: block;'>
       <!--<h1 id="title">Aryabhata</h1>-->
       <input
         type="file"
@@ -324,20 +324,20 @@
         </table>
         <p>
           <center>
-            <button class="button" id="aryaBtn" style='width: 40px; display: inline-block;'>
+            <button class="button small" id="aryaBtn" style='width: 40px; display: inline-block;'>
               <i class="fa fa-pencil"></i>
             </button>
-            <button class="button" id="quizletBtn" style='width: 40px; display: inline-block;'>
+            <button class="button small" id="quizletBtn" style='width: 40px; display: inline-block;'>
               <b>Q</b>
             </button>
-            <button class="button" id="settingsBtn" style='width: 40px; display: inline-block;'>
+            <button class="button small" id="settingsBtn" style='width: 40px; display: inline-block;'>
               <i class="fa fa-gears"></i>
             </button>
           </center>
         </p>
       </div>
     </div>
-    <div id="game" class="contaner app hidden content-section cs-blue">
+    <div id="game" class="contaner app content-section cs-blue">
       <br/>
       <p><strong class="question" id="question" style='float: center;'>Question</strong></p>
       <hr style='margin-bottom: 5pt;'/>
@@ -360,7 +360,7 @@
       <button class="button" id="shopBtn">Shop</button>
     </div>
 
-    <div id="shop" class="contaner app hidden content-section cs-blue">
+    <div id="shop" class="contaner app content-section cs-blue">
       <h2>Shop</h2>
       <div class="shop-item">
         Halve point deductions - 6 Silver
@@ -369,7 +369,7 @@
       <button class="button" id="closeShop">Close</button>
     </div>
 
-    <div id="flashCardApp" class="contaner app hidden content-section cs-blue">
+    <div id="flashCardApp" class="contaner app content-section cs-blue">
       <h2>Flash Cards</h2>
       <div id="flashCard" class="card" style='float: center;'>Loading...</div>
       <div id="flashCardControls">
@@ -385,7 +385,7 @@
       <button id="closeFlashcard" class="button">Close</button>
     </div>
 
-    <div id="quizletImport" class="contaner app hidden content-section cs-blue">
+    <div id="quizletImport" class="contaner app content-section cs-blue">
       <h2>Quizlet Import</h2>
       <p>Paste your Quizlet export here (tab-separated terms and definitions):</p>
       <textarea id="quizletInput" style="width: 100%; height: 200px; margin-bottom: 10px;"></textarea>
@@ -423,7 +423,7 @@
       <button class="button" id="closeQuizlet">Close</button>
     </div>
 
-    <div id="csvEditor" class="contaner app hidden content-section cs-blue">
+    <div id="csvEditor" class="contaner app content-section cs-blue">
       <h2>Designer</h2>
       <table
         id="csvTable"
@@ -459,7 +459,7 @@
       <button class="button" id="closeArya">Close</button>
     </div>
 
-    <div id="settings" class="contaner app hidden content-section cs-blue">
+    <div id="settings" class="contaner app content-section cs-blue">
       <h2>Settings</h2>
       <hr />
       <p id="selectLanguage">Choose your language:</p>
@@ -478,7 +478,7 @@
       <button class="button" id="closeSettings">Close</button>
     </div>
 
-    <div id="incorrect" class="app hidden content-section">
+    <div id="incorrect" class="app content-section">
       <strong>Your answer was incorrect.</strong>
     </div>
 

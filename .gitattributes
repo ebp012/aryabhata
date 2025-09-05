@@ -2,13 +2,14 @@ noedit.compromise.js -linguist-vendored
 noedit.compromise.js -linguist-detectable
 index-alpha.html -linguist-detectable
 index-prealpha.html -linguist-detectable
+scripts/fit.js -linguist-detectable
 *.arya linguist-detectable
 *.csv linguist-detectable
 # *.arya linguist-language=CSV
 # *.csv linguist-language=CSV
 
-*.svg linguist-detectable
-*.svg linguist-language=SVG
-
 *.sh linguist-detectable
 *.sh linguist-language=Bash
+
+*.svg linguist-detectable
+*.svg linguist-language=XML
