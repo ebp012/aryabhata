@@ -11,27 +11,13 @@ var translations = {
     chemistryTab: 'Chemistry',
     learnTab: 'Learn',
     memoriseTab: 'Memorise',
-    parseTab: 'Parse',
+    parseTab: 'Gloss',
     controlsTab: 'Controls',
-    // Top row
-    xivTitle: 'x-i Viewport',
-    xrTitle: 'x-r Trace',
-    xiTitle: 'x-i Trace',
-    graphTitle: 'Graph',
-    sliderInput: 'Slider input?',
-    // Bottom row
-    functionTitle: 'Function',
-    functionTitlePl: 'Functions',
-    traceTitle: 'Trace',
-    roundTitle: 'Round',
-    scaleTitle: 'Scale',
-    // Graph settings
-    graphTicks: 'Tick marks?',
-    gridLines: 'Grid lines?',
-    graphAxes: 'Graph axes?',
-    graphPoints: 'Points on function?',
-    xivScroll: 'Scroll for x-iv?',
-    advancedOptions: 'Advanced options?',
+    // Launcher Tab
+    welcomeHeader: 'Welcome to Aryabhata!',
+    welcomeText: 'Aryabhata is your <i>free</i> one-stop shop to a world of wonderful math, science, and linguistics tools.<br/>Below, you can find a variety of apps which you&#x0027;ll definitely find useful.',
+    scientificHeader: 'Math and Science Tools',
+    linguisticHeader: 'Memory and Linguistic Tools',
   },
   fr: {
     // Navigation
@@ -42,27 +28,13 @@ var translations = {
     chemistryTab: 'Chimie',
     learnTab: 'Apprendre',
     memoriseTab: 'Se Rapeller',
-    parseTab: 'Parser',
+    parseTab: 'Lustrer',
     controlsTab: 'Réglages',
-    // Top row
-    xivTitle: 'Fenêtre d\'x-i',
-    xrTitle: 'Traçage d\'x-r',
-    xiTitle: 'Traçage d\'x-i',
-    graphTitle: 'Graphe',
-    sliderInput: 'Inputer par range?',
-    // Row
-    functionTitle: 'Fonction',
-    functionTitlePl: 'Fonctions',
-    traceTitle: 'Traçage',
-    roundTitle: 'Arrondage',
-    scaleTitle: 'Scalage',
-    // Graph settings
-    graphTicks: 'Coches des axes?',
-    gridLines: 'Lignes de graphe?',
-    graphAxes: 'Axes de graphe?',
-    graphPoints: 'Points sur fonction?',
-    xivScroll: 'Defiller pour x-iv?',
-    advancedOptions: 'Options avancées?',
+    // Launcher Tab
+    welcomeHeader: 'Bienvenue á Aryabhata!',
+    welcomeText: 'Aryabhata est votre appli <i>gratuit</i> pour un monde des outiles mathématique, scientifique, et linguistique.<br/>Dessous, vous pouvez touver beaucoup des mini-applis que vous penserez très utiles.',
+    scientificHeader: 'Outiles Scientifiques et Mathematiques',
+    linguisticHeader: 'Outiles Linguistiques et pour le Memoire',
   },
   applyLang: function () {
     switch (lang) {
@@ -70,7 +42,7 @@ var translations = {
         qs('#scientificTab').style.fontSize = '12pt';
         qs('#memoriseTab').style.fontSize = '12pt';
         // Navigation
-        qs('#homeTab span').innerHTML = translations.en.graphingTab;
+        qs('#graphing-tab span').innerHTML = translations.en.graphingTab;
         qs('#scientificTab span').innerHTML = translations.en.scientificTab;
         qs('#algebraTab span').innerHTML = translations.en.algebraTab;
         qs('#unitsTab span').innerHTML = translations.en.unitsTab;
@@ -88,28 +60,11 @@ var translations = {
         qs('#memorise h1').innerHTML = translations.en.memoriseTab;
         qs('#parse h1').innerHTML = translations.en.parseTab;
         qs('#controls h1').innerHTML = translations.en.controlsTab;
-        // Top row
-        qs('#xiv-title').innerHTML = translations.en.xivTitle;
-        qs('#xr-title').innerHTML = translations.en.xrTitle;
-        qs('#xi-title').innerHTML = translations.en.xiTitle;
-        qs('#graph-title').innerHTML = translations.en.graphTitle;
-        qsa('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
-          element.innerHTML = translations.en.sliderInput;
-        });
-        // Bottom row
-        qs('#function-title').innerHTML = translations.en.functionTitle;
-        if (nof == 1) qs('#function-title').innerHTML = translations.en.functionTitle;
-        else qs('#function-title').innerHTML = translations.en.functionTitlePl;
-        qs('#trace-title').innerHTML = translations.en.traceTitle;
-        qs('#round-title').innerHTML = translations.en.roundTitle;
-        qs('#scale-title').innerHTML = translations.en.scaleTitle;
-        // Graph settings
-        qs('label[for="graph-ticks"]').innerHTML = translations.en.graphTicks;
-        qs('label[for="graph-grids"]').innerHTML = translations.en.gridLines;
-        qs('label[for="graph-axes"]').innerHTML = translations.en.graphAxes;
-        qs('label[for="graph-points"]').innerHTML = translations.en.graphPoints;
-        qs('label[for="graph-scroll-xiv"]').innerHTML = translations.en.xivScroll;
-        qs('label[for="graph-advanced"]').innerHTML = translations.en.advancedOptions;
+        // Launcher Tab
+        qs('#launcher-welcome-header').innerHTML = translations.en.welcomeHeader;
+        qs('#launcher-welcome-text').innerHTML = translations.en.welcomeText;
+        qs('#launcher-scientific').innerHTML = translations.en.scientificHeader;
+        qs('#launcher-linguistic').innerHTML = translations.en.linguisticHeader;
         break;
       case 'fr':
         qs('#scientificTab').style.fontSize = '10pt';
@@ -133,27 +88,11 @@ var translations = {
         qs('#memorise h1').innerHTML = translations.fr.memoriseTab;
         qs('#parse h1').innerHTML = translations.fr.parseTab;
         qs('#controls h1').innerHTML = translations.fr.controlsTab;
-        // Top row
-        qs('#xiv-title').innerHTML = translations.fr.xivTitle;
-        qs('#xr-title').innerHTML = translations.fr.xrTitle;
-        qs('#xi-title').innerHTML = translations.fr.xiTitle;
-        qs('#graph-title').innerHTML = translations.fr.graphTitle;
-        qsa('label[for="xiv-type-input"], label[for="xr-type-input"], label[for="xi-type-input"]').forEach(function(element) {
-          element.innerHTML = translations.fr.sliderInput;
-        });
-        // Bottom row
-        if (nof == 1) qs('#function-title').innerHTML = translations.fr.functionTitle;
-        else qs('#function-title').innerHTML = translations.fr.functionTitlePl;
-        qs('#trace-title').innerHTML = translations.fr.traceTitle;
-        qs('#round-title').innerHTML = translations.fr.roundTitle;
-        qs('#scale-title').innerHTML = translations.fr.scaleTitle;
-        // Graph settings
-        qs('label[for="graph-ticks"]').innerHTML = translations.fr.graphTicks;
-        qs('label[for="graph-grids"]').innerHTML = translations.fr.gridLines;
-        qs('label[for="graph-axes"]').innerHTML = translations.fr.graphAxes;
-        qs('label[for="graph-points"]').innerHTML = translations.fr.graphPoints;
-        qs('label[for="graph-scroll-xiv"]').innerHTML = translations.fr.xivScroll;
-        qs('label[for="graph-advanced"]').innerHTML = translations.fr.advancedOptions;
+        // Launcher Tab
+        qs('#launcher-welcome-header').innerHTML = translations.fr.welcomeHeader;
+        qs('#launcher-welcome-text').innerHTML = translations.fr.welcomeText;
+        qs('#launcher-scientific').innerHTML = translations.fr.scientificHeader;
+        qs('#launcher-linguistic').innerHTML = translations.fr.linguisticHeader;
         break;
     };
   },
