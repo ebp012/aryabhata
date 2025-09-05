@@ -93,10 +93,10 @@ var translations = {
         qs('#centre-btn').innerHTML = translations.en.centreBtn;
         qs('#round-title').innerHTML = translations.en.roundTitle;
         qs('#scale-title').innerHTML = translations.en.scaleTitle;
-        qs('#panning-btn').innerHTML = translations.en.panningBtn;
-        qs('#xiviewport-btn').innerHTML = translations.en.xivBtn;
-        qs('#gridlines-btn').innerHTML = translations.en.gridlinesBtn;
-        qs('#tickmarks-btn').innerHTML = translations.en.tickmarksBtn;
+        qs('#panning-btn').value = translations.en.panningBtn;
+        qs('#xiviewport-btn').value = translations.en.xivBtn;
+        qs('#gridlines-btn').value = translations.en.gridlinesBtn;
+        qs('#tickmarks-btn').value = translations.en.tickmarksBtn;
         break;
       case 'fr':
         qs('#scientificTab').style.fontSize = '10pt';
@@ -133,10 +133,10 @@ var translations = {
         qs('#centre-btn').innerHTML = translations.fr.centreBtn;
         qs('#round-title').innerHTML = translations.fr.roundTitle;
         qs('#scale-title').innerHTML = translations.fr.scaleTitle;
-        qs('#panning-btn').innerHTML = translations.fr.panningBtn;
-        qs('#xiviewport-btn').innerHTML = translations.fr.xivBtn;
-        qs('#gridlines-btn').innerHTML = translations.fr.gridlinesBtn;
-        qs('#tickmarks-btn').innerHTML = translations.fr.tickmarksBtn;
+        qs('#panning-btn').value = translations.fr.panningBtn;
+        qs('#xiviewport-btn').value = translations.fr.xivBtn;
+        qs('#gridlines-btn').value = translations.fr.gridlinesBtn;
+        qs('#tickmarks-btn').value = translations.fr.tickmarksBtn;
         break;
     };
   },
