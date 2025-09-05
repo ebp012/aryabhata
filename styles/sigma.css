@@ -27,6 +27,23 @@
   --shadow-dark: rgba(0, 0, 0, 0.1);
 }
 
+/* Link styles that don't apply to .non class */
+a:not(.non) {
+  color: var(--link-normal);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+a:not(.non):hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+a:not(.non):active {
+  color: var(--link-active);
+}
+
 
 * {
   margin: 0;
