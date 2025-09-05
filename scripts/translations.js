@@ -4,6 +4,7 @@ if (lang != 'en' && lang != 'fr') lang = 'en';
 var translations = {
   en: {
     // Navigation
+    launcherTab: 'Home',
     graphingTab: 'Graphing',
     scientificTab: 'Scientific',
     algebraTab: 'Algebra',
@@ -21,6 +22,7 @@ var translations = {
   },
   fr: {
     // Navigation
+    launcherTab: 'Acceuil',
     graphingTab: 'Graphe',
     scientificTab: 'Scientifique',
     algebraTab: 'Algebre',
@@ -42,7 +44,8 @@ var translations = {
         qs('#scientificTab').style.fontSize = '12pt';
         qs('#memoriseTab').style.fontSize = '12pt';
         // Navigation
-        qs('#graphing-tab span').innerHTML = translations.en.graphingTab;
+        qs('#homeTab span').innerHTML = translations.en.launcherTab;
+        qs('#graphingTab span').innerHTML = translations.en.graphingTab;
         qs('#scientificTab span').innerHTML = translations.en.scientificTab;
         qs('#algebraTab span').innerHTML = translations.en.algebraTab;
         qs('#unitsTab span').innerHTML = translations.en.unitsTab;
@@ -70,7 +73,8 @@ var translations = {
         qs('#scientificTab').style.fontSize = '10pt';
         qs('#memoriseTab').style.fontSize = '10pt';
         // Navigation
-        qs('#homeTab span').innerHTML = translations.fr.graphingTab;
+        qs('#homeTab span').innerHTML = translations.en.launcherTab;
+        qs('#graphingTab span').innerHTML = translations.fr.graphingTab;
         qs('#scientificTab span').innerHTML = translations.fr.scientificTab;
         qs('#algebraTab span').innerHTML = translations.fr.algebraTab;
         qs('#unitsTab span').innerHTML = translations.fr.unitsTab;
