@@ -98,7 +98,7 @@ body:hover {
   align-items: center;
   outline: none;
   -webkit-user-select: none;
-  padding: 6px;
+  padding: 12px;
   -ms-user-select: none;
   user-select: none;
   background: linear-gradient(
@@ -1012,6 +1012,7 @@ p.page-nav::after {
       height: auto;
       bottom: auto;
       max-height: none;
+        min-height: 80px;
       border-radius: 16px;
       z-index: 9999;             /* keep it above other stuff */
     }
