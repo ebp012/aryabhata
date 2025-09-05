@@ -1,8 +1,9 @@
 /*
-from stack-overflow
+from stack-overflow:
+https://stackoverflow.com/questions/49253341/how-to-make-iframe-100-height-according-to-its-content
 */
 function fit() {
-    var iframes = document.querySelectorAll("iframe.gh-fit")
+    var iframes = document.querySelectorAll("iframe.gh-fit, iframe.applet")
 
     for(var id = 0; id < iframes.length; id++) {
         var win = iframes[id].contentWindow
