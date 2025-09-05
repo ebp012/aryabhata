@@ -175,7 +175,7 @@
             <table class='non' style='margin-left: auto; margin-right: auto; min-width: calc(100% - 60px);'>
               <thead>
                 <tr>
-                  <td style='min-width: calc(18% - 60px);'>Functions</td>
+                  <td style='min-width: calc(18% - 60px);' id='functions-header'>Functions</td>
                   <td onclick='graphFunction();' id='graph-title' colspan='2' style='min-width: calc(82% - 60px);'>Graph</td>
                 </tr>
               </thead>
@@ -251,7 +251,7 @@
                       <div id='graph-div'>
                         <canvas height='360' width='360' style='border: 1px solid grey;' id='graph-canvas'></canvas>
                       </div>
-                      <button id='graph-centre'>Centre</button> <button id='graph-btn' onclick='graphFunction();'>Graph</button>
+                      <button id='graph-centre' id='centre-btn'>Centre</button> <button id='graph-btn' onclick='graphFunction();'>Graph</button>
                       <!--<button id='graph-fullscreen-btn'><i class='fa fa-expand'></i> Fullscreen</button>-->
                       <hr/>
                       <label for='trace-round' id='round-title'>Round</label>: 10<sup><input id='trace-round' type='number' style='font-size: calc(inherit * 0.25);' min='-4' value='-1' step='1'/></sup><br/>
@@ -314,10 +314,10 @@
 
                       <div style='height: 19pt;'></div>
                       <p class='page-nav' style='font-size: 12pt; padding: 1pt !important; position: relative;'>
-                          <button class='grav-item' data-target='#graph-offset-control'>Panning</button>
-                          <button class='grav-item' data-target='#graph-xi-viewport'>XI Viewport</button>
-                          <button class='grav-item' data-target='#graph-gridlines'>Gridlines</button>
-                          <button class='grav-item' data-target='#graph-tickmarks'>Tickmarks</button>
+                          <button class='grav-item' data-target='#graph-offset-control' id='panning-btn'>Panning</button>
+                          <button class='grav-item' data-target='#graph-xi-viewport' id='xiviewport-btn'>XI Viewport</button>
+                          <button class='grav-item' data-target='#graph-gridlines' id='gridlines-btn'>Gridlines</button>
+                          <button class='grav-item' data-target='#graph-tickmarks' id='tickmarks-btn'>Tickmarks</button>
                       </p>
                     </div>
                   </td>
