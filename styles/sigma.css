@@ -56,7 +56,7 @@ body {
   font-family: "New York", "Georgia", serif;
   background-size: cover;
   min-height: 100lvh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 html, body {
@@ -110,7 +110,7 @@ body:hover {
   border-radius: 20px;
   height: 80px;
   display: flex;
-  width: fit-content;
+  /*width: fit-content;*/
   justify-content: space-around;
   align-items: center;
   outline: none;
@@ -125,7 +125,8 @@ body:hover {
   );
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 20px rgba(50, 0, 100, 0.2),
-              inset 0 0 10px rgba(255, 255, 255, 0.25);
+              inset 0 0 10px rgba(255, 255, 255, 0.25),
+              inset 0 12px 20px -12px rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(12px) saturate(1.4) url(#crystal-distortion-plus);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
 }
@@ -136,18 +137,7 @@ body:hover {
   backdrop-filter: blur(12px) url(#crystal-distortion-plus) saturate(0.7) brightness(0.6);
   -webkit-backdrop-filter: blur(12px) saturate(0.7);
 }
-.nav-bar::before {
-  content: "";
-  position: fixed;
-  top: 2px;
-  left: 8px;
-  width: calc(100% - 13px);
-  height: 44%;
-  max-height: 40px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
-  border-radius: inherit;
-  pointer-events: none;
-}
+
 
 .nav-item, .nav-item.nbtn-clear {
   text-align: center;
@@ -158,8 +148,8 @@ body:hover {
   text-shadow: 1px 1px 2.5px rgba(45, 0, 45, 0.64);
   background: linear-gradient(
     to bottom,
-    rgba(230, 230, 230, 0.9) 0%,
-    rgba(210, 210, 210, 0.9) 100%
+    rgba(230, 230, 230, 0.67) 0%,
+    rgba(210, 210, 210, 0.67) 100%
   );
   border: 1px solid rgba(150, 150, 150, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06),
@@ -673,7 +663,7 @@ iframe.applet {
 }
 
 @media (max-height: 475px) {
-    height: 80vh;
+    /*height: 80vh;*/
 }
 
 .applet-refresh {
@@ -872,7 +862,7 @@ p.page-nav::after {
     transition: padding 0.45s ease-in-out, left 0.45s ease-in-out, width 0.45s ease-in-out, height 0.45s ease-in-out, display 0.45s ease-in-out, transform 0.45s ease-in-out;
 }
 @media (max-height: 475px) { /* 1024px ipad mini width */
-  .nav-bar {
+  .nav-bar:not(.non) {
     position: fixed;
     left: 15px;
     top: 50%;
@@ -933,6 +923,8 @@ p.page-nav::after {
   .nav-item {
     margin-left: 4.5px;
     margin-right: 4.5px;
+    margin-top: 0.2%;
+    margin-bottom: 0.2%;
   }
   .nav-bar:not(.non) {
     display: flex;
@@ -941,7 +933,19 @@ p.page-nav::after {
     gap: 8px; /* small gap between buttons */
     padding: 0.4% 0.6%; /* 8px 12px */
     width: 70%;
-    min-height: 35px;
+    min-height: 40pt !important;
+  }
+  .nav-bar::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    height: 44%;
+    max-height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
+    border-radius: inherit;
+    pointer-events: none;
   }
 
   .nav-bar:not(.non) .nav-item {
@@ -1545,7 +1549,7 @@ canvas {
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 9px;
-  background: radial-gradient(ellipse at center, #b3a6da, rgba(160, 160, 160, 0.64), #b3a6da);
+  background: radial-gradient(ellipse at center, #b3a6da18, rgba(160, 160, 160, 0.24), #b3a6da18);
   backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
@@ -1681,8 +1685,8 @@ button:hover::after, select:hover::after {
     z-index: -1;
     backdrop-filter: blur(var(--frost-blur));
     -webkit-backdrop-filter: blur(var(--frost-blur));
-    filter: url(#crystal-distortion);
-    -webkit-filter: url("#crystal-distortion");
+    /*filter: url(#crystal-distortion);
+    -webkit-filter: url("#crystal-distortion");*/
     isolation: isolate;
   }
 

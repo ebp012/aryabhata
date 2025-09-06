@@ -89,18 +89,21 @@
           <center>
             <h2 id='launcher-welcome-header'>Welcome to Aryabhata!</h2>
             <p id='launcher-welcome-text'>Aryabhata is your <i>free</i> one-stop shop to a world of useful math, science, and linguistics tools.<br/>
-        	Below, you can find a variety of apps which you'll definitely find useful.</p>
+            Below, you can find a variety of apps which you'll definitely find useful.</p>
           </center>
         </div>
         <center>
-          <style>table.non .nav-item {opacity: 90%;} #launcher table.non tbody {opacity: 90%;} #launcher table, #launcher td {opacity: 90% !important;} #launcher .nav-item {filter: brightness(105%) contrast(0.6);}</style>
-          <div class='table-wrapper'>
-            <table class='non'>
-              <thead>
+          <!--<style>table.non .nav-item {opacity: 90%;} #launcher table.non tbody {opacity: 90%;} #launcher table, #launcher td {opacity: 90% !important;} #launcher .nav-item {filter: brightness(105%) contrast(0.6);}</style>-->
+          <style>.nav-bar.non::before {display: none;} .nav-bar.non {filter: brightness(0.99); backdrop-filter: brightness(0.9);} #launcher-scientific, #launcher-linguistic {color: #070707d0;}</style>
+          <br/><br/>
+          <h2 id='launcher-scientific'>Math &amp; Science Tools</h2><br/>
+          <div class="table-wrapper nav-bar non" style="position: relative; left: 50%; right: 50%; max-width: 100%; top: auto; bottom: auto; text-align: center; overflow-x: auto !important;">
+            <table class='non nepas'>
+              <!--<thead>
                 <tr>
                   <td colspan='5' id='launcher-scientific'>Math &amp; Science tools</td>
                 </tr>
-              </thead>
+              </thead>-->
               <tbody>
                 <tr>
                   <td>
@@ -137,13 +140,10 @@
               </tbody>
             </table>
           </div>
-          <div class='table-wrapper'>
-            <table class='non'>
-              <thead>
-                <tr>
-                  <td colspan='3' id='launcher-linguistic'>Memory & Linguistic Tools</td>
-                </tr>
-              </thead>
+          <br/><hr/><br/>
+          <h2 id='launcher-linguistic'>Memory &amp; Linguistic Tools</h2><br/>
+          <div class="table-wrapper nav-bar non" style="position: relative; left: 50%; right: 50%; max-width: 100%; top: auto; bottom: auto; text-align: center; overflow-x: auto !important;">
+            <table class='non nepas'>
               <tbody>
                 <tr>
                   <td>
@@ -164,6 +164,8 @@
                       <span>Gloss</span>
                     </div>
                   </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </center>
