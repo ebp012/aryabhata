@@ -86,6 +86,15 @@ var translations = {
         qs('#launcher-welcome-text').innerHTML = translations.en.welcomeText;
         qs('#launcher-scientific').innerHTML = translations.en.scientificHeader;
         qs('#launcher-linguistic').innerHTML = translations.en.linguisticHeader;
+        
+        qs('#graphing-ltab span').innerHTML = translations.en.graphingTab;
+        qs('#scientific-ltab span').innerHTML = translations.en.scientificTab;
+        qs('#algebra-ltab span').innerHTML = translations.en.algebraTab;
+        qs('#units-ltab span').innerHTML = translations.en.unitsTab;
+        qs('#chemistry-ltab span').innerHTML = translations.en.chemistryTab;
+        qs('#learn-ltab span').innerHTML = translations.en.learnTab;
+        qs('#memorise-ltab span').innerHTML = translations.en.memoriseTab;
+        qs('#parse-ltab span').innerHTML = translations.en.parseTab;
         // Graphing Tab
         qs('#functions-header').innerHTML = translations.en.functionsHeader;
         qs('#graph-title').innerHTML = translations.en.graphingTab;
@@ -126,6 +135,15 @@ var translations = {
         qs('#launcher-welcome-text').innerHTML = translations.fr.welcomeText;
         qs('#launcher-scientific').innerHTML = translations.fr.scientificHeader;
         qs('#launcher-linguistic').innerHTML = translations.fr.linguisticHeader;
+
+        qs('#graphing-ltab span').innerHTML = translations.fr.graphingTab;
+        qs('#scientific-ltab span').innerHTML = translations.fr.scientificTab;
+        qs('#algebra-ltab span').innerHTML = translations.fr.algebraTab;
+        qs('#units-ltab span').innerHTML = translations.fr.unitsTab;
+        qs('#chemistry-ltab span').innerHTML = translations.fr.chemistryTab;
+        qs('#learn-ltab span').innerHTML = translations.fr.learnTab;
+        qs('#memorise-ltab span').innerHTML = translations.fr.memoriseTab;
+        qs('#parse-ltab span').innerHTML = translations.fr.parseTab;
         // Graphing Tab
         qs('#functions-header').innerHTML = translations.fr.functionsHeader;
         qs('#graph-title').innerHTML = translations.fr.graphingTab;
