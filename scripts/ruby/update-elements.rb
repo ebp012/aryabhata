@@ -119,8 +119,8 @@ def parse_elements(html)
       [1, i],        # coordinates
       0,             # mass (unknown)
       suffix,        # type
-      nil,           # melting point
-      nil            # boiling point
+      melt,           # melting point
+      boil            # boiling point
     ]
     
     # Generate corresponding antielement
@@ -132,8 +132,8 @@ def parse_elements(html)
       [1, i],               # coordinates (same as regular element)
       0,                    # mass (unknown)
       'anti' + suffix,      # type
-      nil,                  # melting point
-      nil                   # boiling point
+      melt,                  # melting point
+      boil                   # boiling point
     ]
   end
     #elements[Float::INFINITY] = [Float::INFINITY, 'infinitium', 'infinitite', 'If', [-1, 0], Float::INFINITY, 'fictional material', Float::INFINITY, Float::INFINITY]
@@ -172,6 +172,14 @@ def parse_elements(html)
     # type = row.match(/background-color:[^>]+>([^<]+)</i)&.[](1)&.downcase&.strip
     type = row.match(/>\s*([\d.]+)\s*<\/td>/m)&.[](7)
     type = 'unknown' unless type
+    
+    # Extract melting point
+    melt = row.match(/>\s*([\d.]+)\s*<\/td>/m)&.[](10)
+    melt = melt ? melt.to_f : 0
+    
+    # Extract boiling boint
+    boil = row.match(/>\s*([\d.]+)\s*<\/td>/m)&.[](11)
+    boil = boil ? boil.to_f : 0
     
     # Generate root (name minus last three letters, as requested)
     namePlus = name + '9'
@@ -223,8 +231,8 @@ def parse_elements(html)
       coordinates,         # coordinates based on block
       mass,               # atomic mass
       type,               # element type/category
-      nil,                # melting point (not parsed)
-      nil                 # boiling point (not parsed)
+      melt,                # melting point
+      boil                 # boiling point
     ]
     
     # Antielemental version
@@ -236,8 +244,8 @@ def parse_elements(html)
       coordinates,         # coordinates based on block
       mass,               # atomic mass (unchanged for antimatter)
       'anti' + type,               # element type/category
-      nil,                # melting point (not parsed)
-      nil                 # boiling point (not parsed)
+      melt,                # melting point
+      boil                 # boiling point
     ]
   end
   
