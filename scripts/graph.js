@@ -712,7 +712,7 @@ function graphFunction () {
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrt = (yrtMext > 0) ? 360 : -360;
         }
-        if (yrit != -Number(qs('#xiv-input').value)) {
+        if (yrit != yrit-Number(qs('#xiv-input').value)) { // 2025.09.08 add the yrit- to the start of the postequal part of condition
         ctx.strokeStyle = 'silver';
         ctx.lineWidth = width * 6;
         }
