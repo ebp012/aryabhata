@@ -165,11 +165,12 @@ def parse_elements(html)
     coordinates = block ? [block == 'f' ? 3 : block == 'd' ? 2 : block == 'p' ? 1 : 0, atomic_number] : [-1, 0]
     
     # Extract mass
-    mass = row.match(/>\s*([\d.]+)\s*<\/td>/m)&.[](1)
+    mass = row.match(/>\s*([\d.]+)\s*<\/td>/m)&.[](8)
     mass = mass ? mass.to_f : 0
     
     # Extract category/type
-    type = row.match(/background-color:[^>]+>([^<]+)</i)&.[](1)&.downcase&.strip
+    # type = row.match(/background-color:[^>]+>([^<]+)</i)&.[](1)&.downcase&.strip
+    type = row.match(/>\s*([\d.]+)\s*<\/td>/m)&.[](7)
     type = 'unknown' unless type
     
     # Generate root (name minus last three letters, as requested)
