@@ -1,4 +1,5 @@
 // Axes and Trace Variables
+// test equation: (x+4)/(x-2)^2
 var xr = 0, xrp = 0; // x real (x axis)
 var xi = 0, xip = 0; // x imaginary (z axis)
 var yr = 0, yrp = 0; // y real (y axis)
