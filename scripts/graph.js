@@ -1,5 +1,5 @@
 // Axes and Trace Variables
-// test equation: (x+4)/(x-2)^2
+// test equation: (x+4)/(x-2)^2 OR (19x-3)/(x+2)^2
 var xr = 0, xrp = 0; // x real (x axis)
 var xi = 0, xip = 0; // x imaginary (z axis)
 var yr = 0, yrp = 0; // y real (y axis)
@@ -713,7 +713,7 @@ function graphFunction () {
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrt = (yrtMext > 0) ? 360 : -360;
         }
-        if (yrit != yrit-Number(qs('#xiv-input').value)) { // 2025.09.08 add the yrit- to the start of the postequal part of condition
+        if (yrit != Number(qs('#xiv-input').value)) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
         ctx.strokeStyle = 'silver';
         ctx.lineWidth = width * 6;
         }
