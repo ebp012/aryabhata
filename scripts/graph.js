@@ -428,6 +428,8 @@ function addNewFunction () {
 }
 
 function drawGrid (majorStep, minorStep) {
+    var graphOffsetX = -Number(qs('#graph-offset-xr').value) * scale;
+    var graphOffsetY = -Number(qs('#graph-offset-yr').value) * scale;
     var mS;
     if (minorStep != undefined) {
         mS = minorStep;
@@ -441,15 +443,15 @@ function drawGrid (majorStep, minorStep) {
     if (qs('#graph-axes').checked) {
         // xr-axis
         ctx.beginPath();
-        ctx.moveTo(-canvas.width, 0);
-        ctx.lineTo(canvas.width, 0);
+        ctx.moveTo(-canvas.width/2 + graphOffsetX, 0);
+        ctx.lineTo(canvas.width/2 + graphOffsetX, 0);
         ctx.strokeStyle = 'blue';
         ctx.stroke();
 
         // yr-axis
         ctx.beginPath();
-        ctx.moveTo(0, -canvas.height);
-        ctx.lineTo(0, canvas.height);
+        ctx.moveTo(0, -canvas.height/2 + graphOffsetY);
+        ctx.lineTo(0, canvas.height/2 + graphOffsetY);
         ctx.strokeStyle = 'red';
         ctx.stroke();
         qs('#graph-ticks').removeAttribute('disabled');
@@ -457,7 +459,6 @@ function drawGrid (majorStep, minorStep) {
     else {
         qs('#graph-ticks').disabled = 'disabled';
     }
-
     // Draw all of the gridlines
     for (var i = -canvas.height/2; i < canvas.height/2; i += scale) {
         ctx.strokeStyle = 'grey';
@@ -468,8 +469,8 @@ function drawGrid (majorStep, minorStep) {
         if (qs('#graph-grids').checked) {
             // Horizontal
             ctx.beginPath();
-            ctx.moveTo(-canvas.width, i);
-            ctx.lineTo(canvas.width, i);
+            ctx.moveTo(-canvas.width/2 + graphOffsetX, i);
+            ctx.lineTo(canvas.width/2 + graphOffsetX, i);
             ctx.stroke();
         }
         // Draw tick marks if selected
@@ -492,8 +493,8 @@ function drawGrid (majorStep, minorStep) {
         if (qs('#graph-grids').checked) {
             // Vertical
             ctx.beginPath();
-            ctx.moveTo(i, -canvas.height);
-            ctx.lineTo(i, canvas.height);
+            ctx.moveTo(i, -canvas.height/2 + graphOffsetY);
+            ctx.lineTo(i, canvas.height/2 + graphOffsetY);
             ctx.stroke();
         }
         // Draw tick marks if selected
@@ -508,7 +509,8 @@ function drawGrid (majorStep, minorStep) {
         }
     }
 
-}function drawGrid3D () {
+}
+function drawGrid3D () {
     // yi-axis
     ctx.beginPath();
     ctx.moveTo(canvas.height/2, canvas.height/4);
