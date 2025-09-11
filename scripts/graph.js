@@ -719,14 +719,19 @@ function graphFunction () {
         if (-yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
             if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPre = ((3233857791*2 + newColourPrePre) / 3).toString(16).split(".")[0].slice(0, 6);
+                let newColourPre2 = ((3233857791*2 + newColourPrePre) / 3);
+                let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
+                if (newColourPre2 > 4294967295) newColourPre = 'f' + newColourPre.slice(2);
                 let newColour = '#' + newColourPre + 'ff';
                 ctx.strokeStyle = newColour;
                 ctx.lineWidth = width * 6;
             }
             else if (Math.abs(yiDiff) > 3 && Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePreb = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPreb = ((3233857791*4 + newColourPrePreb) / 5).toString(16).split(".")[0].slice(0, 6);
+                //let newColourPreb = ((3233857791*4 + newColourPrePreb) / 5).toString(16).split(".")[0].slice(0, 6);
+                let newColourPre2b = ((3233857791*4 + newColourPrePreb) / 5);
+                let newColourPreb = newColourPre2.toString(16).split(".")[0].slice(0, 6);
+                if (newColourPre2b > 4294967295) newColourPreb = 'f' + newColourPreb.slice(2);
                 let newColourb = '#' + newColourPreb + 'ff';
                 ctx.strokeStyle = newColourb;
                 ctx.lineWidth = width * 6;
