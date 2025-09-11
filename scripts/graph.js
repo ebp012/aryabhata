@@ -716,7 +716,7 @@ function graphFunction () {
         yrt = (yrtMext > 0) ? 360 : -360;
         }
         var yiDiff = Number(qs('#xiv-input').value);
-        if (yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
+        if (-yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
             if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
                 let newColourPre = ((3233857791*2 + newColourPrePre) / 3).toString(16).split(".")[0];
