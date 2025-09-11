@@ -715,9 +715,19 @@ function graphFunction () {
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrt = (yrtMext > 0) ? 360 : -360;
         }
-        if (yrit != Number(qs('#xiv-input').value)) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
-        ctx.strokeStyle = 'silver';
-        ctx.lineWidth = width * 6;
+        var yiDiff = Number(qs('#xiv-input').value);
+        if (yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
+            if ((yiDiff <= 2 || yiDiff >= -2) && yiDiff != 0) { // Less silvery if it is closer
+                let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
+                let newColourPre = ((3233857791 + newColourPrePre) / 2).toString(16);
+                let newColour = '#' + newColourPre;
+                ctx.strokeStyle = 'silver';
+                ctx.lineWidth = width * 6;
+            }
+            else {
+                ctx.strokeStyle = 'silver';
+                ctx.lineWidth = width * 6;
+            }
         }
         else {
         ctx.strokeStyle = colour;
