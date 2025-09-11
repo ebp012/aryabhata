@@ -719,21 +719,21 @@ function graphFunction () {
         if (-yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
             if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPre = ((3233857791*2 + newColourPrePre) / 3).toString(16).split(".")[0].slice(0, -2);
+                let newColourPre = ((3233857791*2 + newColourPrePre) / 3).toString(16).split(".")[0].slice(0, 6);
                 let newColour = '#' + newColourPre + 'ff';
                 ctx.strokeStyle = newColour;
                 ctx.lineWidth = width * 6;
             }
             else if (Math.abs(yiDiff) > 3 && Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePreb = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPreb = ((3233857791*4 + newColourPrePreb) / 5).toString(16).split(".")[0].slice(0, -2);
+                let newColourPreb = ((3233857791*4 + newColourPrePreb) / 5).toString(16).split(".")[0].slice(0, 6);
                 let newColourb = '#' + newColourPreb + 'ff';
                 ctx.strokeStyle = newColourb;
                 ctx.lineWidth = width * 6;
             }
             else if (Math.abs(yiDiff) > 6 && Math.abs(yiDiff) <= 9 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePrec = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPrec = ((3233857791*8 + newColourPrePrec) / 9).toString(16).split(".")[0].slice(0, -2); // *2 silver from before, then that +1 for division
+                let newColourPrec = ((3233857791*8 + newColourPrePrec) / 9).toString(16).split(".")[0].slice(0, 6); // *2 silver from before, then that +1 for division
                 let newColourc = '#' + newColourPrec + 'ff';
                 ctx.strokeStyle = newColourc;
                 ctx.lineWidth = width * 6;
