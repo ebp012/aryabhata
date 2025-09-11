@@ -717,23 +717,23 @@ function graphFunction () {
         }
         var yiDiff = Number(qs('#xiv-input').value);
         if (yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
-            if (Math.abs(yiDiff) <= 2 && yiDiff != 0) { // Less silvery if it is closer
+            if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
                 let newColourPre = ((3233857791*2 + newColourPrePre) / 3).toString(16).split(".")[0];
                 let newColour = '#' + newColourPre;
                 ctx.strokeStyle = newColour;
                 ctx.lineWidth = width * 6;
             }
-            else if (Math.abs(yiDiff) > 2 && Math.abs(yiDiff) <= 4 && yiDiff != 0) { // Less silvery if it is closer
+            else if (Math.abs(yiDiff) > 3 && Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePreb = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
                 let newColourPreb = ((3233857791*4 + newColourPrePreb) / 5).toString(16).split(".")[0];
                 let newColourb = '#' + newColourPreb;
                 ctx.strokeStyle = newColourb;
                 ctx.lineWidth = width * 6;
             }
-            else if (Math.abs(yiDiff) > 4 && Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
+            else if (Math.abs(yiDiff) > 6 && Math.abs(yiDiff) <= 9 && yiDiff != 0) { // Less silvery if it is closer
                 let newColourPrePrec = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPrec = ((3233857791*8 + newColourPrePrec) / 9).toString(16); // *2 silver from before, then same but -1 for division
+                let newColourPrec = ((3233857791*8 + newColourPrePrec) / 9).toString(16).split(".")[0]; // *2 silver from before, then same but -1 for division
                 let newColourc = '#' + newColourPrec;
                 ctx.strokeStyle = newColourc;
                 ctx.lineWidth = width * 6;
