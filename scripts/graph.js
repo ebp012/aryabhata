@@ -731,7 +731,7 @@ function graphFunction () {
                 let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
                 ctx.strokeStyle = newColour;
                 colour = newColour;
-                ctx.lineWidth = width * 6/1.5; // 4
+                ctx.lineWidth = width / 2; //width * 6/1.5; // 4
             }
             else if (Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
                 /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
@@ -745,11 +745,11 @@ function graphFunction () {
                 let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
                 ctx.strokeStyle = newColour;
                 colour = newColour;
-                ctx.lineWidth = width * 6/2; // 3
+                ctx.lineWidth = width / 4; //width * 6/2; // 3
             }
             else {
                 ctx.strokeStyle = 'silver';
-                ctx.lineWidth = width * 6/3; // 2
+                ctx.lineWidth = width / 8; //width * 6/3; // 2
             }
         }
         else {
