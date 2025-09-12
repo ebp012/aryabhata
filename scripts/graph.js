@@ -667,10 +667,11 @@ function graphFunction () {
     if (do3D) drawGrid3D();
     ctx.strokeStyle = colour;
     var preprecision = Number(qs('#trace-round').value);
-    if (preprecision < -4) preprecision = -1;
-    var precision = 5 * 10 ** preprecision;
+    if (preprecision < -4) preprecision = -4;
+    var precision = 2.5 * 10 ** preprecision;
+    if (preprecision < -3) precision = 5 * 10 ** preprecision;
     if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
-    if (preprecision <= -1) precision = 2 ** (preprecision + 1);
+    //if (preprecision <= -1) precision = 2 ** (preprecision + 1);
     
     for (var i = -canvas.width/2 - qs('#graph-offset-xr').value; i < canvas.width/2 - qs('#graph-offset-xr').value; i += precision) {
         let width = 1;
