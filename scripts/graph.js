@@ -704,7 +704,7 @@ function graphFunction () {
         }
         }*/
         // Vertical asymptotes
-        if (!isFinite(yrtNext) && yrtNext != undefined) {
+        /*if (!isFinite(yrtNext) && yrtNext != undefined) {
         var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrtNext = (yrtMext > 0) ? -360 : 360;
@@ -714,7 +714,7 @@ function graphFunction () {
         var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrt = (yrtMext > 0) ? 360 : -360;
-        }
+        }*/
         var yiDiff = Number(qs('#xiv-input').value);
         if (-yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
             if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
@@ -724,6 +724,7 @@ function graphFunction () {
                 if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
                 let newColour = '#' + newColourPre + 'ff';
                 ctx.strokeStyle = newColour;
+                colour = newColour;
                 ctx.lineWidth = width * 6;
             }
             else if (Math.abs(yiDiff) > 3 && Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
@@ -734,6 +735,7 @@ function graphFunction () {
                 if (newColourPre2b > 4294967295) newColourPreb = 'a' + newColourPreb.slice(2);
                 let newColourb = '#' + newColourPreb + 'ff';
                 ctx.strokeStyle = newColourb;
+                colour = newColourb;
                 ctx.lineWidth = width * 6;
             }
             else if (Math.abs(yiDiff) > 6 && Math.abs(yiDiff) <= 9 && yiDiff != 0) { // Less silvery if it is closer
@@ -744,6 +746,7 @@ function graphFunction () {
                 if (newColourPre2c > 4294967295) newColourPrec = 'a' + newColourPrec.slice(2);
                 let newColourc = '#' + newColourPrec + 'ff';
                 ctx.strokeStyle = newColourc;
+                colour = newColourc;
                 ctx.lineWidth = width * 6;
             }
             else {
