@@ -705,10 +705,10 @@ function graphFunction () {
         }
         }*/
         // Vertical asymptotes
-        var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f)
+        var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
         var xrtPrev = i - precision;
         var yrtPrev = -solve(xrtPrev, Number(qs('#xiv-input').value), false, 1, f);
-        var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f)
+        var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
         // Vertical asymptote after
         if (!isFinite(yrtNext) && yrtNext != undefined) {
             if (yrtOext > 0) {
