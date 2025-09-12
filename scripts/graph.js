@@ -705,6 +705,39 @@ function graphFunction () {
         }
         }*/
         // Vertical asymptotes
+        var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f)
+        var xrtPrev = i - precision;
+        var yrtPrev = -solve(xrtOrev, Number(qs('#xiv-input').value), false, 1, f);
+        var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f)
+        // Vertical asymptote after
+        if (!isFinite(yrtNext) && yrtNext != undefined) {
+            if (yrtOext > 0) {
+                ctx.beginPath();
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
+                ctx.stroke();
+            }
+            if (yrtOext < 0) {
+                ctx.beginPath();
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
+                ctx.stroke();
+            }
+        }
+        // Vertical asymptote before
+        if (!isFinite(yrtPrev) && yrtPrev != undefined) {
+            var currX = canvas.getBoundingClientRect().left;
+            var currY = canvas.getBoundingClientRect().top;
+            if (yrtOrev > 0) {
+                ctx.beginPath();
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
+                ctx.stroke();
+            }
+            if (yrtOrev < 0) {
+                ctx.beginPath();
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
+                ctx.stroke();
+            }
+            ctx.moveTo(currX, currY);
+        }
         /*if (!isFinite(yrtNext) && yrtNext != undefined) {
         var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
