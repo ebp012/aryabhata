@@ -724,12 +724,27 @@ function graphFunction () {
                 let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
                 if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
                 let newColour = '#' + newColourPre + 'ff';*/
-                let colourPre1 = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
-                let colourPre2 = colourPre1.toString().split(".")[0]; // convert colourPre1 to string and remove decimals
+                let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
+                let avgdColour = (preNewColour + (silverHex * 2)) / 3;
+                if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
+                let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
                 ctx.strokeStyle = newColour;
                 colour = newColour;
                 ctx.lineWidth = width * 6;
-                
+            }
+            else if (Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
+                /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
+                let newColourPre2 = ((3233857791*2 + newColourPrePre) / 3);
+                let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
+                if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
+                let newColour = '#' + newColourPre + 'ff';*/
+                let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
+                let avgdColour = (preNewColour + (silverHex * 4)) / 5;
+                if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
+                let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
+                ctx.strokeStyle = newColour;
+                colour = newColour;
+                ctx.lineWidth = width * 6;
             }
             else {
                 ctx.strokeStyle = 'silver';
