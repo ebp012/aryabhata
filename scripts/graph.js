@@ -705,7 +705,7 @@ function graphFunction () {
         }
         }*/
         // Vertical asymptotes
-        var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
+        /*var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
         var xrtPrev = i - precision;
         var yrtPrev = -solve(xrtPrev, Number(qs('#xiv-input').value), false, 1, f);
         var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
@@ -739,7 +739,7 @@ function graphFunction () {
                 ctx.stroke();
             }
             ctx.moveTo(currX, currY);
-        }
+        }*/
         /*if (!isFinite(yrtNext) && yrtNext != undefined) {
         var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
