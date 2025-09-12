@@ -728,11 +728,13 @@ function graphFunction () {
             var currY = canvas.getBoundingClientRect().top;
             if (yrtOrev > 0) {
                 ctx.beginPath();
+                ctx.moveTo(currX, currY);
                 ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
                 ctx.stroke();
             }
             if (yrtOrev < 0) {
                 ctx.beginPath();
+                ctx.moveTo(currX, currY);
                 ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
                 ctx.stroke();
             }
