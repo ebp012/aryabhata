@@ -725,12 +725,12 @@ function graphFunction () {
                 if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
                 let newColour = '#' + newColourPre + 'ff';*/
                 let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
-                let avgdColour = (preNewColour + (silverHex * 2)) / 3;
+                let avgdColour = (preNewColour + (silverHex * 4)) / 5;
                 if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
                 let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
                 ctx.strokeStyle = newColour;
                 colour = newColour;
-                ctx.lineWidth = width * 6;
+                ctx.lineWidth = width * 6/1.5; // 4
             }
             else if (Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
                 /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
@@ -739,16 +739,16 @@ function graphFunction () {
                 if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
                 let newColour = '#' + newColourPre + 'ff';*/
                 let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
-                let avgdColour = (preNewColour + (silverHex * 4)) / 5;
+                let avgdColour = (preNewColour + (silverHex * 6)) / 7;
                 if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
                 let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
                 ctx.strokeStyle = newColour;
                 colour = newColour;
-                ctx.lineWidth = width * 6;
+                ctx.lineWidth = width * 6/2; // 3
             }
             else {
                 ctx.strokeStyle = 'silver';
-                ctx.lineWidth = width * 6;
+                ctx.lineWidth = width * 6/3; // 2
             }
         }
         else {
