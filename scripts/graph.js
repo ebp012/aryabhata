@@ -707,7 +707,7 @@ function graphFunction () {
         // Vertical asymptotes
         var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f)
         var xrtPrev = i - precision;
-        var yrtPrev = -solve(xrtOrev, Number(qs('#xiv-input').value), false, 1, f);
+        var yrtPrev = -solve(xrtPrev, Number(qs('#xiv-input').value), false, 1, f);
         var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f)
         // Vertical asymptote after
         if (!isFinite(yrtNext) && yrtNext != undefined) {
