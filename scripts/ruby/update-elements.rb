@@ -15,18 +15,17 @@ def parse_elements(html)
   antielements = {}
   
   # Other elements
-  elements[0] = [0, 'neutronium', 'neutron', 'Nu', [1, 0], 0, 'exotic', 0, 0]
-  antielements[0] = [-0, 'muonium', 'muon', 'Mu', [1, -0], 0, 'exotic', 0, 0]
-  elements[312] = [312, 'obamium', 'obam', 'Ob', [1, 0], 0, 'meme/undiscovered', 0, 0]
-  antielements[312] = [-312, 'antiobamium', 'antiobam', '-Ob', [1, 0], 0, 'meme antielement/antiundiscovered', 0, 0]
-  
+  elements[0] = [0, 'neutronium', 'neutron', 'Nu', [1, 0], 0, 'exotic', 0, 0, 0, 0]
+  antielements[0] = [-0, 'muonium', 'muon', 'Mu', [1, -0], 0, 'exotic', 0, 0, 0, 0]
+  elements[312] = [312, 'obamium', 'obam', 'Ob', [1, 0], 0, 'meme/undiscovered', 0, 0, 0, 0]
+  antielements[312] = [-312, 'antiobamium', 'antiobam', '-Ob', [1, 0], 0, 'meme antielement/antiundiscovered', 0, 0, 0, 0]
   # Generate systematic names for elements 119-173
   (119..173).each do |i|
     suffix = case i
       when 119..136 then 'undiscovered'
       when 137 then 'feynmanium'
-      when 138..143 then 'superactin'
-      when 144..157 then 'unquadquad'
+      when 138..143 then 'superactinide'
+      when 144..157 then 'unquadquadide'
       when 158..166 then 'transition metal'
       when 167..169 then 'post-transition metal'
       when 170 then 'metalloid'
@@ -119,8 +118,8 @@ def parse_elements(html)
       [1, i],        # coordinates
       0,             # mass (unknown)
       suffix,        # type
-      melt,           # melting point
-      boil            # boiling point
+      0,           # melting point
+      0            # boiling point
     ]
     
     # Generate corresponding antielement
@@ -132,8 +131,8 @@ def parse_elements(html)
       [1, i],               # coordinates (same as regular element)
       0,                    # mass (unknown)
       'anti' + suffix,      # type
-      melt,                  # melting point
-      boil                   # boiling point
+      0,                  # melting point
+      0                   # boiling point
     ]
   end
     #elements[Float::INFINITY] = [Float::INFINITY, 'infinitium', 'infinitite', 'If', [-1, 0], Float::INFINITY, 'fictional material', Float::INFINITY, Float::INFINITY]
@@ -183,7 +182,7 @@ def parse_elements(html)
     
     # Generate root (name minus last three letters, as requested)
     namePlus = name + '9'
-    root = namePlus.chomp('ium9').chomp('um9').chomp('on9').chomp('ine9').chomp('ogen9').chomp('ygen9').chomp('ur9').chomp('uth9').chomp('orous').chomp('9')
+    root = namePlus.chomp('ium9').chomp('um9').chomp('on9').chomp('ine9').chomp('ogen9').chomp('ygen9').chomp('ur9').chomp('uth9').chomp('ous9').chomp('9')
     if name == 'sodium'
         root = 'natr'
     end
@@ -299,5 +298,5 @@ begin
   
 rescue StandardError => e
   puts "// Error: #{e.message}"
-  puts "// " + e.backtrace
+  # puts "// " + e.backtrace
 end
