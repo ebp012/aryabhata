@@ -667,10 +667,11 @@ function graphFunction () {
     if (do3D) drawGrid3D();
     ctx.strokeStyle = colour;
     var preprecision = Number(qs('#trace-round').value);
-    if (preprecision < -4) preprecision = -1;
+    if (preprecision < -4) preprecision = -4;
     var precision = 5 * 10 ** preprecision;
+    if (preprecision < -3) precision = 5 * 10 ** preprecision;
     if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
-    if (preprecision <= -1) precision = 2 ** (preprecision + 1);
+    //if (preprecision <= -1) precision = 2 ** (preprecision + 1);
     
     for (var i = -canvas.width/2 - qs('#graph-offset-xr').value; i < canvas.width/2 - qs('#graph-offset-xr').value; i += precision) {
         let width = 1;
@@ -704,7 +705,42 @@ function graphFunction () {
         }
         }*/
         // Vertical asymptotes
+        /*var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
+        var xrtPrev = i - precision;
+        var yrtPrev = -solve(xrtPrev, Number(qs('#xiv-input').value), false, 1, f);
+        var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
+        // Vertical asymptote after
         if (!isFinite(yrtNext) && yrtNext != undefined) {
+            if (yrtOext > 0) {
+                ctx.beginPath();
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
+                ctx.stroke();
+            }
+            if (yrtOext < 0) {
+                ctx.beginPath();
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
+                ctx.stroke();
+            }
+        }
+        // Vertical asymptote before
+        if (!isFinite(yrtPrev) && yrtPrev != undefined) {
+            var currX = canvas.getBoundingClientRect().left;
+            var currY = canvas.getBoundingClientRect().top;
+            if (yrtOrev > 0) {
+                ctx.beginPath();
+                ctx.moveTo(currX, currY);
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
+                ctx.stroke();
+            }
+            if (yrtOrev < 0) {
+                ctx.beginPath();
+                ctx.moveTo(currX, currY);
+                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
+                ctx.stroke();
+            }
+            ctx.moveTo(currX, currY);
+        }*/
+        /*if (!isFinite(yrtNext) && yrtNext != undefined) {
         var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrtNext = (yrtMext > 0) ? -360 : 360;
@@ -714,10 +750,42 @@ function graphFunction () {
         var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
         var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         yrt = (yrtMext > 0) ? 360 : -360;
-        }
-        if (yrit != Number(qs('#xiv-input').value)) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
-        ctx.strokeStyle = 'silver';
-        ctx.lineWidth = width * 6;
+        }*/
+        var yiDiff = Number(qs('#xiv-input').value);
+        var silverHex = parseInt('c0c0c0', 16);
+        if (-yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
+            if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
+                /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
+                let newColourPre2 = ((3233857791*2 + newColourPrePre) / 3);
+                let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
+                if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
+                let newColour = '#' + newColourPre + 'ff';*/
+                let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
+                let avgdColour = (preNewColour + (silverHex * 4)) / 5;
+                if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
+                let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
+                ctx.strokeStyle = newColour;
+                colour = newColour;
+                ctx.lineWidth = width / 2; //width * 6/1.5; // 4
+            }
+            else if (Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
+                /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
+                let newColourPre2 = ((3233857791*2 + newColourPrePre) / 3);
+                let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
+                if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
+                let newColour = '#' + newColourPre + 'ff';*/
+                let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
+                let avgdColour = (preNewColour + (silverHex * 6)) / 7;
+                if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
+                let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
+                ctx.strokeStyle = newColour;
+                colour = newColour;
+                ctx.lineWidth = width / 4; //width * 6/2; // 3
+            }
+            else {
+                ctx.strokeStyle = 'silver';
+                ctx.lineWidth = width / 8; //width * 6/3; // 2
+            }
         }
         else {
         ctx.strokeStyle = colour;
