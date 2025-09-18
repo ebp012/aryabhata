@@ -600,7 +600,7 @@
                       id="dimensionsCPS"
                       value="2"
                       step="1"
-                      oninput="pascal.addDimension();"
+                      oninput="pascal.addDimension();pascal.calc();"
                     />
                     <div id="addDimensionsCPS"></div>
                     <p>Value: <span id="valueCPS"></span></p>
@@ -629,7 +629,7 @@
                               (i + 1) +
                               '</sub>): <input type="number" min="0" id="n' +
                               i +
-                              'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                              'CPS" value="2" step="1" onkeyup="pascal.findMax();" oninput="pascal.calc();"/>';
                           }
                           adC.innerHTML +=
                             "<br/><var>n</var><sub>" +
@@ -638,7 +638,7 @@
                             (noD - 1) +
                             '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' +
                             (noD - 1) +
-                            'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                            'CPS" value="2" step="1" onkeyup="pascal.findMax();" oninput="pascal.calc();"/>';
                         },
                         fixMax: function () {
                           var noD = Number(
