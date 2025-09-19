@@ -595,13 +595,13 @@
                     Dimension &#x2115;(m&#x2265;2):
                     <input
                       type="number"
-                      min="1"
+                      min="2"
                       id="dimensionsCPS"
                       value="2"
                       step="1"
-                      oninput="pascal.addDimension();"
-                    />
-                    <div id="addDimensionsCPS"></div>
+                      oninput="pascal.addDimension();pascal.calc();"
+                    /><br/>
+                    <span id="addDimensionsCPS"></span>
                     <p>Value: <span id="valueCPS"></span></p>
                     <script>
                       var pascal = {
@@ -628,7 +628,7 @@
                               (i + 1) +
                               '</sub>): <input type="number" min="0" id="n' +
                               i +
-                              'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                              'CPS" value="2" step="1" onkeyup="pascal.findMax();" oninput="pascal.calc();"/>';
                           }
                           adC.innerHTML +=
                             "<br/><var>n</var><sub>" +
@@ -637,7 +637,7 @@
                             (noD - 1) +
                             '</sub> <u>&lt;</u> &#x221e;): <input type="number" min="0" id="n' +
                             (noD - 1) +
-                            'CPS" value="2" step="1" onkeyup="pascal.findMax();"/>';
+                            'CPS" value="2" step="1" onkeyup="pascal.findMax();" oninput="pascal.calc();"/>';
                         },
                         fixMax: function () {
                           var noD = Number(
