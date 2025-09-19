@@ -1,0 +1,43 @@
+table.pt {
+    background-color: transparent;
+    background-image: transparent;
+}
+table.pt tr {
+    background-color: transparent !important;
+}
+td.pt {
+    height: 100px !important;
+    width: 100px !important;
+    overflow: hidden !important;
+    aspect-ratio: 1;
+    text-align: center;
+}
+td.pt span {
+    display: block;
+    line-height: 100%;
+}
+td.ptnon {
+    border: none;
+    outline: none;
+    box-shadow: 0;
+    background-color: transparent;
+}
+/* Properties */
+.pt-number {
+    font-size: 8pt;
+}
+.pt-symbol {
+    font-size: 24pt;
+}
+.pt-name {
+    font-size: 7pt;
+    margin-bottom: 1pt;
+}
+.pt-mass {
+    font-size: 6pt;
+}
+
+/* Element Types */
+.pt-nonmetal {
+    
+}

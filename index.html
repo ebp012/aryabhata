@@ -36,6 +36,7 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link href='styles/sigma.css' rel='stylesheet' type='text/css'/>
+    <link href='styles/chemistry.css' rel='stylesheet' type='text/css'/>
     <link
       rel='stylesheet'
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
@@ -476,13 +477,11 @@
                     <select id='algebra-change'>
                       <optgroup label='Area'>
                         <option value='polygon'>Regular Polygon Area</option>
-                        <option value='ellipsearea'>Circle/Ellpise Area</option>
                       </optgroup>
                       <optgroup label='Perimetre'>
-                        <option value='polygonperimeter'>Regular Polygon Perimetre</option>
-                        <option value='circumference'>Circle/Ellipse Circumference</option>
                       </optgroup>
                       <optgroup label='Algebra'>
+                        <option value='pascal'>Pascal's Triangle/Simplex</option>
                       </optgroup>
                     </select>
                   </td>
@@ -1006,6 +1005,8 @@
       <div id='chemistry' class='content-section active'>
         <h1 class="page-title">Chemistry</h1>
         <p class='page-nav'>
+          <a href='#ptable'>periodic table</a>&nbsp;
+          •&nbsp;
           <a href='#elements'>elements</a>&nbsp;
           •&nbsp;
           <a href='#polyatomic-ions'>polyatomic ions &amp; functional groups</a>
@@ -1014,7 +1015,42 @@
           •&nbsp;
           <a href='#standard-model'>standard model</a>
         </p>
-        <div class="desk-paper" style='line-height: 36pt;' id='elements'>
+        <div class="desk-paper" style='line-height: 36pt;' id='ptable'>
+          <h2>Periodic Table</h2>
+          <div class='table-wrapper'>
+            <table class='non ptable'>
+              <tr>
+                <td class='pt'>
+                  <span class='pt-number'>1</span>
+                  <span class='pt-symbol'>H</span>
+                  <span class='pt-name'>Hydrogen</span>
+                  <span class='pt-mass'>1.0080</span>
+                </td>
+                <td class='ptnon' colspan='16'></td>
+                <td class='pt'>
+                  <span class='pt-number'>2</span>
+                  <span class='pt-symbol'>He</span>
+                  <span class='pt-name'>Helium</span>
+                  <span class='pt-mass'>4.0026</span>
+                </td>
+              </tr>
+              <tr>
+                <td class='pt'>
+                  <span class='pt-number'>3</span>
+                  <span class='pt-symbol'>Li</span>
+                  <span class='pt-name'>Lithium</span>
+                  <span class='pt-mass'>6.9400</span>
+                </td>
+                <td class='pt'>
+                  <span class='pt-number'>4</span>
+                  <span class='pt-symbol'>Be</span>
+                  <span class='pt-name'>Beryllium</span>
+                  <span class='pt-mass'>9.0122</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <hr id='elements'/>
           <h2>Chemical Element Information</h2>
           <div class='table-wrapper'>
             <table class='non'>
