@@ -1734,7 +1734,7 @@ gm:after {
 }
 
 /* Interrobang (ib) */
-ib:after {
+ib:after, ib.doubled:before {
   content: '‽';
 }
 /* Single quote (sq) */
@@ -1750,7 +1750,7 @@ mq:before, mq:after {
   content: '-';
 }
 /* Times quote (tq) */
-tq:before, tq:after {
+tq:before, tq.doubled:after {
   content: '&times;'
 }
 /* Spanish quote (esq) */
