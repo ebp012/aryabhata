@@ -1709,7 +1709,7 @@ button:hover::after, select:hover::after {
 
 /* Text */
 /* Phones (ph), phonemes (pm), graphemes (gm) */
-ph, pm, gm {
+ph, pm, gm,  ib,  sq, pq, mq, tq, esq  {
   display: inline;
 }
 
@@ -1731,4 +1731,35 @@ gm:before {
 
 gm:after {
   content: '>';
+}
+
+/* Interrobang (ib) */
+ib:after {
+  content: '‽';
+}
+/* Single quote (sq) */
+sq:before, sq:after {
+  content: "'";
+}
+/* Plus quote (pq) */
+pq:before, pq:after {
+  content: '+';
+}
+/* Minus quote (mq) */
+mq:before, mq:after {
+  content: '-';
+}
+/* Times quote (tq) */
+tq:before, tq:after {
+  content: '&times;'
+}
+/* Spanish quote (esq) */
+esq:before {
+  content: '—';
+}
+
+blockquote {
+  color: inherit;
+  border: none;
+  outline: none;
 }
