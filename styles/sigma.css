@@ -127,8 +127,8 @@ body:hover {
   box-shadow: 0 4px 20px rgba(50, 0, 100, 0.2),
               inset 0 0 10px rgba(255, 255, 255, 0.25),
               inset 0 12px 20px -12px rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px) saturate(1.4) url(#crystal-distortion-plus);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.04) url(#crystal-distortion-plus);
+  -webkit-backdrop-filter: blur(12px) saturate(1.04);
 }
 .nav-bar .nbar-plus {
   overflow: hidden;
@@ -647,7 +647,7 @@ iframe:not(.youtube) {
   border: none;
   padding: 5pt;
   border-radius: 14pt;
-  background: rgba(159, 149, 194, 0.19) !important;
+  /*background: rgba(159, 149, 194, 0.19);*/
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
   opacity: 70%;
   -webkit-backdrop-filter: blur(8.1px);;
@@ -657,7 +657,7 @@ iframe:not(.youtube) {
 iframe.applet {
   width: 100%;
   height: 70vh;
-  background-image: linear-gradient(180deg, #f0e4d670, #d8b69f70) !important;
+  /*background-image: linear-gradient(180deg, #f0e4d670, #d8b69f70) !important;*/
   backdrop-filter: blur(124.4px);
   -webkit-backdrop-filter: blur(124.4px);
 }
@@ -1484,7 +1484,7 @@ button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[ty
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: not-allowed;
 }
-button:active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active, label.full input[checked] ~ .checkmark {
+button:not([disabled]):active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active, label.full input[checked] ~ .checkmark {
   filter: brightness(0.64);
 }
 button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
@@ -1704,4 +1704,31 @@ button:hover::after, select:hover::after {
     100% {
         filter: url(#crystal-distortion); /* Return to initial */
     }
+}
+
+
+/* Text */
+/* Phones (ph), phonemes (pm), graphemes (gm) */
+ph, pm, gm {
+  display: inline;
+}
+
+ph:before {
+  content: '[';
+}
+
+ph:after {
+  content: ']';
+}
+
+pm:before, pm:after {
+  content: '/';
+}
+
+gm:before {
+  content: '<';
+}
+
+gm:after {
+  content: '>';
 }
