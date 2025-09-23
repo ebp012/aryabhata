@@ -615,7 +615,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   border-radius: inherit;
   pointer-events: none;
 }
-hr, .comment-data {
+hr {
   height: 3px;
   border: none;
   padding: 3pt;
@@ -684,7 +684,7 @@ hr:not(.youtube)::before {
   border-radius: inherit;
   pointer-events: none;
 }
-p.page-nav {
+p.page-nav, .comment-data {
   text-align: center;
   width: auto;
   overflow-y: none;
