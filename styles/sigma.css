@@ -521,7 +521,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   user-select: none;
 }
 
-.desk-paper, .cs-white .desk-paper {
+.desk-paper, .cs-white .desk-paper, .comment-body {
   background: linear-gradient(180deg, #e4e4e4, #b6b6b6); /* light blue gradient */
   padding: 30px;
   border-radius: 9px;
@@ -597,7 +597,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
 }
 
 /* Clear */
-.cs-clear .desk-paper, .desk-paper.cs-clear {
+.cs-clear .desk-paper, .desk-paper.cs-clear, .comment-body {
   background: linear-gradient(180deg, #e4e4e410, #e4e4e410);
   border: 0.25px solid #e0e0e0;
   box-shadow: none;
