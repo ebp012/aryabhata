@@ -1650,7 +1650,7 @@ canvas {
 }
 
 
-.crystal-effect::after, .nav-item::after, .desk-paper::after, button::after, select::after {
+.crystal-effect::after, .nav-item::after, button::after, select::after {
     content: '';
     position: absolute;
     inset: 0;
