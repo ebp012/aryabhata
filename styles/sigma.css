@@ -734,7 +734,7 @@ p.page-nav::after {
   }
 }
 .ender {display: none;}
-@media (max-width: 1200px) and (min-height: 475px) {
+@media (max-width: 1200px) and (min-height: 200px) {
   /*.nav-bar {
     width: auto;
     bottom: 20px;
