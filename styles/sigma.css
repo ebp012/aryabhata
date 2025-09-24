@@ -734,7 +734,7 @@ p.page-nav::after {
   }
 }
 .ender {display: none;}
-@media (max-width: 1200px) and (min-height: 200px) {
+@media (max-width: 1200px) and (min-height: 20px) {
   /*.nav-bar {
     width: auto;
     bottom: 20px;
@@ -920,7 +920,7 @@ p.page-nav::after {
   display: none;
 }
 
-@media (min-height: 475px) and (min-width: 1200px) {
+@media (min-height: 20px) and (min-width: 1200px) { // mh once 475px
   .nav-item {
     margin-left: 4.5px;
     margin-right: 4.5px;
@@ -1021,7 +1021,7 @@ p.page-nav::after {
     pointer-events: none;
   }
 }
-@media (min-height: 475px) {
+@media (min-height: 20px) {
     .nav-bar {
       position: fixed;
       top: 20px;                 /* distance from top — adjust if you want flush */
