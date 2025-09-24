@@ -1769,13 +1769,13 @@ blockquote {
 
 /* Overrides */
 .desk-paper p {
-    line-height: 36pt;
+    line-height: 36pt !important;
 }
 .desk-paper, p.page-nav, .nav-item {
-    font-family: geneva, tahoma, 'Segoe UI', segoe, sans-serif;
+    font-family: geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
 }
 .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
-    font-family: futura, tahoma, verdana, sans-serif;
+    font-family: futura, tahoma, verdana, sans-serif !important;
 }
 table::not(.nepas), thead td {
     font-family: 'Segoe UI', segoe, tahoma, sans-serif !important;
