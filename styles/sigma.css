@@ -6,6 +6,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'genevab';
+    src: url('GENEVA.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 :root {
   /* Main theme colours */
   --primary-bg: rgba(160, 150, 160, 0.34);
@@ -515,7 +521,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: transparent;
-  font-family: futura, geneva, sans-serif;
+  font-family: futura, 'genevab', geneva, sans-serif;
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
@@ -1279,7 +1285,7 @@ canvas, sculpture, .youtube {
   border-radius: 18px;
   outline: none;
   text-align: center;
-  font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
+  font-family: 'Segoe UI', 'genevab', Geneva, Verdana, sans-serif, Verdana, sans-serif;
   min-height: 24pt;
   font-size: 11pt;
   background: rgba(246, 255, 248, 0.48);
@@ -1388,7 +1394,7 @@ label.full .checkmark:after {
 /*button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, .youtube, ::-webkit-scrollbar-thumb {
   border-radius: 9px;
   text-align: center;
-  font-family: 'Segoe UI', Geneva, Verdana, sans-serif, Verdana, sans-serif;
+  font-family: 'Segoe UI', 'genevab', Geneva, Verdana, sans-serif, Verdana, sans-serif;
   min-height: 24pt;
   font-size: 11pt;
   padding-left: 10px;
@@ -1412,7 +1418,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   border-radius: 9pt;
   min-height: 24pt;
   font-size: 11pt;
-  font-family: geneva, futura, sans-serif;
+  font-family: 'genevab', geneva, futura, sans-serif;
   padding-left: 15px;
   padding-right: 15px;
   margin: 5px;
@@ -1772,7 +1778,7 @@ blockquote {
     line-height: 36pt !important;
 }
 .desk-paper, p.page-nav, .nav-item {
-    font-family: geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
+    font-family: 'genevab', geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
 }
 .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
     font-family: futura, tahoma, verdana, sans-serif !important;
