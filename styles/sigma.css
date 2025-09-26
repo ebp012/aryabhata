@@ -1825,11 +1825,11 @@ table::not(.nepas), thead td {
         flex-grow: 0.5;
         white-space: nowrap; /* Prevents text wrapping */
     }
-  .nav-bar:not(.nepas), #header {
+  .nav-bar:not(.nepas), #header:not(.nepas) {
     width: fit-content !important;
     min-width: 800px;
   }
-  #header ~ .nav-bar:not(.nepas) {
+  #header:not(.nepas) ~ .nav-bar:not(.nepas) {
     position: fixed;
     top: 90px;
   }
@@ -1877,20 +1877,20 @@ table::not(.nepas), thead td {
     }
 }
 
-#header {
+#header:not(.nepas) {
     background:#44556680 no-repeat left top;
     margin:0 0 0;
     padding:8px 0 0;
     color:#fff;
   
     }
-  #header div {
+  #header:not(.nepas) div {
     background: no-repeat left bottom;
     padding:0 15px 8px;
     }
   }
 @media only screen and (max-width: 1200px) {
-      #header {
+      #header:not(.nepas) {
       	display: none;
       }
       .bottomdiv {
