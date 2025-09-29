@@ -521,7 +521,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: transparent;
-  font-family: 'genevab', geneva, tahoma, verdana, sans-serif;
+  font-family: futura, segoe, 'genevab', geneva, tahoma, verdana, sans-serif;
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
@@ -1910,7 +1910,7 @@ table::not(.nepas), thead td {
   padding:10px 30px 5px;
   font-size:160%;
   line-height:1.2em;
-  font-family: geneva, 'genevab', 'segoe ui', segoe, tahoma, verdana, sans-serif, monospace !important;
+  font-family: 'segoe', geneva, 'genevab', 'segoe ui', segoe, tahoma, verdana, sans-serif, monospace !important;
   }
 #blog-title a {
   text-decoration:none;
