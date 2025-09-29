@@ -1800,7 +1800,7 @@ table::not(.nepas), thead td {
 
 /* Nav bar overrides */
 /* --- Navigation Bar Cohesion and No-Lift Styles (Applies >= 200px and excludes .nepas) --- */
-@media /*(max-height: 600px) and*/ (min-width: 1200px) {
+@media (max-height: 600px) and (min-width: 1200px) {
   .nav-bar:not(.nepas), #header:not(.nepas) {
     position: absolute !important;
   }
