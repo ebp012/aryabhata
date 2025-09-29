@@ -1222,7 +1222,7 @@ table:not(.nepas) thead td {
   background-color: rgba(47, 79, 79, 0.48);
   color: white;
   backdrop-filter: blur(8.1px);
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   font-family: trajan, "Trajan Pro", Georgia, Times, serif;
 }
 table:not(.nepas) * tr:nth-child(even) {
