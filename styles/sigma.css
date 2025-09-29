@@ -134,7 +134,7 @@ body:hover {
               inset 0 0 10px rgba(255, 255, 255, 0.25),
               inset 0 12px 20px -12px rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(12px) saturate(1.04) url(#crystal-distortion-plus);
-  -webkit-backdrop-filter: blur(12px) saturate(1.04);
+  -webkit-backdrop-filter: blur(12px) saturate(1.04) brightness(0.9);
 }
 .nav-bar .nbar-plus {
   overflow: hidden;
@@ -521,7 +521,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: transparent;
-  font-family: futura, 'genevab', geneva, sans-serif;
+  font-family: 'genevab', geneva, tahoma, verdana, sans-serif;
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
@@ -1202,8 +1202,9 @@ p.page-nav::after {
 }
 
 table:not(.nepas) {
-  border-radius: 14px;
-  background: linear-gradient(180deg, #e4f8ff, #cbeaff);
+  border-radius: 9px;
+  /*background: linear-gradient(180deg, #e4f8ff, #cbeaff);*/
+  background: transparent;
   backdrop-filter: blur(8.1px);
 }
 table:not(.nepas), table:not(.nepas) * tr td, table:not(.nepas) tr td {
@@ -1223,7 +1224,8 @@ table:not(.nepas) thead td {
   color: white;
   backdrop-filter: blur(8.1px);
   /*border-radius: 6px;*/
-  font-family: trajan, "Trajan Pro", Georgia, Times, serif;
+  font-family: geneva, 'genevab', tahoma, verdana, trajan, "Trajan Pro", Georgia, Times, serif !important;
+  font-variant-caps: small-caps;
 }
 table:not(.nepas) * tr:nth-child(even) {
   background-color: silver;
@@ -1236,16 +1238,16 @@ table:not(.nepas) tbody tr:nth-child(odd) {
 a {text-decoration: none;}
 
 table:not(.nepas) *:first-child tr:first-child td:first-child {
-  border-radius: 9px 6px 6px 6px;
+  border-radius: 9px 0 0 0;
 }
 table:not(.nepas) *:first-child tr:first-child td:last-child {
-  border-radius: 6px 9px 6px 6px;
+  border-radius: 0 9px 0 0;
 }
 table:not(.nepas) *:last-child tr:last-child td:last-child {
-  border-radius: 6px 6px 19px 6px;
+  border-radius: 0 0 9px 0;
 }
 table:not(.nepas) *:last-child tr:last-child td:first-child {
-  border-radius: 6px 6px 6px 9px;
+  border-radius: 0 0 0 9px;
 }
 
 table:not(.non), table:not(.non) td {
@@ -1788,7 +1790,7 @@ blockquote {
     font-family: 'genevab', geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
 }
 .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
-    font-family: futura, tahoma, verdana, sans-serif !important;
+    font-family: geneva, 'genevab', futura, tahoma, verdana, sans-serif !important;
 }
 table::not(.nepas), thead td {
     font-family: 'Segoe UI', segoe, tahoma, sans-serif !important;
@@ -1798,6 +1800,11 @@ table::not(.nepas), thead td {
 
 /* Nav bar overrides */
 /* --- Navigation Bar Cohesion and No-Lift Styles (Applies >= 200px and excludes .nepas) --- */
+@media /*(max-height: 600px) and*/ (min-width: 1200px) {
+  .nav-bar:not(.nepas), #header:not(.nepas) {
+    position: absolute !important;
+  }
+}
 
 @media (min-width: 1200px) {
     
