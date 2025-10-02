@@ -14,39 +14,39 @@
 }
 :root {
   /* Main theme colours */
-  --primary-bg: rgba(160, 150, 160, 0.34);
-  --primary-bg-light: rgba(185, 175, 185, 0.40);
-  --border-accent: #99663386;
-  --title-color: #371502;
+  /*--primary-bg: rgba(160, 150, 160, 0.34);*/
+  /*--primary-bg-light: rgba(185, 175, 185, 0.40);*/
+  /*--border-accent: #99663386;*/
+  /*--title-color: #371502;*/
 
   /* Link colours */
-  --link-normal: #ba90d5;
-  --link-hover: #c094db;
-  --link-active: #9047bd;
+  /*--link-normal: #ba90d5;*/
+  /*--link-hover: #c094db;*/
+  /*--link-active: #9047bd;*/
 
   /* Button colours */
-  --button-normal: rgba(220, 180, 255, 0.48);
-  --button-disabled: rgba(200, 160, 220, 0.44);
+  /*--button-normal: rgba(220, 180, 255, 0.48);*/
+  /*--button-disabled: rgba(200, 160, 220, 0.44);*/
 
   /* Shadows and light overlays */
   --shadow-light: rgba(255, 255, 255, 0.3);
-  --shadow-dark: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.1);*/
 }
 
 /* Link styles that don't apply to .non class */
 a:not(.non) {
-  color: var(--link-normal);
+  color: #ba90d5;    
   text-decoration: none;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 a:not(.non):hover {
-  color: var(--link-hover);
+  color: #c094db;
   text-decoration: underline;
 }
 
 a:not(.non):active {
-  color: var(--link-active);
+  color: #9047bd;
 }
 
 
@@ -350,7 +350,7 @@ body:hover {
   border-radius: 18px;
   padding: 24px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -1px 4px 24px rgba(14, 28, 0, 0.3), inset 1px 0px 9px rgba(28, 56, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
-  border: 1px solid var(--border-accent);
+  border: 1px solid #99663386;
   min-height: 300px;
   line-height: 1.8;
   backdrop-filter: blur(6.1px) url(#crystal-distortion-plus);
@@ -510,7 +510,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
 
 .page-title {
   font-size: 2.2em;
-  color: var(--title-color);
+  color: #371502;
   text-align: center;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -1285,7 +1285,7 @@ input[type=text], input[type=number], input[type=email], input[type=password], s
   text-align: center;
   font-size: 11pt;
   margin: 5px;
-  /*background-color: var(--button-normal);
+  /*background-color: rgba(220, 180, 255, 0.48);
   background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.45), rgba(153, 126, 179, 0.38), rgba(170, 130, 200, 0.45));*/
   background-color: white;
   background-image: rgba(246, 255, 248, 0.48);
@@ -1380,7 +1380,7 @@ label.full .checkmark:after {
   padding-left: 10px;
   padding-right: 10px;
   margin: 5px;
-  background-color: var(--button-normal);
+  background-color: rgba(220, 180, 255, 0.48);
   box-shadow: 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);
   filter: brightness(85%);
   background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.55), rgba(153, 126, 179, 0.48), rgba(170, 130, 200, 0.55));
@@ -1402,7 +1402,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   padding-left: 15px;
   padding-right: 15px;
   margin: 5px;
-  background-color: var(--button-normal);
+  background-color: rgba(220, 180, 255, 0.48);
   background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.45), rgba(153, 126, 179, 0.38), rgba(170, 130, 200, 0.45));
   -webkit-backdrop-filter: blur(8.1px);
   box-shadow: 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);
@@ -1459,8 +1459,8 @@ hr::before {
 .youtube {padding: 10px;}
 button[disabled], input[disabled], select[disabled] {
   color: rgba(10, 10, 10, 0.48);
-  background: var(--button-disabled);
-  background-image: linear-gradient(to bottom, var(--button-disabled), var(--button-disabled), var(--button-disabled), var(--button-disabled), silver, silver, silver, silver)
+  background: rgba(200, 160, 220, 0.44);
+  background-image: linear-gradient(to bottom, rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), silver, silver, silver, silver)
 }
 button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover, .projlinks a:hover {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
@@ -1491,7 +1491,7 @@ button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtu
 /* Link styles */
 :not(.page-title) a {
   text-decoration: none;
-  color: var(--link-normal);
+  color: #ba90d5;
 }
 @media (prefers-color-scheme: dark) {
   :not(.page-title) a:not(.page-nav a) {
@@ -1501,7 +1501,7 @@ button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtu
     text-shadow: 1px 1px 1px 2px;
   }
   :not(.page-title) a:hover {
-    color: var(--link-hover);
+    color: #c094db;
     text-decoration: underline;
   }
   input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
@@ -1512,11 +1512,11 @@ button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtu
   }
 }
 :not(.page-title) a:hover {
-  color: var(--link-hover);
+  color: #c094db;
   text-decoration: underline;
 }
 :not(.page-title) a:active, .page-nav a, .page-nav a:visited {
-  color: var(--link-active);
+  color: #9047bd;
 }
 :not(.page-title) a:active {
   text-decoration: underline;
@@ -1593,7 +1593,7 @@ canvas {
   background-color: rgba(242, 227, 255, 0.67);
   border-radius: 18px;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset -1px 4px 6px rgba(0, 0, 0, 0.075), inset 1px 0px 6px rgba(0, 0, 0, 0.075);
-  border: 1px solid var(--border-accent);
+  border: 1px solid #99663386;
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
 }
@@ -1617,29 +1617,13 @@ canvas {
 
 
 /* CRYSTAL EFFECT */
-:root {
-    /* Glass Effect Variables - Customize these values */
-    --shadow-offset: 0;
-    --shadow-blur: 10px;
-    --shadow-spread: -5px;
-    --shadow-color: rgba(236, 217, 255, 0.7);
-    --tint-color: 236, 217, 255;
-    --tint-opacity: 0.2;
-    --frost-blur: 2px;
-    --frost-blur-hover: 0.5px;
-    --noise-frequency: 0.008;
-    --distortion-strength: 77;
-    --outer-shadow-blur: 24px;
-}
-
-
 .crystal-effect::after, .nav-item::after, button::after, select::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
-    /*backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));*/
+    /*backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);*/
     backdrop-filter: blur(6.1px) url(#crystal-distortion-minus);
     isolation: isolate;
 }
@@ -1649,14 +1633,14 @@ canvas {
 }
 button::after, button:hover::after, select::after, select:hover::after {border-radius: 9px;}
 .crystal-effect:hover::after, .nav-item:hover::after, button:hover::after, select:hover::after {
-    backdrop-filter: blur(var(--frost-blur-hover));
-    -webkit-backdrop-filter: blur(var(--frost-blur-hover));
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
     filter: url(#crystal-distortion-hover);
     -webkit-filter: url("#crystal-distortion-hover");
 }
 button:hover::after, select:hover::after {
-    backdrop-filter: blur(var(--frost-blur-hover));
-    -webkit-backdrop-filter: blur(var(--frost-blur-hover));
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
     filter: url(#crystal-distortion-hover);
     -webkit-filter: url("#crystal-distortion-hover-button");
 }
@@ -1665,8 +1649,8 @@ button:hover::after, select:hover::after {
     /*position: absolute;*/
     inset: 0;
     z-index: -1;
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     /*filter: url(#crystal-distortion);
     -webkit-filter: url("#crystal-distortion");*/
     isolation: isolate;
