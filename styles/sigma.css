@@ -30,7 +30,7 @@
 
   /* Shadows and light overlays */
   --shadow-light: rgba(255, 255, 255, 0.3);
-  --shadow-dark: rgba(0, 0, 0, 0.1);*/
+  --shadow-dark: rgba(0, 0, 0, 0.1);
 }
 
 /* Link styles that don't apply to .non class */
@@ -92,19 +92,9 @@ html, body {
   left: 0;
   right: 0;
 }
-/*body:not(:hover) {
-  filter: blur(0.50625px);
-  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.1);
-  transition: filter 0.225s ease-in, box-shadow 0.225s ease-in;
-}
-body:hover {
-  filter: blur(0px);
-  box-shadow: none;
-  transition: filter 0.2255s ease-out, box-shadow 0.225s ease-out;
-}*/
 
 .container {
-  max-width: calc(100%-100px);
+  max-width: calc(100% - 100px);
   margin: 0 auto;
   padding: 20px;
   min-height: calc(100vh - 80px);
@@ -423,18 +413,6 @@ body:hover {
   border: 1px solid #c0c0c060;
 }
 
-.content-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  max-height: 160px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.75), transparent);
-  border-radius: inherit;
-  pointer-events: none;
-}
 
 .content-section.active {
   display: block;
@@ -985,8 +963,6 @@ p.page-nav::after {
 
     /* remove the left-side margin applied for large vertical navs */
     .container {
-      margin-left: 0 !important;
-        padding-top: 100px;
       padding-top: calc(20px + 80px); /* space for the nav — tweak '80px' if your nav height changes */
       position: relative;
       top: 50px;
@@ -1425,7 +1401,7 @@ canvas {
 
 /* Accent colours */
 :root {
-  accent-color: rgb(143, 120, 181);
+  --accent-color: rgb(143, 120, 181);
 }
 
 .modal-container, .modal-container:not(:hover) {
