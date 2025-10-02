@@ -60,7 +60,7 @@ a:not(.non):active {
 body {
   font-family: "New York", "Georgia", serif;
   background-size: cover;
-  min-height: 100lvh;
+    min-height: 100vh; /*lvh*/
   overflow-y: auto;
 }
 
@@ -104,9 +104,11 @@ body:hover {
 }*/
 
 .container {
+    max-width: 90%;
   max-width: calc(100%-100px);
   margin: 0 auto;
   padding: 20px;
+    min-height: 80%;
   min-height: calc(100vh - 80px);
 }
 
@@ -634,6 +636,7 @@ hr::before {
   position: absolute;
   top: 2px;
   right: 9px;
+    width: 95%;
   width: calc(100% - 13px);
   height: 20%;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
@@ -678,6 +681,7 @@ hr:not(.youtube)::before {
   position: absolute;
   top: 2px;
   right: 9px;
+    width: 95%;
   width: calc(100% - 13px);
   height: 20%;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
@@ -707,6 +711,7 @@ p.page-nav::before {
   position: fixed;
   top: 2px;
   left: 9px;
+    width: 95%;
   width: calc(100% - 13px);
   height: 40%;
   max-height: 40px;
@@ -719,6 +724,7 @@ p.page-nav::after {
   position: fixed;
   top: 2px;
   right: 9px;
+    width: 95%;
   width: calc(100% - 13px);
   height: 40%;
   max-height: 40px;
@@ -769,6 +775,7 @@ p.page-nav::after {
     left: 50%;
     top: auto !important;
     flex-direction: row;       /* ensure horizontal layout */
+      width: 85%;
     width: calc(100% - 40px);  /* leave 20px side gutters */
     max-height: none;
     background: linear-gradient(
@@ -800,6 +807,7 @@ p.page-nav::after {
     padding: 12px;
   }
   body, html {
+      height: 102%;
     height: calc(100vh + 50px) !important;
   }
   /*.desk-paper:after {
@@ -1003,6 +1011,7 @@ p.page-nav::after {
     position: absolute;
     top: 2px;
     left: 9px;
+      width: 95px;
     width: calc(100% - 13px);
     height: 40%;
     max-height: 40px;
@@ -1020,6 +1029,7 @@ p.page-nav::after {
       overflow-x: auto;
       transform: translateX(-50%); /* center horizontally */
       flex-direction: row;       /* ensure horizontal layout */
+        width: 85%;
       width: calc(100% - 40px);  /* leave 20px side gutters */
       height: auto;
       bottom: auto;
@@ -1032,6 +1042,7 @@ p.page-nav::after {
     /* remove the left-side margin applied for large vertical navs */
     .container {
       margin-left: 0 !important;
+        padding-top: 100px;
       padding-top: calc(20px + 80px); /* space for the nav — tweak '80px' if your nav height changes */
       position: relative;
       top: 50px;
@@ -1250,6 +1261,7 @@ table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
   position: relative;
   left: -20px;
   right: -20px;
+    width: 102%;
   width: calc(100% + 40px);
 }
 
@@ -1355,6 +1367,8 @@ label.full input:checked ~ .checkmark {
 
 /* Style the checkmark/indicator */
 label.full .checkmark:after {
+    left: 45%;
+    top: 45%;
   left: calc(50% - 2pt);
   top: calc(50% - 3pt);
   width: 4pt;
@@ -1448,6 +1462,7 @@ hr::before {
   position: absolute;
   top: 2px;
   right: 9px;
+    width: 95%;
   width: calc(100% - 13px);
   height: 20%;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
@@ -1584,7 +1599,9 @@ canvas {
   left: 4.5vh;
   right: 4.5vh;
   bottom: 4.5vh;
+    width: 91%;
   width: calc(100% - 9vh);
+    max-height: 91%;
   max-height: calc(100% - 9vh);
   min-height: 400px;
   touch-action: none;
@@ -1604,6 +1621,7 @@ canvas {
 
 .modal.free:not(.freer) {
   position: fixed;
+    width: 80%;
   width: calc(100% - 40px);
   bottom: 20px;
   left: 20px;
