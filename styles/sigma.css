@@ -1315,6 +1315,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   opacity: 70%;
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
   -webkit-backdrop-filter: blur(8.1px);
+  user-select: none;
 }
 button::before, .nav-item::before, input[type=button]::before, input[type=submit]::before, input[type=reset]::before, input[type=file]::before, select[button=like]::before, thead td::before, .calb::before, .projlinks a:hover img::before {
   content: "";
