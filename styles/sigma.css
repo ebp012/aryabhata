@@ -74,9 +74,7 @@ html, body {
 }
 
 #bgcontainer, html {
-  background-image: radial-gradient(circle at 30% 30%, #00b4ff55, #4fd96a55, transparent),
-                    radial-gradient(circle at 70% 70%, #ff8cf455, #ffc30055, transparent),
-                    url("https://img.freepik.com/free-photo/old-brown-paper-texture-background_1373-431.jpg"),
+  background-image: url("https://img.freepik.com/free-photo/old-brown-paper-texture-background_1373-431.jpg"),
                     url('https://transparenttextures.com/patterns/soft-circle-scales.png');
   background-size: cover !important;
   background-position: center;
@@ -94,7 +92,7 @@ html, body {
 }
 
 .container {
-  max-width: calc(100% - 100px);
+  /*max-width: calc(100% - 100px);*/
   margin: 0 auto;
   padding: 20px;
   min-height: calc(100vh - 80px);
@@ -113,6 +111,7 @@ html, body {
   padding: 12px;
   -ms-user-select: none;
   user-select: none;
+  background-color: #F0f8ff;
   background: linear-gradient(
     145deg,
     rgba(240, 230, 255, 0.15),
@@ -140,6 +139,7 @@ html, body {
   padding: 12px;
   border-radius: 12px;
   text-shadow: 1px 1px 2.5px rgba(45, 0, 45, 0.64);
+  background-color: silver;
   background: linear-gradient(
     to bottom,
     rgba(230, 230, 230, 0.67) 0%,
@@ -167,6 +167,7 @@ html, body {
     rgba(240, 240, 240, 0.9) 0%,
     rgba(220, 220, 220, 0.9) 100%
   );
+  background-color: #e0e0e0;
 }
 
 /* RED */
@@ -336,6 +337,7 @@ html, body {
 
 .content-section, .container.cs-white .content-section, .content-section.cs-white {
   position: relative;
+  background-color: #F0f8ff;
   background: linear-gradient(145deg, #f0f0f0e0, #d8d8d8b0); /* bright blue gradient */
   border: 1px solid #99ccff; /* soft blue edge like old Windows panels */
   border-radius: 16px;
@@ -426,6 +428,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 40px;
+  background-color: aliceblue;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.32), transparent);
   border-radius: inherit;
   pointer-events: none;
@@ -487,6 +490,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
 
 .desk-paper, .cs-white .desk-paper, .comment-body {
   background: linear-gradient(180deg, #e4e4e4, #b6b6b6); /* light blue gradient */
+  background-color: #g5g5g5;
   padding: 30px;
   border-radius: 9px;
   border: 1px solid #a0cfff; /* soft blue border */
@@ -691,8 +695,13 @@ p.page-nav::after {
     margin-right: 25vw;
   }
 }
-
-@media (min-width: 1200px) and (max-width: 1400px) {
+@media (min-width: 1300px) and (max-width: 1400px) {
+  .content-section {
+    margin-left: 20vw;
+    margin-right: 20vw;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1300px) {
   .content-section {
     margin-left: 15vw;
     margin-right: 15vw;
@@ -723,9 +732,9 @@ p.page-nav::after {
   }
   .nav-item {
     gap: 11px;
+    font-size: 12pt;
     min-width: 120px;
     margin: 0.44%;
-    font-size: 12pt;
   }
   .nav-item i {
     font-size: 18pt;
@@ -757,6 +766,9 @@ p.page-nav::after {
   .container {
     padding: 8px;
   }
+  #header {
+    display: none;
+  }
 }
 @media (max-width: 388px) and (max-device-pixel-ratio: 3) {
   table:not(.nepas) {
@@ -764,8 +776,6 @@ p.page-nav::after {
   }
   .content-section {
     padding: 5px;
-    width: 100%;
-    border-radius: 0;
     min-height: 100vh;
   }
   .container {
@@ -779,7 +789,7 @@ p.page-nav::after {
     padding: 0;
     width: 100%;
   }
-  .nav-bar {
+  .nav-bar, .content-section {
     width: 100% !important;
     bottom: 0 !important;
     border-radius: 0 !important;
@@ -1397,11 +1407,6 @@ canvas {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
   border-radius: 9px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
-}
-
-/* Accent colours */
-:root {
-  --accent-color: rgb(143, 120, 181);
 }
 
 .modal-container, .modal-container:not(:hover) {
