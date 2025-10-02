@@ -5,12 +5,14 @@
     src: url('Trajan Pro.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 @font-face {
     font-family: 'genevab';
     src: url('GENEVA.TTF') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 :root {
   /* Main theme colours */
@@ -70,6 +72,7 @@ html, body {
   overscroll-behavior: none;
   -webkit-overflow-scrolling: auto;
   touch-action: manipulation;
+  padding: 0;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
@@ -102,6 +105,7 @@ html, body {
   position: fixed;
   border-radius: 20px;
   height: 80px;
+  display: block;
   display: flex;
   /*width: fit-content;*/
   justify-content: space-around;
@@ -490,7 +494,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
 
 .desk-paper, .cs-white .desk-paper, .comment-body {
   background: linear-gradient(180deg, #e4e4e4, #b6b6b6); /* light blue gradient */
-  background-color: #g5g5g5;
+  background-color: #cdcdcd;
   padding: 30px;
   border-radius: 9px;
   border: 1px solid #a0cfff; /* soft blue border */
@@ -717,6 +721,8 @@ p.page-nav::after {
     bottom: 20px !important;
     left: 50%;
     top: auto !important;
+    display: inline-block;
+    display: flex;
     flex-direction: row;       /* ensure horizontal layout */
     width: calc(100% - 40px);  /* leave 20px side gutters */
     max-height: none;
@@ -1291,9 +1297,16 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   padding-right: 15px;
   margin: 5px;
   background-color: rgba(220, 180, 255, 0.48);
-  background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.45), rgba(153, 126, 179, 0.38), rgba(170, 130, 200, 0.45));
+  background-image: linear-gradient(to bottom,
+    rgba(255,255,255,0.6) 0%,
+    rgba(220,180,255,0.45) 5%,
+    rgba(153,126,179,0.38) 60%,
+    rgba(120,100,150,0.55) 100%
+  );
   -webkit-backdrop-filter: blur(8.1px);
-  box-shadow: 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25),
+    inset 0 2px 2px rgba(255,255,255,0.8),
+    inset 0 -3px 4px rgba(0,0,0,0.25);
   border: 1px solid rgba(244, 244, 244, 0.51);
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   color: black;
@@ -1307,10 +1320,10 @@ button::before, .nav-item::before, input[type=button]::before, input[type=submit
   content: "";
   position: absolute;
   top: 2px;
-  left: 3px;
-  right: 3px;
-  height: 36%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+  left: 2px;
+  right: 2px;
+  height: 40%; /* taller gloss strip */
+  background: linear-gradient(to bottom, rgba(255,255,255,0.75), rgba(255,255,255,0.25));
   border-radius: inherit;
   pointer-events: none;
 }
@@ -1326,29 +1339,49 @@ button[disabled], input[disabled], select[disabled] {
   background-image: linear-gradient(to bottom, rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), silver, silver, silver, silver)
 }
 button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover, .projlinks a:hover {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 2px 2px 3px 1px rgba(79, 51, 118, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.51);
-  filter: brightness(0.77);
+  box-shadow: 0 0 18px rgba(180,140,220,0.6), 
+              inset 0 2.25px 4.5px rgba(255,255,255,0.7), 
+              inset 0 -4.5px 9px rgba(100,80,120,0.3);
+  filter: brightness(1.05);
 }
 .projlinks a {border: none !important; outline: none !important; background: transparent !important;}
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: not-allowed;
 }
 button:not([disabled]):active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active, label.full input[checked] ~ .checkmark {
-  filter: brightness(0.64);
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.4), 
+              inset 0 -1px 1px rgba(255,255,255,0.5);
+  transform: translateY(1px);
 }
 button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
   background-color: rgba(153, 126, 179, 0.48);
   background-image: linear-gradient(to bottom, rgba(230, 190, 255, 0.65), rgba(210, 159, 238, 0.48), rgba(240, 210, 255, 0.65));
   color: indigo;
   border: 1px solid rgba(255, 255, 255, 0.51);
-  filter: brightness(0.54);
+  filter: brightness(0.85);
 }
 button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtube[disabled]:active {
   cursor: not-allowed;
   background: rgba(126, 126, 126, 0.48);
   border-color: maroon;
   opacity: 51%;
+}
+button::after, .nav-item::after, input[type=button]::after, input[type=submit]::after, input[type=reset]::after, input[type=file]::after, select[button=like]::after, thead td::after, .calb::after, .projlinks a:after img::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 60%);
+  transform: scale(0);
+  opacity: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+button:active::after {
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* Link styles */
