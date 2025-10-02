@@ -346,20 +346,6 @@ body:hover {
   text-shadow: 0 0 8px rgba(252, 227, 248, 0.72);
 }
 
-/*.content-section {
-  display: none;
-  background: rgba(255, 255, 255, 0.44);
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -1px 4px 24px rgba(14, 28, 0, 0.3), inset 1px 0px 9px rgba(28, 56, 0, 0.3), inset 0 4px 100px rgba(241, 227, 255, 0.8);
-  border: 1px solid #99663386;
-  min-height: 300px;
-  line-height: 1.8;
-  backdrop-filter: blur(6.1px) url(#crystal-distortion-plus);
-  -webkit-backdrop-filter: blur(8.1px);;
-  margin-bottom: 100px;
-  filter: brightness(1.05);
-}*/
 .content-section, .container.cs-white .content-section, .content-section.cs-white {
   position: relative;
   background: linear-gradient(145deg, #f0f0f0e0, #d8d8d8b0); /* bright blue gradient */
@@ -651,7 +637,6 @@ iframe:not(.youtube) {
   border: none;
   padding: 5pt;
   border-radius: 14pt;
-  /*background: rgba(159, 149, 194, 0.19);*/
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
   opacity: 70%;
   -webkit-backdrop-filter: blur(8.1px);;
@@ -661,13 +646,8 @@ iframe:not(.youtube) {
 iframe.applet {
   width: 100%;
   height: 70vh;
-  /*background-image: linear-gradient(180deg, #f0e4d670, #d8b69f70) !important;*/
   backdrop-filter: blur(124.4px);
   -webkit-backdrop-filter: blur(124.4px);
-}
-
-@media (max-height: 475px) and (min-width: 1200px) {
-    /*height: 80vh;*/
 }
 
 .applet-refresh {
@@ -748,24 +728,6 @@ p.page-nav::after {
 }
 .ender {display: none;}
 @media (max-width: 1200px) and (min-height: 20px) {
-  /*.nav-bar {
-    width: auto;
-    bottom: 20px;
-    left: 20px;
-    padding: 44px 5.5px;
-    right: 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    animation: navIn 0.25s ease-in;
-    flex-direction: row;
-    filter: brightness(0.9);
-    background: linear-gradient(
-      rgba(160, 150, 160, 0.54),  /* Dark purple tint *
-      rgba(185, 175, 185, 0.60), /* Light purple tint *
-      rgba(185, 175, 185, 0.60), /* Light purple tint *
-      rgba(160, 150, 160, 0.54)  /* Dark purple tint *
-    );
-  }*/
   .ender {
     display: block;
     height: 96px;
@@ -810,14 +772,6 @@ p.page-nav::after {
       height: 102%;
     height: calc(100vh + 50px) !important;
   }
-  /*.desk-paper:after {
-    height: 500px;
-    bottom: 0;
-    left: 0;
-    content: '';
-    right: 0;
-    width: 100%;
-  }*/
 
   .container {
     padding: 16px;
@@ -1070,17 +1024,6 @@ p.page-nav::after {
   .nav-item:active i {
     transform: scale(0.9);
   }
-  /*.nav-item:hover i, .nav-item:active, .nav-item:hover, .nav-item:hover i:hover, .nav-item:active {
-    color: #9b8ab0;
-    text-shadow: 19px 1px 21px 24 rgba(#010101, 0, 0, 0.5);
-  }
-  .nav-item.darkbg i  {
-    color: #b6a2cb;
-    text-shadow: 19px 1px 2px rgba(#fefefe, 0, 0, 0.5);
-  }
-  .nav-item.darkbg {
-    color: #c4a6d9;
-  }*/
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1106,10 +1049,7 @@ p.page-nav::after {
 
   .desk-paper {
     background: linear-gradient(180deg, #00061b, #061c49);
-    /*,
-      url("https://www.toptal.com/designers/subtlepatterns/uploads/old_map.png");*/
     border-color: #666;
-    /*box-shadow: inset 0 4px 27px rgba(0, 0, 0, 0.4), 2px 2px 3px 1px, inset rgba(84, 56, 123, 0.0125), 0 4px 27px rgba(0, 0, 0, 0.125);*/
   }
 
   .nav-bar {
@@ -1187,7 +1127,6 @@ p.page-nav::after {
 
 table:not(.nepas) {
   border-radius: 9px;
-  /*background: linear-gradient(180deg, #e4f8ff, #cbeaff);*/
   background: transparent;
   backdrop-filter: blur(8.1px);
 }
@@ -1207,7 +1146,6 @@ table:not(.nepas) thead td {
   background-color: rgba(47, 79, 79, 0.48);
   color: white;
   backdrop-filter: blur(8.1px);
-  /*border-radius: 6px;*/
   font-family: geneva, 'genevab', tahoma, verdana, trajan, "Trajan Pro", Georgia, Times, serif !important;
   font-variant-caps: small-caps;
 }
@@ -1275,20 +1213,6 @@ canvas, sculpture, .youtube {
 }
 
 /* Text input styles */
-/*input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
-  border-radius: 18px;
-  outline: none;
-  text-align: center;
-  font-family: 'Segoe UI', 'genevab', Geneva, Verdana, sans-serif, Verdana, sans-serif;
-  min-height: 24pt;
-  font-size: 11pt;
-  background: rgba(246, 255, 248, 0.48);
-  box-shadow: inset 0 3px 3px rgba(0,0,0,0.18), 0 6px 8px rgba(255,255,255,0.15), 0 -3px 5px rgba(137,90,176,0.05);
-  backdrop-filter: blur(6.1px) url(#crystal-distortion-plus);
-  -webkit-backdrop-filter: blur(8.1px);
-  border: 1px solid rgba(255, 255, 255, 0.51);
-  overflow-x: scroll;
-}*/
 
 input[type=text], input[type=number], input[type=email], input[type=password], select, option, textarea {
   padding: 5pt !important;
@@ -1321,7 +1245,6 @@ textarea {
   text-align: left;
 }
 input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input[type=password]:hover, select:hover, option:hover, textarea:hover {
-  /*background: linear-gradient(to bottom, rgba(246, 255, 248, 0.48), rgba(243, 231, 254, 0.48), rgba(246, 255, 248, 0.48));*/
   background-image: rgb(244, 244, 244, 0.85);
   box-shadow: inset 0 3px 3px rgba(0,0,0,0.27), 0 6px 8px rgba(255,255,255,0.225), 0 -3px 5px rgba(137,90,176,0.075), 0 4px 3px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.51);
@@ -1345,7 +1268,6 @@ label.full input[type=checkbox] {
   height: 16pt !important;
   width: 16pt !important;
   right: 10px;
-  /*transform: translateY(-100%);*/
   color: transparent;
   backdrop-filter: none !important;
   filter: none;
@@ -1385,27 +1307,6 @@ label.full .checkmark:after {
 
 
 /* Button styles */
-/*button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, .youtube, ::-webkit-scrollbar-thumb {
-  border-radius: 9px;
-  text-align: center;
-  font-family: 'Segoe UI', 'genevab', Geneva, Verdana, sans-serif, Verdana, sans-serif;
-  min-height: 24pt;
-  font-size: 11pt;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 5px;
-  background-color: rgba(220, 180, 255, 0.48);
-  box-shadow: 0 9px 14px rgba(0,0,0,0.18), inset 0 6px 8px rgba(255,255,255,0.45), inset 0 -9px 5px rgba(113.5,90,113.5,0.35);
-  filter: brightness(85%);
-  background-image: linear-gradient(to bottom, rgba(180, 140, 220, 0.55), rgba(153, 126, 179, 0.48), rgba(170, 130, 200, 0.55));
-  backdrop-filter: blur(8.1px);
-  -webkit-backdrop-filter: blur(8.1px);
-  border: 1px solid rgba(244, 244, 244, 0.51);
-  outline: 0.33px solid rgba(255, 255, 255, 0.51);
-  color: black;
-  outline-offset: -0.33px;
-  cursor: pointer;
-}*/
 
 button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, .youtube, ::-webkit-scrollbar-thumb {
   padding: 5pt !important;
@@ -1444,32 +1345,6 @@ button::before, .nav-item::before, input[type=button]::before, input[type=submit
 .nav-item::before, thead td::before, .projlinks a:hover img::before {
   background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
 }
-
-/*
-hr {
-  height: 4px;
-  border: none;
-  padding: 5pt;
-  border-radius: 14pt;
-  background: rgba(159, 149, 194, 0.19) !important;
-  backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
-  opacity: 70%;
-  -webkit-backdrop-filter: blur(8.1px);;
-  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
-}
-hr::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  right: 9px;
-    width: 95%;
-  width: calc(100% - 13px);
-  height: 20%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
-  border-radius: inherit;
-  pointer-events: none;
-}
-*/
 
 .youtube {padding: 10px;}
 button[disabled], input[disabled], select[disabled] {
