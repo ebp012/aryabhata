@@ -792,7 +792,7 @@ p.page-nav::after {
     border-radius: 8px;
   }
 }
-@media (max-height: 475px)and  and (min-width: 1200px) { /* 1024px ipad mini width */
+@media (max-height: 20px) and (min-width: 1200px) { /* 1024px ipad mini width; remove 475px instead of 20px */
   .nav-bar:not(.non) {
     position: fixed;
     left: 15px;
@@ -876,6 +876,7 @@ p.page-nav::after {
   }
 
   .nav-bar:not(.non) .nav-item {
+    display: inline-block; /* fallback */
     display: inline-flex;
     flex-direction: row;
     align-items: center;
