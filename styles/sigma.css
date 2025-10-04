@@ -350,6 +350,8 @@ html, body {
               inset 0 0 8px rgba(255, 255, 255, 0.6);
   overflow: hidden;
   display: none;
+  margin-left: auto;
+  margin-right: auto;
   backdrop-filter: blur(4.5px); /*url(#crystal-distortion-minus);*/
 }
 /* Red */
@@ -674,8 +676,8 @@ p.page-nav::before {
   top: 2px;
   left: 9px;
   width: calc(100% - 13px);
-  height: 40%;
-  max-height: 40px;
+  height: 40px;
+  max-height: 40%;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
   border-radius: inherit;
   pointer-events: none;
@@ -686,31 +688,13 @@ p.page-nav::after {
   top: 2px;
   right: 9px;
   width: calc(100% - 13px);
-  height: 40%;
-  max-height: 40px;
+  max-height: 40%;
+  height: 40px;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
   border-radius: inherit;
   pointer-events: none;
 }
 
-@media (min-width: 1400px) {
-  .content-section {
-    margin-left: 25vw;
-    margin-right: 25vw;
-  }
-}
-@media (min-width: 1300px) and (max-width: 1400px) {
-  .content-section {
-    margin-left: 20vw;
-    margin-right: 20vw;
-  }
-}
-@media (min-width: 1200px) and (max-width: 1300px) {
-  .content-section {
-    margin-left: 15vw;
-    margin-right: 15vw;
-  }
-}
 .ender {display: none;}
 @media (max-width: 1200px) and (min-height: 20px) {
   .ender {
@@ -724,7 +708,6 @@ p.page-nav::after {
     display: inline-block;
     display: flex;
     flex-direction: row;       /* ensure horizontal layout */
-    width: calc(100% - 40px);  /* leave 20px side gutters */
     max-height: none;
     background: linear-gradient(
       rgba(160, 150, 160, 0.34),  /* Dark purple tint */
@@ -732,6 +715,9 @@ p.page-nav::after {
       rgba(185, 175, 185, 0.50), /* Light purple tint */
       rgba(160, 150, 160, 0.34)  /* Dark purple tint */
     );
+  }
+  .content-section, .nav-bar {
+    width: calc(100vw - 40px);  /* leave 20px side gutters*/
   }
   .container {
     transform: translateY(-140px);
@@ -759,7 +745,7 @@ p.page-nav::after {
   }
 
   .container {
-    padding: 16px;
+    /*padding: 16px;*/
   }
 }
 @media (max-width: 640px) {
@@ -858,7 +844,7 @@ p.page-nav::after {
   display: none;
 }
 
-@media (min-height: 20px) and (min-width: 1200px) { // mh once 475px
+@media (min-height: 20px) and (min-width: 1200px) { /* mh once 475px*/
   .nav-item {
     margin-left: 4.5px;
     margin-right: 4.5px;
@@ -871,8 +857,10 @@ p.page-nav::after {
     align-items: center;
     gap: 8px; /* small gap between buttons */
     padding: 0.4% 0.6%; /* 8px 12px */
-    width: 70%;
     min-height: 40pt !important;
+  }
+  .nav-bar:not(.non), .content-section {
+    width: 40em !important;
   }
   .nav-bar::before {
     content: "";
@@ -968,7 +956,7 @@ p.page-nav::after {
       overflow-x: auto;
       transform: translateX(-50%); /* center horizontally */
       flex-direction: row;       /* ensure horizontal layout */
-      width: calc(100% - 40px);  /* leave 20px side gutters */
+      
       height: auto;
       bottom: auto;
       max-height: none;
@@ -976,6 +964,9 @@ p.page-nav::after {
       border-radius: 16px;
       z-index: 9999;             /* keep it above other stuff */
     }
+  .nav-bar, .content-section {
+    width: calc(100vw - 40px);  /* leave 20px side gutters */
+  }
 
     /* remove the left-side margin applied for large vertical navs */
     .container {
@@ -1476,7 +1467,7 @@ canvas {
   left: 4.5vh;
   right: 4.5vh;
   bottom: 4.5vh;
-  width: calc(100% - 9vh);
+  width: calc(100% - 9vw);
   max-height: calc(100% - 9vh);
   min-height: 400px;
   touch-action: none;
@@ -1672,10 +1663,6 @@ table::not(.nepas), thead td {
         flex-grow: 0.5;
         white-space: nowrap; /* Prevents text wrapping */
     }
-  .nav-bar:not(.nepas), #header:not(.nepas) {
-    width: fit-content !important;
-    min-width: 800px;
-  }
   #header:not(.nepas) ~ .nav-bar:not(.nepas) {
     position: fixed;
     top: 90px;
@@ -1751,8 +1738,8 @@ table::not(.nepas), thead td {
   font-size:160%;
   line-height:1.2em;
   font-family: 'segoe', geneva, 'genevab', 'segoe ui', segoe, tahoma, verdana, sans-serif, monospace !important;
-  }
+}
 #blog-title a {
   text-decoration:none;
   color:#fff;
-  }
+}
