@@ -53,10 +53,8 @@
     <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="crystal-distortion">
-          <feTurbulence baseFrequency="0.004" numOctaves="3" seed="3" result="turbulence"/>
-          <feGaussianBlur stdDeviation="2"/>
-          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="12" xChannelSelector="R" yChannelSelector="G"/>
-          <feColorMatrix type="saturate" values="1.2"/>
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
         </filter>
         <filter id="crystal-distortion-hover">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
@@ -74,6 +72,16 @@
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="72"/>
             <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+        <filter id="crystal-distortion-plus-two">
+            <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="96"/>
+            <feColorMatrix type="saturate" values="0.85"/>
+        </filter>
+        <filter id="crystal-distortion-plus-three">
+            <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="144"/>
+            <feColorMatrix type="saturate" values="0.85"/>
         </filter>
         <filter id="crystal-distortion-minus">
             <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
@@ -1247,7 +1255,12 @@
     </div>
 
 
-
+	<!-- real nav bar -->
+	<div id="header" class='nav-bar'>
+      <div>
+        <h1 id='blog-title' style='font-family: geneva, genevab, tahoma, verdana, sans-serif;'>Aryabhata</h1>
+      </div>
+    </div>
     <nav class='nav-bar'>
       <div class='nav-item' data-target='#launcher' id='homeTab'>
         <i class='fa-solid fa-home'></i>
