@@ -118,6 +118,11 @@ html, body {
   background-color: #F0f8ff;
   background: linear-gradient(
     145deg,
+    rgb(240, 230, 255),
+    rgb(200, 190, 240)
+  );
+  background: linear-gradient(
+    145deg,
     rgba(240, 230, 255, 0.15),
     rgba(200, 190, 240, 0.2)
   );
@@ -146,6 +151,11 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
   background-color: silver;
   background: linear-gradient(
     to bottom,
+    rgb(230, 230, 230),
+    rgb(210, 210, 210)
+  );
+  background: linear-gradient(
+    to bottom,
     rgba(230, 230, 230, 0.67) 0%,
     rgba(210, 210, 210, 0.67) 100%
   );
@@ -166,6 +176,11 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
 .nav-item:hover, .nav-item.nbtn-white:hover {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  background: linear-gradient(
+    to bottom,
+    rgb(240, 240, 240),
+    rgb(220, 220, 220)
+  );
   background: linear-gradient(
     to bottom,
     rgba(240, 240, 240, 0.9) 0%,
@@ -311,6 +326,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
 .nav-item.active-state {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1),
     inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgb(155,130,155);
   background: rgba(155,130,155,0.3);
 }
 
@@ -342,6 +358,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
 .content-section, .container.cs-white .content-section, .content-section.cs-white {
   position: relative;
   background-color: #F0f8ff;
+  background: linear-gradient(145deg, #d8d8d8, #d8d8d8);
   background: linear-gradient(145deg, #f0f0f0e0, #d8d8d8b0); /* bright blue gradient */
   border: 1px solid #99ccff; /* soft blue edge like old Windows panels */
   border-radius: 16px;
@@ -380,18 +397,21 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
 
 /* Teal */
 .container.cs-teal .content-section, .content-section.cs-teal {
+  background: linear-gradient(145deg, #b3fff0, #b3fff0);
   background: linear-gradient(145deg, #b3fff080, #80ffd880);
   border: 1px solid #66ffcc;
 }
 
 /* Cyan */
 .container.cs-cyan .content-section, .content-section.cs-cyan {
+  background: linear-gradient(145deg, #b3f0ff, #b3f0ff);
   background: linear-gradient(145deg, #b3f0ff80, #80d8ff80);
   border: 1px solid #66ccff;
 }
 
 /* Blue */
 .container.cs-blue .content-section, .content-section.cs-blue {
+  background: linear-gradient(145deg, #d6f0ff, #a0d8f0);
   background: linear-gradient(145deg, #d6f0ff80, #a0d8f080);
   border: 1px solid #99ccff;
 }
