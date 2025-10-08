@@ -57,7 +57,18 @@ a:not(.non):active {
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  transition: all ease-in-out 0.45s;
+  /*-webkit-transition: all ease-in-out 0.45s;*/
+  transition: background-color 0.45s ease-in-out,
+              background 0.45s ease-in-out,
+              background-image 0.45s ease-in-out,
+              color 0.45s ease-in-out,
+              border 0.45s ease-in-out,
+              box-shadow 0.45s ease-in-out,
+              transform 0.45s ease-in-out,
+              height 0.45s ease-in-out,
+              width 0.45s ease-in-out,
+              filter 0.45s ease-in-out,
+              backdrop-filter 0.45s ease-in-out;
 }
 body {
   font-family: "New York", "Georgia", serif;
@@ -1013,7 +1024,7 @@ p.page-nav::after {
   .nav-item.active, .nav-item:active  {
     color: #645679;
     text-shadow: 19px 1px 6px 6px rgba(#000000, 0, 0, 0.5);
-    transform: scale(0.6);
+    transform: scale(0.95);
   }
   .nav-item:active i {
     transform: scale(0.9);
@@ -1123,6 +1134,7 @@ table:not(.nepas) {
   border-radius: 9px;
   background: transparent;
   backdrop-filter: blur(8.1px);
+  box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2);
 }
 table:not(.nepas), table:not(.nepas) * tr td, table:not(.nepas) tr td {
   border-collapse: collapse;
@@ -1130,9 +1142,10 @@ table:not(.nepas), table:not(.nepas) * tr td, table:not(.nepas) tr td {
   margin: 24px;
   padding: 14px;
   text-align: center;
-  box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2),
-    inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25), 
-    inset 0 4px 100px rgba(241, 227, 255, 0.4);
+}
+table:not(.nepas) * tr td, table:not(.nepas) tr td {
+  box-shadow: inset 1.5px 1.5px 2.25px 0.9px rgba(84, 56, 123, 0.25), 
+    inset 0 3px 75px 8px rgba(241, 227, 255, 0.4), 0 4px 19px rgba(0, 0, 0, 0.2);
 }
 table:not(.nepas) thead td {
   font-weight: bold;
@@ -1709,8 +1722,8 @@ table::not(.nepas), thead td {
         transform: translateY(0) !important; /* Explicitly prevent any transform */
         /*filter: brightness(1) !important;*/ /* Keep brightness neutral on hover */
     }
-  .nav-bar:not(.nepas) .nav-item:hover::after {
-    filter: brightness(0.05) !important;
+  .nav-bar:not(.nepas) .nav-item:hover::before {
+    filter: brightness(0.45) !important;
   }
 
     /* For the active state (which has a background set by JS) */
