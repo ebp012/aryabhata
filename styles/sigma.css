@@ -881,6 +881,7 @@ p.page-nav::after {
     margin-right: 4.5px;
     margin-top: 0.2%;
     margin-bottom: 0.2%;
+    min-height: 14pt;
   }
   .nav-bar:not(.non) {
     display: flex;
@@ -925,7 +926,7 @@ p.page-nav::after {
   }
 
   .nav-bar:not(.non) .nav-item :not(i) {
-    font-size: 1.1vh;
+    font-size: 14px;
   }
    
   .nav-item:after {
