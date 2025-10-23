@@ -101,7 +101,7 @@
           <center>
             <h2 id='launcher-welcome-header'>Welcome to Aryabhata!</h2>
             <p id='launcher-welcome-text'>Aryabhata is your <i>free</i> one-stop shop to a world of useful math, science, and linguistics tools.<br/>
-            Below, you can find a variety of apps which you'll definitely find useful.</p>
+            Below, you can find a variety of applets which you'll definitely find useful.</p>
           </center>
         </div>
         <center>
@@ -760,26 +760,6 @@
                   <span id='conv-length-first-container'>
                     
                   </span>
-                  <!--<select id='conv-time-first'>
-                    <optgroup label='Ubiquitous'>
-                      <option value='s'><i>Second (s or sec)</i></option>
-                    </optgroup>
-                    <optgroup label='Imperial'>
-                      <option value='fth'><i>Fourth (fth)</i></option>
-                      <option value='thd'><i>Third (thd)</i></option>
-                      <option value='min'><i>Minute (min)</i></option>
-                      <option value='hr'><i>Hour (hr)</i></option>
-                      <option value='d'><i>Day (d)</i></option>
-                      <option value='w'><i>Week (w)</i></option>
-                      <option value='lm'><i>Lunar Month (lm)</i></option>
-                      <option value='ifcm'><i>International Fixed Calendar Month (IFCM)</i></option>
-                      <option value='agm'><i>Average Gregorian Month (AGM)</i></option>
-                      <option value='yr'><i>Julian year (y)</i></option>
-                      <option value='lyr'><i>Lunar year (lyr)</i></option>
-                      <option value='oyr'><i>Orbital year (oyr)</i></option>
-                      <option value='gyr'><i>Galactic year (gyr)</i></option>
-                    </optgroup>
-                  </select>-->
                   <br/>
                   <input type='number' id='conv-length-input' value='1'/>
                 </td>
@@ -796,12 +776,10 @@
               </tr>
               <div class='hidden' id='conv-length-options'>
                 <optgroup label='Imperial'>
-                  <option value='th'><i>Thou (th)</i></option>
+                  <option value='th'><i>Thou (th) / Mil (mil)</i></option>
                   <option value='tw'><i>Twip (tw)</i></option>
                   <option value='pt'>Point (pt)</option>
                   <option value='pc'><i>Pica (pc)</i></option>
-                  <option value='ps'><i>Poppyseed (ps)</i></option>
-                  <option value='bc'><i>Barleycorn (bc)</i></option>
                   <option value='in' selected='selected'>Inch (in)</option>
                   <option value='hd'><i>Hand (hd)</i></option>
                   <option value='lk'>Link (lk)</option>
@@ -842,31 +820,24 @@
                   <option value='yym'>Yottametre (Ym)</option>
                   <option value='rrm'>Ronnametre (Rm)</option>
                   <option value='qqm'>Quettametre (Qm)</option>
-                  <option value='kqqm'>Kiloquettametre (kQm)</option>
-                  <option value='myqqm'>Myriaquettametre (myQm)</option>
-                  <option value='mmqqm'>Megaquettametre (MQm)</option>
-                  <option value='ggqqm'>Gigaquettametre (GQm)</option>
-                  <option value='ttqqm'>Teraquettametre (TQm)</option>
                 </optgroup>
-                <optgroup label='Other + Humourous'>
-                  <option value='parsec'>Parsec</option>
-                  <option value='ly'>Light year (ly)</option>
-                  <option value='au'>Astronomical unit (AU)</option>
-                  <option value='pl'>Planck length (pl)</option>
-                  <option value='aparsec'>Attoparsec</option>
-                  <option value='smoot'>Smoot</option>
+				<optgroup label='Astronomical'>
+				  <option value='parsec'>Parsec</option>
+				  <option value='pl'>Planck length (pl)</option>
+				  <option value='au'>Astronomical unit (AU)</option>
                   <option value='s-d'>Light second (ls)</option>
                   <option value='min-d'>Light minute (lmin)</option>
                   <option value='hr-d'>Light hour (lhr)</option>
                   <option value='d-d'>Light day (ld)</option>
                   <option value='w-d'>Light week (lw)</option>
                   <option value='fn-d'>Light fortnight (lfn)</option>
-                  <option value='lm-d'>Light lunar month (llm)</option>
-                  <option value='jjy-d'>Light Julian year (lJy)</option>
-                  <option value='ly-d'>Light lunar year (lly)</option>
-                  <option value='oy-d'>Light orbital year (loy)</option>
+                  <option value='ly-d'>Light year (ly)</option>
                   <option value='gy-d'>Light galactic year (lgy)</option>
                 </optgroup>
+				<optgroup label='Humourous'>
+                  <option value='aparsec'>Attoparsec</option>
+                  <option value='smoot'>Smoot</option>
+				</optgroup>
               </div>
             </tbody>
           </table>
@@ -874,142 +845,6 @@
             #conv-body tr trd {display: none;}
             select option i {font-family: times;}
           </style>
-          <script>
-            var lengthSelect = qs('#conv-length-options');
-            qs('#conv-length-first-container').innerHTML = "<select id='conv-length-first'>" + lengthSelect + "</select>";
-            qs('#conv-length-second-container').innerHTML = "<select id='conv-length-second'>" + lengthSelect + "</select>";
-            // Length conversions
-            const lengthFactors = {
-              // --- Imperial (inches as base) ---
-              'th': 1 / 1000,
-              'tw': 1 / 1440,
-              'pt': 1 / 72,
-              'pc': 1 / 6,
-              'ps': 1 / 85.5,
-              'bc': 1 / 3,
-              'in': 1,
-              'hd': 4,
-              'lk': 7.92,
-              'ft': 12,
-              'yd': 36,
-              'rd': 198,
-              'ch': 792,
-              'fl': 7920,
-              'mi': 63360,
-              'lg': 190080,
-
-              // --- Metric (metres as base, then converted to inches) ---
-              'qm': 3.937e-14,
-              'rm': 3.937e-13,
-              'ym': 3.937e-12,
-              'zm': 3.937e-11,
-              'am': 3.937e-10,
-              'fm': 3.937e-9,
-              'åm': 3.937e-9,
-              'pm': 3.937e-8,
-              'nm': 3.937e-6,
-              'μm': 3.937e-5,
-              'mm': 0.03937,
-              'cm': 0.3937,
-              'dm': 3.937,
-              'm': 39.37,
-              'dkm': 393.7,
-              'hm': 3937,
-              'km': 39370,
-              'mam': 393700,
-              'mmm': 39370000,
-              'ggm': 3.937e10,
-              'ttm': 3.937e13,
-              'ppm': 3.937e16,
-              'eem': 3.937e19,
-              'zzm': 3.937e22,
-              'yym': 3.937e25,
-              'rrm': 3.937e28,
-              'qqm': 3.937e31,
-              'kqqm': 3.937e34,
-              'myqqm': 3.937e35,
-              'mmqqm': 3.937e37,
-              'ggqqm': 3.937e40,
-              'ttqqm': 3.937e43,
-              'ppqqm': 3.937e46,
-              'eeqqm': 3.937e49,
-              'zzqqm': 3.937e52,
-              'yyqqm': 3.937e55,
-              'rrqqm': 3.937e58,
-              'qqqqm': 3.937e61,
-
-              // --- Astronomical + Funny Units (converted to inches) ---
-              'pl': 6.3e-35 * 39.37,
-              'smoot': 67,
-              'aparsec': 1.012e21,
-              'parsec': 3.08567758e18 * 39.37,
-              'ly': 9.461e15 * 39.37,
-              'au': 1.496e11 * 39.37,
-
-              // --- Patellian ---
-              'H': pl * 2 * 60 ** 19,
-            };
-            const timeFactors = {
-              // --- Seconds ---
-              's': 1,
-              
-              // --- Imperial --
-              'fth': 1/3600,
-              'thd': 1/60,
-              'min': 60,
-              'hr': 3600,
-              'd': 86400,
-              'w': 86400 * 7,
-              'lm': 86400 * 29.5, // Lunar month
-              'ifcm': 86400 * 28, // International Fixed Calendar month
-              'agm': 86400 * 30.3375, // Average Gregorian month
-              'yr': 86400 * 365,
-              'lyr': 86400 * 29.5 * 12,
-              'oyr': 86400 * 365.2422,
-              'gyr': 86400 * 365 * 2.2e8,
-
-              // --- Metric ---
-            }
-
-            document.getElementById('conv-length-btn').addEventListener('click', function () {
-              const fromUnit = document.getElementById('conv-length-first').value;
-              const toUnit = document.getElementById('conv-length-second').value;
-              const input = parseFloat(document.getElementById('conv-length-input').value);
-
-              if (isNaN(input)) {
-                alert('Please enter a valid number');
-                return;
-              }
-              const inches = input * (lengthFactors[fromUnit] || 1);
-              const converted = inches / (lengthFactors[toUnit] || 1);
-
-              document.getElementById('conv-length-output').value = converted;
-              // Assuming you have jQuery or a similar library for 'qs'
-              // If not, these lines will cause an error and should be replaced with native JS
-              document.getElementById('conv-length-input').style.color = 'black';
-              document.getElementById('conv-length-output').style.color = 'black';
-            });
-
-            // Flip button
-            document.getElementById('conv-length-flip').addEventListener('click', function () {
-              const select1 = document.getElementById('conv-length-first');
-              const select2 = document.getElementById('conv-length-second');
-
-              const tempValue = select1.value;
-              select1.value = select2.value;
-              select2.value = tempValue;
-
-              // Optional: also swap the values if you want to visually reverse them
-              const input = document.getElementById('conv-length-input');
-              const output = document.getElementById('conv-length-output');
-
-              const tempNum = input.value;
-              input.value = output.value;
-              output.value = tempNum;
-              input.style.color = 'red';
-              output.style.color = 'red';
-            });
-          </script>
         </div>
       </div>
 
@@ -1058,7 +893,44 @@
                   <span class='pt-name'>Beryllium</span>
                   <span class='pt-mass'>9.0122</span>
                 </td>
-              </tr>
+				<td class='pt-non' colspan='19'></td>
+				<td>
+				  <span class='pt-number'>5</span>
+                  <span class='pt-symbol'>B</span>
+                  <span class='pt-name'>Boron</span>
+                  <span class='pt-mass'></span>
+				</td>
+				<td>
+				  <span class='pt-number'>6</span>
+                  <span class='pt-symbol'>C</span>
+                  <span class='pt-name'>Carbon</span>
+                  <span class='pt-mass'>12.01</span>
+				</td>
+				<td>
+				  <span class='pt-number'>7</span>
+                  <span class='pt-symbol'>N</span>
+                  <span class='pt-name'>Nitrogen</span>
+                  <span class='pt-mass'>14.01</span>
+				</td>
+				<td>
+				  <span class='pt-number'>8</span>
+                  <span class='pt-symbol'>O</span>
+                  <span class='pt-name'>Oxygen</span>
+                  <span class='pt-mass'>16.00</span>
+				</td>
+				<td>
+				  <span class='pt-number'>9</span>
+                  <span class='pt-symbol'>F</span>
+                  <span class='pt-name'>Fluorine</span>
+                  <span class='pt-mass'></span>
+				</td>
+				<td>
+				  <span class='pt-number'>10</span>
+                  <span class='pt-symbol'>Ne</span>
+                  <span class='pt-name'>Neon</span>
+                  <span class='pt-mass'></span>
+				</td>
+			  </tr>
             </table>
           </div>
           <hr id='elements'/>
