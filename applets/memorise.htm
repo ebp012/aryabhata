@@ -129,7 +129,7 @@
             memText.charAt(charCount - 1)
           ) {
             document.querySelector("#wrongsM").innerHTML +=
-              "Error at position " + (charCount - 1) + ".<br/>";
+              "<small style='font-size: 6pt;'>Error at pos. " + (charCount - 1) + ".</small><br/>";
             var memBoxA = document
             .querySelector("#memBox")
             .innerText.slice(0, -1);
@@ -147,7 +147,7 @@
         ) {
           var þ = document.querySelector("#wrongsM").innerHTML;
           var itD = 0;
-          if (memPrac.length == memText.length && itD == 0) {
+          if (memPrac.length == memText.length && itD == 0 && memPrac == memText) {
             if (memWrongs != 0) {
               document.querySelector("#wrongsM").innerHTML =
                 "<strong style='color: green;'>DONE</strong><br/><p><small>" +
