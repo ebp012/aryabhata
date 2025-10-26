@@ -1236,7 +1236,7 @@ table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
 }
 
 abbr {
-  cursor: url(cursors/roundyhelp.cur), help;
+  cursor: url(cursors/roundhelp.cur), help;
 }
 
 canvas, sculpture, .youtube {
@@ -1284,7 +1284,7 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   filter: brightness(0.9875);
 }
 input[type='text'], input[type=number], input[type=email], .fakeinput, textarea, p {
-  cursor: url(cursors/roundytext.cur), text;
+  cursor: url(cursors/roundtext.cur), text;
 }
 input[type=password] {
   cursor: url(cursors/roundyperson.cur), text;
@@ -1507,7 +1507,7 @@ canvas {
   backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
-  cursor: url(cursors/roundypen.cur), auto;
+  cursor: url(cursors/roundy pen.cur), auto;
 }
 ::-webkit-scrollbar-thumb {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
