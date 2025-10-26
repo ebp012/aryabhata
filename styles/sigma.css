@@ -37,6 +37,7 @@ a:not(.non):active {
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  /*cursor: url(https://aryabhata.aeonic.me/styles/cursors/roundynormal.cur, auto);*/
   /*-webkit-transition: all linear 0.45s;*/
   transition: background-color 0.45s linear,
               background 0.45s linear,
@@ -55,11 +56,13 @@ body {
   background-size: cover;
     min-height: 100vh; /*lvh*/
   overflow-y: auto;
+  cursor: url(cursors/roundynormal.cur), auto;
 }
 
 html, body {
   height: 100%;
   min-height: 100%;
+  
   overscroll-behavior: none;
   -webkit-overflow-scrolling: auto;
   touch-action: manipulation;
@@ -695,14 +698,17 @@ p.page-nav::before {
   position: fixed;
   top: 2px;
   left: 9px;
-  width: calc(100% - 13px);
+  right: 9px;
+  width: 95%;
+  width: calc(100% - 19.5px);
+  width: auto;
   height: 40px;
   max-height: 40%;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
   border-radius: inherit;
   pointer-events: none;
 }
-p.page-nav::after {
+/*p.page-nav::after {
   content: "";
   position: fixed;
   top: 2px;
@@ -710,10 +716,10 @@ p.page-nav::after {
   width: calc(100% - 13px);
   max-height: 40%;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.27), transparent);
   border-radius: inherit;
   pointer-events: none;
-}
+}*/
 
 .ender {display: none;}
 @media (max-width: 1200px) and (min-height: 20px) {
@@ -1230,7 +1236,7 @@ table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
 }
 
 abbr {
-  cursor: help;
+  cursor: url(cursors/roundyhelp.cur), help;
 }
 
 canvas, sculpture, .youtube {
@@ -1276,6 +1282,18 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   border: 1px solid rgba(255, 255, 255, 0.51);
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.9875);
+}
+input[type='text'], input[type=number], input[type=email], .fakeinput, textarea, p {
+  cursor: url(cursors/roundytext.cur), text;
+}
+input[type=password] {
+  cursor: url(cursors/roundyperson.cur), text;
+}
+select, option {
+  cursor: url(cursors/roundyhand.cur), pointer;
+}
+label {
+  cursor: url(cursors/roundynormal.cur), auto;
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, .fakeinput:active, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
@@ -1356,7 +1374,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   color: black;
   outline-offset: -0.33px;
-  cursor: pointer;
+  cursor: url(cursors/roundyhand.cur), pointer;
   opacity: 70%;
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
   -webkit-backdrop-filter: blur(8.1px);
@@ -1378,7 +1396,7 @@ button::before, .nav-item::before, input[type=button]::before, input[type=submit
   background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
 }
 
-.youtube {padding: 10px;}
+.youtube {padding: 10px; cursor: url(cursors/roundyhand.cur), auto;}
 button[disabled], input[disabled], select[disabled] {
   color: rgba(10, 10, 10, 0.48);
   background: rgba(200, 160, 220, 0.44);
@@ -1392,7 +1410,7 @@ button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[ty
 }
 .projlinks a {border: none !important; outline: none !important; background: transparent !important;}
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
-  cursor: not-allowed;
+  cursor: url(cursors/roundyunavailable.cur), not-allowed;
 }
 button:not([disabled]):active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active, label.full input[checked] ~ .checkmark {
   box-shadow: inset 0 3px 6px rgba(0,0,0,0.4), 
@@ -1473,11 +1491,13 @@ button:active::after {
   color: #a070be;
   text-decoration: none;
 }
-
+a {
+  cursor: url(cursors/roundyhand.cur), pointer;
+}
 /* Canvas Styles */
 canvas {
   background-color: white;
-  cursor: default;
+  cursor: url(cursors/roundynormal.cur), default;
 }
 
 /* Scrollbars */
@@ -1487,11 +1507,13 @@ canvas {
   backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
+  cursor: url(cursors/roundypen.cur), auto;
 }
 ::-webkit-scrollbar-thumb {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
   border-radius: 9px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
+  cursor: url(cursors/roundyhand.cur), pointer;
 }
 
 .modal-container, .modal-container:not(:hover) {
@@ -1620,6 +1642,7 @@ button:hover::after, select:hover::after {
 /* Phones (ph), phonemes (pm), graphemes (gm) */
 ph, pm, gm,  ib,  sq, pq, mq, tq, esq  {
   display: inline;
+  cursor: url(cursors/roundyperson.cur), text;
 }
 
 ph:before {
@@ -1681,6 +1704,9 @@ blockquote {
 }
 .desk-paper, p.page-nav, .nav-item {
     font-family: 'genevab', geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
+}
+.nav-item {
+  cursor: url(cursors/roundyhand.cur), pointer;
 }
 .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
     font-family: geneva, 'genevab', futura, tahoma, verdana, sans-serif !important;
