@@ -137,6 +137,18 @@ window.addEventListener('load', function() {
     let b = qs('#graph-offset-yr').value;
     });
 
+    qs('#log-x').addEventListener('input', function () {
+        if (this.checked == true) logX[0] = true;
+        else logX[0] = false;
+        graphFunction();
+    });
+
+    qs('#log-y').addEventListener('input', function () {
+        if (this.checked == true) logY[0] = true;
+        else logY[0] = false;
+        graphFunction();
+    });
+
     document.querySelectorAll('#graph-canvas').forEach(fsBtn => {
     fsBtn.addEventListener('click', function() {
         if (!fullscreen) {
