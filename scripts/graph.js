@@ -8,6 +8,10 @@ var yi = 0, yip = 0; // y imaginary (t axis)
 var xiv = 0, xivp = 0; // x imaginary viewport
 var inputs = ['xi', 'xr', 'xiv']; // each instance of the slider setup thing
 
+var logX = [false, 10]; // whether to use log scale for x-axis and what base
+var logY = [false, 10]; // whether to use log scale for y-axis and what base
+
+
 var xrmin = -36, xrmax = 36; // x-real minimum/maximum
 var ximin = -36, ximax = 36; // x-imaginary minimum/maximum
 
