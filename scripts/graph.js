@@ -681,7 +681,9 @@ function graphFunction () {
         let width = 1;
         // The linear graph
         var xrt = i;
+        if (logX[0] == true) xrt = Math.log( Math.abs(xrt) ) / Math.log(10);
         var yrt = -solve(xrt, Number(qs('#xiv-input').value), false, 1, f);
+        if (logY[0] == true) yrt = -(Math.log( Math.abs(solve(xrt, Number(qs('#xiv-input').value), false, 1, f)) ) / Math.log(10));
         var yrit = -solve(xrt, Number(qs('#xiv-input').value), true, 1, f)
         var xrtNext = i + precision;
         var yrtNext = -solve(xrtNext, Number(qs('#xiv-input').value), false, 1, f);
