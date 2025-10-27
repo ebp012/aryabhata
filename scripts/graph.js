@@ -140,13 +140,25 @@ window.addEventListener('load', function() {
     qs('#log-x').addEventListener('input', function () {
         if (qs('#log-x').checked) logX[0] = true;
         else logX[0] = false;
-        graphFunction();
+        qs('#log-x').disabled = true;
+        qs('#log-y').disabled = true;
+        setTimeout(function () {
+            qs('#log-x').disabled = false;
+            qs('#log-y').disabled = false;
+            graphFunction();
+        }, 259);
     });
 
     qs('#log-y').addEventListener('input', function () {
         if (qs('#log-x').checked) logY[0] = true;
         else logY[0] = false;
-        graphFunction();
+        qs('#log-x').disabled = true;
+        qs('#log-y').disabled = true;
+        setTimeout(function () {
+            qs('#log-x').disabled = false;
+            qs('#log-y').disabled = false;
+            graphFunction();
+        }, 250);
     });
 
     document.querySelectorAll('#graph-canvas').forEach(fsBtn => {
