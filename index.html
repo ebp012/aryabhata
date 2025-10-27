@@ -286,11 +286,11 @@
                         <strong id='xiv-title'>Panning</strong><br/>
                         <span id='graph-xryr-offset-div-container-span'>
                           <div id='graph-xryr-offset-div'>
-                            x<sub>real</sub> offset: <input id='graph-offset-xr' type='number' step='1' value='0'/><br/>
-                            y<sub>real</sub> offset: <input id='graph-offset-yr' type='number' step='1' value='0'/><br/>
+                            x<sub><abbr title='real'>r</abbr></sub> offset: <input id='graph-offset-xr' type='number' step='1' value='0'/><br/>
+                            y<sub><abbr title='real'>r</abbr></sub> offset: <input id='graph-offset-yr' type='number' step='1' value='0'/><br/>
                             <!--y<sub>imaginary</sub>-offset: <input id='graph-offset-yi' type='number' step='1' value='0'/>-->
-							<label for='log-x'>Logarithmic x<sub>real</sub>?</label><input type='checkbox' id='log-x'/><br/>
-							<label for='log-y'>Logarithmic y<sub>real</sub>?</label><input type='checkbox' id='log-y'/><br/>
+							<label for='log-x'>Logarithmic x<sub><abbr title='real'>r</abbr></sub>?</label><input type='checkbox' id='log-x'/><br/>
+							<label for='log-y'>Logarithmic y<sub><abbr title='real'>r</abbr></sub>?</label><input type='checkbox' id='log-y'/><br/>
                           </div>
                         </span>
                         <hr/>
@@ -299,16 +299,16 @@
                       </div>
                       <!-- XI Viewport Control -->
                       <div class='grontent-section' id='graph-xi-viewport'>
-                        <strong id='xiv-title'>xi-viewport</strong><br/>
+                        <strong id='xiv-title'>x<sub><abbr title='imaginary'>im</abbr></sub> viewport</strong><br/>
                         <label for='xiv-input'>x-iv: </label><input type='range' min='-36' max='36' value='0' step='1' id='xiv-input'/><br/>
-                        x-iv = <span id='xiv-value'>0</span><br/>
+                        x<sub><abbr title='imaginary'>im</abbr></sub>v = <span id='xiv-value'>0</span><br/>
                         <div class='graph-adv'>
                           x-iv Min: <input type='number' value='-36' id='xiv-min-input'/><br/>
                           x-iv Max: <input type='number' value='36' id='xiv-max-input'/><br/>
                           x-iv Step: <input type='number' value='1' min='0' id='xiv-step-input'/><br/>
                         </div>
                         <p hidden><label for='xiv-type-input'><input type='checkbox' id='xiv-type-input' checked='checked'/> Slider input?</label> <br/></p>
-                        <label for='graph-scroll-xiv'><input id='graph-scroll-xiv' type='checkbox'/> Scroll for x-iv?</label>
+                        <label for='graph-scroll-xiv'><input id='graph-scroll-xiv' type='checkbox'/> Scroll for x<sub><abbr title='imaginary'>im</abbr></sub> viewport?</label>
                       </div>
 
                       <!-- Gridlines -->
@@ -340,8 +340,8 @@
                 </tr>
                 <tr class='hidden' id='graph-tracing'>
                    <td id='xr-td'>
-                    x-r: <input type='range' min='-36' max='36' value='0' step='1' id='xr-input'/><br/>
-                    x-r = <span id='xr-value'>0</span><br/>
+                    x<sub>real</sub>: <input type='range' min='-36' max='36' value='0' step='1' id='xr-input'/><br/>
+                    x<sub>real</sub> = <span id='xr-value'>0</span><br/>
                     <div class='graph-adv'>
                       x-r Min: <input type='number' value='-36' id='xr-min-input'/><br/>
                       x-r Max: <input type='number' value='36' id='xr-max-input'/><br/>
@@ -350,8 +350,8 @@
                     <input type='checkbox' id='xr-type-input' checked='checked'/> <label for='xr-type-input'>Slider input?</label>
                   </td>
                   <td id='xi-td'>
-                    x-i: <input type='range' min='-36' max='36' value='0' step='1' id='xi-input'/><br/>
-                    x-i = <span id='xi-value'>0</span><br/>
+                    x<sub><abbr title='imaginary'>im</abbr></sub>: <input type='range' min='-36' max='36' value='0' step='1' id='xi-input'/><br/>
+                    x<sub><abbr title='imaginary'>im</abbr></sub> = <span id='xi-value'>0</span><br/>
                     <div class='graph-adv'>
                       x-i Min: <input type='number' value='-36' id='xi-min-input'/><br/>
                       x-i Max: <input type='number' value='36' id='xi-max-input'/><br/>
