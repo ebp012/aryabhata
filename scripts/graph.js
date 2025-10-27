@@ -698,7 +698,9 @@ function graphFunction () {
         if (logY[0] == true) yrt = -(math.log( math.abs(solve(xrt, Number(qs('#xiv-input').value), false, 1, f)), logY[1] ));
         var yrit = -solve(xrt, Number(qs('#xiv-input').value), true, 1, f)
         var xrtNext = i + precision;
+        if (logX[0] == true) xrtNext = math.log( math.abs(xrtNext) , logX[1]);
         var yrtNext = -solve(xrtNext, Number(qs('#xiv-input').value), false, 1, f);
+        if (logY[0] == true) yrtNext = -(math.log( math.abs(solve(xrtNext, Number(qs('#xiv-input').value), false, 1, f)), logY[1] ));
         if (qs('#graph-dimension-xi').checked) {
         yrt = -solve(Number(qs('#xiv-input').value), xrt, false, 1, f);
         yrtNext = -solve(Number(qs('#xiv-input').value), xrtNext, false, 1, f)
