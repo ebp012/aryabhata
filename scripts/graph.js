@@ -138,13 +138,13 @@ window.addEventListener('load', function() {
     });
 
     qs('#log-x').addEventListener('input', function () {
-        if (this.checked == true) logX[0] = true;
+        if (qs('#log-x').checked) logX[0] = true;
         else logX[0] = false;
         graphFunction();
     });
 
     qs('#log-y').addEventListener('input', function () {
-        if (this.checked == true) logY[0] = true;
+        if (qs('#log-x').checked) logY[0] = true;
         else logY[0] = false;
         graphFunction();
     });
