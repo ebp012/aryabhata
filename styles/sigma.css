@@ -1283,17 +1283,17 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.9875);
 }
-input[type='text'], input[type=number], input[type=email], .fakeinput, textarea, p {
-  cursor: url(cursors/roundtext.cur), text;
+input[type=text], input[type=number], input[type=email], .fakeinput, textarea, p {
+  cursor: url(cursors/roundtext.cur), text !important;
 }
 input[type=password] {
   cursor: url(cursors/roundyperson.cur), text;
 }
 select, option {
-  cursor: url(cursors/roundyhand.cur), pointer;
+  cursor: url(cursors/roundprecise.cur), crosshair;
 }
 label {
-  cursor: url(cursors/roundynormal.cur), auto;
+  cursor: url(cursors/roundynormal.cur), normal;
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, .fakeinput:active, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
