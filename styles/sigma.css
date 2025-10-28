@@ -86,6 +86,7 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
+  transition: none;
 }
 
 .container {
@@ -125,7 +126,7 @@ html, body {
               inset 0 0 10px rgba(255, 255, 255, 0.25),
               inset 0 12px 20px -12px rgba(255, 255, 255, 0.45);
 backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
-  -webkit-backdrop-filter: blur(12px) saturate(1.04) brightness(0.9);
+  -webkit-backdrop-filter: blur(6px) saturate(1.04) brightness(0.9);
 }
 .nav-bar .nbar-plus {
   overflow: hidden;
@@ -159,6 +160,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
   width: 190px;
   /*min-width: 60px;*/
   backdrop-filter: url(#crystal-distortion-hover-button) brightness(0.54) blur(12px);
+  -webkit-backdrop-filter: brightness(0.54) blur(18px);
   position: relative;
   overflow: hidden;
   font-family: trajan, "Trajan Pro", Georgia, Times, serif;
@@ -364,6 +366,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
   margin-left: auto;
   margin-right: auto;
   backdrop-filter: blur(4.5px); /*url(#crystal-distortion-minus);*/
+  -webkit-backdrop-filter: blur(4.5px);
   transition: background-color 0.45s linear,
               background 0.45s linear,
               background-image 0.45s linear,
@@ -596,6 +599,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   border: 0.25px solid #e0e0e0;
   box-shadow: none;
   backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
 .desk-paper::not(.cs-clear)::before {
@@ -619,7 +623,7 @@ hr {
   background: rgba(159, 149, 194, 0.19) !important;
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
   opacity: 70%;
-  -webkit-backdrop-filter: blur(8.1px);;
+  -webkit-backdrop-filter: blur(8.1px);
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
     color: black;
 }
@@ -633,6 +637,7 @@ hr::before {
   right: 9px;
   width: calc(100% - 13px);
   height: 20%;
+  max-height: 20px;
   background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
   border-radius: inherit;
   pointer-events: none;
@@ -653,6 +658,7 @@ iframe:not(.youtube) {
 
 iframe.applet {
   width: 100%;
+  height: 70%;
   height: 70vh;
   backdrop-filter: blur(124.4px);
   -webkit-backdrop-filter: blur(124.4px);
@@ -814,6 +820,7 @@ p.page-nav::before {
   }
   .content-section {
     padding: 5px;
+    min-height: 100%;
     min-height: 100vh;
   }
   .container {
@@ -852,6 +859,7 @@ p.page-nav::before {
     bottom: auto;
     overflow-x: hidden;
     overflow-y: auto;
+    max-height: 87.5%;
     max-height: 87.5vh;
     filter: brightness(1.09);
   }
@@ -869,6 +877,7 @@ p.page-nav::before {
   .container {
     margin-left: 160px;
     padding: 40px;
+    min-height: 100%;
     min-height: 100vh;
   }
 
@@ -1160,6 +1169,7 @@ table:not(.nepas) {
   border-radius: 9px;
   background: transparent;
   backdrop-filter: blur(8.1px);
+  webkit-backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2);
 }
 table:not(.nepas), table:not(.nepas) * tr td, table:not(.nepas) tr td {
@@ -1179,6 +1189,7 @@ table:not(.nepas) thead td {
   background-color: rgba(47, 79, 79, 0.48);
   color: white;
   backdrop-filter: blur(8.1px);
+  -webkit-backdrop-filter: blur(8.1px);
   font-family: geneva, 'genevab', tahoma, verdana, trajan, "Trajan Pro", Georgia, Times, serif !important;
   font-variant-caps: small-caps;
 }
@@ -1193,16 +1204,20 @@ table:not(.nepas) tbody tr:nth-child(odd) {
 a {text-decoration: none;}
 
 table:not(.nepas) *:first-child tr:first-child td:first-child {
-  border-radius: 9px 0 0 0;
+  /*border-radius: 9px 0 0 0;*/
+  border-top-left-radius: 9px;
 }
 table:not(.nepas) *:first-child tr:first-child td:last-child {
-  border-radius: 0 9px 0 0;
+  /*border-radius: 0 9px 0 0;*/
+  border-top-right-radius: 9px;
 }
 table:not(.nepas) *:last-child tr:last-child td:last-child {
-  border-radius: 0 0 9px 0;
+  /*border-radius: 0 0 9px 0;*/
+  border-bottom-right-radius: 9px;
 }
 table:not(.nepas) *:last-child tr:last-child td:first-child {
-  border-radius: 0 0 0 9px;
+  /*border-radius: 0 0 0 9px;*/
+  border-bottom-left-radius: 9px;
 }
 
 table:not(.non), table:not(.non) td {
@@ -1292,7 +1307,7 @@ input[type=password] {
 select, option {
   cursor: url(cursors/roundprecise.cur), crosshair;
 }
-label {
+label, input[type=checkbox] {
   cursor: url(cursors/roundynormal.cur), normal;
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, .fakeinput:active, select:active, option:active, textarea:active {
@@ -1314,6 +1329,7 @@ label.full input[type=checkbox] {
   right: 10px;
   color: transparent;
   backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   filter: none;
 }
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -1387,6 +1403,7 @@ button::before, .nav-item::before, input[type=button]::before, input[type=submit
   left: 2px;
   right: 2px;
   height: 40%; /* taller gloss strip */
+  max-height: 60px;
   background: linear-gradient(to bottom, rgba(255,255,255,0.75), rgba(255,255,255,0.25));
   border-radius: inherit;
   pointer-events: none;
@@ -1552,6 +1569,15 @@ canvas {
 .modal:not(.free), .modal:not(.freer) {
   position: fixed;
   overflow: auto;
+  /* For old browsers */
+  padding: 4.5%;
+  top: 4.5%;
+  left: 4.5%;
+  right: 4.5%;
+  bottom: 4.5%;
+  width: 91%;
+  max-height: 91%;
+  /* For modern browsers */
   padding: 4.5vh;
   top: 4.5vh;
   left: 4.5vh;
@@ -1559,6 +1585,7 @@ canvas {
   bottom: 4.5vh;
   width: calc(100% - 9vw);
   max-height: calc(100% - 9vh);
+  
   min-height: 400px;
   touch-action: none;
 }
@@ -1653,6 +1680,8 @@ ph, pm, gm,  ib,  sq, pq, mq, tq, esq  {
   cursor: url(cursors/roundyperson.cur), text;
 }
 
+/* <ph> tag, for linguistic phones */
+
 ph:before {
   content: '[';
 }
@@ -1661,9 +1690,13 @@ ph:after {
   content: ']';
 }
 
+/* <pm> tag, for linguistic phonemes */
+
 pm:before, pm:after {
   content: '/';
 }
+
+/* <gm> tag, for orthographic graphemes */
 
 gm:before {
   content: '<';
@@ -1673,32 +1706,43 @@ gm:after {
   content: '>';
 }
 
+/* Self-terminative tags for some common characters */
 /* Interrobang (ib) */
 ib:after, ib.doubled:before {
   content: '‽';
 }
+
+/* Quotation marks */
 /* Single quote (sq) */
-sq:before, sq:after {
+sq:before, sq:after, q.square::before, q.square::after {
   content: "'";
 }
 /* Plus quote (pq) */
-pq:before, pq:after {
+pq:before, pq:after, q.plus::before, q.plus::after {
   content: '+';
 }
 /* Minus quote (mq) */
-mq:before, mq:after {
+mq:before, mq:after, q.minus::before, q.minus::after {
   content: '-';
 }
 /* Times quote (tq) */
-tq:before, tq.doubled:after {
-  content: '&times;'
+tq:before, tq.doubled:after, q.times::before, q.times::after {
+  content: '&times;';
+}
+/* Degree quote (dq) */
+degq:before, degq.doubled:after, q.degree::before, q.degree::after, q.deg::before, q.deg::after {
+  content: '°';
+}
+/* Tilde quote (nnq or tildq) */
+nnq::before, nnq::after, tildq::before, tildq::after, q.tilde::before, q.tilde::after {
+  content: '~';
 }
 /* Spanish quote (esq) */
 esq:before {
   content: '—';
 }
 
-blockquote {
+blockquote:not(.nepas) {
   color: inherit;
   border: none;
   outline: none;
