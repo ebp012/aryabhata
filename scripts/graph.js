@@ -129,7 +129,7 @@ window.addEventListener('load', function() {
     });
 
     qs('#graph-offset-yr').addEventListener('input', function () {
-    toffyr = Number(this.value);
+    toffyr = -Number(this.value);
     resetOffset();
     ctx.translate(0, toffyr);
     graphFunction();
