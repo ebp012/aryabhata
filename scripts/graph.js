@@ -838,7 +838,9 @@ function graphFunction () {
         ctx.stroke();
         // Negative x point
         var xrtNeg = -i;
+        if (logX[0] == true) xrtNeg = -math.log( math.abs(xrtNeg) , logX[1]);
         var yrtNeg = -solve(xrtNeg, Number(qs('#xiv-input').value), false, 1, f);
+        if (logY[0] == true) yrtNeg = -math.log( math.abs(yrtNeg) , logX[1]);
         ctx.beginPath();
         ctx.arc(scale * xrtNeg, scale * yrtNeg, 1.25, 0, 2 * Math.PI);
         ctx.fill();
