@@ -84,86 +84,6 @@ window.addEventListener('load', function() {
     });*/
     }
 
-    document.querySelectorAll('#graphing input[type=range], #graphing td input[type=number]:first-of-type').forEach(input => {
-    input.addEventListener('input', function () {
-        // NO MORE ~~~~Continuously (every 37 ms) check for changes in xr,xi,yr,yi and push to span~~~~
-        updateTrace();
-    });
-    });
-    
-    qs('#lang-select').addEventListener('input', function () {
-    lang = this.value;
-    translations.applyLang();
-    });
-
-    qs('#graphing').addEventListener('mouseover', function () {
-    if (pregraphed == false) pregraphed = true;
-    graphFunction();
-    });
-
-    qs('#xi-input').addEventListener('input', function () {
-    xi = Number(this.value);
-    qs('#xi-value').innerHTML = xi;
-    
-    });
-
-    qs('#xr-input').addEventListener('input', function () {
-    xr = Number(this.value);
-    qs('#xr-value').innerHTML = xr;
-    });
-
-    qs('#xiv-input').addEventListener('input', function () {
-    xiv = Number(this.value);
-    qs('#xiv-value').innerHTML = xiv;
-    });
-
-    qs('#graph-minor-step').addEventListener('input', function () {
-    qs('#graph-major-step').step = this.value;
-    });
-
-    qs('#graph-offset-xr').addEventListener('input', function () {
-    toffxr = Number(this.value);
-    resetOffset();
-    ctx.translate(toffxr, 0);
-    graphFunction();
-    });
-
-    qs('#graph-offset-yr').addEventListener('input', function () {
-    toffyr = Number(this.value);
-    resetOffset();
-    ctx.translate(0, -toffyr);
-    graphFunction();
-    });
-
-    qs('#graph-centre').addEventListener('click', function () {
-    let a = qs('#graph-offset-xr').value;
-    let b = qs('#graph-offset-yr').value;
-    });
-
-    qs('#log-x').addEventListener('input', function () {
-        if (qs('#log-x').checked) logX[0] = true;
-        else logX[0] = false;
-        qs('#log-x').disabled = true;
-        qs('#log-y').disabled = true;
-        setTimeout(function () {
-            qs('#log-x').disabled = false;
-            qs('#log-y').disabled = false;
-            graphFunction();
-        }, 259);
-    });
-
-    qs('#log-y').addEventListener('input', function () {
-        if (qs('#log-x').checked) logY[0] = true;
-        else logY[0] = false;
-        qs('#log-x').disabled = true;
-        qs('#log-y').disabled = true;
-        setTimeout(function () {
-            qs('#log-x').disabled = false;
-            qs('#log-y').disabled = false;
-            graphFunction();
-        }, 250);
-    });
-
     document.querySelectorAll('#graph-canvas').forEach(fsBtn => {
     fsBtn.addEventListener('click', function() {
         if (!fullscreen) {
@@ -240,7 +160,12 @@ window.addEventListener('load', function() {
     if (fullscreen) canvas.style.transform = 'scale(' + qs('#graph-scale').value + ')';
     else canvas.style.transform = 'scale(1)';*/
     });
-
+    qs('#xiv-input').addEventListener('input', function () {
+        let aaaa = this.value;
+        qs('#xiv-value').innerHTML = aaaa;
+        graphFunction();
+    });
+    //.value = xiv;
     canvas.addEventListener('wheel', function (e) {
     e.preventDefault();
     if (qs('#graph-scroll-xiv').checked) { // originally fullscreen != true
@@ -446,7 +371,7 @@ function addNewFunction () {
     let char = alphabet(nof, true);
     qs('#function-wrapper').innerHTML += '<p class="equation" id="function-' + nof + '"><span id="function-name-' + nof + '">' + char + '</span>(x) = <input id="function-input-' + nof + '" type="text" style="font-family:times" value="x - ' + nof + '" oninput="graphFunction();"><select id="function-colour-' + nof + '" onclick="graphFunction();"><optgroup label="Mute colours"><option value="#f09393ff">pink<option value="#CB4C4Eff">red<option value="#D25339ff">orange<option value="#CF812Eff">yellow<option value="#4CAB4Eff">green<option value="#4D7C8Dff">teal<option value="#4E4CCBff">blue<option value="#614CC5ff">indigo<option value="#7E4CBCff">violet<option value="#AD4CADff"selected>purple<option value="#808080ff">grey<option value="#9A4CB3ff">maroon<option value="#A16C4Eff">brown<option value="#273236ff">black<option value="#d8cdc9ff">white<optgroup label="Saturated colours"><option value="#ff69b4ff">hot pink<option value="#ff0000ff">hot red<option value="#DD8800ff">hot orange<option value="#66AA00ff">hot yellow<option value="#00ff00ff">hot green<option value="#00c0c0ff">hot teal<option value="#0000ffff">hot blue<option value="#4000EAff">hot indigo<option value="#8000D5ff">hot violet<option value="#c000c0ff">hot purple<option value="#c0c0c0ff">hot grey<option value="#800000ff">hot maroon<option value="#6c3b1cff">hot brown<option value="#000000ff">hot black<option value="#ffffffff">hot white<optgroup label="Pastel colours"><option value="#f2b1b1ff">pastel pink<option value="#FAA0A01ff">pastel red<option value="#FDAA77ff">pastel orange<option value="#FED8B2ff">pastel yellow<option value="#77dd77ff">bright green<option value="#75dad7ff">bright teal<option value="#a7c7e7ff">pastel blue<option value="#8686afff">pastel indigo<option value="#ab9678ff">pastel violet<option value="#ffd2cfff">pastel purple<option value="#f3cfceff">pastel grey<optgroup label="Opacity"><option value="#c0c0c080">translucent<option value="#ffffff00">transparent</select><button id="function-hide-' + nof + '" onclick="graphFunction();"><i class="fa fa-eye"></i></button><button id="function-delete-' + nof + '" onclick="graphFunction();"><i class="fa fa-trash"></i></button></p><hr/>';
     /*qs('#function-delete-' + nof).addEventListener('click', function () {
-    qs('#function-input-' + nof).setAttribute('id', 'function-input-' + nof + 'h');
+    qs('#function-input-' + nof + 'h');
     qs('#function-' + nof).style.display = 'none';
     });*/
     if (nof > 1) qs('#function-delete-1').removeAttribute('disabled');
@@ -683,6 +608,41 @@ function isHole(num) {
     else return false;
 }
 
+// parse 4D slice equation input (w = m z + b)
+function get4DSliceParams() {
+    var raw = (qs('#fourd-eq') && qs('#fourd-eq').value) ? qs('#fourd-eq').value.trim().replace(/\s+/g, '') : 'w=0';
+    // default m=0, b=0 (w=0)
+    var m = 0, b = 0;
+    try {
+        // Expect forms: w=0 or w=2z+1 or w=-0.5z-3
+        var rhs = raw.split('=')[1] || '0';
+        // Replace 'z' with placeholder and split by + or - while keeping sign
+        // We'll match coefficient of z and constant
+        var match = rhs.match(/^([+-]?\d*\.?\d*)z?([+-]?\d*\.?\d*)?$/i);
+        if (match) {
+            // match[1] is coefficient (may be empty or +-), match[2] is constant (may be empty)
+            var coeffStr = match[1];
+            var constStr = match[2];
+            if (coeffStr === '' || coeffStr === '+' ) m = 1;
+            else if (coeffStr === '-') m = -1;
+            else if (coeffStr !== undefined) m = Number(coeffStr) || 0;
+            if (constStr !== undefined && constStr !== '') b = Number(constStr) || 0;
+        }
+    } catch (e) {
+        m = 0; b = 0;
+    }
+    return {m: m, b: b};
+}
+
+// wire up input listener if the element exists
+if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function() {
+        if (qs('#fourd-eq')) {
+            qs('#fourd-eq').addEventListener('input', function () { graphFunction(); });
+        }
+    });
+}
+
 function graphFunction () {
     // condition ? true : false
 
@@ -692,16 +652,24 @@ function graphFunction () {
     ctx.translate(canvas.width/2 + scale * toffxr, canvas.height/2 + scale * toffyr);
     drawGrid(Number(qs('#graph-major-step').value), Number(qs('#graph-minor-step').value));
 
+    // Detect logarithm
+    if (qs('#log-x').checked) logX[0] = true;
+    else logX[0] = false;
+
+    if (qs('#log-y').checked) logY[0] = true;
+    else logY[0] = false;
+
     // Loop to graph each function
     for (var f = 1; f <= nof; f++) {
-    var colour = qs('#function-colour-' + f).value;
-    if (do3D) drawGrid3D();
-    ctx.strokeStyle = colour;
-    var preprecision = Number(qs('#trace-round').value);
-    if (preprecision < -4) preprecision = -4;
-    var precision = 5 * 10 ** preprecision;
-    if (preprecision < -3) precision = 5 * 10 ** preprecision;
-    if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
+    var slice = get4DSliceParams();
+     var colour = qs('#function-colour-' + f).value;
+     if (do3D) drawGrid3D();
+     ctx.strokeStyle = colour;
+     var preprecision = Number(qs('#trace-round').value);
+     if (preprecision < -4) preprecision = -4;
+     var precision = 5 * 10 ** preprecision;
+     if (preprecision < -3) precision = 5 * 10 ** preprecision;
+     if (preprecision > 0) precision /= 5 * 5 ** (preprecision - 1);
     //if (preprecision <= -1) precision = 2 ** (preprecision + 1);
     
     for (var i = -canvas.width/2 - qs('#graph-offset-xr').value; i < canvas.width/2 - qs('#graph-offset-xr').value; i += precision) {
@@ -720,137 +688,61 @@ function graphFunction () {
         yrt = -solve(Number(qs('#xiv-input').value), xrt, false, 1, f);
         yrtNext = -solve(Number(qs('#xiv-input').value), xrtNext, false, 1, f)
         }
-
-        // Holes ( test and try (x-1)(x+1)/(x-1) )
-        /*if (isHole(yrtNext) == true|| isHole(yrt) == true) {
-        var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
-        var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
         
-        if (isHole(yrtNext) == true) {
-            yrtNext = (yrtMext != undefined) ? yrtMext: 0;
-        }
-        if (isHole(yrt) == true) {
-            yrt = (yrtMext != undefined) ? yrtMext: 0;
-            ctx.beginPath();
-            ctx.arc(scale * xrt, scale * yrt, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = qs('#function-colour').value;
-            ctx.fill();
-            ctx.lineWidth = 0;
-            ctx.stroke();
-        }
-        }*/
-        // Vertical asymptotes
-        /*var yrtOext = -solve(xrtNext - 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
-        var xrtPrev = i - precision;
-        var yrtPrev = -solve(xrtPrev, Number(qs('#xiv-input').value), false, 1, f);
-        var yrtOrev = -solve(xrtPrev + 0.0001, Number(qs('#xiv-input').value), false, 1, f, -4)
-        // Vertical asymptote after
-        if (!isFinite(yrtNext) && yrtNext != undefined) {
-            if (yrtOext > 0) {
-                ctx.beginPath();
-                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
-                ctx.stroke();
-            }
-            if (yrtOext < 0) {
-                ctx.beginPath();
-                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
-                ctx.stroke();
-            }
-        }
-        // Vertical asymptote before
-        if (!isFinite(yrtPrev) && yrtPrev != undefined) {
-            var currX = canvas.getBoundingClientRect().left;
-            var currY = canvas.getBoundingClientRect().top;
-            if (yrtOrev > 0) {
-                ctx.beginPath();
-                ctx.moveTo(currX, currY);
-                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, 360 + graphOffsetY);
-                ctx.stroke();
-            }
-            if (yrtOrev < 0) {
-                ctx.beginPath();
-                ctx.moveTo(currX, currY);
-                ctx.lineTo(xrtNext - 0.0001 + graphOffsetX, -360 + graphOffsetY);
-                ctx.stroke();
-            }
-            ctx.moveTo(currX, currY);
-        }*/
-        /*if (!isFinite(yrtNext) && yrtNext != undefined) {
-        var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
-        var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
-        yrtNext = (yrtMext > 0) ? -360 : 360;
-        }
-
-        else if (!isFinite(yrt) && yrt != undefined) {
-        var xrtMext = i + 1 / 10 ** Number(qs('#trace-round').value);
-        var yrtMext = -solve(xrtMext, Number(qs('#xiv-input').value), false, 1, f);
-        yrt = (yrtMext > 0) ? 360 : -360;
-        }*/
         var yiDiff = Number(qs('#xiv-input').value);
         var silverHex = parseInt('c0c0c0', 16);
-        if (-yrit != yiDiff) { // 2025.09.08 add the yrit- to the start of the postequal part of condition (undone)
-            if (Math.abs(yiDiff) <= 3 && yiDiff != 0) { // Less silvery if it is closer
-                /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPre2 = ((3233857791*2 + newColourPrePre) / 3);
-                let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
-                if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
-                let newColour = '#' + newColourPre + 'ff';*/
-                let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
-                let avgdColour = (preNewColour + (silverHex * 4)) / 5;
-                if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
-                let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
-                ctx.strokeStyle = newColour;
-                colour = newColour;
-                ctx.lineWidth = width / 2; //width * 6/1.5; // 4
-            }
-            else if (Math.abs(yiDiff) <= 6 && yiDiff != 0) { // Less silvery if it is closer
-                /*let newColourPrePre = parseInt(colour.substring(1), 16); // 3233857791 = silver from hex to decimal
-                let newColourPre2 = ((3233857791*2 + newColourPrePre) / 3);
-                let newColourPre = newColourPre2.toString(16).split(".")[0].slice(0, 6);
-                if (newColourPre2 > 4294967295) newColourPre = 'a' + newColourPre.slice(2);
-                let newColour = '#' + newColourPre + 'ff';*/
-                let preNewColour = parseInt(colour.slice(1, 7), 16); // slice the alpha channel and the octothorpe
-                let avgdColour = (preNewColour + (silverHex * 6)) / 7;
-                if (avgdColour > (16 ** 6) - 1048576) avgdColour -= 1048576; // or make it after newColour and just make it efffff
-                let newColour = avgdColour.toString().split(".")[0]; // convert colourPre1 to string and remove decimals and add the octothorpe and alpha channel back
-                ctx.strokeStyle = newColour;
-                colour = newColour;
-                ctx.lineWidth = width / 4; //width * 6/2; // 3
-            }
-            else {
-                ctx.strokeStyle = 'silver';
-                ctx.lineWidth = width / 8; //width * 6/3; // 2
-            }
+        // Determine whether the computed y has a non-zero imaginary component (complex result).
+        // If the imaginary part is significant and the x coordinate is negative, render that segment in silver.
+        // Use a dedicated drawLineWidth so later drawing isn't accidentally overwritten.
+        var drawLineWidth = width;
+        var imagPart = yrit; // imaginary part (negated from solve)
+        var origX = xrt;
+        var imagThreshold = 1e-8;
+        // determine 4D slice membership: compute w from y's imaginary part and z from x's imaginary (xiv-input)
+        // Here z is the x-imaginary coordinate (qs('#xiv-input').value)
+        var z = Number(qs('#xiv-input').value);
+        var w = -solve(xrt, z, true, 1, f); // y imaginary when evaluating at (x, z)
+        var onSlice = false;
+        if (!isNaN(w)) {
+            var expectedW = slice.m * z + slice.b;
+            onSlice = Math.abs(w - expectedW) <= Math.max(1e-6, Math.abs(expectedW) * 1e-6);
         }
-        else {
-        ctx.strokeStyle = colour;
-        ctx.lineWidth = width;
+        // If the point is not on the requested 4D slice, render it as silver and thinner.
+        if (!onSlice) {
+            ctx.strokeStyle = 'silver';
+            drawLineWidth = Math.max(0.125, width / 8);
+        } else {
+            ctx.strokeStyle = colour;
+            drawLineWidth = width;
         }
         if (i != -canvas.width/2 - qs('#graph-offset-xr').value) {
-        ctx.lineWidth = width;
-        ctx.moveTo(scale * xrt, scale * yrt);
-        ctx.lineTo(scale * xrtNext, scale * yrtNext);
-        ctx.stroke();
-        }
-        // The pointed graph
-        if (i % Number(qs('#graph-minor-step').value) == 0 && qs('#graph-points').checked) {
-        // Positive x point
         ctx.beginPath();
-        ctx.arc(scale * xrt, scale * yrt, 1.25, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.stroke();
-        // Negative x point
-        var xrtNeg = -i;
-        if (logX[0] == true) xrtNeg = -math.log( math.abs(xrtNeg) , logX[1]);
-        var yrtNeg = -solve(xrtNeg, Number(qs('#xiv-input').value), false, 1, f);
-        if (logY[0] == true) yrtNeg = -math.log( math.abs(yrtNeg) , logX[1]);
-        ctx.beginPath();
-        ctx.arc(scale * xrtNeg, scale * yrtNeg, 1.25, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.stroke();
-        }
-    }
-    }
+        ctx.lineWidth = drawLineWidth;
+         ctx.moveTo(scale * xrt, scale * yrt);
+         ctx.lineTo(scale * xrtNext, scale * yrtNext);
+         ctx.stroke();
+         }
+         // The pointed graph
+         if (i % Number(qs('#graph-minor-step').value) == 0 && qs('#graph-points').checked) {
+         // Positive x point
+         ctx.beginPath();
+         ctx.lineWidth = Math.max(0.5, drawLineWidth);
+          ctx.arc(scale * xrt, scale * yrt, 1.25, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.stroke();
+         // Negative x point
+         var xrtNeg = -i;
+         if (logX[0] == true) xrtNeg = -math.log( math.abs(xrtNeg) , logX[1]);
+         var yrtNeg = -solve(xrtNeg, Number(qs('#xiv-input').value), false, 1, f);
+         if (logY[0] == true) yrtNeg = -math.log( math.abs(yrtNeg) , logX[1]);
+         ctx.beginPath();
+         ctx.lineWidth = Math.max(0.5, drawLineWidth);
+          ctx.arc(scale * xrtNeg, scale * yrtNeg, 1.25, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.stroke();
+          }
+     }
+     }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
