@@ -1,9 +1,9 @@
 // Convenience stuff
-const qs = (selector) => document.querySelector(selector);
-const qsa = (selector) => document.querySelectorAll(selector);
+//const qs = (selector) => document.querySelector(selector);
+//const qsa = (selector) => document.querySelectorAll(selector);
 const x = 0;
 const y = 1;
-var c = document.getElementById("myCanvas");
+var c = document.getElementById("graph-canvas");
 var ctx = c.getContext("2d");
 
 // Is it side length or radius?
