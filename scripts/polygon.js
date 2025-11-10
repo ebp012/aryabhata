@@ -1,6 +1,6 @@
 // Convenience stuff
-//const qs = (selector) => document.querySelector(selector);
-//const qsa = (selector) => document.querySelectorAll(selector);
+const qs = (selector) => document.querySelector(selector);
+const qsa = (selector) => document.querySelectorAll(selector);
 const x = 0;
 const y = 1;
 var c = document.getElementById("graph-canvas");
@@ -9,10 +9,10 @@ var ctx = c.getContext("2d");
 // Is it side length or radius?
 
 // Round numbers
-function round (num, p=0) {
+/*function round (num, p=0) {
     if (num == undefined) return 0;
     else return Math.round(num * 10 ** -p) / 10 ** -p;
-}
+}*/
 function radian (num = 360) {
   return (Math.PI * num) / 180;
 }
