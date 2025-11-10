@@ -331,12 +331,30 @@
                           <input id='graph-points' type='checkbox' oninput='graphFunction();' checked='checked'/> <label for='graph-points'>Points on function?</label><br/>
                       </div>
 
+					  <!-- Polygons -->
+                      <div class='grontent-section' id='graph-polygons'>
+                          <strong>Polygons</strong><br/>
+                          <p>Enter a Schlafli symbol in decimal form below.</p>
+						  <p><label for='symbol'>{<input type='text' id='symbol' value='6'/>}</label></p>
+						  <p><label for='sideLength'>Side length (px): <input type='number' id='sideLength' value='40' min='0' max='400'/></label></p>
+						  <p><label for='centre-x'>Centre: (<input type='number' id='centre-x' value='200' min='0' max='400'/>,</label><label for='centre-y'> <input type='number' id='centre-y' value='10' min='0' max='400'/>)</label></p>
+						  <p><label for='draw-ms'>Draw speed: <input type='number' id='draw-ms' value='500' min='0' max='5000' step='125' title='Speed of drawing in milliseconds per vertex; 0 = instant; 1000 = 1 second per vertex'/>&nbsp;<abbr title='milliseconds per vertex'>ms&#x00b7;vtx<sup>-1</sup></abbr></label></p>
+						  <p>
+							<button onclick='interpret();'>Draw</button>
+							<button onclick='stopInterpret();' class='btn-red'>Stop</button>
+						  </p>
+						  <p>Total angle measure: <span id='totalang'></span></p>
+						  <p>Singular interior angle measure: <span id='singang'></span></p>
+						  <p>Singular exterior angle measure: <span id='sextang'></span></p>
+                      </div>
+
                       <div style='height: 19pt;'></div>
                       <p class='page-nav' style='font-size: 12pt; padding: 1pt !important; position: relative;'>
                           <button class='grav-item' data-target='#graph-offset-control' id='panning-btn'>Panning</button>
                           <button class='grav-item' data-target='#graph-xi-viewport' id='xiviewport-btn'>XI Viewport</button>
                           <button class='grav-item' data-target='#graph-gridlines' id='gridlines-btn'>Gridlines</button>
                           <button class='grav-item' data-target='#graph-tickmarks' id='tickmarks-btn'>Tickmarks</button>
+						  <button class='grav-item' data-target='#graph-polygons' id='polygons-btn'>Polygons</button>
                       </p>
                     </div>
                   </td>
@@ -1193,6 +1211,7 @@
     <script src='scripts/translations.js'></script>
     <script src='scripts/scientific.js'></script>
     <script src='scripts/chemistry.js'></script>
+	<script src='scripts/polygon.js'></script>
     <script src='scripts/gloss.js'></script>
     <script src='databases/periodictable.js'></script>
     <style>
