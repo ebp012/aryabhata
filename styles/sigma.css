@@ -452,7 +452,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
 }
 
 /* Black */
-.container.cs-white .content-section, .content-section.cs-white {
+.container.cs-black .content-section, .content-section.cs-black {
   background: linear-gradient(145deg, #020202, #090909);
   background: linear-gradient(145deg, #02020280, #09090980);
   border: 1px solid #100000;
