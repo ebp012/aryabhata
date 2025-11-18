@@ -351,7 +351,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
   text-shadow: 0 0 8px rgba(252, 227, 248, 0.72);
 }
 
-.content-section, .container.cs-white .content-section, .content-section.cs-white {
+.content-section {
   position: relative;
   background-color: #F0f8ff;
   background: linear-gradient(145deg, #d8d8d8, #d8d8d8);
@@ -444,6 +444,19 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
   border: 1px solid #c0c0c060;
 }
 
+/* White */
+.container.cs-white .content-section, .content-section.cs-white {
+  background: linear-gradient(145deg, #fdfdfd, #f6f6f6);
+  background: linear-gradient(145deg, #fdfdfd80, #f6f6f680);
+  border: 1px solid #efffff;
+}
+
+/* Black */
+.container.cs-white .content-section, .content-section.cs-white {
+  background: linear-gradient(145deg, #020202, #090909);
+  background: linear-gradient(145deg, #02020280, #09090980);
+  border: 1px solid #100000;
+}
 
 .content-section.active {
   display: block;
