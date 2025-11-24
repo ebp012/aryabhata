@@ -139,7 +139,7 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
 
 .nav-item, .nav-item.nbtn-clear {
   text-align: center;
-  cursor: pointer;
+  cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
   padding: 12px;
   border-radius: 12px;
   text-shadow: 1px 1px 2.5px rgba(45, 0, 45, 0.64);
@@ -1241,15 +1241,13 @@ table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover,
 table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover a {
   text-decoration: underline;
   color: whitesmoke;
-cursor: pointer;
-  cursor: url(cursors/eclair/Eclair-hand.ani);
+  cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 table:not(.non) tbody tr:nth-child(odd) td:nth-child(1):hover,
 table:not(.non) tbody tr:nth-child(odd) td:nth-child(1):hover a {
   text-decoration: underline;
   color: darkgrey;
-    cursor: pointer;
-    cursor: url(cursors/eclair/Eclair-hand.ani);
+    cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(1),
 table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
@@ -1266,8 +1264,7 @@ table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
 }
 
 abbr {
-    cursor: help;
-  cursor: url(cursors/eclair/Eclair-help.ani);
+  cursor: url(cursors/eclair/Eclair-help.ani), help !important;
 }
 
 canvas, sculpture, .youtube {
@@ -1315,20 +1312,16 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   filter: brightness(0.9875);
 }
 input[type=text], input[type=number], input[type=email], .fakeinput, textarea, p {
-  cursor: text;
     cursor: url(cursors/eclair/Eclair-text.cur), text !important;
 }
 input[type=password] {
-    cursor: text;
-  cursor: url(cursors/eclair/Eclair-pen.cur), text;
+  cursor: url(cursors/eclair/Eclair-pen.cur), text !important;
 }
 select, option {
-    cursor: crosshair;
   cursor: url(cursors/eclair/Eclair-precision.ani), crosshair;
 }
 label, input[type=checkbox] {
-    cursor: normal;
-  cursor: url(cursors/eclair/Eclair-precision.ani);
+  cursor: url(cursors/eclair/Eclair-precision.ani), normal;
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, .fakeinput:active, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
@@ -1410,7 +1403,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   color: black;
   outline-offset: -0.33px;
-  cursor: url(cursors/roundyhand.cur), pointer;
+  cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
   opacity: 70%;
   backdrop-filter: blur(6.1px) invert(5%) brightness(0.9);
   -webkit-backdrop-filter: blur(8.1px);
@@ -1433,7 +1426,7 @@ button::before, .nav-item::before, input[type=button]::before, input[type=submit
   background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
 }
 
-.youtube {padding: 10px; cursor: url(cursors/roundyhand.cur), auto;}
+.youtube {padding: 10px; cursor: url(cursors/eclair/Eclair-hand.ani), auto;}
 button[disabled], input[disabled], select[disabled] {
   color: rgba(10, 10, 10, 0.48);
   background: rgba(200, 160, 220, 0.44);
@@ -1537,7 +1530,7 @@ button:active::after {
   text-decoration: none;
 }
 a {
-  cursor: url(cursors/roundyhand.cur), pointer;
+  cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 /* Canvas Styles */
 canvas {
@@ -1552,13 +1545,13 @@ canvas {
   backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
-  cursor: url(cursors/roundypen.cur), auto;
+  cursor: url(cursors/eclair/Eclair-pen.ani), auto;
 }
 ::-webkit-scrollbar-thumb {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
   border-radius: 9px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
-  cursor: url(cursors/roundyhand.cur), pointer;
+  cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 
 .modal-container, .modal-container:not(:hover) {
@@ -1778,7 +1771,7 @@ blockquote:not(.nepas) {
     font-family: 'genevab', geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
 }
 .nav-item {
-  cursor: url(cursors/roundyhand.cur), pointer;
+  cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
     font-family: geneva, 'genevab', futura, tahoma, verdana, sans-serif !important;
