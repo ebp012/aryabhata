@@ -56,7 +56,7 @@ body {
   background-size: cover;
     min-height: 100vh; /*lvh*/
   overflow-y: auto;
-  cursor: url(cursors/roundynormal.cur), auto;
+  cursor: url(cursors/eclair/Eclair-pointer.cur), auto;
 }
 
 html, body {
@@ -1241,13 +1241,15 @@ table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover,
 table:not(.non) tbody tr:nth-child(even) td:nth-child(1):hover a {
   text-decoration: underline;
   color: whitesmoke;
-  cursor: pointer;
+cursor: pointer;
+  cursor: url(cursors/eclair/Eclair-hand.ani);
 }
 table:not(.non) tbody tr:nth-child(odd) td:nth-child(1):hover,
 table:not(.non) tbody tr:nth-child(odd) td:nth-child(1):hover a {
   text-decoration: underline;
   color: darkgrey;
-  cursor: pointer;
+    cursor: pointer;
+    cursor: url(cursors/eclair/Eclair-hand.ani);
 }
 table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(1),
 table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
@@ -1264,7 +1266,8 @@ table#langTable:not(.non) tbody tr td:nth-child(4) p:nth-child(3) {
 }
 
 abbr {
-  cursor: url(cursors/roundyhelp.cur), help;
+    cursor: help;
+  cursor: url(cursors/eclair/Eclair-help.ani);
 }
 
 canvas, sculpture, .youtube {
@@ -1312,16 +1315,20 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   filter: brightness(0.9875);
 }
 input[type=text], input[type=number], input[type=email], .fakeinput, textarea, p {
-  cursor: url(cursors/roundtext.cur), text !important;
+  cursor: text;
+    cursor: url(cursors/eclair/Eclair-text.cur), text !important;
 }
 input[type=password] {
-  cursor: url(cursors/roundyperson.cur), text;
+    cursor: text;
+  cursor: url(cursors/eclair/Eclair-pen.cur), text;
 }
 select, option {
-  cursor: url(cursors/roundprecise.cur), crosshair;
+    cursor: crosshair;
+  cursor: url(cursors/eclair/Eclair-precision.ani), crosshair;
 }
 label, input[type=checkbox] {
-  cursor: url(cursors/roundynormal.cur), normal;
+    cursor: normal;
+  cursor: url(cursors/eclair/Eclair-precision.ani);
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, .fakeinput:active, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
