@@ -1,20 +1,5 @@
 
 /* SIGMA.CSS */
-@font-face {
-    font-family: 'trajan';
-    src: url('Trajan Pro.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'genevab';
-    src: url('GENEVA.TTF') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
 /* Link styles that don't apply to .non class */
 a:not(.non) {
   color: #ba90d5;    
@@ -29,6 +14,9 @@ a:not(.non):hover {
 
 a:not(.non):active {
   color: #9047bd;
+}
+.noncursor * {
+  cursor: auto;
 }
 
 
@@ -52,7 +40,7 @@ a:not(.non):active {
               backdrop-filter 0.45s linear;
 }
 body {
-  font-family: "New York", "Georgia", serif;
+  font-family: geneva, tahoma, futura, segoe, verdana, sans-serif;
   background-size: cover;
     min-height: 100vh; /*lvh*/
   overflow-y: auto;
@@ -163,7 +151,6 @@ backdrop-filter: blur(6px) saturate(1.02) url(#crystal-distortion-plus);
   -webkit-backdrop-filter: brightness(0.54) blur(18px);
   position: relative;
   overflow: hidden;
-  font-family: trajan, "Trajan Pro", Georgia, Times, serif;
   filter: brightness(1.2);
   z-index: 9999;
 }
@@ -489,7 +476,6 @@ h3 {
 }
 
 h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
-  font-family: 'New York', georgia, 'Trajan Pro', trajan, serif;
   text-align: center;
 }
 
@@ -524,7 +510,7 @@ h1, h2, h3, h4, h5, h6, h7, h8, #graphing strong {
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: transparent;
-  font-family: futura, segoe, 'genevab', geneva, tahoma, verdana, sans-serif;
+  font-family: geneva, tahoma, futura, segoe, verdana, sans-serif;
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
@@ -1203,7 +1189,7 @@ table:not(.nepas) thead td {
   color: white;
   backdrop-filter: blur(8.1px);
   -webkit-backdrop-filter: blur(8.1px);
-  font-family: geneva, 'genevab', tahoma, verdana, trajan, "Trajan Pro", Georgia, Times, serif !important;
+  font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
   font-variant-caps: small-caps;
 }
 table:not(.nepas) * tr:nth-child(even) {
@@ -1311,17 +1297,17 @@ input[type=text]:hover, input[type=number]:hover, input[type=email]:hover, input
   outline: 0.33px solid rgba(255, 255, 255, 0.51);
   filter: brightness(0.9875);
 }
-input[type=text], input[type=number], input[type=email], .fakeinput, textarea, p {
+input[type=text], input[type=number], input[type=email], .fakeinput, textarea, p, label {
     cursor: url(cursors/eclair/Eclair-text.cur), text !important;
 }
 input[type=password] {
   cursor: url(cursors/eclair/Eclair-pen.cur), text !important;
 }
 select, option {
-  cursor: url(cursors/eclair/Eclair-precision.ani), crosshair;
+  cursor: url(cursors/eclair/Eclair-precision.cur), crosshair;
 }
-label, input[type=checkbox] {
-  cursor: url(cursors/eclair/Eclair-precision.ani), normal;
+input[type=checkbox] {
+  cursor: url(cursors/eclair/Eclair-precision.cur), normal;
 }
 input[type=text]:active, input[type=number]:active, input[type=email]:active, active[type=password]:hover, .fakeinput:active, select:active, option:active, textarea:active {
   background: rgba(243, 231, 254, 0.48);
@@ -1384,7 +1370,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   border-radius: 9pt;
   min-height: 24pt;
   font-size: 11pt;
-  font-family: 'genevab', geneva, futura, sans-serif;
+  font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
   padding-left: 15px;
   padding-right: 15px;
   margin: 5px;
@@ -1490,6 +1476,9 @@ button:active::after {
 .btn-red {
   filter: hue-rotate(67deg);
 }
+button {
+  filter: hue-rotate(247deg);
+}
 
 
 /* Link styles */
@@ -1545,7 +1534,7 @@ canvas {
   backdrop-filter: blur(8.1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
-  cursor: url(cursors/eclair/Eclair-pen.ani), auto;
+  cursor: url(cursors/eclair/Eclair-pen.cur), auto;
 }
 ::-webkit-scrollbar-thumb {
   background: radial-gradient(ellipse at center, #c5b8a3, #faebf6, #c5b8a3);
@@ -1768,16 +1757,16 @@ blockquote:not(.nepas) {
     line-height: 36pt !important;
 }
 .desk-paper, p.page-nav, .nav-item {
-    font-family: 'genevab', geneva, tahoma, 'Segoe UI', segoe, sans-serif !important;
+    font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 .nav-item {
   cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
-    font-family: geneva, 'genevab', futura, tahoma, verdana, sans-serif !important;
+    font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 table::not(.nepas), thead td {
-    font-family: 'Segoe UI', segoe, tahoma, sans-serif !important;
+    font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 
 
@@ -1871,7 +1860,6 @@ table::not(.nepas), thead td {
     background: no-repeat left bottom;
     padding:0 15px 8px;
     }
-  }
 @media only screen and (max-width: 1200px) {
       #header:not(.nepas) {
       	display: none;
@@ -1880,13 +1868,13 @@ table::not(.nepas), thead td {
       	/*height: 300px;*/
       }
     }
-}
+
 #blog-title {
   margin:0;
   padding:10px 30px 5px;
   font-size:160%;
   line-height:1.2em;
-  font-family: 'segoe', geneva, 'genevab', 'segoe ui', segoe, tahoma, verdana, sans-serif, monospace !important;
+  font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 #blog-title a {
   text-decoration:none;

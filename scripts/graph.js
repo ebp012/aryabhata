@@ -769,7 +769,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Style the clicked grav item
-        this.style.transform = 'translateY(-5px)';
+        //this.style.transform = 'translateY(-5px)';
         this.style.filter = 'saturate(3)';
         
         // Update URL hash without triggering a page reload
