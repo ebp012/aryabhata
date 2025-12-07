@@ -2023,9 +2023,6 @@ table::not(.nepas), thead td {
     padding:0 15px 8px;
     }
 @media only screen and (max-width: 1200px) {
-      #header:not(.nepas) {
-      	display: none;
-      }
       .bottomdiv {
       	/*height: 300px;*/
       }
