@@ -1011,6 +1011,64 @@ p.page-nav::before {
     border-radius: 8px;
   }
 }
+@media (max-width: 300px) {
+  body, html, .container {
+    padding: 0 !important;
+  }
+  .container, .content-section {
+    margin: 0 !important;
+    margin-top: 40px;
+  }
+  .container {
+    position: absolute !important;
+    top: 100px !important;
+    bottom: 20px !important;
+  }
+  #bgcontainer {background-image: black;}
+  .content-section, #header, .nav-bar {
+    width: 100% !important;
+    min-width: 100% !important;
+    min-width: 100vw !important;
+    min-width: 100vw !important;
+  }
+  #header {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 0;
+    height: 30px !important;
+    padding: 0 !important;
+    font-size: 50% !important;
+    overflow-x: auto;
+    overflow-y: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .nav-bar:not(#header) {
+    display: block;
+    position: absolute !important;
+    top: 50px !important;
+    min-height: 40px;
+    max-height: 40px;
+    height: 40px !important;
+    padding: 1.5px;
+    padding-left: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .nav-item {
+    min-height: 37px;
+    max-height: 37px;
+    height: 37px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    overflow-x: auto !important;
+  }
+}
+
 @media (max-height: 20px) and (min-width: 1200px) { /* 1024px ipad mini width; remove 475px instead of 20px */
   .nav-bar:not(.non) {
     position: fixed;
