@@ -1026,10 +1026,10 @@ p.page-nav::before {
   }
   #bgcontainer {background-image: black;}
   .content-section, #header, .nav-bar {
-    width: 100% !important;
-    min-width: 100% !important;
-    min-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 99% !important;
+    width: 99vw !important;
+    min-width: 99% !important;
+    min-width: 99vw !important;
   }
   #header {
     display: block;
@@ -1063,6 +1063,7 @@ p.page-nav::before {
     min-height: 37px;
     max-height: 37px;
     height: 37px !important;
+    margin: 0;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
     overflow-x: auto !important;
