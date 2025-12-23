@@ -1011,6 +1011,8 @@ p.page-nav::before {
     border-radius: 8px;
   }
 }
+
+/* SMALL RECTANGULAR MOBILE SCREEN */
 @media (max-width: 300px) {
   body, html, .container {
     padding: 0 !important;
@@ -1020,9 +1022,10 @@ p.page-nav::before {
     margin-top: 40px;
   }
   .container {
-    position: absolute !important;
+    /*position: absolute !important;
     top: 100px !important;
-    bottom: 20px !important;
+    bottom: 20px !important;*/
+    position: static;
   }
   #bgcontainer {background-image: black;}
   .content-section, #header, .nav-bar {
@@ -1034,9 +1037,8 @@ p.page-nav::before {
   #header {
     display: block;
     position: absolute;
-    top: 0;
-    left: 50%;
-    right: 0;
+    top: -0 !important;
+    left: 50vw !important;
     height: 30px !important;
     padding: 0 !important;
     font-size: 50% !important;
@@ -1047,17 +1049,24 @@ p.page-nav::before {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+  body {
+    position: absolute;
+  }
   .nav-bar:not(#header) {
-    display: block;
+    /*display: block;
     position: absolute !important;
-    top: 50px !important;
-    min-height: 40px;
-    max-height: 40px;
-    height: 40px !important;
+    top: 50px !important;*/
+    top: inherit !important;
+    left: 50%;
+    left: 50vw;
+    position: static;
+    width: 100%;
+    min-height: 40px !important;
     padding: 1.5px;
     padding-left: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    overflow-x: scroll !important;
+    overflow-y: auto;
+    display: inline-block !important;
   }
   .nav-item {
     min-height: 37px;
@@ -1066,7 +1075,6 @@ p.page-nav::before {
     margin: 0;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    overflow-x: auto !important;
   }
 }
 
@@ -1169,6 +1177,7 @@ p.page-nav::before {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 0.33%;
     gap: 0.33vw;
     padding: 0.65% 0.9%; /* 6px 12px */
     height: auto;
@@ -1257,6 +1266,7 @@ p.page-nav::before {
       z-index: 9999;             /* keep it above other stuff */
     }
   .nav-bar, .content-section {
+    width: calc(100% - 40px);
     width: calc(100vw - 40px);  /* leave 20px side gutters */
   }
 
@@ -2100,9 +2110,7 @@ table::not(.nepas), thead td {
 
 #blog-title {
   margin:0;
-  padding:10px 30px 5px;
-  font-size:160%;
-  line-height:1.2em;
+  line-height:1.6em;
   font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 #blog-title a {
