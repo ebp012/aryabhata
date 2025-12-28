@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+<head>
+  <title>Memorise Applet</title>
+  <title>Aryabhata</title>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'/>
+    <meta name='theme-color' content='#7C614D'/> <!-- Safari navbar theme -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/> <!-- i(Pad)OS web app -->
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> <!-- disable zoom -->
+    <meta name="description" content="The ultimate graphing calculator">
+		<meta name="keywords" content="math, graphing, science, algebra, geometry, mathematics, arithmetic, desmos, geogebra, grapher, chemistry, units, converter, learn, memorise, parse, aeonic, amethyst ui example, amethyst, svg filter, graphe, scientifique, calculator, calculatrice, algebre, unites, apprendre, se rapeller, parser, linguistique, linguistics">
+		<meta name="author" content="Eshaan B. Patel">
+		<meta name="robots" content="noarchive">
+    <link rel="manifest" href="../manifest.json">
+		<!-- Favicon -->
+		<link rel="mask-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png" color="#2167ff">
+		<link rel="shortcut icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png">
+    <link rel="icon" type="image/x-icon" href="http://aryabhata.aeonic.me/assets/favicon.ico"/>
+    <link rel="apple-touch-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png"/>
+
+
+    <style>
+      .shown {display: block};
+      #bgcontainer, html {
+        background: url(http://anantam.aeonic.me/bg.png);
+      }
+      #header {
+        background:#86806431 no-repeat left top !important;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script src='../styles/sigma.js'></script>
+    <link href='../styles/sigma.css' rel='stylesheet' type='text/css'/>
+    <link href='../styles/chemistry.css' rel='stylesheet' type='text/css'/>
+    <link
+      rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+    />
+    <script>
+      // Convenience stuff
+      const qs = (selector) => document.querySelector(selector);
+      const qsa = (selector) => document.querySelectorAll(selector);
+    </script>
+<body>
+  <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); filter: sepia(87%);'></div>
+  <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="crystal-distortion">
+          <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
+      </filter>
+      <filter id="crystal-distortion-hover">
+          <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="16"/>
+          <feColorMatrix type="saturate" values="1.025"/>
+          <feColorMatrix type="hueRotate" values="12"/>
+      </filter>
+      <filter id="crystal-distortion-hover-button">
+          <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+          <feColorMatrix type="saturate" values="1.05"/>
+          <feColorMatrix type="hueRotate" values="12"/>
+      </filter>
+      <filter id="crystal-distortion-plus">
+          <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="72"/>
+          <feColorMatrix type="saturate" values="1.05"/>
+      </filter>
+      <filter id="crystal-distortion-plus-two">
+          <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="96"/>
+          <feColorMatrix type="saturate" values="0.85"/>
+      </filter>
+      <filter id="crystal-distortion-plus-three">
+          <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="144"/>
+          <feColorMatrix type="saturate" values="0.85"/>
+      </filter>
+      <filter id="crystal-distortion-minus">
+          <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+          <feColorMatrix type="saturate" values="1.05"/>
+      </filter>
+    </defs>
+  </svg>
+  <div class='container cs-clear'>
+    <div class='content-section' id='memorise'>
+      <h1 class='page-title'>Memorise</h1>
+      <div class='desk-paper'>
+        <!-- Memorise Applet -->
+        <div id='dpM-sans-script'>
+          <!-- Memorise content here -->
+          <div id="memoriseHome">
+            <strong>paste below what you'd like to memorise:</strong>
+            <br />
+            <textarea
+                      id="memoriseBoxM"
+                      style="
+                            width: 100%;
+                            height: 100px;
+                            font-family: times;
+                            font-size: 12pt;
+                            padding: 8pt;
+                            "
+                      ></textarea>
+            <hr/>
+            <button id="submitBtnM">Submit Text</button>
+          </div>
+          <div
+              id="memoriseInterface"
+              style="display: none"
+              onmouseover="document.querySelector('#memBox').focus();"
+              >
+            <div id="memShow" class='fakeinput' style="border: 1px double grey; padding: 9pt">
+              <b style="font-family: courier; color: navy">|</b>
+            </div>
+            <hr />
+            <div contenteditable id="memBox" style="color: transparent"></div>
+            <style>
+              #memBox:focus {
+                outline: 0;
+                border: 0;
+                cursor: url(/styles/cursors/roundy pen.cur), vertical-text;
+              }
+            </style>
+            <p>Count: <span id="charCount">0</span> characters</p>
+            <div id="wrongsM"></div>
+            <button id='resetBtnM'>Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    {
+      var memText = "Lorem ipsum";
+      var memPrac = document.getElementById("memBox").innerText.trim();
+      var memPracU = document.getElementById("memBox").innerText;
+      var charCount = 0;
+      var oldCharCount = 0;
+      var newOldCharCount = 0;
+      var memShow = false;
+      var memDone = false;
+      var memWrongs = 0;
+      document
+        .querySelector("#submitBtnM")
+        .addEventListener("click", function () {
+        memShow = true;
+        $("#memoriseHome").fadeOut(1000);
+        $("#memoriseInterface").fadeIn(2000);
+        memText = document.getElementById("memoriseBoxM").value.trim();
+      });
+      document
+        .querySelector("#resetBtnM")
+        .addEventListener("click", function () {
+        /*memText = "Lorem ipsum";
+        memPrac = document.getElementById("memBox").innerText.trim();
+        memPracU = document.getElementById("memBox").innerText;
+        charCount = 0;
+        oldCharCount = 0;
+        newOldCharCount = 0;
+        memShow = false;
+        memDone = false;
+        memWrongs = 0;
+        document.querySelector('#dpM-sans-script').innerHTML = '<div id=memoriseHome><strong>paste below what you&#x0027;d like to memorise:</strong><br><textarea id=memoriseBoxM style=width:100%;height:100px;font-family:times;font-size:12pt;padding:8pt></textarea> <button id=submitBtnM>Submit Text</button></div><div id=memoriseInterface style=display:none onmouseover="document.querySelector("#memBox").focus()"><div id=memShow style="border:1px double grey;padding:9pt"><b style=font-family:courier;color:navy>|</b></div><hr><div id=memBox style=color:transparent contenteditable></div><style>#memBox:focus{outline:0;border:0;cursor:vertical-text}</style><p>Count: <span id=charCount>0</span> characters<div id=wrongsM></div><button id=resetBtnM>Reset</button></div>';
+        */
+          location.reload();
+      });
+      document
+        .querySelector("#memoriseInterface")
+        .addEventListener("click", function (e) {
+        document.querySelector("#memBox").focus();
+      });
+      document
+        .querySelector("#memBox")
+        .addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+      document
+        .querySelector("#memBox")
+        .addEventListener("input", function (e) {
+        if (
+          event.key === "ArrowUp" ||
+          event.key === "ArrowDown" ||
+          event.key === "ArrowLeft" ||
+          event.key === "ArrowRight"
+        ) {
+          e.preventDefault();
+        } else {
+          memPracU = document.getElementById("memBox").innerText;
+          memPrac = memPracU.trim();
+          document.querySelector("#memShow").innerHTML =
+            memPracU +
+            "<b style='font-family: courier; color: navy;'>|</b>";
+          //document.querySelector('#memBox').innerHTML = memPrac;
+          // move cursor to end
+          oldCharCount = charCount;
+          charCount = memPrac.length;
+          document.getElementById("charCount").innerText = charCount;
+          if (
+            charCount != 0 &&
+            memPrac.charAt(charCount - 1) !=
+            memText.charAt(charCount - 1)
+          ) {
+            document.querySelector("#wrongsM").innerHTML +=
+              "<small style='font-size: 6pt;'>Error at pos. " + (charCount - 1) + ".</small><br/>";
+            var memBoxA = document
+            .querySelector("#memBox")
+            .innerText.slice(0, -1);
+            var memBoxB = document
+            .querySelector("#memBox")
+            .innerText.slice(-1, charCount);
+            document.querySelector("#memShow").innerHTML =
+              memBoxA + "<u style='color: red;'>" + memBoxB + "</u>";
+            memWrongs += 1;
+          }
+        }
+        if (
+          memShow === true &&
+          memPracU.length >= memText.length
+        ) {
+          var þ = document.querySelector("#wrongsM").innerHTML;
+          var itD = 0;
+          if (memPrac.length == memText.length && itD == 0 && memPrac == memText) {
+            if (memWrongs != 0) {
+              document.querySelector("#wrongsM").innerHTML =
+                "<strong style='color: green;'>DONE</strong><br/><p><small>" +
+                memWrongs +
+                " total mistakes</small><hr/>" +
+                þ;
+            } else {
+              document.querySelector("#wrongsM").innerHTML =
+                "<strong style='color: green;'>DONE</strong><br/><p><small style='cursor: n-resize;'>No mistakes&#x203c;</small>";
+            }
+            itD += 1;
+            memDone = true;
+          } else if (memPrac.length > memText.length) {
+            document.querySelector("#wrongsM").innerHTML =
+              "<strong style='color: brown;'>OVERFLOW</strong><br/>" +
+              þ;
+          }
+        }
+        if (memDone === true) {
+          document.activeElement.blur();
+          document.querySelector("#memBox").innerHTML = memText;
+          document.querySelector("#memBox").style.display = "none";
+          document.querySelector("#memBox").contenteditable = "false";
+        }
+      });
+    }
+
+  </script>
+
+  <!-- real nav bar -->
+  <div id="header" class='nav-bar'>
+    <div>
+      <h1 id='blog-title' style='font-family: geneva, genevab, tahoma, verdana, sans-serif;'>Aryabhata</h1>
+    </div>
+  </div>
+  <nav class='nav-bar'>
+    <div class='nav-item' data-target='#launcher' id='memoriseTab' onclick='window.open("../index.html", "_self");'>
+      <i class='fa-solid fa-home'></i>
+      <span>Home</span>
+    </div>
+    <div class='nav-item' id='graphingTab' data-target='#graphing' onclick='window.open("../apps/graphing.html", "_self");'>
+      <i class='fa-solid fa-pencil'></i>
+      <span>Graphing</span>
+    </div>
+    <!--<div class='nav-item hidden' data-target='#scientific' id='scientificTab' onclick='window.open("../apps/scientific.html", "_self");'>
+      <i class='fa-solid fa-calculator'></i>
+      <span>Scientific</span>
+    </div>-->
+    <div class='nav-item' data-target='#algebra' id='algebraTab' onclick='window.open("../apps/algebra.html", "_self");'>
+      <i class='fa-solid fa-microchip'></i>
+      <span>Geometry</span>
+    </div>
+    <div class='nav-item' data-target='#learn' id='learnTab' onclick='window.open("../apps/learn.html", "_self");'>
+      <i class='fa-solid fa-brain'></i>
+      <span>Learn</span>
+    </div>
+    <div class='nav-item' data-target='#memorise' id='homeTab'>
+      <i class='fa-solid fa-book-open'></i>
+      <span>Memorise</span>
+    </div>
+  </nav>
+
+
+  <style>input[type=number]{max-width:100px;}</style>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.js'></script>
+  <script src="../noedit.compromise.js"></script>
+  <script src='../scripts/nav.js'></script>
+  <link href='../styles/calcstyles.css' rel='stylesheet' type='text/css'/>
+</body>
+</html>

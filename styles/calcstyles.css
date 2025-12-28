@@ -1,0 +1,291 @@
+      @font-face {
+        font-family: 'display';
+        src: url('display.ttf') format('truetype');
+      }
+      /* The browser window */
+      #scientific .calcinterface {
+        border: 3px solid #f1f1f1;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      
+      /* Container for columns and the top "toolbar" */
+      #scientific .row {
+        padding: 10px;
+        background: navy;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      
+      /* Create three unequal columns that floats next to each other */
+      #scientific .column {
+        float: left;
+      }
+      
+      #scientific .left {
+        width: 15%;
+      }
+      
+      #scientific .right {
+        width: 10%;
+      }
+      
+      #scientific .middle {
+        width: 75%;
+      }
+      
+      /* Clear floats after the columns */
+      #scientific .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      
+      /* Three dots */
+      #scientific .dot {
+        margin-top: 4px;
+        height: 12px;
+        width: 12px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid white;
+      }
+      
+      /* Style the input field */
+      #scientific input[type=text] {
+        /*width: 100%;
+        border-radius: 3px;
+        border: none;
+        background-color: white;
+        margin-top: -8px;
+        height: 25px;
+        color: #666;
+        padding: 5px;*/
+      }
+      
+      /* Three bars (hamburger menu) */
+      #scientific .bar {
+        width: 17px;
+        height: 3px;
+        background-color: #aaa;
+        margin: 3px 0;
+        display: block;
+      }
+      
+      /* Page content */
+      #scientific .clontent {
+        padding: 10px;
+      }
+      #scientific .caln {
+        background: goldenrod;
+      }
+      #scientific .calb {
+        margin-right: 0px;
+      }
+      #scientific .cala {
+        background: silver;
+        margin-right: 0px;
+      }
+      #scientific .calo {
+        background: #967444;
+        margin-right: 0px;
+      }
+      #scientific .calt {
+        background: slategrey;
+        margin-right: 0px;
+        height: 80px;
+      }
+      #scientific .calv {
+        background: #FF9900; /* Customize the color as needed */
+        margin-right: 0px;
+      }
+      .cala, .calb, .calo, .calt, .calv {
+        width: 20%;
+        max-width: calc(100% - 12px);
+        height: 20%;
+        max-height: calc(100% - 12px);
+        height: 120px;
+        border: 65px solid black;
+        font-size: 80px;
+      }
+      .cala, .calb, .calo {
+        width: 20%;
+        max-width: calc(100% - 12px);
+        height: 20%;
+        max-height: calc(100% - 12px);
+        height: 120px;
+        font-size: 80px;
+      }
+      #scientific table td {
+        min-width: 90px;
+        max-width: 90px;
+        width: 90px;
+      }
+      #scientific #result, #scientific #resultFake {
+        border: 4px solid green;
+        background-color: #967444;
+        color: green;
+        height: 54px;
+        max-height: 54px;
+        font-weight: bold;
+        font-size: 42px;
+        overflow: auto;
+      }
+      #scientific div#calculator {
+        width: 100%;
+        background-color: black;
+      }
+      /*#scientific .numrow {display: flex; width: 100%;}*/
+      #scientific form table {width: 100%;}
+      #scientific table td {width: 20%;}
+      #scientific table td input[type] {width: 100%; font-size: 30px;}
+      #scientific #resultFake::placeholder {
+        color: red;
+      }
+      #scientific table {
+        border-collapse: separate;
+        border-spacing: 6px;
+        word-wrap: break-word;
+      }
+
+      #scientific td {
+        text-align: center;
+        padding: 6px;
+      }
+
+      /* Learn App Styling */
+      #learn .desk-paper {
+        /* Inherits all the base desk-paper styles */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #learn .question {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #442200;
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 100%;
+      }
+
+      #learn .answers {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        width: calc(100%-4px);
+        margin-left: 2px;
+        margin-right: 2px;
+        max-width: 1200px;
+      }
+
+      #learn .button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1em;
+        background: linear-gradient(to bottom, #f0e6d2, #e0d0a0);
+        border: 1px solid #b5a269;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+          inset 0 1px 2px rgba(255, 255, 255, 0.5);
+        color: #442200;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      #learn .button:hover {
+        background: linear-gradient(to bottom, #f5ebd7, #e5d5a5);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
+          inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      }
+
+      #learn .button:active {
+        transform: translateY(1px);
+        background: linear-gradient(to bottom, #e0d0a0, #f0e6d2);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      #learn #score {
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 1.1em;
+        color: #442200;
+      }
+
+      #learn input[type="file"] {
+        margin: 15px 0;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        border: 1px solid #b5a269;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Dark mode adjustments */
+      @media (prefers-color-scheme: dark) {
+        #learn .question {
+          color: #e0e0e0;
+          background: rgba(50, 50, 50, 0.5);
+          text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        #learn .button {
+          background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+          border-color: #444;
+          color: #e0e0e0;
+        }
+
+        #learn .button:hover {
+          background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+        }
+
+        #learn .button:active {
+          background: linear-gradient(to bottom, #2a2a2a, #3a3a3a);
+        }
+
+        #learn #score {
+          background: rgba(50, 50, 50, 0.5);
+          color: #e0e0e0;
+        }
+
+        #learn input[type="file"] {
+          background: rgba(50, 50, 50, 0.5);
+          border-color: #444;
+          color: #e0e0e0;
+        }
+      }
+
+      .grontent-section:not(.active) {
+        display: none;
+      }
+      .grav-item, .grav-item-like {
+        filter: saturate(0.8);
+      }
+
+      #graphing tbody td, #algebra tbody td, #scientific tbody td {
+        font-family: geneva, sans-serif;
+      }
+
+
+      .shown {display: block};
+      #bgcontainer, html {
+        background: url(http://anantam.aeonic.me/bg.png);
+      }
+      #header {
+        background:#86806431 no-repeat left top !important;
+      }
+
+      .nav-bar.non::before {display: none;} .nav-bar.non {filter: brightness(0.99); backdrop-filter: brightness(0.9);} #launcher-scientific, #launcher-linguistic {color: #070707d0;}

@@ -83,7 +83,7 @@
         line-height: 1.5;
       }
 
-      .button {
+      .button, input[type=file] {
         display: block;
         width: calc(100% - 20px);
         margin: 10px auto;
@@ -92,19 +92,19 @@
         font-weight: bold;
         color: #fff;
         text-shadow: 0px 1px 0px #333;
-        background-image: linear-gradient(to bottom, #4ca5f8, #007aff);
+        background-image: linear-gradient(to bottom, #9176ce, #9269bf);
         /*border: 1px solid #005bb5;
         border-radius: 8px;
         box-shadow: inset 0px 1px 0px #8ab9f8, 0px 3px 4px rgba(0, 0, 0, 0.2);*/
         text-align: center;
       }
 
-      .button:hover {
-        background: linear-gradient(to bottom, #66b7fc, #147bfc);
+      .button:hover:not([disabled]), input[type=file]:hover {
+        background: linear-gradient(to bottom, #8d6fc0, #7560b0);
       }
 
-      .button:active {
-        background: linear-gradient(to bottom, #007aff, #005bb5);
+      .button:active:hover:not([disabled]), input[type=file]:active:hover {
+        background: linear-gradient(to bottom, #9682b6, #8977a7);
         box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.3);
       }
 
@@ -288,198 +288,285 @@
         });
       });
     </script>
+
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'/>
+    <meta name='theme-color' content='#7C614D'/> <!-- Safari navbar theme -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/> <!-- i(Pad)OS web app -->
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> <!-- disable zoom -->
+    <meta name="description" content="The ultimate graphing calculator">
+		<meta name="keywords" content="math, graphing, science, algebra, geometry, mathematics, arithmetic, desmos, geogebra, grapher, chemistry, units, converter, learn, memorise, parse, aeonic, amethyst ui example, amethyst, svg filter, graphe, scientifique, calculator, calculatrice, algebre, unites, apprendre, se rapeller, parser, linguistique, linguistics">
+		<meta name="author" content="Eshaan B. Patel">
+		<meta name="robots" content="noarchive">
+    <link rel="manifest" href="../manifest.json">
+		<!-- Favicon -->
+		<link rel="mask-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png" color="#2167ff">
+		<link rel="shortcut icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png">
+    <link rel="icon" type="image/x-icon" href="http://aryabhata.aeonic.me/assets/favicon.ico"/>
+    <link rel="apple-touch-icon" href="http://aryabhata.aeonic.me/assets/Aryabhata-app-icon.png"/>
+
+
+    <style>
+      .shown {display: block};
+      #bgcontainer, html {
+        background: url(http://anantam.aeonic.me/bg.png);
+      }
+      #header {
+        background:#86806431 no-repeat left top !important;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script src='../styles/sigma.js'></script>
+    <link href='../styles/sigma.css' rel='stylesheet' type='text/css'/>
+    <link href='../styles/chemistry.css' rel='stylesheet' type='text/css'/>
+    <link
+      rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+    />
+    <script>
+      // Convenience stuff
+      const qs = (selector) => document.querySelector(selector);
+      const qsa = (selector) => document.querySelectorAll(selector);
+      </script>
   </head>
   <body>
-    <div id="bg" class='hidden'></div>
-    <div id="home" class="contaner app active content-section cs-blue" style='display: block;'>
-      <!--<h1 id="title">Aryabhata</h1>-->
-      <input
-        type="file"
-        id="aryaFile"
-        accept=".arya"
-        style="margin-bottom: 10px"
-      />
-      <div class='desk-paper'>
-        <table class='non nepas' style='width: 100%;'>
-          <tr>
-            <td style='width: 33.33%;'>
-              <button class="button hidden" id="importBtn">
-                <i class="fa fa-upload"></i> Import .arya
+    <div id='bgcontainer' style='background: url(http://anantam.aeonic.me/bg.png); filter: sepia(87%);'></div>
+
+    <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="crystal-distortion">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="9"/>
+        </filter>
+        <filter id="crystal-distortion-hover">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="16"/>
+            <feColorMatrix type="saturate" values="1.025"/>
+            <feColorMatrix type="hueRotate" values="12"/>
+        </filter>
+        <filter id="crystal-distortion-hover-button">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+            <feColorMatrix type="hueRotate" values="12"/>
+        </filter>
+        <filter id="crystal-distortion-plus">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="72"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+        <filter id="crystal-distortion-plus-two">
+            <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="96"/>
+            <feColorMatrix type="saturate" values="0.85"/>
+        </filter>
+        <filter id="crystal-distortion-plus-three">
+            <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="144"/>
+            <feColorMatrix type="saturate" values="0.85"/>
+        </filter>
+        <filter id="crystal-distortion-minus">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+      </defs>
+    </svg>
+    <div class='container cs-clear' id='thecontainer'>
+      <div id="home" class="contaner app active content-section" style='display: block;'>
+        <!--<h1 id="title">Aryabhata</h1>-->
+        <center><input
+          type="file"
+          id="aryaFile"
+          accept=".arya"
+          style="margin-bottom: 10px"
+        /></center>
+        <div class='desk-paper'>
+          <table class='non nepas' style='width: 100%;'>
+            <tr>
+              <td style='width: 33.33%;'>
+                <button class="button hidden" id="importBtn">
+                  <i class="fa fa-upload"></i> Import .arya
+                </button>
+                <button class="button" id="playBtn">
+                  <i class="fa fa-gamepad"></i> Play
+                </button>
+              </td>
+              <td style='width: 33.33%;'>
+                <button class="button" id="typeBtn">
+                  <i class="fa fa-keyboard-o"></i> Type
+                </button>
+              </td>
+              <td>
+                <button class="button" id="flashcardBtn">
+                  <i class="fa fa-address-card-o"></i> Flashcards
+                </button>
+              </td>
+            </tr>
+          </table>
+          <p>
+            <center>
+              <button class="button small" id="aryaBtn" style='width: 40px; display: inline-block;'>
+                <i class="fa fa-pencil"></i>
               </button>
-              <button class="button" id="playBtn">
-                <i class="fa fa-gamepad"></i> Play
+              <button class="button small" id="quizletBtn" style='width: 40px; display: inline-block;'>
+                <b>Q</b>
               </button>
-            </td>
-            <td style='width: 33.33%;'>
-              <button class="button" id="typeBtn">
-                <i class="fa fa-keyboard-o"></i> Type
+              <button class="button small" id="settingsBtn" style='width: 40px; display: inline-block;'>
+                <i class="fa fa-gears"></i>
               </button>
-            </td>
-            <td>
-              <button class="button" id="flashcardBtn">
-                <i class="fa fa-address-card-o"></i> Flashcards
-              </button>
-            </td>
-          </tr>
-        </table>
-        <p>
-          <center>
-            <button class="button small" id="aryaBtn" style='width: 40px; display: inline-block;'>
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="button small" id="quizletBtn" style='width: 40px; display: inline-block;'>
-              <b>Q</b>
-            </button>
-            <button class="button small" id="settingsBtn" style='width: 40px; display: inline-block;'>
-              <i class="fa fa-gears"></i>
-            </button>
-          </center>
-        </p>
-      </div>
-    </div>
-    <div id="game" class="contaner app content-section cs-blue">
-      <br/>
-      <p><strong class="question" id="question" style='float: center;'>Question</strong></p>
-      <hr style='margin-bottom: 5pt;'/>
-      <div class='desk-paper'>
-        <div class="answers" id="answers"></div>
-        <hr/>
-        <div id="score" style='float: center;'>
-          <span id="scoreText">Score</span>:
-          <span id="scoreValue">0 <span id="langSilver">silver</span></span> |
-          <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
-          <span id="percentage">0</span>%
+            </center>
+          </p>
         </div>
-        <input
-          type="text"
-          id="textInput"
-          placeholder="Type your answer here..."
-        />
       </div>
-      <button class="button" id="resetBtn">Reset</button>
-      <button class="button" id="shopBtn">Shop</button>
-    </div>
-
-    <div id="shop" class="contaner app content-section cs-blue">
-      <h2>Shop</h2>
-      <div class="shop-item">
-        Halve point deductions - 6 Silver
-        <button class="button" id="buyPowerUp">Buy</button>
+      <div id="game" class="contaner app content-section">
+        <br/>
+        <p><strong class="question" id="question" style='float: center;'>Question</strong></p>
+        <hr style='margin-bottom: 5pt;'/>
+        <div class='desk-paper'>
+          <div class="answers" id="answers"></div>
+          <hr/>
+          <div id="score" style='float: center;'>
+            <span id="scoreText">Score</span>:
+            <span id="scoreValue">0 <span id="langSilver">silver</span></span> |
+            <span id="totalRight">0</span>/<span id="totalQuestions">0</span> —
+            <span id="percentage">0</span>%
+          </div>
+          <input
+            type="text"
+            id="textInput"
+            placeholder="Type your answer here..."
+          />
+        </div>
+        <button class="button" id="resetBtn">Reset</button>
+        <button class="button" id="shopBtn">Shop</button>
       </div>
-      <button class="button" id="closeShop">Close</button>
-    </div>
 
-    <div id="flashCardApp" class="contaner app content-section cs-blue">
-      <h2>Flash Cards</h2>
-      <div id="flashCard" class="card" style='float: center;'>Loading...</div>
-      <div id="flashCardControls">
-        <button id="knownButton" class="button">Known</button>
-        <button id="unknownButton" class="button">Unknown</button>
+      <div id="shop" class="contaner app content-section">
+        <h2>Shop</h2>
+        <div class="shop-item">
+          Halve point deductions - 6 Silver
+          <button class="button" id="buyPowerUp">Buy</button>
+        </div>
+        <button class="button" id="closeShop">Close</button>
+      </div>
+
+      <div id="flashCardApp" class="contaner app content-section">
+        <h2>Flash Cards</h2>
+        <div id="flashCard" class="card" style='float: center;'>Loading...</div>
+        <div id="flashCardControls">
+          <button id="knownButton" class="button">Known</button>
+          <button id="unknownButton" class="button">Unknown</button>
+          <hr />
+          <button id="doneFlashcards" class="button">Done</button>
+        </div>
+        <div id="flashCardSummary" class="hidden" style="margin-top: 20px;">
+          <h3>Summary of Unknown Cards:</h3>
+          <div id="unknownCardsList"></div>
+        </div>
+        <button id="closeFlashcard" class="button">Close</button>
+      </div>
+
+      <div id="quizletImport" class="contaner app content-section">
+        <h2>Quizlet Import</h2>
+        <p>Paste your Quizlet import below. <a href='../doc/faq/quizlet.html'>Click here</a> for how to do so.</p>
+        <textarea id="quizletInput" style="width: 100%; height: 200px; margin-bottom: 10px;"></textarea>
+        
+        <div class="setting-item">
+          <label>
+            <input type="radio" name="quizletFormat" value="termAsQuestion" checked> 
+            Use terms as questions (definitions shall be the correct answers)
+          </label>
+        </div>
+        <div class="setting-item">
+          <label>
+            <input type="radio" name="quizletFormat" value="defAsQuestion"> 
+            Use definitions as questions (terms shall be the correct answers)
+          </label>
+        </div>
+        <div class="setting-item">
+          <label>
+            <input type="radio" name="quizletFormat" value="both"> 
+            Use both formats (terms as questions followed by definitions as questions)
+          </label>
+        </div>
+        
+        <button class="button" id="convertQuizlet">Convert to Arya Format</button>
+        
+        <p>Result in Arya format:</p>
+        <textarea id="aryaOutput" style="width: 100%; height: 200px; margin-bottom: 10px;" readonly></textarea>
+        
+        <button class="button" id="copyArya">
+          <i class="fa fa-copy"></i> Copy to Clipboard
+        </button>
+        <button class="button" id="downloadArya">
+          <i class="fa fa-download"></i> Download as .arya
+        </button>
+        <button class="button" id="closeQuizlet">Close</button>
+      </div>
+
+      <div id="csvEditor" class="contaner app content-section">
+        <h2>Designer</h2>
+        <table
+          id="csvTable"
+          contenteditable="true"
+          style="width: 100%; border-collapse: collapse"
+          class='non'
+        >
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Incorrect Answer 1</th>
+              <th>Incorrect Answer 2</th>
+              <th>Incorrect Answer 3</th>
+              <th>Correct Answer</th>
+              <th>Points Awarded</th>
+              <th>Points Deducted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sample Question</td>
+              <td>Wrong 1</td>
+              <td>Wrong 2</td>
+              <td>Wrong 3</td>
+              <td>Right Answer</td>
+              <td>10</td>
+              <td>5</td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="button" id="addRow">Add Row</button>
+        <button class="button" id="saveArya">Save ARYA</button>
+        <button class="button" id="closeArya">Close</button>
+      </div>
+
+      <div id="settings" class="contaner app content-section">
+        <h2>Settings</h2>
+        <button class='button' onclick='setTheme("clear");'>Clear</button>
+        <button class='button' disabled='disabled'><i>more coming soon...</i></button>
         <hr />
-        <button id="doneFlashcards" class="button">Done</button>
+        <div class='hidden'>
+          <p id="selectLanguage">Choose your language:</p>
+          <button class="button" data-lang="en">english</button>
+          <button class="button" data-lang="hi">हिन्दी</button>
+          <button class="button" data-lang="es">español</button>
+          <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
+          <button class="button" data-lang="fr">français</button>
+          <button class="button" data-lang="gu">ગુજરાતી</button>
+          <hr />
+          <p>Wallpaper</p>
+          <input type="file" id="wallpaperUpload" accept="image/*" />
+          <button class="button" id="setWallpaper">Set Wallpaper</button>
+          <button class="button" id="resetWallpaper">Reset</button>
+          <hr />
+        </div>
+        <button class="button" id="closeSettings">Close</button>
       </div>
-      <div id="flashCardSummary" class="hidden" style="margin-top: 20px;">
-        <h3>Summary of Unknown Cards:</h3>
-        <div id="unknownCardsList"></div>
-      </div>
-      <button id="closeFlashcard" class="button">Close</button>
-    </div>
 
-    <div id="quizletImport" class="contaner app content-section cs-blue">
-      <h2>Quizlet Import</h2>
-      <p>Paste your Quizlet export here (tab-separated terms and definitions):</p>
-      <textarea id="quizletInput" style="width: 100%; height: 200px; margin-bottom: 10px;"></textarea>
-      
-      <div class="setting-item">
-        <label>
-          <input type="radio" name="quizletFormat" value="termAsQuestion" checked> 
-          Use terms as questions (definitions as correct answers)
-        </label>
+      <div id="incorrect" class="app content-section">
+        <strong>Your answer was incorrect.</strong>
       </div>
-      <div class="setting-item">
-        <label>
-          <input type="radio" name="quizletFormat" value="defAsQuestion"> 
-          Use definitions as questions (terms as correct answers)
-        </label>
-      </div>
-      <div class="setting-item">
-        <label>
-          <input type="radio" name="quizletFormat" value="both"> 
-          Use both formats (terms as questions followed by definitions as questions)
-        </label>
-      </div>
-      
-      <button class="button" id="convertQuizlet">Convert to Arya Format</button>
-      
-      <p>Result in Arya format:</p>
-      <textarea id="aryaOutput" style="width: 100%; height: 200px; margin-bottom: 10px;" readonly></textarea>
-      
-      <button class="button" id="copyArya">
-        <i class="fa fa-copy"></i> Copy to Clipboard
-      </button>
-      <button class="button" id="downloadArya">
-        <i class="fa fa-download"></i> Download as .arya
-      </button>
-      <button class="button" id="closeQuizlet">Close</button>
-    </div>
-
-    <div id="csvEditor" class="contaner app content-section cs-blue">
-      <h2>Designer</h2>
-      <table
-        id="csvTable"
-        contenteditable="true"
-        style="width: 100%; border-collapse: collapse"
-        class='non'
-      >
-        <thead>
-          <tr>
-            <th>Question</th>
-            <th>Incorrect Answer 1</th>
-            <th>Incorrect Answer 2</th>
-            <th>Incorrect Answer 3</th>
-            <th>Correct Answer</th>
-            <th>Points Awarded</th>
-            <th>Points Deducted</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sample Question</td>
-            <td>Wrong 1</td>
-            <td>Wrong 2</td>
-            <td>Wrong 3</td>
-            <td>Right Answer</td>
-            <td>10</td>
-            <td>5</td>
-          </tr>
-        </tbody>
-      </table>
-      <button class="button" id="addRow">Add Row</button>
-      <button class="button" id="saveArya">Save ARYA</button>
-      <button class="button" id="closeArya">Close</button>
-    </div>
-
-    <div id="settings" class="contaner app content-section cs-blue">
-      <h2>Settings</h2>
-      <hr />
-      <p id="selectLanguage">Choose your language:</p>
-      <button class="button" data-lang="en">english</button>
-      <button class="button" data-lang="hi">हिन्दी</button>
-      <button class="button" data-lang="es">español</button>
-      <button class="button" data-lang="ar">اَلْعَرَبِيَّةُ</button>
-      <button class="button" data-lang="fr">français</button>
-      <button class="button" data-lang="gu">ગુજરાતી</button>
-      <!--<hr />
-      <p>Wallpaper</p>
-      <input type="file" id="wallpaperUpload" accept="image/*" />
-      <button class="button" id="setWallpaper">Set Wallpaper</button>
-      <button class="button" id="resetWallpaper">Reset</button>
-      <hr />-->
-      <button class="button" id="closeSettings">Close</button>
-    </div>
-
-    <div id="incorrect" class="app content-section">
-      <strong>Your answer was incorrect.</strong>
     </div>
 
     <script>
@@ -991,6 +1078,46 @@
       </ul>
     </div>
 
+    <!-- real nav bar -->
+	<div id="header" class='nav-bar'>
+      <div>
+        <h1 id='blog-title' style='font-family: geneva, genevab, tahoma, verdana, sans-serif;'>Aryabhata</h1>
+      </div>
+    </div>
+    <nav class='nav-bar'>
+      <div class='nav-item' data-target='#launcher' id='learnTab' onclick='window.open("../index.html", "_self");'>
+        <i class='fa-solid fa-home'></i>
+        <span>Home</span>
+      </div>
+      <div class='nav-item' id='graphingTab' data-target='#graphing' onclick='window.open("../apps/graphing.html", "_self");'>
+        <i class='fa-solid fa-pencil'></i>
+        <span>Graphing</span>
+      </div>
+      <!--<div class='nav-item' data-target='#scientific' id='scientificTab' onclick='window.open("../apps/scientific.html", "_self");'>
+        <i class='fa-solid fa-calculator'></i>
+        <span>Scientific</span>
+      </div>-->
+      <div class='nav-item' data-target='#algebra' id='algebraTab' onclick='window.open("../apps/algebra.html", "_self");'>
+        <i class='fa-solid fa-microchip'></i>
+        <span>Geometry</span>
+      </div>
+      <div class='nav-item' data-target='#home' id='homeTab'>
+        <i class='fa-solid fa-brain'></i>
+        <span>Learn</span>
+      </div>
+      <div class='nav-item' data-target='#memorise' id='memoriseTab' onclick='window.open("../apps/memorise.html", "_self");'>
+        <i class='fa-solid fa-book-open'></i>
+        <span>Memorise</span>
+      </div>
+    </nav>
+
+
+    <style>input[type=number]{max-width:100px;}</style>
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.js'></script>
+    <script src="../noedit.compromise.js"></script>
+    <script src='../scripts/nav.js'></script>
+    <link href='../styles/calcstyles.css' rel='stylesheet' type='text/css'/>
     <script src="lang.js"></script>
   </body>
 </html>

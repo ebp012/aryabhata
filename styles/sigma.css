@@ -41,7 +41,7 @@ a:not(.non):active {
 }
 
 /* For older devices */
-.lowfx *:not(hr):not(.page-nav):not(.titan-card) {
+.lowfx *:not(hr):not(.page-nav):not(.titan-card):not(#bgcontainer) {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   filter: none !important;
@@ -1712,7 +1712,7 @@ button:active::after {
 .btn-red {
   filter: hue-rotate(67deg);
 }
-button {
+.btn-orange {
   filter: hue-rotate(247deg);
 }
 
