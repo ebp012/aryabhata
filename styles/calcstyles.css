@@ -289,3 +289,5 @@
       }
 
       .nav-bar.non::before {display: none;} .nav-bar.non {filter: brightness(0.99); backdrop-filter: brightness(0.9);} #launcher-scientific, #launcher-linguistic {color: #070707d0;}
+
+      table .nav-bar:not(.ouais) {position: static !important; height: auto; width: 95%;}
