@@ -1030,11 +1030,11 @@ p.page-nav::before {
     width: 40em !important;
   }
   .nav-img {
-  height: 18pt;
-  width: 18pt;
-  border-radius: 4pt;
-  vertical-align: -2px;
-}
+    height: 18pt;
+    width: 18pt;
+    border-radius: 4pt;
+    vertical-align: -2px;
+  }
   .nav-bar::before {
     content: "";
     position: absolute;
@@ -2187,19 +2187,19 @@ blunk {
 }
 @keyframes blinking-effect {
   0% { opacity: 1; }
-  33% { opacity: 0.33; }
-  66% { opacity: 0.67; }
+  33% { opacity: 0.5; }
+  66% { opacity: 0.75; }
   100% { opacity: 1; }
 }
 @keyframes blanking-effect {
-  0% { opacity: 0.33; }
-  33% { opacity: 0.67; }
+  0% { opacity: 0.5; }
+  33% { opacity: 0.75; }
   66% { opacity: 1; }
-  100% { opacity: 0.67; }
+  100% { opacity: 0.75; }
 }
 @keyframes blunking-effect {
-  0% { opacity: 0.67; }
+  0% { opacity: 0.75; }
   33% { opacity: 1; }
-  66% { opacity: 0.67; }
-  100% { opacity: 0.33; }
+  66% { opacity: 0.75; }
+  100% { opacity: 0.5; }
 }
