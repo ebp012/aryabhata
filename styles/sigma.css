@@ -1029,6 +1029,12 @@ p.page-nav::before {
   .nav-bar:not(.non) {
     width: 40em !important;
   }
+  .nav-img {
+  height: 18pt;
+  width: 18pt;
+  border-radius: 4pt;
+  vertical-align: -2px;
+}
   .nav-bar::before {
     content: "";
     position: absolute;
@@ -1076,6 +1082,7 @@ p.page-nav::before {
   .logosec, .header, .projlinks {
     display: block !important;
   }
+  
   .projlinks {
     display: flex;
     justify-content: center;
@@ -2163,4 +2170,36 @@ table::not(.nepas), thead td {
 #blog-title a {
   text-decoration:none;
   color:#fff;
+}
+
+/* Blink/Blank/Blunk Element */
+blink, blank, blunk {
+  display: inline-block;
+}
+blink {
+  animation: blinking-effect 3s linear infinite;
+}
+blank {
+  animation: blanking-effect 3s linear infinite;
+}
+blunk {
+  animation: blunking-effect 3s linear infinite;
+}
+@keyframes blinking-effect {
+  0% { opacity: 1; }
+  33% { opacity: 0.33; }
+  66% { opacity: 0.67; }
+  100% { opacity: 1; }
+}
+@keyframes blanking-effect {
+  0% { opacity: 0.33; }
+  33% { opacity: 0.67; }
+  66% { opacity: 1; }
+  100% { opacity: 0.67; }
+}
+@keyframes blunking-effect {
+  0% { opacity: 0.67; }
+  33% { opacity: 1; }
+  66% { opacity: 0.67; }
+  100% { opacity: 0.33; }
 }
