@@ -46,6 +46,9 @@ a:not(.non):active {
 .hidden {
   display: none !important;
 }
+.shown {
+  display: block !important;
+}
 
 /* For older devices */
 .lowfx *:not(hr):not(.page-nav):not(.titan-card):not(button) {
@@ -724,7 +727,7 @@ iframe:not(.youtube) {
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1), inset 0 2px 2px 2px rgba(241, 227, 255, 0.6);
 }
 
-iframe.applet {
+.applet {
   width: 100%;
   height: 70%;
   height: 70vh;
@@ -944,14 +947,14 @@ p.page-nav::before {
     height: 96px;
   }
   .content-section, .nav-bar {
-    width: 95%;  /* leave 20px side gutters*/
-    width: calc(100vw - 60px) !important;  /* leave 30px side gutters*/
-    max-width: 95%;
-    max-width: calc(100vw - 60px);
+    width: 97%;  /* leave 20px side gutters*/
+    width: calc(90vw) !important;  /* leave 30px side gutters*/
+    max-width: 97%;
+    max-width: calc(90vw);
   }
   .nav-bar {
     overflow-x: scroll !important;
-    min-width: calc(100vw - 60px);
+    min-width: calc(90vw);
   }
   
   /* No mobile scrollbar gap */
@@ -1203,6 +1206,11 @@ p.page-nav::before {
 
   .page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
     color: #d4d4d4;
+    font-family: tahoma !important;
+    font-weight: bold;
+  }
+  ul {
+    font-size: 8pt;
   }
 
   .desk-paper {
@@ -2039,7 +2047,7 @@ blockquote:not(.nepas) {
 .nav-item {
   cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
-.page-title, h1, h2, h3, h4, h5, h6, h7, h8 {
+.page-title {
     font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 table::not(.nepas), thead td {
@@ -2202,4 +2210,47 @@ blunk {
   33% { opacity: 1; }
   66% { opacity: 0.75; }
   100% { opacity: 0.5; }
+}
+
+/* Specific to Homepage ONLY */
+#homepagetable tr {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 250px;
+}
+#homepagetable td {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-height: 250px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 10px;
+}
+#homepagetable .desk-paper {
+  flex: 1; 
+  overflow-y: scroll;
+  font-size: 11pt;
+  line-height: 14pt !important;
+  max-height: 140px;
+}
+#homepagetable .desk-paper p, #homepagetable .desk-paper ul * {
+  font-size: 11pt;
+  line-height: 14pt !important;
+}
+#homepagetable td table {
+  height: 100%;
+  width: 100%;
+  table-layout: fixed;
+}
+#homepagetable td img.nav-img {
+  max-height: 100%;
+  width: auto;
+}
+#homepagetable .content-section {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: auto;
+  overflow: none;
 }
