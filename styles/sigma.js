@@ -8,5 +8,9 @@ requestAnimationFrame(() => {
     document.querySelectorAll("filter[id]").forEach(f => {
       f.removeAttribute("id");
     });
+
+    document.querySelectorAll(".content-section").forEach(g => {
+      g.style.filter = "blur(12px)";
+    });
   }
 });
