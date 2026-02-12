@@ -2216,24 +2216,26 @@ blunk {
 #homepagetable tr {
   display: flex;
   flex-wrap: wrap;
-  max-height: 250px;
 }
 #homepagetable td {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  max-height: 250px;
   overflow: hidden;
   box-sizing: border-box;
   padding: 10px;
 }
 #homepagetable .desk-paper {
-  flex: 1; 
-  overflow-y: scroll;
+  flex: 1;
+  height: inherit;
+  margin-bottom: 10px !important;
   font-size: 11pt;
   line-height: 14pt !important;
-  max-height: 140px;
+  overflow-y: auto !important;
+}
+#homepagetable .desk-paper::after {
+  margin-bottom: 30px !important;
 }
 #homepagetable .desk-paper p, #homepagetable .desk-paper ul * {
   font-size: 11pt;
@@ -2242,7 +2244,6 @@ blunk {
 #homepagetable td table {
   height: 100%;
   width: 100%;
-  table-layout: fixed;
 }
 #homepagetable td img.nav-img {
   max-height: 100%;
@@ -2253,4 +2254,5 @@ blunk {
   height: 100% !important;
   min-height: auto;
   overflow: none;
+  max-height: 400px;
 }
