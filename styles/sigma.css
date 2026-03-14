@@ -65,7 +65,7 @@ a:not(.non):active {
 .lowfx svg {
   filter: none !important;
 }
-.lowfx thead td::before {
+.lowfx thead td::before, .lowfx th::before {
   display: none;
 }
 
@@ -1660,7 +1660,7 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
   -webkit-backdrop-filter: blur(8.1px);
   user-select: none;
 }
-button::before, .nav-item::before, input[type=button]::before, input[type=submit]::before, input[type=reset]::before, input[type=file]::before, select[button=like]::before, thead td::before, .calb::before, .projlinks a:hover img::before {
+button::before, .nav-item::before, input[type=button]::before, input[type=submit]::before, input[type=reset]::before, input[type=file]::before, select[button=like]::before, thead td::before, th::before, .calb::before, .projlinks a:hover img::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -1673,7 +1673,7 @@ button::before, .nav-item::before, input[type=button]::before, input[type=submit
   pointer-events: none;
 }
 
-.nav-item::before, thead td::before, .projlinks a:hover img::before {
+.nav-item::before, thead td::before, th::before, .projlinks a:hover img::before {
   background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent);
 }
 
@@ -1719,7 +1719,7 @@ button[disabled]:active, input[disabled]:active, select[disabled]:active, .youtu
   border-color: maroon;
   opacity: 51%;
 }
-button::after, .nav-item::after, input[type=button]::after, input[type=submit]::after, input[type=reset]::after, input[type=file]::after, select[button=like]::after, thead td::after, .calb::after, .projlinks a:after img::after {
+button::after, .nav-item::after, input[type=button]::after, input[type=submit]::after, input[type=reset]::after, input[type=file]::after, select[button=like]::after, thead td::after, th::after, .calb::after, .projlinks a:after img::after {
   content: "";
   position: absolute;
   top: -50%;
@@ -2050,7 +2050,7 @@ blockquote:not(.nepas) {
 .page-title {
     font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
-table::not(.nepas), thead td {
+table::not(.nepas), thead td, th {
     font-family: geneva, tahoma, futura, segoe, verdana, sans-serif !important;
 }
 
