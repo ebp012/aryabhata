@@ -1484,7 +1484,7 @@ abbr {
   cursor: url(cursors/eclair/Eclair-help.ani), help !important;
 }
 
-canvas, sculpture, .youtube {
+canvas:not(.non), sculpture, .youtube {
   background-image: linear-gradient(to bottom, white, white) !important;
   box-shadow: inset 1.25px 4px 27px rgba(241, 227, 255, 0.8);
 }
@@ -1630,7 +1630,7 @@ label.full .checkmark:after {
 
 /* Button styles */
 
-button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas, sculpture, .youtube, ::-webkit-scrollbar-thumb {
+button, input[type=button], input[type=submit], input[type=reset], input[type=file], select[button=like], canvas:not(.non), sculpture, .youtube, ::-webkit-scrollbar-thumb {
   padding: 5pt !important;
   border-radius: 9pt;
   min-height: 24pt;
@@ -1683,7 +1683,7 @@ button[disabled], input[disabled], select[disabled] {
   background: rgba(200, 160, 220, 0.44);
   background-image: linear-gradient(to bottom, rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), rgba(200, 160, 220, 0.44), silver, silver, silver, silver)
 }
-button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover, .projlinks a:hover {
+button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[type=submit]:hover:not([disabled]), input[type=reset]:hover:not([disabled]), input[type=file]:hover:not([disabled]), select[button=like]:hover:not([disabled]), canvas:not(.non):hover, sculpture:hover, .youtube:hover, ::-webkit-scrollbar-thumb:hover, .projlinks a:hover {
   box-shadow: 0 0 18px rgba(180,140,220,0.6), 
               inset 0 2.25px 4.5px rgba(255,255,255,0.7), 
               inset 0 -4.5px 9px rgba(100,80,120,0.3);
@@ -1693,7 +1693,7 @@ button:hover:not([disabled]), input[type=button]:hover:not([disabled]), input[ty
 button[disabled]:hover, input[disabled]:hover, select[disabled]:hover {
   cursor: url(cursors/roundyunavailable.cur), not-allowed;
 }
-button:not([disabled]):active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active, label.full input[checked] ~ .checkmark {
+button:not([disabled]):active, input[type=button]:active, input[type=submit]:active, input[type=file]:active, select[button=like]:active, canvas:not(.non):active, sculpture:active, .youtube:active, ::-webkit-scrollbar-thumb:active, .projlinks a:active, label.full input[checked] ~ .checkmark {
   box-shadow: 0 0 18px rgba(180,140,220,0.1), 
               inset 0 2.25px 4.5px rgba(255,255,255,0.22), 
               inset 0 -4.5px 9px rgba(100,80,120,0.06),
@@ -1701,7 +1701,7 @@ button:not([disabled]):active, input[type=button]:active, input[type=submit]:act
               inset 0 -1px 1px rgba(255,255,255,0.5);
   transform: translateY(1px);
 }
-button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
+button:hover:active, input[type=button]:hover:active, input[type=submit]:hover:active, input[type=file]:hover:active, select[button=like]:hover:active, canvas:not(.non):hover:active, sculpture:hover:active, .youtube:hover:active, ::-webkit-scrollbar-thumb:hover:active, .projlinks a:hover:active {
   background-color: rgba(153, 126, 179, 0.48);
   background-image: linear-gradient(to bottom, rgba(230, 190, 255, 0.65), rgba(210, 159, 238, 0.48), rgba(240, 210, 255, 0.65));
   color: indigo;
@@ -1787,7 +1787,7 @@ a {
   cursor: url(cursors/eclair/Eclair-hand.ani), pointer;
 }
 /* Canvas Styles */
-canvas {
+canvas:not(.non) {
   background-color: white;
   cursor: url(cursors/roundynormal.cur), default;
 }
